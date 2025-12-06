@@ -628,11 +628,6 @@
             color: white;
         }
 
-        .badge-new {
-            background: var(--accent);
-            color: white;
-        }
-
         .badge-specialized {
             background: #8B5CF6;
             color: white;
@@ -643,7 +638,7 @@
             color: white;
         }
 
-        /* Specialized Notice */
+        /* Specialized Notice - ACTUALIZADO PARA USAR TUS DATOS */
         .specialized-notice {
             background: #FFF4E6;
             border: 1px solid #FFD8A8;
@@ -659,6 +654,26 @@
 
         .specialized-notice i {
             color: #E8590C;
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+
+        /* Notice for requisitos - NUEVO */
+        .requirements-notice {
+            background: #E3F2FD;
+            border: 1px solid #90CAF9;
+            border-radius: var(--border-radius-sm);
+            padding: 12px 16px;
+            margin-top: 16px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .requirements-notice i {
+            color: var(--secondary);
             margin-top: 1px;
             flex-shrink: 0;
         }
@@ -1017,8 +1032,7 @@
                     <small>Terapeutas disponibles:</small>
                     <div class="terapeutas-lista">
                         {% for terapeuta in terapeutas %}
-                        <a href="/servicios/terapeuta/{{ terapeuta.nombre_completo }}" 
-                        class="badge-terapeuta">
+                        <a href="javascript:void(0)" class="badge-terapeuta" data-terapeuta="{{ terapeuta.nombre_completo }}">
                             {{ terapeuta.nombre_completo }}
                         </a>
                         {% endfor %}
@@ -1039,20 +1053,21 @@
             </div>
 
             <!-- Services Grid -->
-            <div class="services-grid">
+            <div class="services-grid" id="servicesGrid">
                 {% if servicios %}
                     {% for servicio in servicios %}
-                    <div class="service-card {% if servicio.categoria == 'especializada' %}specialized{% elif servicio.categoria == 'avanzada' %}advanced{% endif %}" 
-                         data-category="{% if servicio.categoria == 'básica' %}basic{% elif servicio.categoria == 'intermedia' %}intermediate{% elif servicio.categoria == 'especializada' %}specialized{% elif servicio.categoria == 'avanzada' %}advanced{% else %}basic{% endif %}">
+                    <div class="service-card {% if servicio.categoria == 'Especializada' or servicio.categoria == 'especializada' %}specialized{% elif servicio.categoria == 'Avanzada' or servicio.categoria == 'avanzada' %}advanced{% endif %}" 
+                         data-category="{% if servicio.categoria == 'Básica' or servicio.categoria == 'básica' %}basic{% elif servicio.categoria == 'Intermedia' or servicio.categoria == 'intermedia' %}intermediate{% elif servicio.categoria == 'Especializada' or servicio.categoria == 'especializada' %}specialized{% elif servicio.categoria == 'Avanzada' or servicio.categoria == 'avanzada' %}advanced{% else %}basic{% endif %}"
+                         data-terapeutas="{{ servicio.terapeuta_disponible or '' }}">
                         <div class="service-header">
                             <div class="service-icon">
-                                {% if servicio.categoria == 'básica' %}
+                                {% if servicio.categoria == 'Básica' or servicio.categoria == 'básica' %}
                                 <i class="fas fa-spa"></i>
-                                {% elif servicio.categoria == 'intermedia' %}
+                                {% elif servicio.categoria == 'Intermedia' or servicio.categoria == 'intermedia' %}
                                 <i class="fas fa-hand-holding-medical"></i>
-                                {% elif servicio.categoria == 'especializada' %}
+                                {% elif servicio.categoria == 'Especializada' or servicio.categoria == 'especializada' %}
                                 <i class="fas fa-syringe"></i>
-                                {% elif servicio.categoria == 'avanzada' %}
+                                {% elif servicio.categoria == 'Avanzada' or servicio.categoria == 'avanzada' %}
                                 <i class="fas fa-user-md"></i>
                                 {% else %}
                                 <i class="fas fa-spa"></i>
@@ -1061,33 +1076,44 @@
                             <div class="service-title">
                                 <h3>
                                     {{ servicio.nombre }}
-                                    {% if servicio.promedio_sesiones > 10 %}
+                                    <!-- BADGES BASADOS EN TUS DATOS REALES -->
+                                    {% if servicio.promedio_sesiones and servicio.promedio_sesiones > 10 %}
                                     <span class="badge badge-popular">POPULAR</span>
-                                    {% elif servicio.categoria == 'especializada' %}
+                                    {% elif servicio.categoria == 'Especializada' or servicio.categoria == 'especializada' %}
                                     <span class="badge badge-specialized">ESPECIALIZADO</span>
-                                    {% elif servicio.categoria == 'avanzada' %}
+                                    {% elif servicio.categoria == 'Avanzada' or servicio.categoria == 'avanzada' %}
                                     <span class="badge badge-advanced">AVANZADO</span>
                                     {% endif %}
                                 </h3>
                                 <div class="service-level">
-                                    {% if servicio.categoria == 'básica' %}
+                                    {% if servicio.categoria == 'Básica' or servicio.categoria == 'básica' %}
                                     <i class="fas fa-star"></i> Nivel Básico
-                                    {% elif servicio.categoria == 'intermedia' %}
+                                    {% elif servicio.categoria == 'Intermedia' or servicio.categoria == 'intermedia' %}
                                     <i class="fas fa-star-half-alt"></i> Nivel Intermedio
-                                    {% elif servicio.categoria == 'especializada' %}
+                                    {% elif servicio.categoria == 'Especializada' or servicio.categoria == 'especializada' %}
                                     <i class="fas fa-stethoscope"></i> Requiere Evaluación
-                                    {% elif servicio.categoria == 'avanzada' %}
+                                    {% elif servicio.categoria == 'Avanzada' or servicio.categoria == 'avanzada' %}
                                     <i class="fas fa-user-md"></i> Con Especialista
+                                    {% else %}
+                                    <i class="fas fa-star"></i> Nivel Básico
                                     {% endif %}
                                 </div>
                             </div>
                         </div>
                         <div class="service-body">
-                            <p class="service-description">{{ servicio.descripcion[:150] }}...</p>
+                            <p class="service-description">{{ servicio.descripcion[:150] }}{% if servicio.descripcion and servicio.descripcion|length > 150 %}...{% endif %}</p>
                             <div class="service-features">
-                                {% if servicio.beneficios %}
-                                    {% set beneficios = servicio.beneficios.split('|') %}
-                                    {% for beneficio in beneficios[:4] %}
+                                {% if servicio.condiciones_tratar %}
+                                    {% set condiciones = servicio.condiciones_tratar.split(',') %}
+                                    {% for condicion in condiciones[:3] %}
+                                    <div class="service-feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>{{ condicion.strip() }}</span>
+                                    </div>
+                                    {% endfor %}
+                                {% elif servicio.beneficios %}
+                                    {% set beneficios = servicio.beneficios.split(',') %}
+                                    {% for beneficio in beneficios[:3] %}
                                     <div class="service-feature">
                                         <i class="fas fa-check"></i>
                                         <span>{{ beneficio.strip() }}</span>
@@ -1110,15 +1136,33 @@
                             </div>
                             {% endif %}
                             
-                            {% if servicio.categoria == 'especializada' or servicio.categoria == 'avanzada' %}
+                            <!-- NOTICES BASADOS EN TUS DATOS REALES -->
+                            {% if servicio.categoria == 'Especializada' or servicio.categoria == 'especializada' %}
                             <div class="specialized-notice">
                                 <i class="fas fa-exclamation-triangle"></i>
-                                <span>{% if servicio.categoria == 'especializada' %}Este servicio requiere evaluación médica previa{% else %}Servicio disponible únicamente con especialistas certificados{% endif %}</span>
+                                <span>Este servicio requiere evaluación médica previa</span>
+                            </div>
+                            {% elif servicio.categoria == 'Avanzada' or servicio.categoria == 'avanzada' %}
+                            <div class="specialized-notice">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>Servicio disponible únicamente con especialistas certificados</span>
+                            </div>
+                            {% endif %}
+                            
+                            <!-- Mostrar requisitos si existen -->
+                            {% if servicio.requisitos %}
+                            <div class="requirements-notice">
+                                <i class="fas fa-clipboard-check"></i>
+                                <span>Requiere: {{ servicio.requisitos[:80] }}{% if servicio.requisitos|length > 80 %}...{% endif %}</span>
                             </div>
                             {% endif %}
                             
                             <div class="service-meta">
-                                <div class="service-price">${{ "{:,.0f}".format(servicio.precio|default(0)) }}</div>
+                                {% if servicio.precio %}
+                                <div class="service-price">${{ "{:,.0f}".format(servicio.precio) }}</div>
+                                {% else %}
+                                <div class="service-price">$--</div>
+                                {% endif %}
                                 <div class="service-duration">
                                     <i class="fas fa-clock"></i> {{ servicio.duracion|default(45) }} minutos
                                 </div>
@@ -1126,12 +1170,13 @@
                         </div>
                         <div class="service-footer">
                             <a href="/cita?servicio={{ servicio.codigo }}" class="btn">
-                                {% if servicio.categoria == 'especializada' or servicio.categoria == 'avanzada' %}
+                                {% if servicio.categoria == 'Especializada' or servicio.categoria == 'especializada' or servicio.categoria == 'Avanzada' or servicio.categoria == 'avanzada' %}
                                 Solicitar Evaluación
                                 {% else %}
                                 Reservar Ahora
                                 {% endif %}
                             </a>
+                            <!-- ENLACE CORREGIDO - Usa el código del servicio real -->
                             <a href="/servicio/{{ servicio.codigo }}" class="btn btn-outline btn-small">Más Información</a>
                         </div>
                     </div>
@@ -1141,7 +1186,13 @@
                     <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
                         <h3>No se encontraron servicios para el terapeuta "{{ terapeuta_busqueda }}"</h3>
                         <p>Intenta con otro nombre o correo de terapeuta.</p>
-                        <a href="/servicios" class="btn btn-secondary">Ver todos los servicios</a>
+                        <a href="/servicios_terapeuticos" class="btn btn-secondary">Ver todos los servicios</a>
+                    </div>
+                    {% else %}
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                        <h3>No hay servicios disponibles en este momento</h3>
+                        <p>Por favor, intenta más tarde o contacta con nuestro equipo.</p>
+                        <a href="/contacto" class="btn btn-secondary">Contactar Soporte</a>
                     </div>
                     {% endif %}
                 {% endif %}
@@ -1239,6 +1290,13 @@
             const busquedaTerapeutaInput = document.querySelector('input[name="terapeuta"]');
             const filtroTerapeutaDiv = document.querySelector('.filtro-terapeuta');
             const badgesTerapeuta = document.querySelectorAll('.badge-terapeuta');
+            const servicesGrid = document.getElementById('servicesGrid');
+
+            // Verificar que haya servicios
+            function hayServiciosVisibles() {
+                const servicios = servicesGrid.querySelectorAll('.service-card');
+                return servicios.length > 0;
+            }
 
             // Función para limpiar todos los filtros
             function limpiarTodosFiltros() {
@@ -1269,10 +1327,12 @@
                 });
             }
 
-            // Filtrado de servicios por categoría
+            // Filtrado de servicios por categoría (SOLO FRONTEND - no recarga)
             function filterServices(category) {
                 serviceCards.forEach(serviceCard => {
-                    if (category === 'all' || serviceCard.getAttribute('data-category') === category) {
+                    const cardCategory = serviceCard.getAttribute('data-category');
+                    
+                    if (category === 'all' || cardCategory === category) {
                         serviceCard.style.display = 'block';
                         setTimeout(() => {
                             serviceCard.style.opacity = '1';
@@ -1286,14 +1346,6 @@
                         }, 300);
                     }
                 });
-                
-                // Limpiar filtro de terapeuta si hay uno activo
-                if (busquedaTerapeutaInput && busquedaTerapeutaInput.value) {
-                    busquedaTerapeutaInput.value = '';
-                    if (filtroTerapeutaDiv) {
-                        filtroTerapeutaDiv.classList.remove('activo');
-                    }
-                }
             }
 
             // Event listeners para filtros de categoría
@@ -1321,7 +1373,7 @@
             badgesTerapeuta.forEach(badge => {
                 badge.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const nombreTerapeuta = this.textContent.trim();
+                    const nombreTerapeuta = this.getAttribute('data-terapeuta');
                     
                     // Llenar el input con el nombre del terapeuta
                     if (busquedaTerapeutaInput) {
@@ -1350,13 +1402,15 @@
                 filterCards.forEach(c => c.classList.remove('active'));
             }
 
-            // NO aplicar animación inicial que oculta los servicios
-            // Los servicios deben verse inmediatamente al cargar la página
-            
             // Solo agregar transiciones para cuando se filtren
             serviceCards.forEach(card => {
                 card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
             });
+
+            // Verificar que hay servicios al cargar
+            if (!hayServiciosVisibles()) {
+                console.log("No hay servicios visibles en la página");
+            }
         });
     </script>
 </body>
