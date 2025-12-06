@@ -97,6 +97,48 @@ templates_panel = Jinja2Templates(directory="./vista_panel")
 templates_admin = Jinja2Templates(directory="./vista_admin")
 templates_fisio = Jinja2Templates(directory="./vista_fisio")
 
+@app.get("/test-network")
+async def test_network():
+    """Prueba de conectividad de red"""
+    import socket
+    import os
+    
+    host = os.environ.get('MYSQLHOST', 'localhost')
+    port = int(os.environ.get('MYSQLPORT', 3306))
+    
+    results = {
+        "host": host,
+        "port": port,
+        "dns_resolution": None,
+        "port_test": None,
+        "variables": {}
+    }
+    
+    # Mostrar variables
+    for key in ['MYSQLHOST', 'MYSQLPORT', 'MYSQLDATABASE', 'MYSQLUSER']:
+        if key in os.environ:
+            results["variables"][key] = os.environ[key]
+    
+    # Probar DNS
+    try:
+        ip = socket.gethostbyname(host)
+        results["dns_resolution"] = f"OK: {host} → {ip}"
+    except Exception as e:
+        results["dns_resolution"] = f"ERROR: {e}"
+    
+    # Probar puerto
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(5)
+        result = sock.connect_ex((host, port))
+        sock.close()
+        results["port_test"] = f"OPEN" if result == 0 else f"CLOSED (code: {result})"
+    except Exception as e:
+        results["port_test"] = f"ERROR: {e}"
+    
+    return results
+
+    
 @app.get("/test-db-connect")
 async def test_database_connection():
     """Test directo de conexión a MySQL"""
