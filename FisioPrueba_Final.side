@@ -1,0 +1,780 @@
+{
+  "id": "6c7ef49f-a587-468e-be84-231b849b96a8",
+  "version": "2.0",
+  "name": "FisioPrueba",
+  "url": "http://127.0.0.1:8000",
+  "tests": [{
+    "id": "0bece1c8-1967-41cc-8ee9-de6ee238ae85",
+    "name": "Untitled",
+    "commands": []
+  }, {
+    "id": "56b38ddf-8c6e-457b-bde0-9808c3f279b2",
+    "name": "FisioPrueba - Carga exitosa de inicio",
+    "commands": [{
+      "id": "f2e1878b-a484-4f79-a123-f9237f41d2de",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "704297c0-9214-40ee-be7c-b575f14e0b87",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "697x768",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2062e8ad-dbbb-4c04-9e75-b0ff0b5358b9",
+      "comment": "",
+      "command": "click",
+      "target": "css=img",
+      "targets": [
+        ["css=img", "css:finder"],
+        ["xpath=//img[@alt='Fisioterapeuta ayudando a paciente en rehabilitación']", "xpath:img"],
+        ["xpath=//img", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "509f1753-add2-41dc-bf91-70d847fd54dc",
+    "name": "FisioPrueba - login exitoso",
+    "commands": [{
+      "id": "e13d2fda-209c-4dae-b31a-860f09b9869d",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "adb7bbd0-9759-47a9-9b7b-c4e13a443b6c",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "697x768",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "988c4a66-1a56-490b-ac3e-3e83ebb5430f",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Iniciar Sesión",
+      "targets": [
+        ["linkText=Iniciar Sesión", "linkText"],
+        ["css=.btn:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Iniciar Sesión')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/login_user')]", "xpath:href"],
+        ["xpath=//div[2]/a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Iniciar Sesión')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e93724f6-9ebc-4300-b096-741bd62acb62",
+      "comment": "",
+      "command": "click",
+      "target": "css=.form-group:nth-child(1)",
+      "targets": [
+        ["css=.form-group:nth-child(1)", "css:finder"],
+        ["xpath=//section[@id='login-page']/div/form/div", "xpath:idRelative"],
+        ["xpath=//form/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fec6f40b-0b10-442e-8c87-b3bfb5689fff",
+      "comment": "",
+      "command": "click",
+      "target": "id=correo",
+      "targets": [
+        ["id=correo", "id"],
+        ["name=correo", "name"],
+        ["css=#correo", "css:finder"],
+        ["xpath=//input[@id='correo']", "xpath:attributes"],
+        ["xpath=//section[@id='login-page']/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "209b098c-99eb-4a25-abc7-a81e7f55d84b",
+      "comment": "",
+      "command": "type",
+      "target": "id=correo",
+      "targets": [
+        ["id=correo", "id"],
+        ["name=correo", "name"],
+        ["css=#correo", "css:finder"],
+        ["xpath=//input[@id='correo']", "xpath:attributes"],
+        ["xpath=//section[@id='login-page']/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "magear004@gmail.com"
+    }, {
+      "id": "a33d0e59-6861-4859-bb25-eaed1cff053c",
+      "comment": "",
+      "command": "click",
+      "target": "id=contraseña",
+      "targets": [
+        ["id=contraseña", "id"],
+        ["name=contraseña", "name"],
+        ["css=#contrase\\F1 a", "css:finder"],
+        ["xpath=//input[@id='contraseña']", "xpath:attributes"],
+        ["xpath=//section[@id='login-page']/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6abc84db-248e-4ed8-a09a-13763a3ce3ad",
+      "comment": "",
+      "command": "type",
+      "target": "id=contraseña",
+      "targets": [
+        ["id=contraseña", "id"],
+        ["name=contraseña", "name"],
+        ["css=#contrase\\F1 a", "css:finder"],
+        ["xpath=//input[@id='contraseña']", "xpath:attributes"],
+        ["xpath=//section[@id='login-page']/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "1"
+    }, {
+      "id": "2f4fd730-fc56-4bef-bbcb-384670d91235",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(4)",
+      "targets": [
+        ["css=.btn:nth-child(4)", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//section[@id='login-page']/div/form/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Iniciar Sesión')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "628ed1e4-273f-49df-b6a6-61a04055d521",
+      "comment": "",
+      "command": "click",
+      "target": "id=welcome-message",
+      "targets": [
+        ["id=welcome-message", "id"],
+        ["css=#welcome-message", "css:finder"],
+        ["xpath=//h1[@id='welcome-message']", "xpath:attributes"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'¡Bienvenido, Miguel!')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "e64f47c9-42a5-40e9-af3c-334c7c1cca39",
+    "name": "FisioPrueba - Check formulario vacio",
+    "commands": [{
+      "id": "ad0e8278-8cdb-46d2-9a74-17c75271ea8d",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "82b3f0b7-8dbb-42ee-9856-ec49a5641bfb",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "697x768",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "71b8191a-d0a1-4a05-a990-7860a3c67416",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Agenda tu cita ya mismo",
+      "targets": [
+        ["linkText=Agenda tu cita ya mismo", "linkText"],
+        ["css=.cta-button", "css:finder"],
+        ["xpath=//a[contains(@href, '/cita')]", "xpath:href"],
+        ["xpath=//section/div/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Agenda tu cita ya mismo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8aed4bd7-77da-4b13-b7fb-87ff894e4088",
+      "comment": "",
+      "command": "click",
+      "target": "css=.service-option:nth-child(1) .terapeutas-info",
+      "targets": [
+        ["css=.service-option:nth-child(1) .terapeutas-info", "css:finder"],
+        ["xpath=//div[@id='service-options-container']/div/div[2]/div/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cb59a6b9-3e74-4527-9126-b78502218017",
+      "comment": "",
+      "command": "click",
+      "target": "css=.therapist-option:nth-child(1)",
+      "targets": [
+        ["css=.therapist-option:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='therapist-options-container']/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div[3]/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "96bd7e4d-198c-4c2f-89ce-ae6cff615612",
+      "comment": "",
+      "command": "click",
+      "target": "id=next-to-step-2",
+      "targets": [
+        ["id=next-to-step-2", "id"],
+        ["css=#next-to-step-2", "css:finder"],
+        ["xpath=//button[@id='next-to-step-2']", "xpath:attributes"],
+        ["xpath=//div[@id='step-1']/div[4]/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Siguiente')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a6b7e504-1006-49a4-9f69-ec0bfac8a54e",
+      "comment": "",
+      "command": "click",
+      "target": "id=next-to-step-3",
+      "targets": [
+        ["id=next-to-step-3", "id"],
+        ["css=#next-to-step-3", "css:finder"],
+        ["xpath=//button[@id='next-to-step-3']", "xpath:attributes"],
+        ["xpath=//div[@id='step-2']/div[2]/button[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/button[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a43ef6c9-6826-4518-8d71-af6963b30c25",
+      "comment": "",
+      "command": "click",
+      "target": "id=name-error",
+      "targets": [
+        ["id=name-error", "id"],
+        ["css=#name-error", "css:finder"],
+        ["xpath=//div[@id='name-error']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div/div/div", "xpath:idRelative"],
+        ["xpath=//form/div/div/div", "xpath:position"]
+      ],
+      "value": "Por favor ingresa tu nombre completo"
+    }, {
+      "id": "b42c500d-bd65-4883-989c-bc45c5b5bfb0",
+      "comment": "",
+      "command": "click",
+      "target": "id=phone-error",
+      "targets": [
+        ["id=phone-error", "id"],
+        ["css=#phone-error", "css:finder"],
+        ["xpath=//div[@id='phone-error']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div/div[2]/div", "xpath:idRelative"],
+        ["xpath=//form/div/div[2]/div", "xpath:position"]
+      ],
+      "value": "Por favor ingresa un número de teléfono válido"
+    }, {
+      "id": "fa2057a3-18eb-4cc6-b1e2-96ec1f85fedb",
+      "comment": "",
+      "command": "click",
+      "target": "id=email-error",
+      "targets": [
+        ["id=email-error", "id"],
+        ["css=#email-error", "css:finder"],
+        ["xpath=//div[@id='email-error']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div[2]/div/div", "xpath:idRelative"],
+        ["xpath=//form/div[2]/div/div", "xpath:position"]
+      ],
+      "value": "Por favor ingresa un correo electrónico válido"
+    }, {
+      "id": "06a0a3d9-f017-4fb7-b7f4-b25b9792c471",
+      "comment": "",
+      "command": "click",
+      "target": "id=date-error",
+      "targets": [
+        ["id=date-error", "id"],
+        ["css=#date-error", "css:finder"],
+        ["xpath=//div[@id='date-error']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div[2]/div[2]/div", "xpath:idRelative"],
+        ["xpath=//form/div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": "Por favor selecciona una fecha"
+    }]
+  }, {
+    "id": "a4eef989-f95a-458b-bbed-ea1075e60d1d",
+    "name": "FisioPrueba - Validacion prueba correo",
+    "commands": [{
+      "id": "4bfc7cd1-72ad-4fa3-aad0-1b1592b111a7",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "860cff3b-dc07-413a-9442-c9b7c133974e",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "697x768",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "139c52d7-6cdd-4f84-b425-c43361755d31",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Agenda tu cita ya mismo",
+      "targets": [
+        ["linkText=Agenda tu cita ya mismo", "linkText"],
+        ["css=.cta-button", "css:finder"],
+        ["xpath=//a[contains(@href, '/cita')]", "xpath:href"],
+        ["xpath=//section/div/div/div/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Agenda tu cita ya mismo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c16f4c21-bec4-42f8-b17e-8a02d48c5079",
+      "comment": "",
+      "command": "click",
+      "target": "css=.service-option:nth-child(1) .service-description",
+      "targets": [
+        ["css=.service-option:nth-child(1) .service-description", "css:finder"],
+        ["xpath=//div[@id='service-options-container']/div/div/div[2]/p", "xpath:idRelative"],
+        ["xpath=//div[2]/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Masaje suave diseñado para reducir el estrés, promover la relajación y mejorar la circulación sanguínea.')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0a251054-d48b-4853-a3d8-f8937b4b7cb2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.therapist-option:nth-child(3) > .therapist-avatar",
+      "targets": [
+        ["css=.therapist-option:nth-child(3) > .therapist-avatar", "css:finder"],
+        ["xpath=//div[@id='therapist-options-container']/div[3]/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div[3]/div[2]/div[3]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cac62be6-898a-4fd6-ac39-91b5d76c0b5a",
+      "comment": "",
+      "command": "click",
+      "target": "id=next-to-step-2",
+      "targets": [
+        ["id=next-to-step-2", "id"],
+        ["css=#next-to-step-2", "css:finder"],
+        ["xpath=//button[@id='next-to-step-2']", "xpath:attributes"],
+        ["xpath=//div[@id='step-1']/div[4]/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Siguiente')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0692f525-0d91-4ad0-86c0-3373a2cb4996",
+      "comment": "",
+      "command": "click",
+      "target": "id=patient-name",
+      "targets": [
+        ["id=patient-name", "id"],
+        ["css=#patient-name", "css:finder"],
+        ["xpath=//input[@id='patient-name']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2c5fe4b6-136f-4d70-b0ea-49d20225c29e",
+      "comment": "",
+      "command": "type",
+      "target": "id=patient-name",
+      "targets": [
+        ["id=patient-name", "id"],
+        ["css=#patient-name", "css:finder"],
+        ["xpath=//input[@id='patient-name']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Miguel"
+    }, {
+      "id": "b36ca6c0-d24b-4a03-8de3-fc6760d525f8",
+      "comment": "",
+      "command": "click",
+      "target": "id=patient-phone",
+      "targets": [
+        ["id=patient-phone", "id"],
+        ["css=#patient-phone", "css:finder"],
+        ["xpath=//input[@id='patient-phone']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "65220e35-39af-4c68-949a-7241f66d4020",
+      "comment": "",
+      "command": "type",
+      "target": "id=patient-phone",
+      "targets": [
+        ["id=patient-phone", "id"],
+        ["css=#patient-phone", "css:finder"],
+        ["xpath=//input[@id='patient-phone']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "3202914521"
+    }, {
+      "id": "a207cc25-458e-41c0-b63a-b43e0d27e721",
+      "comment": "",
+      "command": "click",
+      "target": "id=patient-info-form",
+      "targets": [
+        ["id=patient-info-form", "id"],
+        ["css=#patient-info-form", "css:finder"],
+        ["xpath=//form[@id='patient-info-form']", "xpath:attributes"],
+        ["xpath=//div[@id='step-2']/form", "xpath:idRelative"],
+        ["xpath=//form", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "771fb2f5-5a82-4a06-999a-ac023e178315",
+      "comment": "",
+      "command": "click",
+      "target": "id=patient-email",
+      "targets": [
+        ["id=patient-email", "id"],
+        ["css=#patient-email", "css:finder"],
+        ["xpath=//input[@id='patient-email']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "277ec076-9fba-4b61-aacc-76b90310dbbe",
+      "comment": "",
+      "command": "type",
+      "target": "id=patient-email",
+      "targets": [
+        ["id=patient-email", "id"],
+        ["css=#patient-email", "css:finder"],
+        ["xpath=//input[@id='patient-email']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "perro"
+    }, {
+      "id": "346c2852-ea9a-467c-a447-d8af33d64a54",
+      "comment": "",
+      "command": "click",
+      "target": "id=appointment-date",
+      "targets": [
+        ["id=appointment-date", "id"],
+        ["css=#appointment-date", "css:finder"],
+        ["xpath=//input[@id='appointment-date']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f99db31f-f4db-4414-8f7c-6ea7e0dfb8e9",
+      "comment": "",
+      "command": "click",
+      "target": "id=appointment-date",
+      "targets": [
+        ["id=appointment-date", "id"],
+        ["css=#appointment-date", "css:finder"],
+        ["xpath=//input[@id='appointment-date']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b6caf2ae-8940-4fc9-863a-36b4b9a7800e",
+      "comment": "",
+      "command": "type",
+      "target": "id=appointment-date",
+      "targets": [
+        ["id=appointment-date", "id"],
+        ["css=#appointment-date", "css:finder"],
+        ["xpath=//input[@id='appointment-date']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "2025-12-31"
+    }, {
+      "id": "87076909-9e62-407e-86ef-f2e375f4b7c3",
+      "comment": "",
+      "command": "click",
+      "target": "id=appointment-time",
+      "targets": [
+        ["id=appointment-time", "id"],
+        ["css=#appointment-time", "css:finder"],
+        ["xpath=//select[@id='appointment-time']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div[3]/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "873cbb48-eb5d-4fe1-846a-142c38918dee",
+      "comment": "",
+      "command": "select",
+      "target": "id=appointment-time",
+      "targets": [],
+      "value": "label=11:00 AM"
+    }, {
+      "id": "d99860f4-2a25-4c9f-a006-11eaf0b0d7ae",
+      "comment": "",
+      "command": "click",
+      "target": "css=option:nth-child(5)",
+      "targets": [
+        ["css=option:nth-child(5)", "css:finder"],
+        ["xpath=//option[@value='11:00']", "xpath:attributes"],
+        ["xpath=//select[@id='appointment-time']/option[5]", "xpath:idRelative"],
+        ["xpath=//option[5]", "xpath:position"],
+        ["xpath=//option[contains(.,'11:00 AM')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7b3acdf3-4065-4c64-95e9-0f6c5c761fdb",
+      "comment": "",
+      "command": "click",
+      "target": "id=appointment-notes",
+      "targets": [
+        ["id=appointment-notes", "id"],
+        ["css=#appointment-notes", "css:finder"],
+        ["xpath=//textarea[@id='appointment-notes']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div[4]/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c9689340-6b41-45d8-a26a-dc34ca125523",
+      "comment": "",
+      "command": "type",
+      "target": "id=appointment-notes",
+      "targets": [
+        ["id=appointment-notes", "id"],
+        ["css=#appointment-notes", "css:finder"],
+        ["xpath=//textarea[@id='appointment-notes']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div[4]/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Dolor"
+    }, {
+      "id": "0e7d26ae-d6fd-47f6-a283-566c3b4acd6c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.payment-option:nth-child(2) > p",
+      "targets": [
+        ["css=.payment-option:nth-child(2) > p", "css:finder"],
+        ["xpath=//form[@id='patient-info-form']/div[7]/div[2]/p", "xpath:idRelative"],
+        ["xpath=//div[7]/div[2]/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Transferencia desde tu banco con los datos que te proporcionaremos')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0f0f1021-fc2e-4e73-8d40-3958d5c62142",
+      "comment": "",
+      "command": "click",
+      "target": "id=next-to-step-3",
+      "targets": [
+        ["id=next-to-step-3", "id"],
+        ["css=#next-to-step-3", "css:finder"],
+        ["xpath=//button[@id='next-to-step-3']", "xpath:attributes"],
+        ["xpath=//div[@id='step-2']/div[2]/button[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/button[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "da1dc760-0bf5-4260-8d0c-2e2ca0ccf96e",
+      "comment": "",
+      "command": "click",
+      "target": "id=email-error",
+      "targets": [
+        ["id=email-error", "id"],
+        ["css=#email-error", "css:finder"],
+        ["xpath=//div[@id='email-error']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div[2]/div/div", "xpath:idRelative"],
+        ["xpath=//form/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a19fac1e-197c-4cb6-8b06-0162eb0a6da3",
+      "comment": "",
+      "command": "click",
+      "target": "id=email-error",
+      "targets": [
+        ["id=email-error", "id"],
+        ["css=#email-error", "css:finder"],
+        ["xpath=//div[@id='email-error']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div[2]/div/div", "xpath:idRelative"],
+        ["xpath=//form/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "05b231c6-d8d6-4060-aa10-4e39e314e444",
+      "comment": "",
+      "command": "doubleClick",
+      "target": "id=email-error",
+      "targets": [
+        ["id=email-error", "id"],
+        ["css=#email-error", "css:finder"],
+        ["xpath=//div[@id='email-error']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div[2]/div/div", "xpath:idRelative"],
+        ["xpath=//form/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "67bd911a-db68-471a-aa6a-df08db4bf7a6",
+      "comment": "",
+      "command": "click",
+      "target": "id=email-error",
+      "targets": [
+        ["id=email-error", "id"],
+        ["css=#email-error", "css:finder"],
+        ["xpath=//div[@id='email-error']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div[2]/div/div", "xpath:idRelative"],
+        ["xpath=//form/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "81578723-3cc2-49ab-9daa-b64c239a4b21",
+      "comment": "",
+      "command": "click",
+      "target": "id=email-error",
+      "targets": [
+        ["id=email-error", "id"],
+        ["css=#email-error", "css:finder"],
+        ["xpath=//div[@id='email-error']", "xpath:attributes"],
+        ["xpath=//form[@id='patient-info-form']/div[2]/div/div", "xpath:idRelative"],
+        ["xpath=//form/div[2]/div/div", "xpath:position"]
+      ],
+      "value": "Por favor ingresa un correo electrónico válido"
+    }]
+  }, {
+    "id": "20ce82c9-d69f-4816-8e8c-ef4a91df6e97",
+    "name": "FisioPrueba - Mensajes dinamicos",
+    "commands": [{
+      "id": "4b091418-ad72-40a9-8718-b3ea5bcf8851",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e64e1078-edfa-4603-abd7-6bbc454b698b",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "697x768",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "22cbe5b9-88cd-49b6-a96d-d44f5ce1a770",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Iniciar Sesión",
+      "targets": [
+        ["linkText=Iniciar Sesión", "linkText"],
+        ["css=.btn:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Iniciar Sesión')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/login_user')]", "xpath:href"],
+        ["xpath=//div[2]/a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Iniciar Sesión')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a5e09550-e4f6-4e33-aeec-315fce0a1b99",
+      "comment": "",
+      "command": "click",
+      "target": "id=correo",
+      "targets": [
+        ["id=correo", "id"],
+        ["name=correo", "name"],
+        ["css=#correo", "css:finder"],
+        ["xpath=//input[@id='correo']", "xpath:attributes"],
+        ["xpath=//section[@id='login-page']/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ffb394cb-e8df-4ac9-9fc7-6885d155aba6",
+      "comment": "",
+      "command": "type",
+      "target": "id=correo",
+      "targets": [
+        ["id=correo", "id"],
+        ["name=correo", "name"],
+        ["css=#correo", "css:finder"],
+        ["xpath=//input[@id='correo']", "xpath:attributes"],
+        ["xpath=//section[@id='login-page']/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "magear004@gmail.com"
+    }, {
+      "id": "75ff8e66-108b-4688-b6a5-2ec77f071a78",
+      "comment": "",
+      "command": "click",
+      "target": "id=contraseña",
+      "targets": [
+        ["id=contraseña", "id"],
+        ["name=contraseña", "name"],
+        ["css=#contrase\\F1 a", "css:finder"],
+        ["xpath=//input[@id='contraseña']", "xpath:attributes"],
+        ["xpath=//section[@id='login-page']/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "41a91ab2-4b93-4808-9038-de045bf9287b",
+      "comment": "",
+      "command": "type",
+      "target": "id=contraseña",
+      "targets": [
+        ["id=contraseña", "id"],
+        ["name=contraseña", "name"],
+        ["css=#contrase\\F1 a", "css:finder"],
+        ["xpath=//input[@id='contraseña']", "xpath:attributes"],
+        ["xpath=//section[@id='login-page']/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "2"
+    }, {
+      "id": "3d377fb1-9153-4c22-86ca-fc4d979420a6",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=contraseña",
+      "targets": [
+        ["id=contraseña", "id"],
+        ["name=contraseña", "name"],
+        ["css=#contrase\\F1 a", "css:finder"],
+        ["xpath=//input[@id='contraseña']", "xpath:attributes"],
+        ["xpath=//section[@id='login-page']/div/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "fac50cc1-3dfc-448a-8664-667fe9239eca",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn:nth-child(4)",
+      "targets": [
+        ["css=.btn:nth-child(4)", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//section[@id='login-page']/div/form/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Iniciar Sesión')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "61b129d1-8d20-4d41-8a63-8bee5385a17d",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.error-message",
+      "targets": [
+        ["css=.error-message", "css:finder"],
+        ["xpath=//section[@id='login-page']/div/div[2]", "xpath:idRelative"],
+        ["xpath=//section/div/div[2]", "xpath:position"]
+      ],
+      "value": " Contraseña incorrecta "
+    }]
+  }],
+  "suites": [{
+    "id": "d59ab7ad-eb42-495c-ba85-0f4e0a73b2df",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["0bece1c8-1967-41cc-8ee9-de6ee238ae85"]
+  }],
+  "urls": ["http://127.0.0.1:8000/"],
+  "plugins": []
+}
