@@ -1,84 +1,91 @@
-# conexion_bd.py - VERSIÓN INTELIGENTE PARA RAILWAY
+# conexion_bd.py - VERSIÓN QUE FUNCIONA CON AMBAS CONEXIONES
 import pymysql
 from pymysql import Error
 import os
-import socket
 
 def get_db_connection():
-    """Conexión inteligente que prueba diferentes bases de datos"""
+    """Conexión inteligente que maneja tanto conexión interna como externa"""
     try:
-        print(f"\n🔍 [get_db_connection] Detectando entorno Railway...")
+        print(f"\n🔍 [get_db_connection] Iniciando...")
         
-        # Obtener variables
+        # Obtener configuración
         host = os.environ.get('MYSQLHOST', 'localhost')
-        port = int(os.environ.get('MYSQLPORT', 3306))
-        
-        # Lista de bases de datos a intentar (en orden de prioridad)
-        possible_databases = [
-            os.environ.get('MYSQLDATABASE', 'railway'),
-            'fisiosalud-2',
-            'railway_db_fisiosalud',
-            'backup_fisiosalud',
-            'railway'
-        ]
-        
+        port_str = os.environ.get('MYSQLPORT', '3306')
+        database = os.environ.get('MYSQLDATABASE', 'fisiosalud-2')
         user = os.environ.get('MYSQLUSER', 'root')
         password = os.environ.get('MYSQLPASSWORD', '')
         
-        print(f"   Host: {host}:{port}")
-        print(f"   User: {user}")
+        # Convertir puerto a int
+        try:
+            port = int(port_str)
+        except ValueError:
+            port = 3306
         
-        # Intentar con cada base de datos
-        for db_name in possible_databases:
-            if not db_name:
-                continue
-                
-            print(f"\n   Probando base de datos: '{db_name}'...")
-            
-            try:
-                connection = pymysql.connect(
-                    host=host,
-                    port=port,
-                    database=db_name,
-                    user=user,
-                    password=password,
-                    charset='utf8mb4',
-                    cursorclass=pymysql.cursors.DictCursor,
-                    connect_timeout=10,
-                    autocommit=True,
-                )
-                
-                # Verificar que tenga la tabla 'usuario'
-                with connection.cursor() as cursor:
-                    cursor.execute("SHOW TABLES LIKE 'usuario'")
-                    has_usuario_table = cursor.fetchone() is not None
-                    
-                    if has_usuario_table:
-                        print(f"   ✅ Base de datos '{db_name}' tiene tabla 'usuario'")
-                        print(f"   ✅ Usando base de datos: {db_name}")
-                        return connection
-                    else:
-                        print(f"   ❌ Base de datos '{db_name}' NO tiene tabla 'usuario'")
-                        connection.close()
-                        
-            except Exception as e:
-                print(f"   ⚠️  Error con base de datos '{db_name}': {e}")
-                continue
+        print(f"   Configuración:")
+        print(f"   • Host: {host}")
+        print(f"   • Port: {port}")
+        print(f"   • Database: {database}")
+        print(f"   • User: {user}")
         
-        print(f"\n❌ No se encontró ninguna base de datos con la tabla 'usuario'")
-        return None
+        # Determinar tipo de conexión
+        if 'railway.internal' in host:
+            print(f"   🏠 Conexión INTERNA (servicio a servicio)")
+            # Para conexión interna, SIEMPRE usar 3306
+            if port != 3306:
+                print(f"   ⚠️  Ajustando puerto a 3306 para conexión interna")
+                port = 3306
+        else:
+            print(f"   🌐 Conexión EXTERNA")
+        
+        print(f"   Conectando a {host}:{port}/{database}...")
+        
+        connection = pymysql.connect(
+            host=host,
+            port=port,
+            database=database,
+            user=user,
+            password=password,
+            charset='utf8mb4',
+            cursorclass=pymysql.cursors.DictCursor,
+            connect_timeout=15,
+            autocommit=True,
+        )
+        
+        print(f"✅ Conexión exitosa!")
+        
+        # Verificar la base de datos actual
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT DATABASE() as db, USER() as user, @@version as version")
+            info = cursor.fetchone()
+            print(f"   • Base de datos: {info['db']}")
+            print(f"   • Usuario: {info['user']}")
+            print(f"   • MySQL: {info['version']}")
+        
+        return connection
         
     except Error as e:
-        print(f"❌ Error de conexión MySQL: {e}")
+        print(f"❌ Error de conexión: {e}")
+        
+        # Diagnóstico detallado
+        print(f"\n🔧 DIAGNÓSTICO:")
+        print(f"   Error code: {e.args[0] if e.args else 'N/A'}")
+        print(f"   Error message: {e.args[1] if len(e.args) > 1 else str(e)}")
+        
+        # Sugerencias basadas en el error
+        if "Connection refused" in str(e):
+            if port == 21670 and 'railway.internal' in host:
+                print(f"\n💡 SUGERENCIA: mysql.railway.internal requiere puerto 3306, no 21670")
+                print(f"   Cambia MYSQLPORT=21670 → MYSQLPORT=3306")
+            elif port == 3306 and 'proxy.rlwy.net' in host:
+                print(f"\n💡 SUGERENCIA: interchange.proxy.rlwy.net requiere puerto 21670, no 3306")
+                print(f"   Cambia MYSQLPORT=3306 → MYSQLPORT=21670")
+        
         return None
 
 def close_db_connection(connection):
-    """Cierra la conexión de manera segura"""
     if connection:
         try:
             connection.close()
-            print("✅ Conexión MySQL cerrada correctamente")
+            print("✅ Conexión cerrada")
         except Error as e:
-            print(f"⚠️ Error al cerrar conexión: {e}")
-    else:
-        print("⚠️ Intento de cerrar conexión nula")
+            print(f"⚠️ Error cerrando: {e}")

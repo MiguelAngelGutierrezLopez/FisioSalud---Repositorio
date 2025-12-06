@@ -97,6 +97,78 @@ templates_panel = Jinja2Templates(directory="./vista_panel")
 templates_admin = Jinja2Templates(directory="./vista_admin")
 templates_fisio = Jinja2Templates(directory="./vista_fisio")
 
+
+@app.get("/diagnose-connection")
+async def diagnose_connection():
+    """Diagnóstico completo de la conexión MySQL"""
+    import socket
+    import os
+    
+    host = os.environ.get('MYSQLHOST', 'No definido')
+    port_str = os.environ.get('MYSQLPORT', 'No definido')
+    
+    try:
+        port = int(port_str)
+    except:
+        port = 3306
+    
+    results = {
+        "current_config": {
+            "MYSQLHOST": host,
+            "MYSQLPORT": port_str,
+            "MYSQLDATABASE": os.environ.get('MYSQLDATABASE'),
+            "MYSQLUSER": os.environ.get('MYSQLUSER'),
+            "MYSQLPASSWORD": "***" if os.environ.get('MYSQLPASSWORD') else "No definida"
+        },
+        "connection_tests": [],
+        "recommendation": ""
+    }
+    
+    # Probar diferentes combinaciones
+    test_cases = [
+        {"host": "mysql.railway.internal", "port": 3306, "type": "INTERNA (recomendada)"},
+        {"host": "mysql.railway.internal", "port": 21670, "type": "INTERNA con puerto externo"},
+        {"host": "interchange.proxy.rlwy.net", "port": 21670, "type": "EXTERNA"},
+        {"host": "interchange.proxy.rlwy.net", "port": 3306, "type": "EXTERNA con puerto interno"},
+    ]
+    
+    for test in test_cases:
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(3)
+            result = sock.connect_ex((test["host"], test["port"]))
+            sock.close()
+            
+            results["connection_tests"].append({
+                "host": test["host"],
+                "port": test["port"],
+                "type": test["type"],
+                "status": "✅ ABIERTO" if result == 0 else "❌ CERRADO",
+                "current": "← ACTUAL" if host == test["host"] and str(port) == str(test["port"]) else ""
+            })
+        except Exception as e:
+            results["connection_tests"].append({
+                "host": test["host"],
+                "port": test["port"],
+                "type": test["type"],
+                "status": f"❌ ERROR: {e}",
+                "current": "← ACTUAL" if host == test["host"] and str(port) == str(test["port"]) else ""
+            })
+    
+    # Recomendación
+    for test in results["connection_tests"]:
+        if "ABIERTO" in test["status"] and "INTERNA" in test["type"]:
+            results["recommendation"] = f"Usar: {test['host']}:{test['port']} ({test['type']})"
+            break
+        elif "ABIERTO" in test["status"] and "EXTERNA" in test["type"]:
+            results["recommendation"] = f"Usar: {test['host']}:{test['port']} ({test['type']})"
+            break
+    
+    if not results["recommendation"]:
+        results["recommendation"] = "Ninguna conexión funciona. Verifica que el servicio MySQL esté corriendo."
+    
+    return results
+
 @app.get("/test-network")
 async def test_network():
     """Prueba de conectividad de red"""
@@ -138,7 +210,7 @@ async def test_network():
     
     return results
 
-    
+
 @app.get("/test-db-connect")
 async def test_database_connection():
     """Test directo de conexión a MySQL"""
