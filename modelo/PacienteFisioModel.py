@@ -3,22 +3,22 @@ from typing import Dict, List, Optional
 from datetime import datetime, date, timedelta
 import json
 
+from bd.conexion_bd import get_db_connection
+
 class PacienteFisioModel:
+    
     
     @staticmethod
     def get_db_connection():
-        """Obtiene conexión a la base de datos"""
+        """Obtiene conexión a la base de datos usando la conexión centralizada"""
         try:
-            connection = pymysql.connect(
-                host="localhost",
-                user="root",
-                password="",
-                db="fisiosalud-2",
-                charset='utf8mb4',
-                cursorclass=pymysql.cursors.DictCursor
-            )
-            return connection
-        except pymysql.Error as e:
+            connection = get_db_connection()  # ← Usa la función centralizada
+            if connection:
+                return connection
+            else:
+                print(f"❌ No se pudo obtener conexión a la BD")
+                return None
+        except Exception as e:
             print(f"❌ Error al conectar a MySQL: {e}")
             return None
 

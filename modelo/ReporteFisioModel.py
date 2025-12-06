@@ -3,6 +3,8 @@ from typing import Dict, List, Optional, Union, Any
 from datetime import datetime, date
 import logging
 
+from bd.conexion_bd import get_db_connection
+
 # Configurar logging
 logger = logging.getLogger(__name__)
 
@@ -10,21 +12,14 @@ class ReporteFisioModel:
     
     @staticmethod
     def get_db_connection():
-        """Obtiene conexión a la base de datos con configuración para BLOB"""
+        """Obtiene conexión a la base de datos usando la conexión centralizada"""
         try:
-            connection = pymysql.connect(
-                host="localhost",
-                user="root",
-                password="",  # Cambia si es necesario
-                db="fisiosalud-2",
-                charset='utf8mb4',
-                cursorclass=pymysql.cursors.DictCursor,
-                autocommit=False
-            )
-            return connection
-        except pymysql.Error as e:
-            logger.error(f"❌ Error al conectar a MySQL: {e}")
-            return None
+            connection = get_db_connection()  # ← Usa la función centralizada
+            if connection:
+                return connection
+            else:
+                logger.error("❌ No se pudo obtener conexión a la BD")
+                return None
         except Exception as e:
             logger.error(f"❌ Error inesperado en conexión: {e}")
             return None
