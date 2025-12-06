@@ -1052,13 +1052,14 @@
                 <p class="section-subtitle">Selecciona el tratamiento que mejor se adapte a tus necesidades de salud y bienestar</p>
             </div>
 
-            <!-- Services Grid -->
+            <!-- Services Grid - VERSIÓN CORREGIDA -->
             <div class="services-grid" id="servicesGrid">
-                {% if servicios %}
+                {% if servicios is defined and servicios is not none and servicios|length > 0 %}
                     {% for servicio in servicios %}
                     <div class="service-card {% if servicio.categoria == 'Especializada' or servicio.categoria == 'especializada' %}specialized{% elif servicio.categoria == 'Avanzada' or servicio.categoria == 'avanzada' %}advanced{% endif %}" 
-                         data-category="{% if servicio.categoria == 'Básica' or servicio.categoria == 'básica' %}basic{% elif servicio.categoria == 'Intermedia' or servicio.categoria == 'intermedia' %}intermediate{% elif servicio.categoria == 'Especializada' or servicio.categoria == 'especializada' %}specialized{% elif servicio.categoria == 'Avanzada' or servicio.categoria == 'avanzada' %}advanced{% else %}basic{% endif %}"
-                         data-terapeutas="{{ servicio.terapeuta_disponible or '' }}">
+                        data-category="{% if servicio.categoria == 'Básica' or servicio.categoria == 'básica' %}basic{% elif servicio.categoria == 'Intermedia' or servicio.categoria == 'intermedia' %}intermediate{% elif servicio.categoria == 'Especializada' or servicio.categoria == 'especializada' %}specialized{% elif servicio.categoria == 'Avanzada' or servicio.categoria == 'avanzada' %}advanced{% else %}basic{% endif %}"
+                        data-terapeutas="{{ servicio.terapeuta_disponible or '' }}">
+                        
                         <div class="service-header">
                             <div class="service-icon">
                                 {% if servicio.categoria == 'Básica' or servicio.categoria == 'básica' %}
@@ -1101,11 +1102,11 @@
                             </div>
                         </div>
                         <div class="service-body">
-                            <p class="service-description">{{ servicio.descripcion[:150] }}{% if servicio.descripcion and servicio.descripcion|length > 150 %}...{% endif %}</p>
+                            <p class="service-description">{{ servicio.descripcion[:150] if servicio.descripcion else 'Descripción no disponible' }}{% if servicio.descripcion and servicio.descripcion|length > 150 %}...{% endif %}</p>
                             <div class="service-features">
                                 {% if servicio.condiciones_tratar %}
                                     {% set condiciones = servicio.condiciones_tratar.split(',') %}
-                                    {% for condicion in condiciones[:3] %}
+                                    {% for condicion in condiciones[:3] if condicion.strip() %}
                                     <div class="service-feature">
                                         <i class="fas fa-check"></i>
                                         <span>{{ condicion.strip() }}</span>
@@ -1113,7 +1114,7 @@
                                     {% endfor %}
                                 {% elif servicio.beneficios %}
                                     {% set beneficios = servicio.beneficios.split(',') %}
-                                    {% for beneficio in beneficios[:3] %}
+                                    {% for beneficio in beneficios[:3] if beneficio.strip() %}
                                     <div class="service-feature">
                                         <i class="fas fa-check"></i>
                                         <span>{{ beneficio.strip() }}</span>
@@ -1176,25 +1177,22 @@
                                 Reservar Ahora
                                 {% endif %}
                             </a>
-                            <!-- ENLACE CORREGIDO - Usa el código del servicio real -->
                             <a href="/servicio/{{ servicio.codigo }}" class="btn btn-outline btn-small">Más Información</a>
                         </div>
                     </div>
                     {% endfor %}
-                {% else %}
-                    {% if terapeuta_busqueda %}
+                {% elif terapeuta_busqueda %}
                     <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
                         <h3>No se encontraron servicios para el terapeuta "{{ terapeuta_busqueda }}"</h3>
                         <p>Intenta con otro nombre o correo de terapeuta.</p>
                         <a href="/servicios_terapeuticos" class="btn btn-secondary">Ver todos los servicios</a>
                     </div>
-                    {% else %}
+                {% else %}
                     <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-                        <h3>No hay servicios disponibles en este momento</h3>
-                        <p>Por favor, intenta más tarde o contacta con nuestro equipo.</p>
-                        <a href="/contacto" class="btn btn-secondary">Contactar Soporte</a>
+                        <h3>No se encontraron servicios</h3>
+                        <p>Esto puede ser un error temporal. Intenta recargar la página.</p>
+                        <button onclick="location.reload()" class="btn btn-secondary">Recargar Página</button>
                     </div>
-                    {% endif %}
                 {% endif %}
             </div>
 
