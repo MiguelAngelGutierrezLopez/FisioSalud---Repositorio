@@ -73,3 +73,12 @@ def get_db_connection():
                     print(f"      {key}: {value}")
         
         return None
+    
+
+def close_db_connection(connection):
+    if connection:
+        try:
+            connection.close()
+            print("✅ CONEXIÓN BD - Conexión cerrada")
+        except Error as e:
+            print(f"⚠️ CONEXIÓN BD - Error cerrando: {e}")
