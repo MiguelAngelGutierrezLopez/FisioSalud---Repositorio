@@ -18,6 +18,7 @@ def get_db_connection():
             os.environ.get('MYSQLDATABASE', 'railway'),
             'fisiosalud-2',
             'railway_db_fisiosalud',
+            'backup_fisiosalud',
             'railway'
         ]
         
