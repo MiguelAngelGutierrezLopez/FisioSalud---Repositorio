@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistencia Requerida - FisioSalud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #75AB92;
+            --primary-light: #93B19F;
+            --primary-dark: #5A8A75;
+            --secondary: #FF9A76;
+            --secondary-light: #FFB59A;
+            --accent: #4A6572;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --border-radius: 12px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .warning-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .warning-icon {
+            width: 100px;
+            height: 100px;
+            background-color: #fff3cd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: #856404;
+            font-size: 2.5rem;
+        }
+
+        .warning-content h1 {
+            font-size: 2.2rem;
+            color: #856404;
+            margin-bottom: 20px;
+        }
+
+        .warning-content p {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .assistance-options {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .assistance-options h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .assistance-options ul {
+            list-style-type: none;
+        }
+
+        .assistance-options li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .assistance-options li:last-child {
+            border-bottom: none;
+        }
+
+        .assistance-options i {
+            color: var(--primary);
+            width: 20px;
+        }
+
+        .warning-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-light);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .contact-info h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray);
+        }
+
+        @media (max-width: 768px) {
+            .warning-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .contact-details {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="warning-container">
+        <div class="warning-icon">
+            <i class="fas fa-hands-helping"></i>
+        </div>
+        
+        <div class="warning-content">
+            <h1>Asistencia para Agendamiento</h1>
+            <p>Si tienes dificultades para completar el proceso de agendamiento por ti mismo, estamos aquí para ayudarte.</p>
+            <p>Entendemos que algunas personas pueden necesitar apoyo adicional debido a condiciones físicas, limitaciones tecnológicas u otras circunstancias.</p>
+            
+            <div class="assistance-options">
+                <h3><i class="fas fa-list-alt"></i> Opciones de Asistencia Disponibles</h3>
+                <ul>
+                    <li><i class="fas fa-phone"></i> <strong>Agendamiento telefónico:</strong> Llámanos y nuestro personal te ayudará</li>
+                    <li><i class="fas fa-user-friends"></i> <strong>Asistencia presencial:</strong> Visita nuestra sede para agendar con ayuda</li>
+                    <li><i class="fas fa-video"></i> <strong>Sesión virtual:</strong> Conéctate con nosotros por video llamada</li>
+                    <li><i class="fas fa-home"></i> <strong>Visita domiciliaria:</strong> Para casos con movilidad reducida</li>
+                </ul>
+            </div>
+            
+            <div class="warning-actions">
+                <a href="cita.html" class="btn">
+                    <i class="fas fa-arrow-right"></i> Puedo Continuar Solo
+                </a>
+                <a href="#" class="btn btn-secondary" id="request-help">
+                    <i class="fas fa-life-ring"></i> Necesito Ayuda
+                </a>
+                
+            </div>
+            
+            <div class="contact-info">
+                <h3>Contacto para Asistencia</h3>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>(123) 456-7890</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>ayuda@fisiosalud.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Lun-Vie: 8am - 8pm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

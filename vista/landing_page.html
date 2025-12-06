@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FisioSalud | Terapia Física Digital Avanzada</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A2540;
+            --primary-dark: #061A2C;
+            --primary-light: #1A365D;
+            --secondary: #00A3FF;
+            --accent: #00D4AA;
+            --light: #FFFFFF;
+            --light-gray: #F8FAFC;
+            --gray: #64748B;
+            --dark: #0F172A;
+            --border-radius: 8px;
+            --border-radius-sm: 4px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: var(--light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--secondary);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            min-width: 120px;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: #0092E0;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* User Dropdown Styles */
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .user-menu-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 220px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            padding: 8px 0;
+            margin-top: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s;
+            z-index: 1000;
+            border: 1px solid #F1F5F9;
+        }
+
+        .user-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: var(--light-gray);
+        }
+
+        .dropdown-item i {
+            width: 16px;
+            color: var(--gray);
+            text-align: center;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--light-gray);
+            margin: 8px 0;
+        }
+
+        .dropdown-item.logout {
+            color: #dc2626;
+        }
+
+        .dropdown-item.logout i {
+            color: #dc2626;
+        }
+
+        /* Hero Section - MODIFICADO para incluir imagen */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 160px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><polygon points="0,0 1000,0 1000,1000" fill="white"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* MODIFICACIÓN: Reemplazar el hero-visual por una imagen */
+        .hero-image-container {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Botón condicional para agendar cita */
+        .hero-cta {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            background: #1A365D;
+            color: rgb(0, 0, 0);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            min-width: 280px;
+            box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .cta-button:hover {
+            background: #2D4A7D;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(26, 54, 93, 0.4);
+        }
+
+        .cta-button:disabled {
+            background: var(--gray);
+            color: var(--light);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            opacity: 0.7;
+        }
+
+        .cta-button:disabled:hover {
+            background: var(--gray);
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .login-required {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-sm);
+            max-width: fit-content;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                background: rgba(255, 255, 255, 0.1);
+            }
+            50% {
+                background: rgba(255, 255, 255, 0.15);
+            }
+            100% {
+                background: rgba(255, 255, 255, 0.1);
+            }
+        }
+        
+        .login-required i {
+            color: var(--accent);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--light);
+            padding: 80px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .stat-card {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+            padding: 32px 24px;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid #F1F5F9;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background: var(--light-gray);
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            text-align: center;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .service-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid #F1F5F9;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--light-gray);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 1.8rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .service-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .service-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .service-feature i {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 100px 0;
+            background: var(--light);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -16px;
+            width: 60px;
+            height: 2px;
+            background: var(--light-gray);
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto;
+            border: 1px solid #F1F5F9;
+            box-shadow: var(--shadow);
+        }
+
+        .step-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .step h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .step p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* AI Section */
+        .ai-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.03"><polygon points="0,1000 1000,0 1000,1000" fill="white"/></svg>');
+            background-size: cover;
+        }
+
+        .ai-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-content {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            width: fit-content;
+        }
+
+        .ai-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .ai-description {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .ai-benefits {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .ai-benefit {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .benefit-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .benefit-content p {
+            opacity: 0.8;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .ai-cta {
+            display: flex;
+            gap: 16px;
+        }
+
+        .ai-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ai-dashboard {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .dashboard-header {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-title {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .dashboard-content {
+            flex: 1;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chat-message {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .ai-message {
+            justify-content: flex-start;
+        }
+
+        .user-message {
+            justify-content: flex-end;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--border-radius-sm);
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .user-message .message-avatar {
+            background: var(--accent);
+        }
+
+        .message-content {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px 16px;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            max-width: 70%;
+        }
+
+        .ai-message .message-content {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* CTA Section */
+        .cta {
+            background: var(--light);
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .cta-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 60px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-column h3 {
+            color: var(--light);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .social-icon:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Login buttons in footer */
+        .login-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-login {
+            padding: 10px 16px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn-patient {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-patient:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-staff {
+            background: var(--accent);
+            color: var(--primary);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-staff:hover {
+            background: #00C299;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-grid, .ai-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            
+            .stats-grid, .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .process-steps {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .step:not(:last-child)::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons, .cta-buttons, .ai-cta {
+                flex-direction: column;
+            }
+            
+            .stats-grid, .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ai-benefit {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+            
+            .benefit-icon {
+                margin: 0 auto;
+            }
+
+            .login-buttons {
+                flex-direction: column;
+            }
+
+            .btn-login {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <div class="logo-icon">FS</div>
+                    <div class="logo-text">FisioSalud</div>
+                </div>
+                <nav class="nav-menu">
+                    <a href="#" class="nav-link active">Inicio</a>
+                    <a href="/servicios" class="nav-link">Servicios</a>
+                    <a href="/fisioapp" class="nav-link">FisioBot</a>
+                    <a href="/nosotros" class="nav-link">Nosotros</a>
+                    <a href="/contacto" class="nav-link">Contacto</a>
+                </nav>
+                <div class="nav-actions">
+                    {% if request.session.get('usuario') and request.session.usuario.get('logged_in') %}
+                    <!-- Mostrar dropdown cuando el usuario está logueado -->
+                    <div class="user-dropdown">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-user-circle"></i>
+                            {{ request.session.usuario.nombre }}
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="/panel_citas" class="dropdown-item">
+                                <i class="fas fa-calendar-check"></i> Mis Citas
+                            </a>
+                            <a href="/panel_ejercicios" class="dropdown-item">
+                                <i class="fas fa-running"></i> Ejercicios Pendientes
+                            </a>
+                            <a href="/panel_progreso" class="dropdown-item">
+                                <i class="fas fa-chart-line"></i> Mi Progreso
+                            </a>
+                            <a href="/panel_mercado" class="dropdown-item">
+                                <i class="fas fa-shopping-bag"></i> Mis Productos
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/logout_user" class="dropdown-item logout">
+                                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                            </a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <!-- Mostrar botones de registro/login cuando no hay sesión -->
+                    <a href="/registro" class="btn btn-outline">Registrate</a>
+                    <a href="/login_user" class="btn btn-outline">Iniciar Sesión</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section - MODIFICADO para incluir imagen -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1>Rehabilitación digital que transforma vidas</h1>
+                    <p>Combinamos terapia física especializada con tecnología avanzada para ofrecerte un tratamiento personalizado y resultados medibles.</p>
+                    
+                    <!-- Nuevo botón condicional para agendar cita -->
+                    <div class="hero-cta">
+                        {% if request.session.get('usuario') and request.session.usuario.get('logged_in') %}
+                        <!-- Usuario logueado - botón activo -->
+                        <a href="/cita" class="cta-button">
+                            <i class="fas fa-calendar-plus"> </i>   Agenda tu cita ya mismo
+                        </a>
+                        {% else %}
+                        <!-- Usuario NO logueado - botón deshabilitado con mensaje -->
+                        <button class="cta-button" disabled>
+                            <i class="fas fa-calendar-plus"></i> Agenda tu cita ya mismo
+                        </button>
+                        <div class="login-required">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Inicia sesión para agendar tu cita</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <!-- MODIFICACIÓN: Reemplazar el hero-visual por una imagen -->
+                    <div class="hero-image-container">
+                        <!-- Aquí puedes colocar tu imagen -->
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Fisioterapeuta ayudando a paciente en rehabilitación">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Años de Experiencia</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5,000+</div>
+                    <div class="stat-label">Pacientes Recuperados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Especialistas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfacción</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Nuestros Servicios</div>
+                <h2 class="section-title">Soluciones integrales para tu recuperación</h2>
+                <p class="section-subtitle">Ofrecemos un enfoque multidisciplinario que combina lo mejor de la terapia tradicional con la innovación tecnológica.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hands"></i>
+                    </div>
+                    <h3>Servicios de Terapia Física</h3>
+                    <p>Desde masajes relajantes hasta tratamientos especializados para recuperación completa de lesiones y condiciones musculoesqueléticas.</p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Masajes terapéuticos</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Rehabilitación post-quirúrgica</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Terapia manual avanzada</span>
+                        </div>
+                    </div>
+                    <a href="/servicios_terapia" class="btn btn-outline" style="margin-top: auto;">Conocer Más</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Implementos Terapéuticos</h3>
+                    <p>Equipamiento profesional y doméstico para complementar tu tratamiento: mancuernas, bandas elásticas, rodillos y más.</p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Equipos profesionales</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Material para casa</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Asesoría especializada</span>
+                        </div>
+                    </div>
+                    <a href="/implementos" class="btn btn-outline" style="margin-top: auto;">Ver Productos</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-apple-alt"></i>
+                    </div>
+                    <h3>Nutrición e Implementos</h3>
+                    <p>Asesoría nutricional personalizada y suplementos de calidad para optimizar tu recuperación y rendimiento físico.</p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Planes alimenticios</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Suplementos especializados</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Seguimiento nutricional</span>
+                        </div>
+                    </div>
+                    <a href="/nutricionales" class="btn btn-outline" style="margin-top: auto;">Consultar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Nuestro Proceso</div>
+                <h2 class="section-title">Tu camino hacia la recuperación</h2>
+                <p class="section-subtitle">Un enfoque estructurado y personalizado que garantiza resultados medibles.</p>
+            </div>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Evaluación Integral</h3>
+                        <p>Diagnóstico completo mediante evaluación física, análisis de movimientos y estudio de historial médico.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Plan Personalizado</h3>
+                        <p>Diseño de tratamiento específico basado en tus objetivos, capacidades y necesidades individuales.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Tratamiento Activo</h3>
+                        <p>Sesiones terapéuticas con seguimiento constante y ajustes en tiempo real según tu progreso.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Seguimiento Continuo</h3>
+                        <p>Evaluación periódica de progreso, ajustes de tratamiento y planificación de mantenimiento.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Section -->
+    <section class="ai-section">
+        <div class="container">
+            <div class="ai-grid">
+                <div class="ai-content">
+                    <div class="ai-badge">
+                        <i class="fas fa-robot"></i>
+                        <span>TECNOLOGÍA PROPIA</span>
+                    </div>
+                    <h2>FisioBot: Tu compañero de recuperación inteligente</h2>
+                    <p class="ai-description">Nuestra plataforma de IA especializada te acompaña las 24 horas, ofreciendo guía personalizada y seguimiento continuo de tu progreso.</p>
+                    
+                    <div class="ai-benefits">
+                        <div class="ai-benefit">
+                            <div class="benefit-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="benefit-content">
+                                <h4>Asistencia 24/7</h4>
+                                <p>Respuestas inmediatas a tus preguntas y guía cuando más la necesitas.</p>
+                            </div>
+                        </div>
+                        <div class="ai-benefit">
+                            <div class="benefit-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <div class="benefit-content">
+                                <h4>Análisis Predictivo</h4>
+                                <p>Identificación de patrones y recomendaciones proactivas para optimizar tu tratamiento.</p>
+                            </div>
+                        </div>
+                        <div class="ai-benefit">
+                            <div class="benefit-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="benefit-content">
+                                <h4>Seguimiento por Video</h4>
+                                <p>Análisis de tu técnica de ejercicios con retroalimentación en tiempo real.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-cta">
+                        <a href="/Fisiobot" class="btn btn-secondary">Probar FisioBot</a>
+                    </div>
+                </div>
+                
+                <div class="ai-visual">
+                    <div class="ai-dashboard">
+                        <div class="dashboard-header">
+                            <div class="dashboard-title">FisioBot - Asistente Virtual</div>
+                            <div class="status-indicator">
+                                <i class="fas fa-circle" style="color: var(--accent); font-size: 0.7rem;"></i>
+                                <span style="font-size: 0.8rem; margin-left: 6px;">En línea</span>
+                            </div>
+                        </div>
+                        <div class="dashboard-content">
+                            <div class="chat-message ai-message">
+                                <div class="message-avatar">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="message-content">
+                                    Hola María, veo que completaste tus ejercicios de hoy. ¡Excelente trabajo!
+                                </div>
+                            </div>
+                            <div class="chat-message user-message">
+                                <div class="message-content">
+                                    Gracias, pero siento un poco de molestia en el hombro.
+                                </div>
+                                <div class="message-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                            <div class="chat-message ai-message">
+                                <div class="message-avatar">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="message-content">
+                                    Te recomiendo aplicar hielo 15 minutos y reducir la intensidad mañana. ¿Quieres que ajuste tu plan?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Comienza tu camino hacia la recuperación</h2>
+                <p>Nuestro equipo está listo para ayudarte a alcanzar tus objetivos de salud y movilidad.</p>
+                <div class="cta-buttons">
+                    <a href="/contacto" class="btn btn-outline">Hablar con Especialista</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <div class="logo">
+                            <div class="logo-icon">FS</div>
+                            <div class="logo-text">FisioSalud</div>
+                        </div>
+                    </div>
+                    <p class="footer-description">Líderes en rehabilitación digital con más de 15 años de experiencia transformando vidas a través de tratamientos personalizados y tecnología de vanguardia.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <!-- Login buttons -->
+                    <div class="login-buttons">
+                        <button class="btn-login btn-patient" onclick="location.href='/panel_fisio'">
+                            <i class="fas fa-user-injured"></i> Acceso Fisioterapeuta
+                        </button>
+                        <button class="btn-login btn-staff" onclick="location.href='/administrador'">
+                            <i class="fas fa-user-md"></i> Acceso Administrador
+                        </button>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Servicios</h3>
+                    <div class="footer-links">
+                        <a href="/servicios_terapia">Terapia Física</a>
+                        <a href="/implementos">Implementos Terapéuticos</a>
+                        <a href="/nutricionales">Nutrición y Suplementos</a>
+                        <a href="/Fisiobot">FisioBot AI</a>
+                        <a href="#">Consultas Virtuales</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Empresa</h3>
+                    <div class="footer-links">
+                        <a href="/nosotros">Nosotros</a>
+                        <a href="#">Equipo</a>
+                        <a href="#">Tecnología</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Carreras</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <div class="footer-links">
+                        <a href="tel:3202914521"><i class="fas fa-phone"></i> 320 2914521</a>
+                        <a href="mailto:info@fisiosalud.com"><i class="fas fa-envelope"></i> info@fisiosalud.com</a>
+                        <a href="#"><i class="fas fa-map-marker-alt"></i> Av. Salud #123, Bogotá</a>
+                        <a href="#"><i class="fas fa-clock"></i> Lun-Vie: 7am-8pm</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 FisioSalud. Todos los derechos reservados. | <a href="#" style="color: rgba(255,255,255,0.7);">Política de Privacidad</a> | <a href="#" style="color: rgba(255,255,255,0.7);">Términos de Servicio</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Función para mostrar un tooltip cuando el usuario intente hacer clic en el botón deshabilitado
+        document.addEventListener('DOMContentLoaded', function() {
+            const disabledButton = document.querySelector('.cta-button:disabled');
+            
+            if (disabledButton) {
+                disabledButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Crear tooltip
+                    const tooltip = document.createElement('div');
+                    tooltip.textContent = 'Inicia sesión para acceder a esta función';
+                    tooltip.style.cssText = `
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background: rgba(0, 0, 0, 0.8);
+                        color: white;
+                        padding: 12px 20px;
+                        border-radius: 8px;
+                        z-index: 10000;
+                        font-size: 0.9rem;
+                        pointer-events: none;
+                        animation: fadeInOut 2s ease-in-out;
+                    `;
+                    
+                    document.body.appendChild(tooltip);
+                    
+                    // Remover tooltip después de 2 segundos
+                    setTimeout(() => {
+                        if (tooltip.parentNode) {
+                            tooltip.parentNode.removeChild(tooltip);
+                        }
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

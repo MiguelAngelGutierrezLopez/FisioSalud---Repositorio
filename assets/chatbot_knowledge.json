@@ -1,0 +1,1858 @@
+{
+  "metadata": {
+    "clinic": "FisioSalud",
+    "description": "Base de conocimiento completa rediseñada - Enfoque humano y terapéutico",
+    "total_questions": 124,
+    "version": "2.0",
+    "tone": "cálido, empático, profesional, esperanzador",
+    "last_updated": "2024-01-15"
+  },
+
+  "quick_responses": {
+    "saludo": "¡Hola! 🌟 Soy FisioBot, tu compañero en el camino hacia el bienestar de FisioSalud. Me encanta ayudar a las personas a recuperar su calidad de vida. Cuéntame, ¿en qué puedo asistirte hoy? ¿Estás buscando algún tratamiento específico, quieres agendar una consulta o tienes alguna inquietud sobre tu recuperación?",
+    
+    "despedida": "Ha sido un honor acompañarte en este momento de tu día. 💙 Recuerda que en FisioSalud creemos que cada paso hacia tu recuperación es una victoria. Si en algún momento necesitas más orientación, aquí estaré para ti. ¡Que tengas un día lleno de bienestar y movimiento sin dolor!",
+    
+    "no_entiende": "Disculpa, parece que no capté completamente tu pregunta. Como tu guía en FisioSalud, puedo ayudarte con:\n\n• **Tratamientos y terapias** personalizadas para tu condición\n• **Proceso de agendamiento** de citas paso a paso\n• **Productos y suplementos** que apoyan tu recuperación\n• **Información de contacto** y cómo llegar a nosotros\n• **Recomendaciones específicas** según tu situación\n\n¿Podrías contarme con tus palabras qué es lo que necesitas? Estoy aquí para entenderte y guiarte.",
+    
+    "escalar_humano": "Comprendo perfectamente que a veces necesitamos esa conexión humana especial. Nuestro equipo de profesionales estará encantado de atenderte personalmente. Te sugiero:\n\n👩⚕️ **Contacto directo:**\n📞 Llamar al: 320 2914521\n💬 WhatsApp: https://wa.me/573202914521\n📧 Escribir a: info@fisiosalud.com\n\n🏥 **Visítanos en:**\n📍 Av. Salud #123, Bogotá\n(Contamos con todas las facilidades para tu comodidad)\n\n⏰ **Estamos para ti:**\nLunes a Viernes: 7:00 AM - 8:00 PM\nSábados: 8:00 AM - 6:00 PM\n\n¡No dudes en contactarnos! Cada consulta es el primer paso hacia tu recuperación.",
+    
+    "solicitar_contacto": "¡Con mucho gusto! 🌟 Aquí tienes toda nuestra información para que siempre nos tengas a la mano:\n\n**📍 Nuestro Hogar de Bienestar:**\nAv. Salud #123, Bogotá\n*Espacio diseñado pensando en tu comodidad y accesibilidad*\n\n**📞 Líneas de Conexión:**\n• Teléfono principal: 320 2914521\n• WhatsApp terapéutico: https://wa.me/573202914521\n• Email: info@fisiosalud.com\n\n**⏰ Horarios que se Adaptan a Ti:**\n• Lunes a Viernes: 7:00 AM - 8:00 PM\n• Sábados: 8:00 AM - 6:00 PM\n• Domingos: 9:00 AM - 2:00 PM\n• Emergencias: Siempre contamos con opciones\n\n**🌐 Síguenos en:**\n@FisioSalud donde compartimos tips, testimonios y contenido para tu bienestar\n\n¿Te gustaría que te ayude a agendar una primera consulta o necesitas indicaciones específicas para llegar?"
+  },
+
+  "knowledge_base": [
+    {
+      "id": 1,
+      "category": "informacion_general",
+      "subcategory": "quienes_somos",
+      "questions": [
+        "¿qué es fisiosalud?",
+        "¿quiénes son ustedes?",
+        "¿qué hacen?",
+        "cuéntame sobre fisiosalud",
+        "información de la clínica"
+      ],
+      "answer": "🌟 **FisioSalud es más que una clínica, somos un acompañante en tu camino hacia el bienestar.** Con más de 15 años transformando vidas, combinamos la sabiduría de la terapia física tradicional con la innovación tecnológica más avanzada. \n\n**Nuestra misión:** Brindarte tratamientos personalizados que no solo alivian el dolor, sino que te devuelven la alegría del movimiento.\n\n**Lo que nos hace especiales:**\n• Experiencia comprobada con más de 5,000 pacientes recuperados\n• Tecnología de punta para resultados medibles\n• Enfoque humano y personalizado\n• Equipo multidisciplinario apasionado\n\n¿Hay algo específico de nuestra filosofía que te gustaría conocer mejor?",
+      "links": ["/nosotros"],
+      "keywords": ["fisiosalud", "clínica", "rehabilitación", "quiénes somos"]
+    },
+    {
+      "id": 2,
+      "category": "informacion_general",
+      "subcategory": "ubicacion",
+      "questions": [
+        "¿dónde están ubicados?",
+        "¿cuál es su dirección?",
+        "dirección de fisiosalud",
+        "¿cómo llegar?",
+        "ubicación de la clínica"
+      ],
+      "answer": "📍 **Te esperamos en nuestro espacio diseñado para tu recuperación:**\nAv. Salud #123, Bogotá\n\n**Facilidades que encontrarás:**\n• Acceso para personas con movilidad reducida\n• Área de espera cómoda y tranquila\n• Parqueadero seguro\n• Ambiente diseñado para promover la calma\n\n**Para llegar fácilmente:**\n1. Puedes usar Waze o Google Maps buscando \"FisioSalud Bogotá\"\n2. Tenemos señalización clara desde la avenida principal\n3. Si vienes en transporte público, varias rutas te dejan a una cuadra\n\n¿Te gustaría que te comparta las opciones de transporte específicas o necesitas indicaciones desde algún punto particular?",
+      "links": ["/contacto"],
+      "keywords": ["ubicación", "dirección", "mapa", "dónde", "llegar"]
+    },
+    {
+      "id": 3,
+      "category": "informacion_general",
+      "subcategory": "contacto",
+      "questions": [
+        "¿cuál es su teléfono?",
+        "número de teléfono",
+        "¿cómo los contacto?",
+        "teléfono de fisiosalud",
+        "quiero llamarles"
+      ],
+      "answer": "📞 **¡Estamos a un mensaje o llamada de distancia!**\n\n**Formas de contactarnos:**\n• **Teléfono directo:** 320 2914521\n• **WhatsApp terapéutico:** https://wa.me/573202914521\n• **Email personalizado:** info@fisiosalud.com\n\n**Recomendación:** Si es tu primera vez, te sugerimos agendar una consulta de evaluación sin costo para que conozcas nuestro espacio y equipo.\n\n**Horarios de contacto telefónico:**\nLunes a Viernes: 7:00 AM - 8:00 PM\nSábados: 8:00 AM - 6:00 PM\n\n¿Prefieres que te llamemos nosotros en algún horario específico?",
+      "links": ["/contacto"],
+      "keywords": ["teléfono", "contacto", "llamar", "número", "email"]
+    },
+    {
+      "id": 4,
+      "category": "informacion_general",
+      "subcategory": "horarios",
+      "questions": [
+        "¿cuáles son sus horarios?",
+        "¿a qué hora abren?",
+        "horarios de atención",
+        "¿cuándo están abiertos?",
+        "horario de la clínica"
+      ],
+      "answer": "⏰ **Horarios diseñados para adaptarse a tu vida:**\n\n**Atención regular:**\n• **Lunes a Viernes:** 7:00 AM - 8:00 PM\n• **Sábados:** 8:00 AM - 6:00 PM\n• **Domingos:** 9:00 AM - 2:00 PM\n\n**Para emergencias fuera de horario:**\nSiempre tenemos opciones disponibles. Llámanos al 320 2914521 y coordinaremos la mejor alternativa para ti.\n\n**Recomendación:** Agenda con anticipación para asegurar tu horario preferido, especialmente si necesitas atención después de tu jornada laboral.\n\n¿Hay algún horario específico que se adapte mejor a tus necesidades?",
+      "links": ["/contacto"],
+      "keywords": ["horario", "abren", "atención", "horas", "cuándo"]
+    },
+    {
+      "id": 5,
+      "category": "informacion_general",
+      "subcategory": "equipo",
+      "questions": [
+        "¿quiénes son los dueños?",
+        "directores de fisiosalud",
+        "equipo directivo",
+        "¿quién dirige la clínica?",
+        "directores"
+      ],
+      "answer": "👨⚕️ **Conoce al corazón de FisioSalud:**\n\nNuestro equipo directivo combina experiencia clínica con visión innovadora:\n\n**Miguel Angel Gutierrez Lopez** - *Director General*\nCon más de 20 años en rehabilitación, su pasión es crear espacios donde la recuperación sea una experiencia transformadora.\n\n**Juan Sebastian Corredor** - *Director Médico*\nEspecialista en ortopedia y medicina del deporte, asegura que cada tratamiento tenga bases científicas sólidas.\n\n**Camilo Rivas Blandon** - *Director de Tecnología*\nInnovador que integra las últimas tecnologías para hacer tu recuperación más efectiva y medible.\n\n**Nuestra filosofía:** Creemos que el liderazgo se demuestra acompañando a cada paciente en su proceso.\n\n¿Te gustaría conocer más sobre algún área específica de nuestro equipo?",
+      "links": ["/nosotros"],
+      "keywords": ["equipo", "directores", "dueños", "líderes", "directivos"]
+    },
+    {
+      "id": 6,
+      "category": "servicios",
+      "subcategory": "tipos_generales",
+      "questions": [
+        "¿qué servicios ofrecen?",
+        "servicios de fisiosalud",
+        "¿qué tratamientos tienen?",
+        "tipos de terapia",
+        "servicios disponibles"
+      ],
+      "answer": "💙 **Ofrecemos un ecosistema completo para tu bienestar:**\n\n**1. Terapia Física Especializada (12 opciones)**\nDesde alivio inmediato hasta rehabilitación compleja, cada tratamiento está diseñado pensando en tu recuperación integral.\n\n**2. Implementos Terapéuticos para Casa**\nTe acompañamos más allá de la clínica con equipos profesionales para continuar tu progreso en casa.\n\n**3. Nutrición y Suplementación Inteligente**\nPorque la recuperación también se alimenta, productos específicos para potenciar tu terapia.\n\n**Nuestro enfoque:** No vendemos servicios aislados, construimos planes personalizados que consideran tu condición, objetivos y estilo de vida.\n\n¿Te gustaría que profundice en alguna de estas áreas o prefieres contarme un poco sobre tu situación para recomendarte lo más adecuado?",
+      "links": ["/servicios_terapeuticos", "/servicios_implementos", "/servicios_alimenticios"],
+      "keywords": ["servicios", "tratamientos", "terapias", "qué ofrecen"]
+    },
+    {
+      "id": 7,
+      "category": "servicios",
+      "subcategory": "terapia_fisica",
+      "questions": [
+        "servicios de terapia física",
+        "tratamientos de fisioterapia",
+        "terapias disponibles",
+        "¿qué terapias ofrecen?"
+      ],
+      "answer": "🩺 **Nuestro portafolio de terapias físicas:**\n\n**Para alivio y bienestar inmediato:**\n• **Masaje Relajante** ($35.000) - Tu momento de paz\n• **Terapia de Estiramientos** ($40.000) - Recupera tu flexibilidad\n• **Masaje Terapéutico** ($55.000) - Alivia contracturas específicas\n\n**Rehabilitación especializada:**\n• **Rehabilitación Deportiva** ($65.000) - Vuelve a tu pasión\n• **Post-Quirúrgica** ($120.000) - Recuperación guiada paso a paso\n• **Punción Seca** ($75.000) - Para contracturas profundas\n\n**Técnicas avanzadas:**\n• **Terapia Miofascial** ($60.000)\n• **Craneosacral** ($70.000)\n• **Electroterapia** ($70.000)\n• **Terapia Neural** ($95.000)\n\n**Lo más importante:** Cada terapia incluye evaluación, tratamiento y plan de mantenimiento.\n\n¿Hay algún síntoma específico que quieras trabajar? Así puedo recomendarte la mejor opción.",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["terapia física", "fisioterapia", "tratamientos", "masaje", "rehabilitación"]
+    },
+    {
+      "id": 8,
+      "category": "servicios",
+      "subcategory": "masaje_basico",
+      "questions": [
+        "¿tienen masaje relajante?",
+        "masaje básico",
+        "¿cuánto cuesta un masaje?",
+        "masaje para relajación"
+      ],
+      "answer": "💆‍♀️ **¡Nuestro Masaje Relajante es tu oasis de calma!**\n\n**Inversión:** $35.000 por 45 minutos de bienestar\n\n**Lo que experimentarás:**\n• Liberación profunda de tensiones acumuladas\n• Mejora en circulación sanguínea\n• Reducción significativa del estrés\n• Sensación renovada de energía\n\n**Es perfecto para ti si:**\n• Llevas una vida con mucho estrés\n• Sientes rigidez muscular general\n• Necesitas un momento para reconectar contigo mismo\n• Quieres prevenir lesiones por tensión\n\n**Nuestro plus:** No es solo un masaje, incluye recomendaciones personalizadas para mantener la relajación en tu día a día.\n\n¿Te gustaría agendar una sesión o prefieres primero una evaluación para ver si es lo más adecuado para ti?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["masaje", "relajante", "básico", "precio"]
+    },
+    {
+      "id": 9,
+      "category": "servicios",
+      "subcategory": "estiramientos",
+      "questions": [
+        "terapia de estiramientos",
+        "estiramientos guiados",
+        "¿tienen estiramientos?",
+        "flexibilidad"
+      ],
+      "answer": "🤸‍♂️ **¡Recupera la libertad de movimiento con nuestra Terapia de Estiramientos!**\n\n**Inversión:** $40.000 por 50 minutos de transformación\n\n**Beneficios que notarás:**\n• Mayor rango de movimiento en articulaciones\n• Postura más erguida y natural\n• Reducción de dolores por rigidez\n• Prevención efectiva de lesiones futuras\n\n**Ideal para personas que:**\n• Pasan muchas horas sentadas\n• Sienten que han perdido flexibilidad\n• Practican deporte y quieren mejorar rendimiento\n• Experimentan molestias al moverse\n\n**Nuestra metodología:** No son estiramientos genéricos, son ejercicios específicos diseñados según tus necesidades y capacidades actuales.\n\n¿Te gustaría saber cómo adaptamos esta terapia para condiciones específicas o prefieres agendar una sesión de evaluación?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["estiramientos", "flexibilidad", "postura", "prevención"]
+    },
+    {
+      "id": 10,
+      "category": "servicios",
+      "subcategory": "rehab_deportiva",
+      "questions": [
+        "rehabilitación deportiva",
+        "lesiones deportivas",
+        "recuperación de atletas",
+        "esguinces"
+      ],
+      "answer": "🏃‍♂️ **¡Vuelve a lo que amas con nuestra Rehabilitación Deportiva!**\n\n**Inversión:** $65.000 por 75 minutos de recuperación activa\n\n**Para deportistas que:**\n• Han sufrido una lesión y quieren volver seguros\n• Sienten molestias recurrentes al entrenar\n• Buscan mejorar su rendimiento deportivo\n• Necesitan prevención específica para su disciplina\n\n**Nuestro enfoque único:**\n1. **Evaluación biomecánica** de tu gesto deportivo\n2. **Recuperación funcional** que simula tu actividad\n3. **Prevención personalizada** para evitar recaídas\n4. **Retorno progresivo** monitoreado por especialistas\n\n**Especialidades:** Esguinces, tendinitis, sobrecargas, lesiones por impacto.\n\n¿Practicas algún deporte específico? Así puedo contarte cómo adaptamos el tratamiento.",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["deportiva", "lesiones", "atletas", "esguinces", "rendimiento"]
+    },
+    {
+      "id": 11,
+      "category": "servicios",
+      "subcategory": "post_quirurgica",
+      "questions": [
+        "rehabilitación post-quirúrgica",
+        "después de cirugía",
+        "post operatorio",
+        "recuperación post cirugía"
+      ],
+      "answer": "🔄 **¡Tu aliado en la recuperación después de cirugía!**\n\n**Inversión:** $120.000 por 120 minutos de acompañamiento experto\n\n**Esta terapia es esencial si:**\n• Te has sometido a cirugía ortopédica\n• Necesitas recuperar movilidad perdida\n• Quieres evitar complicaciones post-operatorias\n• Buscas el máximo resultado de tu intervención\n\n**Nuestro protocolo cuidadoso:**\n• **Coordinación directa** con tu equipo quirúrgico\n• **Progresión milimétrica** según tu tolerancia\n• **Manejo del dolor** con técnicas seguras\n• **Empoderamiento** para tu autocuidado\n\n**Importante:** Requerimos tu historial médico completo para ofrecerte la máxima seguridad.\n\n¿Podrías compartirme qué tipo de cirugía tuviste? Así te cuento casos similares exitosos.",
+      "links": ["/servicios_terapeuticos", "/requisitos_especiales"],
+      "keywords": ["post-quirúrgica", "cirugía", "post operatorio", "avanzado"]
+    },
+    {
+      "id": 12,
+      "category": "servicios",
+      "subcategory": "puncion_seca",
+      "questions": [
+        "¿qué es punción seca?",
+        "punción seca tratamiento",
+        "agujas para contracturas",
+        "puntos gatillo"
+      ],
+      "answer": "🎯 **Punción Seca: Liberación profunda de contracturas rebeldes**\n\n**Inversión:** $75.000 por 45 minutos de precisión terapéutica\n\n**Para esos dolores que:**\n• No ceden con masaje tradicional\n• Se sienten como \"nudos\" profundos\n• Limitán tu movimiento constantemente\n• Han sido persistentes por semanas o meses\n\n**Cómo funciona:**\nUsamos agujas muy finas para desactivar los \"puntos gatillo\" - esas zonas musculares que se mantienen contraídas involuntariamente.\n\n**Lo que sentirás:**\n• Alivio inmediato en la mayoría de casos\n• Recuperación de movilidad perdida\n• Reducción de dolor referido\n• Mejor respuesta a otras terapias\n\n**Nota:** Requiere evaluación médica previa para asegurar que es adecuado para ti.\n\n¿Tienes alguna zona específica que sientes constantemente contracturada?",
+      "links": ["/servicios_terapeuticos", "/requisitos_especiales"],
+      "keywords": ["punción seca", "agujas", "contracturas", "puntos gatillo"]
+    },
+    {
+      "id": 13,
+      "category": "servicios",
+      "subcategory": "vendaje_neuromuscular",
+      "questions": [
+        "vendaje neuromuscular",
+        "kinesiotape",
+        "vendaje terapéutico",
+        "cinta terapéutica"
+      ],
+      "answer": "🌈 **Vendaje Neuromuscular: Tu soporte inteligente en colores**\n\n**Inversión:** $45.000 por 30 minutos de aplicación experta\n\n**Estas vendas especiales:**\n• Facilitan la función muscular natural\n• Reducen dolor sin limitar movimiento\n• Mejoran circulación y drenaje\n• Se pueden usar durante varios días\n\n**Ideal para:**\n• Soporte durante actividad deportiva\n• Reducción de edema e inflamación\n• Corrección postural suave\n• Alivio de tendinitis y esguinces\n\n**Nuestro valor agregado:**\nTe enseñamos a identificar cuándo y cómo usarlas, y las aplicamos con técnicas específicas para tu condición.\n\n¿Tienes alguna lesión que podría beneficiarse de este soporte inteligente?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["vendaje", "neuromuscular", "kinesiotape", "cinta"]
+    },
+    {
+      "id": 14,
+      "category": "servicios",
+      "subcategory": "terapia_miofascial",
+      "questions": [
+        "terapia miofascial",
+        "liberación fascial",
+        "tejido conectivo",
+        "dolor crónico muscular"
+      ],
+      "answer": "🌊 **Terapia Miofascial: Libera la red que sostiene tu cuerpo**\n\n**Inversión:** $60.000 por 60 minutos de liberación profunda\n\n**La fascia es:**\nEl tejido conectivo que envuelve músculos, huesos y órganos. Cuando se restringe, causa dolor y limitación.\n\n**Esta terapia es tu aliada si:**\n• Tienes dolores que migran de un lugar a otro\n• Sientes rigidez matutina\n• Has tenido lesiones recurrentes\n• El masaje tradicional no alcanza a aliviar\n\n**Nuestra técnica:**\nPresión sostenida y estiramiento específico para liberar adherencias fasciales.\n\n**Resultados comunes:**\n• Mejoría en movilidad articular\n• Reducción de dolor crónico\n• Sensación de \"ligereza\" corporal\n• Mejor postura natural\n\n¿Has notado que tu dolor parece moverse o cambiar de ubicación?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["miofascial", "fascia", "tejido conectivo", "dolor crónico"]
+    },
+    {
+      "id": 15,
+      "category": "servicios",
+      "subcategory": "masaje_terapeutico",
+      "questions": [
+        "masaje terapéutico",
+        "masaje para contracturas",
+        "terapia manual",
+        "alivio de dolor muscular"
+      ],
+      "answer": "👐 **Masaje Terapéutico: Alivio dirigido donde más lo necesitas**\n\n**Inversión:** $55.000 por 60 minutos de atención focalizada\n\n**Diferencia clave:**\nNo es relajación general, es intervención específica en zonas problemáticas.\n\n**Perfecto cuando:**\n• Tienes contracturas localizadas\n• El dolor interfiere con actividades diarias\n• Necesitas recuperación muscular post-esfuerzo\n• Sientes puntos específicos de tensión\n\n**Nuestro abordaje:**\n1. Identificación precisa de zonas afectadas\n2. Técnicas específicas para cada tipo de tejido\n3. Intensidad ajustada a tu tolerancia\n4. Plan de mantenimiento entre sesiones\n\n**Zonas comunes:** Cuello, hombros, espalda baja, glúteos.\n\n¿Podrías señalarme en tu cuerpo dónde sientes la molestia principal?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["masaje terapéutico", "contracturas", "dolor muscular", "terapia manual"]
+    },
+    {
+      "id": 16,
+      "category": "servicios",
+      "subcategory": "craneosacral",
+      "questions": [
+        "terapia craneosacral",
+        "cefaleas tratamiento",
+        "migrañas terapia",
+        "sistema craneosacral"
+      ],
+      "answer": "🌀 **Terapia Craneosacral: Armoniza tu ritmo interno**\n\n**Inversión:** $70.000 por 60 minutos de equilibrio sutil\n\n**Esta terapia suave trabaja con:**\nEl sistema craneosacral - el ritmo sutil de movimiento del líquido cefalorraquídeo.\n\n**Transformador para:**\n• Migrañas y cefaleas tensiones\n• Estrés y ansiedad persistentes\n• Problemas de sueño\n• Secuelas de traumas físicos o emocionales\n• Disfunción temporomandibular (ATM)\n\n**La experiencia:**\nToques muy suaves (apenas 5 gramos de presión) que facilitan la autorregulación de tu sistema.\n\n**Requiere:** Evaluación previa para determinar si es el enfoque adecuado para ti.\n\n¿Has notado relación entre tu estrés y tus síntomas físicos?",
+      "links": ["/servicios_terapeuticos", "/requisitos_especiales"],
+      "keywords": ["craneosacral", "cefaleas", "migrañas", "sistema nervioso"]
+    },
+    {
+      "id": 17,
+      "category": "servicios",
+      "subcategory": "drenaje_linfatico",
+      "questions": [
+        "drenaje linfático manual",
+        "linfedema tratamiento",
+        "edemas terapia",
+        "sistema linfático"
+      ],
+      "answer": "💧 **Drenaje Linfático Manual: Suavidad que moviliza**\n\n**Inversión:** $65.000 por 50 minutos de movilización delicada\n\n**Esta técnica especializada:**\nEstimula tu sistema linfático para eliminar toxinas y reducir edemas de forma natural.\n\n**Es especialmente beneficioso para:**\n• Pacientes post-quirúrgicos (cirugías plásticas, ortopédicas)\n• Edemas por insuficiencia venosa\n• Linfedema\n• Retención de líquidos\n• Procesos inflamatorios crónicos\n\n**Nuestro toque experto:**\nMovimientos rítmicos, suaves y precisos que siguen la anatomía de tu sistema linfático.\n\n**Nota:** Requiere evaluación previa, especialmente si hay diagnóstico médico específico.\n\n¿Estás experimentando hinchazón en alguna zona particular?",
+      "links": ["/servicios_terapeuticos", "/requisitos_especiales"],
+      "keywords": ["drenaje linfático", "edemas", "linfedema", "toxinas"]
+    },
+    {
+      "id": 18,
+      "category": "servicios",
+      "subcategory": "electroterapia",
+      "questions": [
+        "electroterapia avanzada",
+        "terapia con corrientes",
+        "TENS",
+        "estimulación eléctrica"
+      ],
+      "answer": "⚡ **Electroterapia Avanzada: Tecnología al servicio de tu alivio**\n\n**Inversión:** $70.000 por 50 minutos de estimulación precisa\n\n**Utilizamos corrientes terapéuticas para:**\n• Manejo del dolor agudo y crónico\n• Estimulación muscular sin carga articular\n• Reducción de inflamación\n• Aceleración de procesos de curación\n\n**Nuestros equipos permiten:**\n• Ajuste milimétrico de parámetros\n• Combinación de modalidades según necesidad\n• Seguimiento objetivo de tu progreso\n\n**Es ideal cuando:**\n• El dolor limita tu movilidad\n• Necesitas rehabilitar músculos específicos\n• Hay procesos inflamatorios persistentes\n\n**Importante:** Requiere diagnóstico médico previo para máxima efectividad y seguridad.\n\n¿Tu médico te ha recomendado algún tipo específico de electroterapia?",
+      "links": ["/servicios_terapeuticos", "/requisitos_especiales"],
+      "keywords": ["electroterapia", "corrientes", "TENS", "estimulación"]
+    },
+    {
+      "id": 19,
+      "category": "servicios",
+      "subcategory": "terapia_neural",
+      "questions": [
+        "terapia neural",
+        "neuralgias tratamiento",
+        "sistema neurovegetativo",
+        "dolor crónico complejo"
+      ],
+      "answer": "🕸️ **Terapia Neural: Reequilibra tu sistema de comunicación interno**\n\n**Inversión:** $95.000 por 90 minutos de intervención profunda\n\n**Aborda el sistema neurovegetativo:**\nLa red que regula funciones automáticas de tu cuerpo.\n\n**Particularmente efectiva para:**\n• Neuralgias y dolores neuropáticos\n• Condiciones crónicas complejas\n• Dolores que no responden a tratamientos convencionales\n• Alteraciones del sistema nervioso autónomo\n\n**Nuestro equipo especializado:**\nSolo terapeutas con certificación avanzada aplican esta técnica.\n\n**El proceso:**\nInyecciones muy superficiales de anestésicos locales diluidos en puntos específicos.\n\n**Disponibilidad:** Limitada a especialistas certificados, con evaluación exhaustiva previa.\n\n¿Has recibido múltiples tratamientos sin encontrar alivio completo?",
+      "links": ["/servicios_terapeuticos", "/requisitos_especiales"],
+      "keywords": ["terapia neural", "neuralgias", "neurovegetativo", "crónico"]
+    },
+    {
+      "id": 20,
+      "category": "servicios",
+      "subcategory": "niveles_servicio",
+      "questions": [
+        "¿qué servicios son básicos?",
+        "tratamientos sin evaluación",
+        "servicios fáciles",
+        "terapias simples"
+      ],
+      "answer": "🌱 **Servicios para comenzar tu camino al bienestar:**\n\n**Puedes acceder directamente a:**\n• **Masaje Relajante** ($35.000) - Para desconectar y renovar\n• **Terapia de Estiramientos** ($40.000) - Para recuperar movilidad\n\n**Por qué empezar aquí:**\nEstos servicios no requieren evaluación previa y son excelentes puntos de entrada para:\n1. Conocer nuestro espacio y metodología\n2. Experimentar alivio inmediato\n3. Decidir si quieres profundizar en tu recuperación\n\n**Nuestro consejo:**\nMuchos pacientes comienzan con estos servicios y luego, según sus necesidades, exploran opciones más especializadas.\n\n¿Te gustaría probar alguno de estos servicios como primer acercamiento?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["básicos", "simples", "sin evaluación", "fáciles"]
+    },
+    {
+      "id": 21,
+      "category": "servicios",
+      "subcategory": "requisitos_especiales",
+      "questions": [
+        "¿qué servicios requieren evaluación?",
+        "tratamientos con requisitos",
+        "servicios especializados",
+        "necesito evaluación médica"
+      ],
+      "answer": "🔍 **Servicios que requieren evaluación previa - Por tu seguridad:**\n\n**Estas terapias avanzadas necesitan valoración médica:**\n• Punción Seca\n• Terapia Craneosacral\n• Drenaje Linfático Manual\n• Electroterapia Avanzada\n• Terapia Neural\n\n**Por qué es importante:**\n1. **Seguridad:** Confirmamos que es apropiado para tu condición\n2. **Efectividad:** Diseñamos el protocolo específico para ti\n3. **Personalización:** Consideramos tu historial completo\n4. **Coordinación:** Si es necesario, coordinamos con otros profesionales\n\n**El proceso es simple:**\nAgenda una evaluación inicial sin costo donde definiremos juntos el mejor camino.\n\n¿Hay alguna terapia específica que te interese y quieras saber más sobre su proceso de evaluación?",
+      "links": ["/requisitos_especiales"],
+      "keywords": ["requiere evaluación", "especializados", "médico previo", "requisitos"]
+    },
+    {
+      "id": 22,
+      "category": "nutricion",
+      "subcategory": "productos_generales",
+      "questions": [
+        "productos nutricionales",
+        "suplementos fisiosalud",
+        "nutrición y alimentos",
+        "¿qué productos venden?"
+      ],
+      "answer": "🍃 **Nutrición inteligente para potenciar tu recuperación**\n\n**Ofrecemos 12 productos seleccionados con rigor:**\n\n**Para tu energía y músculos:**\n• Proteína en Polvo ($85.000)\n• Barritas Proteicas ($25.000)\n• Pre-Entreno Energético ($48.000)\n\n**Para articulaciones y huesos:**\n• Colágeno Hidrolizado ($55.000)\n• Calcio + Vitamina D3 ($38.000)\n\n**Para salud integral:**\n• Multivitamínico Completo ($45.000)\n• Omega 3 Premium ($65.000)\n• Coenzima Q10 ($52.000)\n\n**Para digestión y detox:**\n• Fibra Soluble ($28.000)\n• Jugo de Aloe Vera ($35.000)\n• Quemador Natural ($42.000)\n\n**Nuestra filosofía:** Suplementación basada en evidencia, no en modas.\n\n¿Te gustaría conocer más sobre algún producto específico?",
+      "links": ["/servicios_alimenticios"],
+      "keywords": ["nutrición", "suplementos", "productos", "alimentos"]
+    },
+    {
+      "id": 23,
+      "category": "nutricion",
+      "subcategory": "proteina_polvo",
+      "questions": [
+        "proteína en polvo",
+        "suplemento proteico",
+        "proteína para músculos",
+        "whey protein"
+      ],
+      "answer": "💪 **Proteína en Polvo: Combustible premium para tu recuperación muscular**\n\n**Inversión:** $85.000 por 900g\n\n**Características destacadas:**\n• 25g de proteína de alta calidad por porción\n• Baja en lactosa (ideal para sensibilidades)\n• Sabores naturales sin edulcorantes artificiales\n• Mix perfecto de proteínas rápidas y lentas\n\n**Especialmente beneficiosa para:**\n• Recuperación post-entrenamiento\n• Mantenimiento muscular durante rehabilitación\n• Personas con requerimientos proteicos aumentados\n• Adultos mayores que necesitan preservar masa muscular\n\n**Nuestra recomendación:**\nMezclar con agua o leche vegetal después de tu sesión de terapia o ejercicio.\n\n¿Estás en proceso de rehabilitación muscular o haciendo ejercicio regular?",
+      "links": ["/nutricion/AC3311"],
+      "keywords": ["proteína", "polvo", "whey", "músculos", "recuperación"]
+    },
+    {
+      "id": 24,
+      "category": "nutricion",
+      "subcategory": "multivitaminico",
+      "questions": [
+        "multivitamínico completo",
+        "vitaminas y minerales",
+        "suplemento vitamínico",
+        "vitaminas orgánicas"
+      ],
+      "answer": "🌈 **Multivitamínico Completo: Tu seguro nutricional diario**\n\n**Inversión:** $45.000 por 60 tabletas\n\n**Lo que incluye:**\n• 22 vitaminas y minerales esenciales\n• Formulación equilibrada para absorción óptima\n• Origen 100% orgánico certificado\n• Libre de los 8 alérgenos principales\n\n**Ideal cuando:**\n• Tu dieta no cubre todos los nutrientes\n• Estás en proceso de recuperación (aumentan necesidades)\n• Sientes fatiga inexplicada\n• Quieres prevenir deficiencias\n\n**Nuestro diferencial:**\nNo es un multivitamínico genérico, está formulado considerando las necesidades comunes en procesos de rehabilitación.\n\n¿Has notado cambios en tus niveles de energía últimamente?",
+      "links": ["/nutricion/BD1245"],
+      "keywords": ["multivitamínico", "vitaminas", "minerales", "orgánico"]
+    },
+    {
+      "id": 25,
+      "category": "nutricion",
+      "subcategory": "omega3",
+      "questions": [
+        "omega 3 premium",
+        "ácidos grasos",
+        "suplemento cardiosaludable",
+        "EPA DHA"
+      ],
+      "answer": "🐟 **Omega 3 Premium: El antiinflamatorio natural**\n\n**Inversión:** $65.000 por 120 cápsulas\n\n**Por qué es premium:**\n• 1000mg de EPA/DHA por porción (dosis terapéutica)\n• Certificación IFOS 5 estrellas (máxima pureza)\n• Libre de metales pesados y contaminantes\n• Proceso de destilación molecular\n\n**Beneficios específicos en rehabilitación:**\n• Reduce inflamación articular y muscular\n• Acelera procesos de recuperación\n• Mejora salud cardiovascular\n• Soporta función cerebral\n\n**Nuestra recomendación:**\nEsencial para pacientes con condiciones inflamatorias crónicas como artritis.\n\n¿Manejas alguna condición inflamatoria o dolor articular?",
+      "links": ["/nutricion/NH4316"],
+      "keywords": ["omega 3", "ácidos grasos", "cardiosaludable", "EPA", "DHA"]
+    },
+    {
+      "id": 26,
+      "category": "nutricion",
+      "subcategory": "barritas_proteicas",
+      "questions": [
+        "barritas proteicas",
+        "snack proteico",
+        "barra de proteína",
+        "merienda saludable"
+      ],
+      "answer": "🍫 **Barritas Proteicas: Tu snack inteligente para el día a día**\n\n**Inversión:** $25.000 por 6 unidades\n\n**Perfectas para:**\n• Meriendas entre sesiones de terapia\n• Post-entrenamiento práctico\n• Control del apetito saludable\n• Suplementación discreta en cualquier lugar\n\n**Características que amamos:**\n• 15g de proteína por barra\n• Bajo contenido de azúcar\n• Alto en fibra para saciedad\n• Sin gluten ni ingredientes artificiales\n\n**Sabores disponibles:**\nChocolate oscuro, coco, frutos rojos.\n\n**Nuestro consejo:**\nLleva una en tu bolso para esos momentos donde necesitas energía de calidad.\n\n¿Sueles tener antojos entre comidas o necesitas practicidad en tu nutrición?",
+      "links": ["/nutricion/BP5572"],
+      "keywords": ["barritas", "proteicas", "snack", "merienda", "saludable"]
+    },
+    {
+      "id": 27,
+      "category": "nutricion",
+      "subcategory": "colageno",
+      "questions": [
+        "colágeno hidrolizado",
+        "suplemento para articulaciones",
+        "colágeno tipo I",
+        "salud articular"
+      ],
+      "answer": "🦴 **Colágeno Hidrolizado: Reconstruye desde adentro**\n\n**Inversión:** $55.000 por 300g\n\n**Tipo específico:**\nColágeno tipo I y III - los principales componentes de articulaciones, huesos y piel.\n\n**Para quién es esencial:**\n• Personas con osteoartritis\n• Desgaste articular por edad o actividad\n• Recuperación de lesiones de tejido conectivo\n• Cuidado preventivo de la piel\n\n**Resultados esperados:**\n• Mejoría en movilidad articular (4-8 semanas)\n• Reducción de dolor articular\n• Piel más firme e hidratada\n• Uñas y cabello más fuertes\n\n**Nuestra sugerencia:**\nMezclar en tu café matutino o batido favorito.\n\n¿Tienes alguna articulación que te preocupe especialmente?",
+      "links": ["/nutricion/CH6741"],
+      "keywords": ["colágeno", "articulaciones", "piel", "huesos", "hidrolizado"]
+    },
+    {
+      "id": 28,
+      "category": "nutricion",
+      "subcategory": "batido_nutricional",
+      "questions": [
+        "batido nutricional completo",
+        "reemplazo de comida",
+        "batido proteico",
+        "suplemento completo"
+      ],
+      "answer": "🥤 **Batido Nutricional Completo: Nutrición completa en un vaso**\n\n**Inversión:** $75.000 por 450g\n\n**Cuando la vida va rápido pero la nutrición no puede esperar:**\n• 20g de proteína vegetal de alta calidad\n• 26 vitaminas y minerales esenciales\n• Probióticos incluidos para salud intestinal\n• Bajo índice glucémico\n\n**Ideal para:**\n• Desayunos rápidos pero completos\n• Recuperación post-terapia\n• Suplementación en pérdida de peso\n• Personas con poco apetito\n\n**Nuestro plus:**\nFormulado por nuestro equipo de nutricionistas específicamente para personas en procesos de rehabilitación.\n\n¿Buscas practicidad sin sacrificar calidad nutricional?",
+      "links": ["/nutricion/BIN8824"],
+      "keywords": ["batido", "nutricional", "reemplazo", "completo", "probióticos"]
+    },
+    {
+      "id": 29,
+      "category": "nutricion",
+      "subcategory": "calcio_vitaminaD",
+      "questions": [
+        "calcio y vitamina D3",
+        "suplemento óseo",
+        "huesos fuertes",
+        "calcio coralino"
+      ],
+      "answer": "🦴 **Calcio + Vitamina D3: La alianza perfecta para tus huesos**\n\n**Inversión:** $38.000 por 90 tabletas\n\n**Especialmente importante para:**\n• Mujeres (especialmente post-menopáusicas)\n• Adultos mayores\n• Personas con osteoporosis u osteopenia\n• Cualquier persona en prevención\n\n**Por qué nuestro producto destaca:**\n• Calcio coralino de alta absorción\n• Magnesio incluido para sinergia óptima\n• Vitamina D3 en dosis efectiva\n• Formulación que evita estreñimiento\n\n**Nuestra recomendación:**\nConsulta con nuestro nutricionista la dosis ideal según tu edad y condición.\n\n¿Te han realizado alguna densitometría ósea o tienes antecedentes familiares?",
+      "links": ["/nutricion/CV3952"],
+      "keywords": ["calcio", "vitamina D", "huesos", "óseo", "coralino"]
+    },
+    {
+      "id": 30,
+      "category": "nutricion",
+      "subcategory": "coenzima_q10",
+      "questions": [
+        "coenzima Q10",
+        "ubiquinol",
+        "antioxidante cardiovascular",
+        "energía celular"
+      ],
+      "answer": "⚡ **Coenzima Q10: Energía a nivel celular**\n\n**Inversión:** $52.000 por 60 cápsulas\n\n**En su forma más biodisponible:**\nUbiquinol - la forma activa que tu cuerpo utiliza directamente.\n\n**Funciones clave:**\n• Producción de energía celular (esencial para músculos)\n• Protección cardiovascular\n• Antioxidante potente\n• Soporte en tratamiento con estatinas\n\n**Particularmente valioso para:**\n• Personas con fatiga crónica\n• Atletas y personas muy activas\n• Mayores de 40 años (producción natural disminuye)\n• Cuidado cardiovascular preventivo\n\n**Nuestra observación:**\nMuchos pacientes reportan mejoría en sus niveles de energía.\n\n¿Has notado disminución en tu energía últimamente?",
+      "links": ["/nutricion/CQ5128"],
+      "keywords": ["coenzima Q10", "ubiquinol", "antioxidante", "cardiovascular", "energía"]
+    },
+    {
+      "id": 31,
+      "category": "nutricion",
+      "subcategory": "fibra_soluble",
+      "questions": [
+        "fibra soluble premium",
+        "psyllium e inulina",
+        "fibra para digestión",
+        "salud intestinal"
+      ],
+      "answer": "🌾 **Fibra Soluble Premium: El cepillo interno de tu intestino**\n\n**Inversión:** $28.000 por 400g\n\n**Combinación inteligente de:**\n• Psyllium (regularidad intestinal)\n• Inulina (prebiótico para tu microbiota)\n• Avena (fibra suave y saciante)\n\n**Beneficios que sentirás:**\n• Digestión más regular y cómoda\n• Control natural del apetito\n• Mejoría en niveles de glucosa\n• Microbiota intestinal más saludable\n\n**Especialmente útil cuando:**\n• Tomas medicamentos que afectan digestión\n• Tu dieta es baja en fibra\n• Buscas control de peso saludable\n• Tienes problemas de estreñimiento\n\n**Nuestro tip:**\nComienza con media dosis y aumenta gradualmente.\n\n¿Cómo describirías tu digestión en las últimas semanas?",
+      "links": ["/nutricion/FS8435"],
+      "keywords": ["fibra", "soluble", "digestión", "intestinal", "psyllium"]
+    },
+    {
+      "id": 32,
+      "category": "nutricion",
+      "subcategory": "aloe_vera",
+      "questions": [
+        "jugo de aloe vera",
+        "aloe vera orgánico",
+        "desintoxicación",
+        "salud digestiva"
+      ],
+      "answer": "🌵 **Jugo de Aloe Vera Orgánico: Suavidad para tu sistema digestivo**\n\n**Inversión:** $35.000 por 1 litro\n\n**Pureza certificada:**\n• 99.7% aloe vera puro\n• Certificación USDA Organic\n• Sin aloína (componente irritante)\n• Procesado en frío\n\n**Para qué momentos:**\n• Acidez o reflujo ocasional\n• Digestión pesada\n• Desintoxicación suave\n• Piel desde adentro hacia afuera\n\n**Cómo usarlo:**\n30ml en ayunas o antes de comidas principales.\n\n**Nuestra experiencia:**\nMuchos pacientes con condiciones inflamatorias digestivas encuentran alivio.\n\n¿Experimentas molestias digestivas con frecuencia?",
+      "links": ["/nutricion/JA7294"],
+      "keywords": ["aloe vera", "orgánico", "desintoxicación", "digestivo", "jugo"]
+    },
+    {
+      "id": 33,
+      "category": "nutricion",
+      "subcategory": "pre_entreno",
+      "questions": [
+        "pre-entreno energético",
+        "suplemento pre ejercicio",
+        "energía para entrenar",
+        "beta-alanina"
+      ],
+      "answer": "🔥 **Pre-Entreno Energético: Prepárate para dar lo mejor**\n\n**Inversión:** $48.000 por 300g\n\n**Formulado para:**\n• Aumentar resistencia durante el ejercicio\n• Mejorar enfoque mental\n• Retrasar la fatiga muscular\n• Optimizar cada sesión\n\n**Ingredientes clave:**\n• Beta-alanina (reduce acidez muscular)\n• Citrulina malato (mejora flujo sanguíneo)\n• Cafeína natural de liberación prolongada\n• Vitaminas B para producción de energía\n\n**Perfecto si:**\n• Tus sesiones de terapia incluyen ejercicio\n• Haces actividad física regular\n• Necesitas un impulso antes de entrenar\n\n**Nuestra advertencia:**\nNo usar en la tarde/noche si afecta tu sueño.\n\n¿A qué hora del día sueles hacer ejercicio o tu terapia?",
+      "links": ["/nutricion/PE2346"],
+      "keywords": ["pre-entreno", "energético", "ejercicio", "beta-alanina", "cafeína"]
+    },
+    {
+      "id": 34,
+      "category": "nutricion",
+      "subcategory": "quemador_natural",
+      "questions": [
+        "quemador natural",
+        "termogénico natural",
+        "acelerar metabolismo",
+        "quema de grasa"
+      ],
+      "answer": "🌿 **Quemador Natural: Apoya tu metabolismo con ingredientes de la tierra**\n\n**Inversión:** $42.000 por 90 cápsulas\n\n**Enfoque natural para:**\n• Aumentar gasto calórico en reposo\n• Controlar el apetito\n• Proporcionar energía sostenida\n• Apoyar procesos de pérdida de peso\n\n**Componentes principales:**\n• Extracto de té verde estandarizado\n• Cafeína natural de fuentes vegetales\n• Capsaicina (del chile)\n• Cromo para regulación glucémica\n\n**Ideal cuando:**\n• El peso afecta tus articulaciones\n• Buscas complementar dieta y ejercicio\n• Necesitas energía sin nerviosismo\n\n**Nuestra observación:**\nEfectos secundarios mínimos cuando se usa según indicaciones.\n\n¿Estás trabajando en objetivos de composición corporal?",
+      "links": ["/nutricion/QN1199"],
+      "keywords": ["quemador", "natural", "termogénico", "metabolismo", "grasa"]
+    },
+    {
+      "id": 35,
+      "category": "implementos",
+      "subcategory": "productos_generales",
+      "questions": [
+        "implementos terapéuticos",
+        "equipos para casa",
+        "productos fisioterapia",
+        "equipamiento terapéutico"
+      ],
+      "answer": "🏠 **Tu clínica en casa: Implementos para continuar tu progreso**\n\n**12 herramientas seleccionadas por expertos:**\n\n**Para fuerza y resistencia:**\n• Kettlebell Ajustable ($85.000)\n• Mancuernas Ajustables ($120.000)\n• Bandas de Resistencia ($45.000)\n\n**Para recuperación y alivio:**\n• Rodillo de Espuma ($35.000)\n• Masajeador Percusivo ($150.000)\n• Almohadilla Térmica ($95.000)\n• Compresa de Gel ($25.000)\n\n**Para equilibrio y estabilidad:**\n• Pelota de Estabilidad ($40.000)\n• Bloques de Yoga ($32.000)\n\n**Tecnología para casa:**\n• Equipo TENS/EMS ($180.000)\n• Ultrasonido Portátil ($220.000)\n\n**Nuestra promesa:** Solo equipos que realmente usarás y que complementarán tu terapia.\n\n¿Te gustaría conocer algún implemento en particular?",
+      "links": ["/servicios_implementos"],
+      "keywords": ["implementos", "equipos", "terapéuticos", "casa", "productos"]
+    },
+    {
+      "id": 36,
+      "category": "implementos",
+      "subcategory": "kettlebell",
+      "questions": [
+        "kettlebell ajustable",
+        "pesa rusa",
+        "kettlebell para casa",
+        "peso ajustable"
+      ],
+      "answer": "🏋️‍♂️ **Kettlebell Ajustable: Un gimnasio completo en una sola pieza**\n\n**Inversión:** $85.000\n\n**Versatilidad única:**\n• Peso ajustable de 4kg a 20kg\n• No necesitas múltiples kettlebells\n• Perfecto para progresión gradual\n\n**Características destacadas:**\n• Agarre ergonómico antideslizante\n• Base estable que no daña pisos\n• Material compuesto de alta durabilidad\n• Sistema de ajuste seguro y fácil\n\n**Ejercicios que permite:**\n• Swings para cadena posterior\n• Presses para hombros\n• Goblet squats para piernas\n• Turkish get-ups para cuerpo completo\n\n**Nuestra recomendación:**\nIdeal para entrenamiento funcional que complementa cualquier rehabilitación.\n\n¿Buscas un equipo versátil para trabajar todo el cuerpo?",
+      "links": ["/implementos/1172RX"],
+      "keywords": ["kettlebell", "ajustable", "pesa", "rusa", "peso"]
+    },
+    {
+      "id": 37,
+      "category": "implementos",
+      "subcategory": "rodillo_espuma",
+      "questions": [
+        "rodillo de espuma",
+        "liberación miofascial",
+        "rodillo para masaje",
+        "auto-masaje"
+      ],
+      "answer": "🌀 **Rodillo de Espuma de Alta Densidad: Tu terapeuta personal en casa**\n\n**Inversión:** $35.000\n\n**Para esos días entre sesiones cuando:**\n• Sientes tensión acumulada\n• Necesitas preparar músculos antes de ejercicio\n• Quieres mejorar recuperación post-ejercicio\n\n**Por qué este rodillo es especial:**\n• Densidad profesional (no se aplasta)\n• Superficie texturizada para liberación profunda\n• Material EVO duradero y fácil de limpiar\n• Incluye guía ilustrada de uso\n\n**Zonas más beneficiadas:**\n• Espalda (¡con cuidado y técnica!)\n• Piernas (cuádriceps, isquiotibiales)\n• Glúteos\n• Pantorrillas\n\n**Nuestro consejo esencial:**\nAprende la técnica correcta con nosotros primero.\n\n¿Hay alguna zona que sueles sentir particularmente tensa?",
+      "links": ["/implementos/2489HT"],
+      "keywords": ["rodillo", "espuma", "miofascial", "masaje", "auto"]
+    },
+    {
+      "id": 38,
+      "category": "implementos",
+      "subcategory": "mancuernas",
+      "questions": [
+        "mancuernas ajustables",
+        "pesas para casa",
+        "set de mancuernas",
+        "fortalecimiento"
+      ],
+      "answer": "💪 **Set de Mancuernas Ajustables Pro: Fortalece a tu ritmo**\n\n**Inversión:** $120.000\n\n**La solución para:**\n• Espacio limitado en casa\n• Progresión gradual en fuerza\n• Entrenamiento completo de cuerpo\n\n**Lo que incluye:**\n• 2 mancuernas ajustables\n• Pesas desde 2.5kg hasta 20kg\n• Rack de almacenamiento incluido\n• Agarre antideslizante ergonómico\n\n**Perfecto para:**\n• Rehabilitación de extremidades superiores\n• Mantenimiento de masa muscular\n• Ejercicios de fuerza accesibles\n• Personas que inician en el entrenamiento\n\n**Nuestro valor agregado:**\nTe enseñamos los ejercicios específicos para tu condición.\n\n¿Estás trabajando en fortalecimiento de brazos u hombros?",
+      "links": ["/implementos/3316FD"],
+      "keywords": ["mancuernas", "ajustables", "pesas", "fortalecimiento", "set"]
+    },
+    {
+      "id": 39,
+      "category": "implementos",
+      "subcategory": "bandas_resistencia",
+      "questions": [
+        "bandas de resistencia",
+        "bandas elásticas",
+        "theraband",
+        "bandas para ejercicio"
+      ],
+      "answer": "🌈 **Bandas de Resistencia Profesionales: Resistencia en colores**\n\n**Inversión:** $45.000\n\n**El equipo más versátil y portátil:**\n• 5 niveles de resistencia progresiva\n• Material látex natural de alta calidad\n• Incluye manual ilustrado de ejercicios\n• Bolsa de transporte incluida\n\n**Ideal para:**\n• Rehabilitación de hombro\n• Activación glútea\n• Ejercicios de rotación\n• Calentamiento específico\n\n**Ventajas sobre pesas:**\n• Resistencia variable (más difícil al final)\n• Menos impacto articular\n• Fácil de viajar con ellas\n• Permite ángulos únicos\n\n**Nuestro favorito:**\nPara problemas de hombro, son insustituibles.\n\n¿Tienes alguna articulación que necesita trabajo específico?",
+      "links": ["/implementos/5634KJ"],
+      "keywords": ["bandas", "resistencia", "elásticas", "theraband", "ejercicio"]
+    },
+    {
+      "id": 40,
+      "category": "implementos",
+      "subcategory": "almohadilla_termica",
+      "questions": [
+        "almohadilla térmica",
+        "calor infrarrojo",
+        "terapia de calor",
+        "alivio dolor muscular"
+      ],
+      "answer": "🔥 **Almohadilla Térmica de Infrarrojo: Calor que penetra profundo**\n\n**Inversión:** $95.000\n\n**Cuando el calor superficial no es suficiente:**\n• Penetración infrarroja hasta 4cm\n• 6 niveles de temperatura ajustable\n• Apagado automático por seguridad\n• Cubierta lavable hipoalergénica\n\n**Especialmente efectiva para:**\n• Dolores crónicos musculares\n• Rigidez matutina\n• Preparación muscular antes de ejercicio\n• Relajación profunda\n\n**Contraindicaciones importantes:**\nNo usar en inflamación aguda o heridas abiertas.\n\n**Nuestra recomendación:**\n15-20 minutos en zona afectada, no más.\n\n¿Experimentas dolor muscular que mejora con calor?",
+      "links": ["/implementos/5903LK"],
+      "keywords": ["almohadilla", "térmica", "infrarrojo", "calor", "dolor"]
+    },
+    {
+      "id": 41,
+      "category": "implementos",
+      "subcategory": "masajeador_percusivo",
+      "questions": [
+        "masajeador percusivo",
+        "pistola de masaje",
+        "masaje profundo",
+        "terapia de percusión"
+      ],
+      "answer": "🔨 **Masajeador Percusivo Profesional: Liberación a alta frecuencia**\n\n**Inversión:** $150.000\n\n**Tecnología que revoluciona la recuperación:**\n• 5 velocidades ajustables (1,800-3,200 percusiones/min)\n• 4 cabezales intercambiables para diferentes tejidos\n• Batería de larga duración (4-6 horas)\n• Diseño ergonómico que reduce vibración en manos\n\n**Efectos terapéuticos:**\n• Liberación de puntos gatillo\n• Mejora en flujo sanguíneo\n• Reducción de dolor muscular retardado\n• Preparación muscular pre-ejercicio\n\n**Nuestra advertencia:**\nAprende las zonas a evitar (huesos, nervios, vasos).\n\n¿Sufres de contracturas profundas o dolor muscular post-ejercicio?",
+      "links": ["/implementos/6308BP"],
+      "keywords": ["masajeador", "percusivo", "pistola", "masaje", "profundo"]
+    },
+    {
+      "id": 42,
+      "category": "implementos",
+      "subcategory": "pelota_estabilidad",
+      "questions": [
+        "pelota de estabilidad",
+        "balón de ejercicio",
+        "pelota suiza",
+        "core y equilibrio"
+      ],
+      "answer": "⚽ **Pelota de Estabilidad Profesional: Equilibrio que transforma**\n\n**Inversión:** $40.000\n\n**No es solo una pelota, es:**\n• Herramienta para fortalecer core profundo\n• Mejora de equilibrio y propiocepción\n• Complemento para rehabilitación de columna\n• Equipo para ejercicios de bajo impacto\n\n**Características de seguridad:**\n• Material anti-reventón (se desinfla lentamente)\n• 4 tamaños según tu altura (55-75cm)\n• Resistencia hasta 300kg\n• Incluye bomba de aire\n\n**Ejercicios clave que enseña:**\n• Activación de transverso abdominal\n• Puentes para glúteos y espalda\n• Estabilización de columna\n\n**Nuestra recomendación:**\nÚsala como silla ocasional para activar core durante el día.\n\n¿Buscas mejorar tu postura o equilibrio?",
+      "links": ["/implementos/8741QM"],
+      "keywords": ["pelota", "estabilidad", "balón", "ejercicio", "equilibrio"]
+    },
+    {
+      "id": 43,
+      "category": "implementos",
+      "subcategory": "electroterapia_casa",
+      "questions": [
+        "equipo TENS EMS",
+        "electroterapia para casa",
+        "estimulador eléctrico",
+        "dolor crónico casa"
+      ],
+      "answer": "⚡ **Equipo TENS/EMS para Casa: Tu clínica portátil**\n\n**Inversión:** $180.000\n\n**Cuando necesitas alivio entre sesiones:**\n• **TENS:** Manejo del dolor sin medicamentos\n• **EMS:** Estimulación muscular para atrofia\n\n**Características profesionales:**\n• 8 modos preprogramados\n• Intensidad ajustable en 20 niveles\n• Pantalla LCD con temporizador\n• Batería recargable de larga duración\n\n**Ideal para:**\n• Manejo de dolor crónico en casa\n• Rehabilitación muscular post-inmovilización\n• Pacientes que viajan frecuentemente\n• Complemento a terapia manual\n\n**Importante:** Requiere entrenamiento previo para uso seguro.\n\n¿Tu terapeuta te ha recomendado electroterapia como parte de tu tratamiento?",
+      "links": ["/implementos/90346G"],
+      "keywords": ["TENS", "EMS", "electroterapia", "casa", "estimulador"]
+    },
+    {
+      "id": 44,
+      "category": "implementos",
+      "subcategory": "compresa_gel",
+      "questions": [
+        "compresa de gel",
+        "terapia frío calor",
+        "compresa reutilizable",
+        "lesiones agudas"
+      ],
+      "answer": "❄️🔥 **Compresa de Gel Reutilizable: Frío o calor según necesites**\n\n**Inversión:** $25.000\n\n**El básico que todos necesitan:**\n• Uso en caliente (microondas) o frío (congelador)\n• Material flexible que se adapta a cualquier zona\n• Mantiene temperatura 45 minutos\n• Funda de tela incluida para comodidad\n\n**Cuándo usar frío:**\n• Primeras 48-72 horas después de lesión\n• Inflamación aguda\n• Dolor post-ejercicio intenso\n\n**Cuándo usar calor:**\n• Rigidez matutina\n• Dolores crónicos musculares\n• Preparación para ejercicio\n\n**Nuestro consejo:**\nTener dos: una siempre lista en el congelador.\n\n¿Sueles tener lesiones agudas o dolor crónico?",
+      "links": ["/implementos/A93F7G"],
+      "keywords": ["compresa", "gel", "frío", "calor", "reutilizable"]
+    },
+    {
+      "id": 45,
+      "category": "implementos",
+      "subcategory": "pelotas_manos",
+      "questions": [
+        "pelotas para manos",
+        "ejercicios de manos",
+        "rehabilitación manual",
+        "artritis manos"
+      ],
+      "answer": "🤲 **Pelotas de Ejercicio para Manos: Fuerza en la palma de tu mano**\n\n**Inversión:** $18.000\n\n**Para cuando las manos necesitan atención:**\n• 3 niveles de resistencia (suave, medio, firme)\n• Material antideslizante con textura terapéutica\n• Incluye guía de ejercicios específicos\n• Tamaño perfecto para bolsillo o bolso\n\n**Condiciones que beneficia:**\n• Artritis reumatoide y osteoartritis\n• Síndrome del túnel carpiano\n• Recuperación post-fractura de mano\n• Prevención de lesiones por uso repetitivo\n\n**Ejercicios que incluye:**\n• Apretes para fuerza\n• Rodamientos para movilidad\n• Estiramientos específicos\n\n**Nuestro tip:**\nÚsalas durante llamadas telefónicas o viendo TV.\n\n¿Tienes molestias en manos o muñecas?",
+      "links": ["/implementos/PH63RT"],
+      "keywords": ["pelotas", "manos", "ejercicios", "artritis", "rehabilitación"]
+    },
+    {
+      "id": 46,
+      "category": "implementos",
+      "subcategory": "ultrasonido",
+      "questions": [
+        "ultrasonido terapéutico",
+        "ultrasonido portátil",
+        "terapia ultrasónica",
+        "lesiones profundas"
+      ],
+      "answer": "📡 **Ultrasonido Terapéutico Portátil: Profundidad terapéutica en casa**\n\n**Inversión:** $220.000\n\n**Tecnología clínica ahora accesible:**\n• Frecuencia ajustable 1-3 MHz (superficial o profundo)\n• Intensidad regulable para precisión\n• Batería recargable de larga duración\n• Diseño compacto y liviano\n\n**Efectos terapéuticos:**\n• Aumento de circulación en tejidos profundos\n• Reducción de inflamación crónica\n• Aceleración de curación de tejidos\n• Liberación de contracturas profundas\n\n**Para condiciones como:**\n• Tendinitis crónicas\n• Fascitis plantar\n• Contracturas profundas\n• Cicatrización de tejidos\n\n**Requerimiento:** Entrenamiento específico para uso seguro.\n\n¿Tienes alguna lesión profunda que ha sido difícil de tratar?",
+      "links": ["/implementos/UT92LM"],
+      "keywords": ["ultrasonido", "portátil", "terapéutico", "ultrasónico", "profundo"]
+    },
+    {
+      "id": 47,
+      "category": "implementos",
+      "subcategory": "bloques_yoga",
+      "questions": [
+        "bloques de yoga",
+        "yoga terapéutico",
+        "bloques espuma",
+        "estiramiento con bloques"
+      ],
+      "answer": "🧱 **Set de Bloques de Yoga Terapéutico: Apoyo literal para tu práctica**\n\n**Inversión:** $32.000\n\n**Para hacer el yoga accesible y terapéutico:**\n• 2 bloques de diferentes alturas\n• Material ecológico antideslizante\n• Ligero y fácil de transportar\n• Ideal para todos los niveles\n\n**Cómo los usamos en rehabilitación:**\n• Facilitar estiramientos seguros\n• Mejorar alineación en posturas\n• Reducir tensión en articulaciones\n• Hacer el yoga terapéutico accesible\n\n**Especialmente útil para:**\n• Personas con limitación de flexibilidad\n• Rehabilitación de columna\n• Mejora de postura\n• Reducción de estrés\n\n**Nuestra sugerencia:**\nComienza con bloques aunque seas flexible, te sorprenderán.\n\n¿Te interesa el yoga como complemento a tu rehabilitación?",
+      "links": ["/implementos/YB47KQ"],
+      "keywords": ["bloques", "yoga", "terapéutico", "estiramiento", "espuma"]
+    },
+    {
+      "id": 48,
+      "category": "citas_procesos",
+      "subcategory": "como_agendar",
+      "questions": [
+        "¿cómo agendo una cita?",
+        "solicitar cita",
+        "pedir cita fisiosalud",
+        "agendar consulta"
+      ],
+      "answer": "📅 **Agendar tu cita: Tu primer paso hacia el bienestar**\n\n**Sigue estos pasos sencillos:**\n\n1. **Regístrate en nuestro sistema** (si es tu primera vez)\n2. **Inicia sesión** con tus credenciales\n3. **Ve a 'Agendar Cita'** en tu panel principal\n4. **Selecciona el servicio** que necesitas\n5. **Elige fecha y hora** que se adapten a tu vida\n6. **Completa tu información** y método de pago preferido\n\n**Lo que sucede después:**\nTu solicitud será revisada por el terapeuta especializado, quien la aceptará según disponibilidad y adecuación a tu condición.\n\n**Nuestro compromiso:**\nResponderemos en menos de 24 horas hábiles.\n\n¿Prefieres que te guíe paso a paso o tienes alguna duda específica del proceso?",
+      "links": ["/cita"],
+      "keywords": ["agendar", "cita", "solicitar", "consulta", "pedir"]
+    },
+    {
+      "id": 49,
+      "category": "citas_procesos",
+      "subcategory": "requisitos_primera_vez",
+      "questions": [
+        "¿qué necesito para primera consulta?",
+        "documentos primera vez",
+        "requisitos primera cita",
+        "qué llevar a consulta"
+      ],
+      "answer": "🎒 **Prepárate para tu primera visita:**\n\n**Documentos esenciales:**\n1. **Documento de identidad** (cédula, pasaporte)\n2. **Orden médica** si tienes (no siempre es requerida)\n3. **Exámenes previos** relevantes (radiografías, resonancias)\n\n**Para tu comodidad:**\n4. **Ropa cómoda** que permita movimiento\n5. **Calzado deportivo** si vas a hacer ejercicio\n6. **Lista de medicamentos** que tomas actualmente\n\n**Lo que NO necesitas traer:**\n• Preocupación excesiva - estamos aquí para ayudarte\n• Expectativas rígidas - cada proceso es único\n\n**Nuestro tip:**\nLlega 10 minutos antes para completar formularios iniciales tranquilo.\n\n¿Tienes algún examen específico que quieras que revisemos?",
+      "links": ["/panel_citas"],
+      "keywords": ["primera vez", "documentos", "requisitos", "llevar", "consulta"]
+    },
+    {
+      "id": 50,
+      "category": "citas_procesos",
+      "subcategory": "aceptacion_cita",
+      "questions": [
+        "¿cuándo sabré si mi cita fue aceptada?",
+        "tiempo respuesta terapeuta",
+        "confirmación de cita",
+        "¿aprueban todas las citas?"
+      ],
+      "answer": "⏳ **Confirmación de tu cita: Proceso cuidadoso**\n\n**Tiempo de respuesta:**\nNuestros terapeutas revisan y aceptan citas generalmente en **24-48 horas hábiles**.\n\n**Por qué tomamos este tiempo:**\n1. **Verificar adecuación** del servicio a tu condición\n2. **Confirmar disponibilidad** real del especialista\n3. **Preparar materiales** específicos si son necesarios\n4. **Revisar tu historial** si ya eres paciente nuestro\n\n**Cómo recibirás la confirmación:**\n• **Email** con todos los detalles\n• **Notificación** en tu panel de citas\n• **Opcional:** Mensaje de WhatsApp si lo prefieres\n\n**Importante:** Pocas veces rechazamos citas, pero si sucede, te contactaremos para ofrecerte alternativas.\n\n¿Prefieres algún medio específico de confirmación?",
+      "links": ["/panel_citas"],
+      "keywords": ["aceptada", "confirmación", "terapeuta", "tiempo", "respuesta"]
+    },
+    {
+      "id": 51,
+      "category": "citas_procesos",
+      "subcategory": "cancelar_cita",
+      "questions": [
+        "¿cómo cancelo una cita?",
+        "cancelar consulta",
+        "anular cita fisiosalud",
+        "no puedo asistir"
+      ],
+      "answer": "🔄 **Cancelar una cita: Entendemos que la vida cambia**\n\n**Pasos sencillos:**\n1. **Inicia sesión** en tu cuenta\n2. **Ve a 'Mis Citas'** en tu panel personal\n3. **Selecciona la cita** que necesitas cancelar\n4. **Haz clic en 'Cancelar'** y confirma\n\n**Política de cancelación:**\n• **Recomendamos** cancelar con al menos 24 horas de anticipación\n• **Citas canceladas a tiempo** no generan cargos\n• **Emergencias** siempre son consideradas caso por caso\n\n**Alternativa a cancelar:**\nSi es posible, podemos intentar **reprogramar** en lugar de cancelar.\n\n¿Necesitas cancelar por una emergencia o cambio de planes?",
+      "links": ["/panel_citas"],
+      "keywords": ["cancelar", "cita", "anular", "no asistir", "eliminar"]
+    },
+    {
+      "id": 52,
+      "category": "citas_procesos",
+      "subcategory": "modificar_cita",
+      "questions": [
+        "¿puedo cambiar mi cita?",
+        "modificar fecha consulta",
+        "reprogramar cita",
+        "cambiar horario"
+      ],
+      "answer": "🕐 **Modificar tu cita: Flexibilidad para tu bienestar**\n\n**Proceso actual:**\nPara modificar una cita, necesitas:\n1. **Cancelar la cita existente** primero\n2. **Agendar una nueva** con la fecha/hora deseada\n\n**Por qué funciona así:**\nNuestro sistema libera inmediatamente el horario para otros pacientes que podrían necesitarlo.\n\n**Recomendaciones importantes:**\n• **Cancela primero** antes de buscar nueva fecha\n• **Verifica disponibilidad** antes de cancelar\n• **Considera** que el nuevo horario podría tener diferente terapeuta\n\n**Nuestra mejora próxima:**\nEstamos trabajando en un sistema de modificación directa.\n\n¿Necesitas ayuda para encontrar un nuevo horario adecuado?",
+      "links": ["/panel_citas"],
+      "keywords": ["modificar", "cambiar", "reprogramar", "fecha", "horario"]
+    },
+    {
+      "id": 53,
+      "category": "citas_procesos",
+      "subcategory": "costo_evaluacion",
+      "questions": [
+        "¿cuánto cuesta la evaluación inicial?",
+        "precio primera consulta",
+        "costo evaluación fisiosalud",
+        "consulta de valoración"
+      ],
+      "answer": "💫 **Evaluación Inicial: Conócenos sin compromiso financiero**\n\n**Inversión:** **$0** - Es completamente gratuita\n\n**Qué incluye esta evaluación:**\n1. **Historia clínica detallada** (30 minutos)\n2. **Evaluación física completa** de tu condición\n3. **Diagnóstico fisioterapéutico** preciso\n4. **Plan de tratamiento personalizado** propuesto\n5. **Respuestas a todas tus preguntas**\n\n**Por qué ofrecemos esto gratis:**\nCreemos que debes conocer nuestro enfoque y sentirte cómodo antes de invertir en tu tratamiento.\n\n**Después de la evaluación:**\nTe presentaremos opciones de tratamiento con sus respectivas inversiones, sin presión alguna.\n\n¿Te gustaría agendar tu evaluación inicial sin costo?",
+      "links": ["/cita"],
+      "keywords": ["costo", "evaluación", "inicial", "precio", "valoración"]
+    },
+    {
+      "id": 54,
+      "category": "citas_procesos",
+      "subcategory": "pagos_seguros",
+      "questions": [
+        "¿aceptan seguros médicos?",
+        "¿trabajan con EPS?",
+        "seguros aceptados",
+        "¿cubren las EPS?"
+      ],
+      "answer": "🏥 **Convenios y Seguros: Haciendo accesible tu recuperación**\n\n**Situación actual:**\nTrabajamos con varios seguros médicos y tenemos convenios específicos.\n\n**Recomendación personalizada:**\nDada la variabilidad entre planes, te sugiero:\n\n1. **Llamarnos al 320 2914521** con tu información del seguro\n2. **Consultar directamente** con tu aseguradora\n3. **Visitar nuestra clínica** para verificar cobertura\n\n**Lo que sí podemos ofrecerte:**\n• **Facturación** para que reclames con tu seguro\n• **Convenios directos** con algunas empresas\n• **Planes de pago** personalizados si es necesario\n\n**Nuestra prioridad:**\nQue el aspecto financiero no sea obstáculo para tu recuperación.\n\n¿Podrías compartirme con qué seguro cuentas?",
+      "links": ["/contacto"],
+      "keywords": ["seguros", "EPS", "pagos", "cobertura", "aceptan"]
+    },
+    {
+      "id": 55,
+      "category": "citas_procesos",
+      "subcategory": "formas_pago",
+      "questions": [
+        "¿qué formas de pago aceptan?",
+        "métodos de pago",
+        "¿aceptan tarjetas?",
+        "pago en efectivo"
+      ],
+      "answer": "💳 **Formas de Pago: Flexibilidad para tu comodidad**\n\n**Aceptamos múltiples opciones:**\n\n**En línea (al agendar):**\n• Tarjetas de crédito/débito (procesamiento seguro)\n• Transferencia bancaria electrónica\n\n**En clínica:**\n• Efectivo (pesos colombianos)\n• Tarjetas con datáfono\n• Cheques (previa verificación)\n\n**Opciones especiales:**\n• **Pago anticipado** de paquetes con descuento\n• **Planes de pago** para tratamientos extensos\n• **Facturación** a empresas o seguros\n\n**Nuestra política transparente:**\nSiempre conocerás el costo total antes de comprometerte.\n\n¿Tienes alguna preferencia específica de pago?",
+      "links": [],
+      "keywords": ["pagos", "formas", "tarjetas", "efectivo", "transferencia"]
+    },
+    {
+      "id": 56,
+      "category": "tecnologia",
+      "subcategory": "fisiobot",
+      "questions": [
+        "¿qué es fisiobot?",
+        "asistente virtual fisiosalud",
+        "chatbot fisiosalud",
+        "IA de fisiosalud"
+      ],
+      "answer": "🤖 **FisioBot: Tu compañero de recuperación 24/7**\n\n**Soy yo mismo 😊 - tu asistente virtual especializado en:**\n• **Guía personalizada** en tu proceso de rehabilitación\n• **Seguimiento de progreso** entre sesiones\n• **Análisis predictivo** para prevenir recaídas\n• **Retroalimentación en tiempo real** de tus ejercicios\n\n**Cómo te ayudo específicamente:**\n1. **Recordatorios** de tus ejercicios domiciliarios\n2. **Respuestas inmediatas** a dudas comunes\n3. **Monitoreo** de tu adherencia al tratamiento\n4. **Conexión** con tu terapeuta cuando es necesario\n\n**Lo que NO reemplazo:**\nLa evaluación y tratamiento directo con nuestros terapeutas humanos.\n\n**Mi misión:**\nSer tu apoyo constante en el camino hacia tu bienestar.\n\n¿En qué aspecto de tu recuperación te gustaría que te asista más?",
+      "links": ["/Fisiobot"],
+      "keywords": ["fisiobot", "asistente", "virtual", "IA", "chatbot"]
+    },
+    {
+      "id": 57,
+      "category": "tecnologia",
+      "subcategory": "app_movil",
+      "questions": [
+        "¿tienen app móvil?",
+        "aplicación fisiosalud",
+        "app para celular",
+        "telemedicina app"
+      ],
+      "answer": "📱 **FisioApp: Tu bienestar en la palma de tu mano (Próximamente)**\n\n**Estamos desarrollando algo especial:**\nUna aplicación móvil integral que será tu centro de control de recuperación.\n\n**Lo que podrás hacer:**\n• **Gestionar citas** con un solo clic\n• **Acceder a ejercicios** personalizados con video\n• **Seguir tu progreso** con métricas claras\n• **Chatear conmigo** (FisioBot) en cualquier momento\n• **Conectar** con tu terapeuta vía mensajes seguros\n\n**Fase actual:**\nEn desarrollo avanzado, con lanzamiento planeado para este año.\n\n**Mientras tanto:**\nNuestro sitio web es completamente móvil-friendly.\n\n¿Te gustaría ser notificado cuando lancemos la aplicación?",
+      "links": ["/Fisiobot"],
+      "keywords": ["app", "móvil", "aplicación", "celular", "telemedicina"]
+    },
+    {
+      "id": 58,
+      "category": "tecnologia",
+      "subcategory": "tele_rehabilitacion",
+      "questions": [
+        "¿ofrecen consultas virtuales?",
+        "tele-rehabilitación",
+        "consultas por video",
+        "fisioterapia online"
+      ],
+      "answer": "💻 **Tele-Rehabilitación: Atención experta donde estés**\n\n**¡Sí! Ofrecemos consultas virtuales avanzadas con:**\n• **Seguimiento por video** en tiempo real\n• **Análisis de movimiento** mediante tu cámara\n• **Guía precisa** de ejercicios domiciliarios\n• **Sesiones interactivas** completamente personalizadas\n\n**Ideal para:**\n• Seguimiento entre sesiones presenciales\n• Pacientes que viajan o viven lejos\n• Condiciones que permiten manejo a distancia\n• Educación y empoderamiento en autocuidado\n\n**Limitaciones importantes:**\nAlgunas condiciones requieren evaluación y tratamiento presencial.\n\n**Nuestro proceso:**\nEvaluamos primero si tu condición es adecuada para tele-rehabilitación.\n\n¿Te interesa explorar esta opción para tu situación específica?",
+      "links": ["/Fisiobot"],
+      "keywords": ["virtuales", "tele-rehabilitación", "video", "online", "consulta"]
+    },
+    {
+      "id": 59,
+      "category": "registro",
+      "subcategory": "como_registrarse",
+      "questions": [
+        "¿cómo me registro?",
+        "crear cuenta fisiosalud",
+        "registrarse en la página",
+        "hacerme usuario"
+      ],
+      "answer": "📝 **Registro: Tu puerta de entrada al bienestar**\n\n**Es rápido, seguro y necesario para:**\n• Agendar y gestionar citas\n• Acceder a tus planes de ejercicio\n• Ver tu historial de progreso\n• Comprar productos especializados\n\n**Pasos simples:**\n1. **Haz clic en 'Regístrate'** (esquina superior derecha)\n2. **Completa el formulario** con tus datos básicos\n3. **Confirma tu email** (te enviaremos un enlace)\n4. **Inicia sesión** con tu nueva cuenta\n\n**Datos que necesitarás:**\n• Nombre completo\n• Documento de identidad\n• Email activo\n• Teléfono de contacto\n\n**Seguridad garantizada:**\nTus datos están protegidos y solo usados para tu atención.\n\n¿Necesitas ayuda con algún paso específico del registro?",
+      "links": ["/registro"],
+      "keywords": ["registro", "cuenta", "usuario", "crear", "registrarse"]
+    },
+    {
+      "id": 60,
+      "category": "registro",
+      "subcategory": "recuperar_contrasena",
+      "questions": [
+        "olvidé mi contraseña",
+        "recuperar cuenta",
+        "no puedo ingresar",
+        "resetear contraseña"
+      ],
+      "answer": "🔐 **Recuperar tu contraseña: Sucede a los mejores**\n\n**Sigue estos pasos sencillos:**\n1. **Ve a 'Iniciar Sesión'** en nuestra página\n2. **Haz clic en '¿Olvidaste tu contraseña?'**\n3. **Ingresa el email** con el que te registraste\n4. **Revisa tu bandeja de entrada** (y spam)\n5. **Sigue las instrucciones** del email recibido\n\n**Qué incluye el email:**\n• Enlace seguro para crear nueva contraseña\n• Instrucciones claras paso a paso\n• Soporte adicional si lo necesitas\n\n**Si no recibes el email:**\n• Verifica que ingresaste el email correcto\n• Revisa tu carpeta de spam/correo no deseado\n• Espera unos minutos (puede demorar)\n• Contáctanos si persiste el problema\n\n¿Ya intentaste recuperarla y tienes algún problema específico?",
+      "links": ["/login_user"],
+      "keywords": ["contraseña", "olvidé", "recuperar", "ingresar", "resetear"]
+    },
+    {
+      "id": 61,
+      "category": "accesos",
+      "subcategory": "paciente_vs_terapeuta",
+      "questions": [
+        "acceso fisioterapeuta",
+        "panel de terapeutas",
+        "login para profesionales",
+        "acceso staff"
+      ],
+      "answer": "👨⚕️ **Acceso para Profesionales: Herramientas para el cuidado**\n\n**Diferentes niveles de acceso:**\n\n**Para pacientes (tu acceso regular):**\n• Gestión de citas personales\n• Ejercicios asignados\n• Seguimiento de progreso\n• Compras de productos\n\n**Para terapeutas y staff:**\n• Acceso especializado con credenciales únicas\n• Gestión de agenda de pacientes\n• Registro de evaluaciones y tratamientos\n• Comunicación interna\n\n**Si eres personal de FisioSalud:**\nContacta al administrador del sistema para obtener o recuperar tus credenciales.\n\n**Si eres profesional externo interesado en colaborar:**\nEnvía tu CV a recursos.humanos@fisiosalud.com\n\n¿Eres paciente buscando tu acceso o profesional interesado en colaborar?",
+      "links": [],
+      "keywords": ["acceso", "fisioterapeuta", "terapeuta", "profesional", "staff"]
+    },
+    {
+      "id": 62,
+      "category": "accesos",
+      "subcategory": "panel_paciente",
+      "questions": [
+        "¿qué puedo hacer en mi panel?",
+        "funciones del panel",
+        "mis citas en línea",
+        "seguimiento online"
+      ],
+      "answer": "📊 **Tu Panel Personal: El centro de tu recuperación**\n\n**Desde aquí controlas todo tu proceso:**\n\n**1. Citas:**\n• Ver próximas citas\n• Agendar nuevas\n• Cancelar o reprogramar\n• Historial de atenciones\n\n**2. Ejercicios:**\n• Rutinas asignadas por tu terapeuta\n• Videos demostrativos\n• Registro de cumplimiento\n• Dificultades reportadas\n\n**3. Progreso:**\n• Métricas de mejora\n• Objetivos alcanzados\n• Gráficos de evolución\n• Notas de tu terapeuta\n\n**4. Productos:**\n• Carrito de compras\n• Historial de pedidos\n• Recomendaciones personalizadas\n\n**5. Perfil:**\n• Actualizar información\n• Preferencias de contacto\n• Documentos guardados\n\n**Tu panel crece contigo:**\nA medida que avanzas en tratamiento, verás más funcionalidades.\n\n¿Hay alguna sección específica que te gustaría explorar?",
+      "links": ["/panel_citas", "/panel_ejercicios", "/panel_progreso", "/panel_mercado"],
+      "keywords": ["panel", "paciente", "mis citas", "seguimiento", "online"]
+    },
+    {
+      "id": 63,
+      "category": "general",
+      "subcategory": "experiencia",
+      "questions": [
+        "¿cuántos años de experiencia tienen?",
+        "antigüedad fisiosalud",
+        "¿desde cuándo existen?"
+      ],
+      "answer": "📅 **Nuestra Trayectoria: Más de 15 años transformando vidas**\n\n**Desde 2008, hemos sido parte de:**\n• La recuperación de **más de 5,000 pacientes**\n• Historias de superación personal\n• Retornos exitosos a actividades amadas\n• Mejoras significativas en calidad de vida\n\n**Lo que estos años nos han enseñado:**\n1. **Cada persona es única** - No hay recetas genéricas\n2. **La tecnología complementa, no reemplaza** - El toque humano es esencial\n3. **La paciencia es terapéutica** - Los procesos toman su tiempo\n4. **La educación empodera** - Entender es parte de sanar\n\n**Nuestro orgullo:**\n98% de satisfacción entre quienes han confiado en nosotros.\n\n**Pero lo más importante:**\nSeguimos aprendiendo y mejorando cada día.\n\n¿Hay algún aspecto específico de nuestra experiencia que te interese?",
+      "links": ["/nosotros"],
+      "keywords": ["experiencia", "años", "antigüedad", "desde cuándo"]
+    },
+    {
+      "id": 64,
+      "category": "general",
+      "subcategory": "especialistas",
+      "questions": [
+        "¿cuántos especialistas tienen?",
+        "número de terapeutas",
+        "equipo de fisioterapeutas"
+      ],
+      "answer": "👥 **Nuestro Equipo: 12 Especialistas Apasionados**\n\n**No solo números, sino diversidad de expertise:**\n• **Fisioterapeutas especializados** en diferentes áreas\n• **Nutricionistas** que entienden rehabilitación\n• **Tecnólogos** que integran innovación\n• **Administrativos** que hacen todo fluir\n\n**Lo que nos une:**\nLa convicción de que cada persona merece atención de calidad y personalizada.\n\n**Nuestro proceso de selección:**\n1. **Formación técnica** impecable\n2. **Experiencia comprobada**\n3. **Afinidad con nuestra filosofía**\n4. **Pasión por el aprendizaje continuo**\n\n**Tu beneficio:**\nAcceso a múltiples perspectivas dentro de un equipo cohesionado.\n\n¿Te gustaría conocer más sobre las especialidades específicas de nuestro equipo?",
+      "links": ["/nosotros"],
+      "keywords": ["especialistas", "terapeutas", "número", "equipo"]
+    },
+    {
+      "id": 65,
+      "category": "general",
+      "subcategory": "satisfaccion",
+      "questions": [
+        "¿qué tan buenos son?",
+        "nivel de satisfacción",
+        "calificación de pacientes",
+        "recomendaciones"
+      ],
+      "answer": "⭐ **Nuestra Medida de Éxito: Tu Satisfacción**\n\n**Los números hablan:**\n• **98% de satisfacción** entre nuestros pacientes\n• **Más de 5,000 personas** atendidas con calidad\n• **Múltiples reconocimientos** por nuestro enfoque innovador\n\n**Pero los números no lo son todo. Lo que realmente nos enorgullece:**\n• **Pacientes que vuelven a bailar** después de lesiones\n• **Deportistas que retoman su pasión** con seguridad\n• **Personas que recuperan independencia** en su vida diaria\n• **Adultos mayores que encuentran alivio** a dolores crónicos\n\n**Lo que dicen nuestros pacientes:**\n\"No solo trataron mi lesión, me enseñaron a prevenirla\"\n\"Sentí que realmente les importaba mi recuperación\"\n\"La combinación de técnica y calidez hizo la diferencia\"\n\n**Nuestra promesa:**\nDarte razones para que tú también nos recomiendes.\n\n¿Hay algún testimonio específico que te gustaría conocer?",
+      "links": ["/nosotros"],
+      "keywords": ["satisfacción", "buenos", "calificación", "recomendaciones"]
+    },
+    {
+      "id": 66,
+      "category": "emergencias",
+      "subcategory": "urgencias",
+      "questions": [
+        "¿atienden emergencias?",
+        "urgencias fisioterapéuticas",
+        "dolor agudo",
+        "lesión reciente"
+      ],
+      "answer": "🚨 **Emergencias: Entendemos la urgencia del dolor**\n\n**Primero, lo más importante:**\nSi tienes una emergencia médica (fractura, dislocación, dolor cardiaco, etc.):\n**Dirígete inmediatamente al servicio de urgencias más cercano.**\n\n**Nuestro rol en emergencias fisioterapéuticas:**\n• **Evaluación temprana** después de la estabilización médica\n• **Manejo inicial** de dolor e inflamación\n• **Prevención** de complicaciones secundarias\n• **Planificación** de rehabilitación posterior\n\n**Servicio de urgencias con cita:**\nPara dolor agudo no traumático, ofrecemos atención prioritaria coordinada por teléfono.\n\n**Proceso recomendado:**\n1. Estabilización médica si es necesario\n2. Contactarnos para evaluación temprana\n3. Inicio de rehabilitación en fase subaguda\n\n¿Podrías describirme brevemente lo que está sucediendo?",
+      "links": [],
+      "keywords": ["emergencias", "urgencias", "agudo", "lesión", "reciente"]
+    },
+    {
+      "id": 67,
+      "category": "emergencias",
+      "subcategory": "dolor_severo",
+      "questions": [
+        "tengo dolor muy fuerte",
+        "dolor insoportable",
+        "no puedo moverme",
+        "lesión grave"
+      ],
+      "answer": "😣 **Dolor Severo: Prioridad absoluta**\n\n**Si el dolor es incapacitante o sospechas fractura/dislocación:**\n1. **No intentes moverte** si aumenta el dolor\n2. **Pide ayuda** para trasladarte si es necesario\n3. **Ve a urgencias médicas** inmediatamente\n4. **Después** de estabilización, contáctanos\n\n**Si es dolor severo pero sin trauma evidente:**\n1. **Aplica hielo** (20 minutos cada 2 horas)\n2. **Busca posición de alivio**\n3. **Llama al 320 2914521** para orientación inmediata\n4. **Considera** si necesitas analgésicos (consulta farmacia/médico)\n\n**Lo que NO debes hacer:**\n• Aplicar calor en fase aguda\n• Forzar movimientos dolorosos\n• Automedicarse sin supervisión\n• Esperar que \"se pase solo\" si es severo\n\n**Nuestro compromiso:**\nAtenderte lo antes posible después de la fase aguda.\n\n¿Podrías decirme desde cuándo y en qué zona exacta es el dolor?",
+      "links": ["/contacto"],
+      "keywords": ["dolor", "fuerte", "insoportable", "grave", "fractura"]
+    },
+    {
+      "id": 68,
+      "category": "condiciones",
+      "subcategory": "artritis",
+      "questions": [
+        "¿tratan artritis?",
+        "artrosis tratamiento",
+        "dolor articular crónico",
+        "enfermedades reumáticas"
+      ],
+      "answer": "🦴 **Artritis y Condiciones Reumáticas: Nuestra especialidad**\n\n**Sí, tenemos amplia experiencia en:**\n• Osteoartritis (artrosis)\n• Artritis reumatoide\n• Espondiloartritis\n• Otras condiciones reumáticas\n\n**Nuestro enfoque integral:**\n1. **Manejo del dolor** con técnicas seguras\n2. **Preservación de movilidad** articular\n3. **Fortalecimiento** muscular alrededor de articulaciones\n4. **Educación** para manejo diario de síntomas\n\n**Técnicas que utilizamos:**\n• Terapia manual suave\n• Ejercicios específicos de bajo impacto\n• Electroterapia para control de dolor\n• Recomendaciones nutricionales antiinflamatorias\n\n**Objetivos realistas:**\n• Reducir dolor en 50-70%\n• Mejorar función para actividades diarias\n• Retrasar progresión de la condición\n• Mejorar calidad de vida\n\n¿Podrías compartirme qué articulaciones son las más afectadas?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["artritis", "artrosis", "articular", "reumáticas", "crónico"]
+    },
+    {
+      "id": 69,
+      "category": "condiciones",
+      "subcategory": "dolor_espalda",
+      "questions": [
+        "dolor de espalda",
+        "lumbalgia",
+        "dolor lumbar",
+        "problemas de columna"
+      ],
+      "answer": "🌊 **Dolor de Espalda: Recupera la fluidez del movimiento**\n\n**Una de nuestras especialidades más demandadas:**\n• Lumbalgia aguda y crónica\n• Ciática\n• Hernias discales\n• Escoliosis\n• Dolores cervicales\n\n**Nuestro abordaje paso a paso:**\n1. **Diagnóstico preciso** del origen real (no todos los dolores de espalda son iguales)\n2. **Alivio inmediato** con técnicas manuales específicas\n3. **Fortalecimiento del core** (músculos profundos de abdomen y espalda)\n4. **Educación postural** para el día a día\n5. **Prevención** de recurrencias\n\n**Tecnologías que ayudan:**\n• Análisis postural computarizado\n• Electroterapia para control de dolor\n• Biofeedback para activación muscular\n\n**Resultados comunes:**\n80% de nuestros pacientes reducen su dolor en las primeras 4 semanas.\n\n¿Podrías describirme tu dolor de espalda y qué lo empeora?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["espalda", "lumbalgia", "lumbar", "columna", "dolor"]
+    },
+    {
+      "id": 70,
+      "category": "condiciones",
+      "subcategory": "tendinitis",
+      "questions": [
+        "tendinitis tratamiento",
+        "inflamación de tendones",
+        "codo de tenista",
+        "hombro doloroso"
+      ],
+      "answer": "🎾 **Tendinitis: Calma la inflamación, recupera la función**\n\n**Especializados en tendinopatías de:**\n• Hombro (manguito rotador)\n• Codo (epicondilitis/ epitrocleitis)\n• Rodilla (tendón rotuliano)\n• Tobillo (tendón de Aquiles)\n\n**Nuestro protocolo basado en evidencia:**\n1. **Control de inflamación** aguda\n2. **Ejercicios excéntricos** (lo más efectivo según estudios)\n3. **Terapia manual** para liberación muscular asociada\n4. **Vendaje neuromuscular** para soporte\n5. **Modificación de actividades** que agravan\n\n**Lo que NO hacemos:**\n• Reposo absoluto prolongado (empeora a largo plazo)\n• Tratamientos pasivos exclusivamente\n• Promesas de curación instantánea\n\n**Tiempos realistas:**\n• Agudas: 4-6 semanas\n• Crónicas: 8-12 semanas\n\n¿En qué zona específica y desde cuándo tienes la tendinitis?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["tendinitis", "tendones", "inflamación", "codo", "hombro"]
+    },
+    {
+      "id": 71,
+      "category": "condiciones",
+      "subcategory": "postoperatorio",
+      "questions": [
+        "reemplazo de cadera",
+        "cirugía de rodilla",
+        "post operatorio ortopédico",
+        "después de prótesis"
+      ],
+      "answer": "🔄 **Postoperatorio Ortopédico: Tu guía en la recuperación**\n\n**Experiencia en:**\n• Reemplazos articulares (cadera, rodilla, hombro)\n• Reconstrucciones ligamentarias (LCA, manguito rotador)\n• Cirugías de columna\n• Fijaciones de fracturas\n\n**Nuestro valor diferencial:**\n1. **Coordinación directa** con tu cirujano\n2. **Protocolos específicos** para cada tipo de cirugía\n3. **Enfoque en objetivos funcionales** (no solo movilidad)\n4. **Preparación pre-quirúrgica** cuando es posible\n\n**Fases de rehabilitación:**\n1. **Fase aguda:** Protección, control de dolor e inflamación\n2. **Fase de recuperación:** Restauración de movilidad y fuerza\n3. **Fase funcional:** Retorno a actividades específicas\n\n**Importante:** Requerimos tu historial quirúrgico completo para máxima seguridad.\n\n¿Podrías contarme qué cirugía tuviste y cuándo fue?",
+      "links": ["/servicios_terapeuticos", "/requisitos_especiales"],
+      "keywords": ["postoperatorio", "reemplazo", "cadera", "rodilla", "prótesis"]
+    },
+    {
+      "id": 72,
+      "category": "condiciones",
+      "subcategory": "esguinces",
+      "questions": [
+        "esguince de tobillo",
+        "torcedura",
+        "ligamentos lesionados",
+        "tobillo inflamado"
+      ],
+      "answer": "🦶 **Esguinces: De la inmovilidad a la estabilidad**\n\n**Manejamos todos los grados:**\n• Grado I (leve)\n• Grado II (moderado)\n• Grado III (grave)\n\n**Protocolo por fases:**\n\n**Fase 1 (0-72 horas):**\n• Protección\n• Reposo relativo\n• Hielo\n• Compresión\n• Elevación\n\n**Fase 2 (3 días - 3 semanas):**\n• Movilización progresiva\n• Ejercicios de propiocepción\n• Fortalecimiento gradual\n\n**Fase 3 (3 semanas - 3 meses):**\n• Retorno deportivo progresivo\n• Prevención de recurrencias\n• Entrenamiento de equilibrio\n\n**Error común que corregimos:**\nNo todos los esguinces necesitan inmovilización prolongada.\n\n**Nuestro éxito:**\n90% de nuestros pacientes retornan a actividad completa sin recaídas.\n\n¿Podrías decirme hace cuánto fue la lesión y si te tomaron radiografía?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["esguince", "tobillo", "torcedura", "ligamentos", "inflamado"]
+    },
+    {
+      "id": 73,
+      "category": "duracion",
+      "subcategory": "sesiones",
+      "questions": [
+        "¿cuánto dura una sesión?",
+        "duración tratamiento",
+        "tiempo por consulta",
+        "horas de terapia"
+      ],
+      "answer": "⏱️ **Duración de Sesiones: Tiempo de calidad, no cantidad**\n\n**Varía según el servicio:**\n\n**Servicios básicos (45-60 minutos):**\n• Masaje Relajante: 45 min\n• Terapia de Estiramientos: 50 min\n• Vendaje Neuromuscular: 30 min\n\n**Rehabilitación especializada (60-90 minutos):**\n• Masaje Terapéutico: 60 min\n• Terapia Miofascial: 60 min\n• Craneosacral: 60 min\n• Drenaje Linfático: 50 min\n• Electroterapia: 50 min\n\n**Rehabilitación avanzada (75-120 minutos):**\n• Rehabilitación Deportiva: 75 min\n• Punción Seca: 45 min\n• Terapia Neural: 90 min\n• Post-Quirúrgica: 120 min\n\n**Lo que incluye cada minuto:**\nEvaluación inicial, tratamiento, educación y planificación.\n\n**Nuestra filosofía:**\nPrefieres sesiones más cortas frecuentes o más largas espaciadas?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["duración", "sesión", "tiempo", "consulta", "horas"]
+    },
+    {
+      "id": 74,
+      "category": "duracion",
+      "subcategory": "tratamiento_completo",
+      "questions": [
+        "¿cuántas sesiones necesito?",
+        "tiempo total recuperación",
+        "sesiones promedio",
+        "duración tratamiento completo"
+      ],
+      "answer": "📈 **Plan de Tratamiento: Un camino personalizado**\n\n**Estimados según tipo de condición:**\n\n**Problemas agudos (lesiones recientes):**\n• 4-6 sesiones (3-4 semanas)\n• Ejemplo: Esguince grado I, contractura aguda\n\n**Condiciones crónicas (más de 3 meses):**\n• 8-12 sesiones (6-10 semanas)\n• Ejemplo: Dolor lumbar crónico, tendinitis crónica\n\n**Postoperatorio complejo:**\n• 12-20+ sesiones (3-6 meses)\n• Ejemplo: Reemplazo articular, reconstrucción ligamentaria\n\n**Factores que influyen:**\n1. Tiempo de evolución del problema\n2. Tu adherencia a ejercicios domiciliarios\n3. Factores de salud general\n4. Tus objetivos específicos\n\n**Nuestra promesa:**\nEn la evaluación inicial te daremos un estimado realista.\n\n¿Podrías contarme cuánto tiempo llevas con tu condición?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["sesiones", "necesito", "recuperación", "promedio", "completo"]
+    },
+    {
+      "id": 75,
+      "category": "duracion",
+      "subcategory": "frecuencia",
+      "questions": [
+        "¿con qué frecuencia debo ir?",
+        "cada cuánto las sesiones",
+        "frecuencia de tratamiento"
+      ],
+      "answer": "📅 **Frecuencia: Constancia que genera resultados**\n\n**Recomendaciones generales:**\n\n**Fase aguda (primeras 2 semanas):**\n• 2-3 veces por semana\n• Objetivo: Control rápido de síntomas\n\n**Fase subaguda (semanas 3-6):**\n• 1-2 veces por semana\n• Objetivo: Restauración funcional\n\n**Fase de mantenimiento (después de semana 6):**\n• 1 vez por semana o cada 15 días\n• Objetivo: Prevención de recaídas\n\n**Ajustes según:**\n• Tu disponibilidad\n• Respuesta al tratamiento\n• Distancia a la clínica\n• Objetivos específicos\n\n**Nuestra flexibilidad:**\nCreamos planes que se adaptan a tu vida, no al revés.\n\n**Importante:**\nLa consistencia es más importante que la intensidad ocasional.\n\n¿Qué tipo de disponibilidad semanal tienes?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["frecuencia", "cada cuánto", "veces", "semana", "frecuencia"]
+    },
+    {
+      "id": 76,
+      "category": "edad",
+      "subcategory": "adultos_mayores",
+      "questions": [
+        "¿atienden adultos mayores?",
+        "terapia para ancianos",
+        "personas mayores",
+        "geriátrica"
+      ],
+      "answer": "👵 **Adultos Mayores: Cuidado especializado con respeto**\n\n**¡Es una de nuestras mayores pasiones!**\n\n**Condiciones comunes que manejamos:**\n• Osteoartritis y osteoporosis\n• Problemas de equilibrio y riesgo de caídas\n• Debilidad muscular relacionada con edad\n• Dolor crónico\n• Recuperación post-caída\n\n**Nuestro enfoque geriátrico:**\n1. **Evaluación integral** de capacidades y limitaciones\n2. **Tratamientos suaves** pero efectivos\n3. **Enfoque en funcionalidad** (levantarse de silla, subir escaleras)\n4. **Educación a familiares** cuando es necesario\n5. **Adaptación** a capacidades individuales\n\n**Tecnologías que ayudan:**\n• Plataformas de equilibrio computarizado\n• Ejercicios con realidad virtual\n• Electroterapia para control de dolor\n\n**Nuestro objetivo:**\nMantener o recuperar independencia y calidad de vida.\n\n¿Podrías contarme qué actividades diarias se han vuelto más difíciles?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["adultos mayores", "ancianos", "geriátrica", "mayores", "edad"]
+    },
+    {
+      "id": 77,
+      "category": "edad",
+      "subcategory": "niños",
+      "questions": [
+        "¿atienden niños?",
+        "pediatría fisioterapia",
+        "terapia infantil",
+        "niños con discapacidad"
+      ],
+      "answer": "🧒 **Atención Pediátrica: Cuidado especial para los más pequeños**\n\n**Te cuento con transparencia:**\nAlgunos de nuestros terapeutas tienen formación en pediatría, pero no somos una clínica pediátrica especializada.\n\n**Condiciones que PODEMOS atender:**\n• Esguinces y lesiones deportivas en adolescentes\n• Problemas posturales en niños mayores\n• Rehabilitación post-fractura\n• Condiciones ortopédicas simples\n\n**Condiciones que NO atendemos:**\n• Discapacidades del desarrollo complejas\n• Parálisis cerebral\n• Condiciones neurológicas pediátricas\n• Bebés y niños muy pequeños\n\n**Nuestra recomendación:**\nContáctanos al 320 2914521 para evaluar si podemos ayudar con la condición específica del niño.\n\n**Alternativas:**\nTe podemos referir a colegas especializados en pediatría si es necesario.\n\n¿Podrías contarme la edad del niño y qué condición específica presenta?",
+      "links": ["/contacto"],
+      "keywords": ["niños", "pediatría", "infantil", "niños", "discapacidad"]
+    },
+    {
+      "id": 78,
+      "category": "deportes",
+      "subcategory": "deportistas",
+      "questions": [
+        "¿atienden deportistas?",
+        "atletas profesionales",
+        "rendimiento deportivo",
+        "prevención lesiones deportivas"
+      ],
+      "answer": "🏆 **Deportistas: De la lesión al podio**\n\n**Especializados en el mundo deportivo:**\n• Atletas profesionales\n• Deportistas amateur\n• Personas activas\n• Bailarines y artistas escénicos\n\n**Nuestros servicios específicos:**\n1. **Rehabilitación de lesiones** con retorno deportivo seguro\n2. **Evaluaciones biomecánicas** para prevenir lesiones\n3. **Mejora de rendimiento** mediante optimización del movimiento\n4. **Preparación pre-competitiva**\n5. **Recuperación post-competencia**\n\n**Tecnologías deportivas:**\n• Análisis de video en 3D\n• Plataformas de fuerza\n• Monitoreo de carga de entrenamiento\n• Testes funcionales específicos\n\n**Nuestra experiencia:**\nHemos trabajado con futbolistas, corredores, nadadores, ciclistas y más.\n\n¿Practicas algún deporte específico y qué tipo de necesidad tienes?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["deportistas", "atletas", "deportivo", "rendimiento", "lesiones"]
+    },
+    {
+      "id": 79,
+      "category": "deportes",
+      "subcategory": "que_deportes",
+      "questions": [
+        "¿qué deportes atienden?",
+        "futbolistas",
+        "corredores",
+        "nadadores",
+        "ciclistas"
+      ],
+      "answer": "🎯 **Deportes que Atendemos: De la pista al agua**\n\n**Con experiencia en:**\n\n**Deportes de equipo:**\n• Fútbol (lesiones de rodilla, tobillo, cadera)\n• Baloncesto (esguinces, tendinitis)\n• Voleibol (hombro, dedos)\n\n**Deportes individuales:**\n• Running (síndrome de la banda iliotibial, fascitis)\n• Natación (hombro de nadador)\n• Ciclismo (dolor lumbar, problemas de silla)\n• Tenis/pádel (codo de tenista)\n• Golf (dolor lumbar, hombro)\n\n**Deportes de fuerza:**\n• Levantamiento de pesas (lesiones por sobrecarga)\n• CrossFit (lesiones por técnica)\n\n**Artes escénicas:**\n• Danza (esguinces, fracturas por estrés)\n• Teatro físico\n\n**Nuestro secreto:**\nConocemos los gestos técnicos de cada deporte para rehabilitar específicamente.\n\n¿Cuál es tu deporte y qué lesión o molestia presentas?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["deportes", "futbol", "correr", "nadar", "ciclismo"]
+    },
+    {
+      "id": 80,
+      "category": "recomendaciones",
+      "subcategory": "referencia_medica",
+      "questions": [
+        "¿necesito referencia médica?",
+        "orden del médico",
+        "remisión necesaria",
+        "doctor me debe enviar"
+      ],
+      "answer": "📋 **Referencia Médica: Cuándo es necesaria**\n\n**Para servicios básicos:**\n• **NO se requiere** referencia médica\n• Ejemplos: Masaje Relajante, Terapia de Estiramientos\n• Puedes agendar directamente\n\n**Para servicios especializados:**\n• **SÍ se requiere** evaluación médica previa\n• Ejemplos: Punción Seca, Electroterapia, Terapia Neural\n• Razón: Seguridad y adecuación del tratamiento\n\n**Excepciones:**\nSi ya tienes diagnóstico médico reciente, podemos usarlo como referencia.\n\n**Nuestro proceso:**\n1. Agendas evaluación inicial sin costo\n2. Determinamos si necesitas referencia médica\n3. Te guiamos en obtenerla si es necesario\n\n**Beneficio:**\nAseguramos que recibas el tratamiento más seguro y efectivo para tu condición.\n\n¿Qué servicio específico te interesa? Así te digo exactamente qué necesitas.",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["referencia", "médica", "orden", "remisión", "doctor"]
+    },
+    {
+      "id": 81,
+      "category": "recomendaciones",
+      "subcategory": "ropa_adecuada",
+      "questions": [
+        "¿qué ropa debo usar?",
+        "ropa para terapia",
+        "vestimenta adecuada",
+        "qué ponerme"
+      ],
+      "answer": "👕 **Ropa Adecuada: Comodidad que facilita tu tratamiento**\n\n**Recomendamos:**\n• **Pantalones:** Leggings, pantalones de yoga, shorts deportivos\n• **Camisas:** Camisetas holgadas, tops deportivos\n• **Calzado:** Zapatos deportivos con buen soporte\n• **Prendas:** Que permitan acceso a zonas a tratar\n\n**Evitar:**\n• Jeans o pantalones ajustados\n• Faldas o vestidos restrictivos\n• Ropa con botones/metal que interfiera con electroterapia\n• Calzado formal o tacones\n\n**Para mujeres:**\n• Top deportivo si vamos a trabajar espalda/hombros\n• Leggings en lugar de shorts si te sientes más cómoda\n\n**Para hombres:**\n• Shorts deportivos para trabajo de piernas\n• Camiseta que permita acceso a hombros/espalda\n\n**Extra que puedes traer:**\n• Ropa de cambio si vienes del trabajo\n• Toalla pequeña si sudas fácilmente\n\n¿Hay alguna zona específica que necesitemos acceder?",
+      "links": [],
+      "keywords": ["ropa", "vestimenta", "cómoda", "ejercicio", "ponerme"]
+    },
+    {
+      "id": 82,
+      "category": "recomendaciones",
+      "subcategory": "antes_sesion",
+      "questions": [
+        "¿qué debo hacer antes de la sesión?",
+        "preparación para terapia",
+        "antes de venir",
+        "recomendaciones previas"
+      ],
+      "answer": "🎒 **Preparación para tu Sesión: Pequeños detalles, grandes diferencias**\n\n**24 horas antes:**\n• **Hidrátate bien** - músculos hidratados responden mejor\n• **Evita alcohol** - deshidrata y afecta percepción del dolor\n• **Duerme bien** - el descanso potencia la recuperación\n\n**El día de la sesión:**\n• **No vengas en ayunas** - come algo ligero 1-2 horas antes\n• **Hidrátate** continuamente\n• **Toma tus medicamentos** habituales (a menos que tu médico indique lo contrario)\n• **Haz estiramientos suaves** si tu condición lo permite\n\n**Justo antes de salir:**\n• **Revisa** que tengas todos los documentos/exámenes\n• **Usa ropa adecuada** (ver recomendación de ropa)\n• **Planifica llegar** 10 minutos antes\n\n**Si tienes alguna condición específica:**\n• Diabetes: Monitorea glucosa\n• Hipertensión: Toma tu medicación\n• Embarazo: Informa a tu terapeuta\n\n**Nuestro compromiso:**\nHaremos tu sesión productiva y cómoda.\n\n¿Tienes alguna condición de salud específica que deba considerar?",
+      "links": [],
+      "keywords": ["antes", "preparación", "recomendaciones", "venir", "sesión"]
+    },
+    {
+      "id": 83,
+      "category": "recomendaciones",
+      "subcategory": "despues_sesion",
+      "questions": [
+        "¿qué debo hacer después?",
+        "cuidados post sesión",
+        "después de la terapia",
+        "recomendaciones posteriores"
+      ],
+      "answer": "🌿 **Después de tu Sesión: Cuidados que potencian los resultados**\n\n**Inmediatamente después:**\n• **Hidrátate** - toma al menos 500ml de agua\n• **Escucha a tu cuerpo** - nota cambios, mejorías, molestias\n• **No hagas ejercicio intenso** por 24 horas (a menos que tu terapeuta indique lo contrario)\n\n**Primeras 24 horas:**\n• **Aplica hielo** si hay molestia (20 minutos cada 2-3 horas)\n• **Haz los ejercicios** que te asignaron (si los hay)\n• **Evita posiciones** que te causen dolor antes\n• **Descansa adecuadamente** - el sueño es reparador\n\n**Si experimentas:**\n• **Molestia leve:** Normal, suele desaparecer en 24-48 horas\n• **Dolor significativo:** Contáctanos, puede necesitar ajuste\n• **Mejoría inmediata:** ¡Excelente! Sigue las recomendaciones\n\n**Seguimiento:**\n• **Toma notas** de cómo te sientes\n• **Prepara preguntas** para tu próxima sesión\n• **Comunica** cualquier cambio a tu terapeuta\n\n**Recordatorio:**\nLa recuperación continúa entre sesiones.\n\n¿Sueles tener algún tipo de reacción específica después de terapias?",
+      "links": [],
+      "keywords": ["después", "post", "cuidados", "terapia", "sesión"]
+    },
+    {
+      "id": 84,
+      "category": "compra_productos",
+      "subcategory": "como_comprar",
+      "questions": [
+        "¿cómo compro productos?",
+        "comprar implementos",
+        "adquirir suplementos",
+        "compra online"
+      ],
+      "answer": "🛒 **Comprar Productos: Calidad terapéutica a tu alcance**\n\n**Proceso sencillo:**\n\n1. **Explora productos:**\n   • Implementos: /servicios_implementos\n   • Nutrición: /servicios_alimenticios\n\n2. **Selecciona:**\n   • Haz clic en 'Comprar Ahora'\n   • Elige cantidad\n   • Agrega al carrito\n\n3. **Gestiona carrito:**\n   • Ve a 'Mi Carrito' en tu panel\n   • Revisa productos\n   • Procede al pago\n\n4. **Retiro/Envío:**\n   • Recoge en clínica\n   • O consulta opciones de envío\n\n**Importante:**\n• Las compras se gestionan separado de las citas\n• Puedes comprar sin tener cita agendada\n• Te recomendamos consultar con tu terapeuta antes de comprar equipos especializados\n\n**Nuestro asesoramiento:**\n¿Necesitas recomendación sobre qué producto es mejor para tu condición?",
+      "links": ["/servicios_implementos", "/servicios_alimenticios"],
+      "keywords": ["comprar", "productos", "implementos", "suplementos", "online"]
+    },
+    {
+      "id": 85,
+      "category": "compra_productos",
+      "subcategory": "envios",
+      "questions": [
+        "¿hacen envíos a domicilio?",
+        "entrega de productos",
+        "envíos bogotá",
+        "comprar y que me lo envíen"
+      ],
+      "answer": "🚚 **Envíos a Domicilio: Comodidad que llega a tu puerta**\n\n**Sí, ofrecemos envíos con condiciones:**\n\n**Productos con envío disponible:**\n• Suplementos nutricionales\n• Implementos pequeños y medianos\n• Productos no perecederos\n\n**Cobertura:**\n• **Bogotá:** Principalmente\n• **Otras ciudades:** Consultar disponibilidad y costo\n\n**Proceso:**\n1. Realiza tu compra online\n2. Selecciona opción de envío\n3. Proporciona dirección completa\n4. Recibe confirmación con tiempo estimado\n\n**Costos y tiempos:**\n• Varían según producto y ubicación\n• Generalmente 1-3 días hábiles en Bogotá\n• Contacta al 320 2914521 para cotización exacta\n\n**Alternativa económica:**\nRetiro en clínica sin costo adicional.\n\n¿Podrías decirme qué producto te interesa y tu ubicación aproximada?",
+      "links": ["/contacto"],
+      "keywords": ["envíos", "domicilio", "entrega", "bogotá", "enviar"]
+    },
+    {
+      "id": 86,
+      "category": "compra_productos",
+      "subcategory": "garantia",
+      "questions": [
+        "¿tienen garantía los productos?",
+        "devoluciones",
+        "producto defectuoso",
+        "garantía implementos"
+      ],
+      "answer": "🛡️ **Garantías y Devoluciones: Tranquilidad en tu compra**\n\n**Política de garantía:**\n• **Nuevos:** Cubiertos contra defectos de fabricación\n• **Tiempo:** Varía según producto (consultar por producto)\n• **Requisito:** Factura de compra original\n\n**Proceso para reclamos:**\n1. **Contacta** al 320 2914521 o info@fisiosalud.com\n2. **Describe** el problema específico\n3. **Proporciona** número de factura\n4. **Coordina** revisión o devolución\n\n**Devoluciones por cambio de opinión:**\n• **Condición:** Producto sin usar, en empaque original\n• **Tiempo:** Primeros 7 días después de compra\n• **Costo:** Puede aplicar cargo por re-stocking\n\n**Productos no retornables:**\n• Suplementos abiertos\n• Productos de higiene personal\n• Implementos usados\n\n**Nuestra filosofía:**\nQueremos que estés satisfecho con tu compra.\n\n¿Tienes algún producto específico sobre el cual preguntar?",
+      "links": ["/contacto"],
+      "keywords": ["garantía", "devoluciones", "defectuoso", "producto", "cambios"]
+    },
+    {
+      "id": 87,
+      "category": "promociones",
+      "subcategory": "descuentos",
+      "questions": [
+        "¿tienen descuentos?",
+        "promociones fisiosalud",
+        "precios especiales",
+        "oferta terapias"
+      ],
+      "answer": "🎁 **Promociones y Descuentos: Haciendo accesible tu bienestar**\n\n**Ofertas regulares:**\n\n**Descuentos por grupo:**\n• **Adultos mayores:** 10% en servicios seleccionados\n• **Estudiantes:** 15% con carné vigente\n• **Referidos:** 20% en primera cita para quien refieres\n\n**Promociones por volumen:**\n• **Paquetes de sesiones:** Hasta 20% de descuento\n• **Compras múltiples de productos:** Combos con precio especial\n\n**Promociones estacionales:**\n• Mes del adulto mayor\n• Inicio de año (propósitos de salud)\n• Temporada deportiva\n\n**Para conocer ofertas actuales:**\nLlama al 320 2914521 o visita nuestras redes sociales @FisioSalud\n\n**Transparencia:**\nLos descuentos no comprometen la calidad del servicio.\n\n¿A qué categoría perteneces? Así te cuento las promociones específicas.",
+      "links": ["/contacto"],
+      "keywords": ["descuentos", "promociones", "ofertas", "precios", "especiales"]
+    },
+    {
+      "id": 88,
+      "category": "promociones",
+      "subcategory": "paquetes",
+      "questions": [
+        "paquetes de sesiones",
+        "comprar varias terapias",
+        "plan completo",
+        "sesiones múltiples"
+      ],
+      "answer": "📦 **Paquetes de Sesiones: Inversión inteligente en tu salud**\n\n**Opciones disponibles:**\n\n**Paquete Básico (5 sesiones):**\n• **Ideal para:** Problemas agudos simples\n• **Ahorro:** 10%\n• **Validez:** 3 meses\n\n**Paquete Intermedio (10 sesiones):**\n• **Ideal para:** Condiciones crónicas\n• **Ahorro:** 15%\n• **Validez:** 6 meses\n• **Incluye:** 1 evaluación de progreso gratis\n\n**Paquete Completo (20 sesiones):**\n• **Ideal para:** Rehabilitación extensa\n• **Ahorro:** 20%\n• **Validez:** 12 meses\n• **Incluye:** 2 evaluaciones de progreso + plan nutricional básico\n\n**Flexibilidad:**\n• Usa las sesiones para diferentes servicios\n• Comparte con familiares (consultar condiciones)\n• Congela por viajes/enfermedad\n\n**Recomendación:**\nComienza con sesiones sueltas, luego compra paquete si ves progreso.\n\n¿Qué tipo de tratamiento estás considerando? Así te recomiendo el paquete ideal.",
+      "links": ["/contacto"],
+      "keywords": ["paquetes", "sesiones", "múltiples", "plan", "completo"]
+    },
+    {
+      "id": 89,
+      "category": "redes",
+      "subcategory": "social_media",
+      "questions": [
+        "¿tienen redes sociales?",
+        "facebook fisiosalud",
+        "instagram",
+        "redes sociales"
+      ],
+      "answer": "🌐 **Redes Sociales: Conéctate con nuestra comunidad**\n\n**Encuéntranos como @FisioSalud en:**\n\n**Instagram:**\n• Tips diarios de ejercicios\n• Testimonios reales (con permiso)\n• Tras bambalinas de la clínica\n• Lives con especialistas\n\n**Facebook:**\n• Artículos educativos extensos\n• Eventos y talleres gratuitos\n• Comunidad de apoyo\n• Promociones exclusivas\n\n**Twitter/X:**\n• Noticias de salud\n• Interacción rápida\n• Alianzas con otros profesionales\n\n**LinkedIn:**\n• Contenido profesional\n• Oportunidades de empleo\n• Colaboraciones institucionales\n\n**YouTube (próximamente):**\n• Videos de ejercicios\n• Charlas educativas\n• Tutoriales de productos\n\n**Nuestro valor en redes:**\nEducación gratuita y comunidad de apoyo.\n\n¿Hay alguna red específica donde te gustaría seguirnos?",
+      "links": [],
+      "keywords": ["redes", "sociales", "facebook", "instagram", "twitter"]
+    },
+    {
+      "id": 90,
+      "category": "redes",
+      "subcategory": "blog",
+      "questions": [
+        "¿tienen blog?",
+        "consejos de salud",
+        "artículos fisioterapia",
+        "blog fisiosalud"
+      ],
+      "answer": "📚 **Blog de FisioSalud: Educación para empoderarte**\n\n**En nuestro blog encontrarás:**\n\n**Categorías principales:**\n1. **Ejercicios terapéuticos:**\n   • Para oficina\n   • Para dolor específico\n   • Para prevención\n\n2. **Educación sobre condiciones:**\n   • Explicaciones simples\n   • Mitos vs realidades\n   • Manejo en casa\n\n3. **Nutrición y recuperación:**\n   • Alimentos antiinflamatorios\n   • Suplementación inteligente\n   • Hidratación\n\n4. **Testimonios e historias:**\n   • Casos de éxito\n   • Experiencias reales\n   • Lecciones aprendidas\n\n**Frecuencia:**\nNuevo artículo cada semana.\n\n**Escrito por:**\nNuestros terapeutas y especialistas.\n\n**Acceso gratuito:**\nEn nuestro sitio web, sección \"Blog\".\n\n**Nuestro objetivo:**\nQue entiendas tu condición y participes activamente en tu recuperación.\n\n¿Hay algún tema específico sobre el que te gustaría que escribamos?",
+      "links": [],
+      "keywords": ["blog", "artículos", "consejos", "salud", "tips"]
+    },
+    {
+      "id": 91,
+      "category": "privacidad",
+      "subcategory": "datos_personales",
+      "questions": [
+        "¿cómo protegen mis datos?",
+        "privacidad información",
+        "confidencialidad",
+        "datos médicos seguros"
+      ],
+      "answer": "🔒 **Protección de Datos: Tu privacidad es sagrada**\n\n**Cumplimos estrictamente con:**\n• Ley 1581 de 2012 de protección de datos\n• Normativas internacionales de privacidad médica\n• Estándares éticos profesionales\n\n**Medidas de seguridad:**\n1. **Encriptación** de datos sensibles\n2. **Acceso restringido** solo a personal autorizado\n3. **Contratos de confidencialidad** con todo el equipo\n4. **Eliminación segura** de datos obsoletos\n\n**Tus datos médicos:**\n• **Nunca** se comparten sin tu consentimiento explícito\n• **Solo** se usan para tu atención directa\n• **Excepción:** Requerimiento legal específico\n\n**Tus derechos:**\n1. **Saber** qué información tenemos\n2. **Solicitar** corrección de errores\n3. **Revocar** consentimiento (con limitaciones terapéuticas)\n4. **Eliminar** datos (según normativa)\n\n**Documentación completa:**\nPolítica de Privacidad disponible en pie de página del sitio.\n\n¿Tienes alguna preocupación específica sobre protección de datos?",
+      "links": [],
+      "keywords": ["privacidad", "datos", "confidencialidad", "médicos", "seguros"]
+    },
+    {
+      "id": 92,
+      "category": "privacidad",
+      "subcategory": "politicas",
+      "questions": [
+        "política de privacidad",
+        "términos de servicio",
+        "condiciones de uso",
+        "normas fisiosalud"
+      ],
+      "answer": "📄 **Políticas y Términos: Transparencia total**\n\n**Documentos disponibles:**\n\n**1. Política de Privacidad:**\n• Cómo recolectamos y usamos tus datos\n• Tus derechos sobre tu información\n• Medidas de seguridad implementadas\n• Contacto para ejercer derechos\n\n**2. Términos de Servicio:**\n• Condiciones para usar nuestros servicios\n• Responsabilidades mutuas\n• Proceso de citas y cancelaciones\n• Garantías y limitaciones\n\n**3. Consentimientos Informados:**\n• Para cada tipo de tratamiento\n• Explicación de riesgos y beneficios\n• Firmados antes de cada procedimiento\n\n**Acceso fácil:**\n• **Pie de página** de nuestro sitio web\n• **Recepción** de la clínica\n• **Solicitud por email** a info@fisiosalud.com\n\n**Nuestra recomendación:**\nLee estos documentos antes de tu primera cita.\n\n**Compromiso:**\nActualizamos políticas según cambios normativos y te notificamos.\n\n¿Necesitas acceso a algún documento específico?",
+      "links": [],
+      "keywords": ["política", "privacidad", "términos", "servicio", "condiciones"]
+    },
+    {
+      "id": 93,
+      "category": "feedback",
+      "subcategory": "quejas",
+      "questions": [
+        "¿dónde pongo una queja?",
+        "reclamo servicio",
+        "queja fisiosalud",
+        "mal servicio"
+      ],
+      "answer": "📣 **Quejas y Reclamos: Tu voz nos importa**\n\n**Lamentamos sinceramente** si tu experiencia no fue la esperada.\n\n**Canales para quejas:**\n1. **Directo con Director General:**\n   • Teléfono: 320 2914521\n   • Email: miguel.gutierrez@fisiosalud.com\n\n2. **Email general:**\n   • info@fisiosalud.com (asunto: RECLAMO)\n\n3. **Formulario físico:**\n   • En recepción de la clínica\n   • Libro de PQRS\n\n**Proceso de atención:**\n1. **Recepción** inmediata de tu queja\n2. **Investigación** exhaustiva (48 horas)\n3. **Respuesta formal** con acciones correctivas\n4. **Seguimiento** para verificar solución\n\n**Nuestro compromiso:**\n• **Confidencialidad** total\n• **No represalias** de ningún tipo\n• **Mejora continua** basada en feedback\n\n**Si no estás satisfecho con nuestra respuesta:**\nTe guiamos en próximos pasos con autoridades competentes.\n\n¿Podrías contarme brevemente qué sucedió?",
+      "links": ["/contacto"],
+      "keywords": ["quejas", "reclamos", "mal servicio", "feedback", "problema"]
+    },
+    {
+      "id": 94,
+      "category": "feedback",
+      "subcategory": "sugerencias",
+      "questions": [
+        "¿dónde doy sugerencias?",
+        "ideas para mejorar",
+        "sugerencias fisiosalud",
+        "comentarios"
+      ],
+      "answer": "💡 **Sugerencias: Juntos construimos una mejor clínica**\n\n**Valoramos enormemente** tus ideas para mejorar.\n\n**Canales para sugerencias:**\n1. **Email dedicado:**\n   • sugerencias@fisiosalud.com\n\n2. **Buzón físico:**\n   • En recepción de la clínica\n   • Anónimo si prefieres\n\n3. **Directo con tu terapeuta:**\n   • Durante o después de tu sesión\n\n4. **Encuestas de satisfacción:**\n   • Después de cada cita\n   • Por email periódicamente\n\n**Sugerencias implementadas recientemente:**\n• Horarios extendidos los sábados\n• Más opciones de pago\n• Mejor señalización en clínica\n• App móvil en desarrollo\n\n**Proceso:**\n1. **Revisión mensual** de todas las sugerencias\n2. **Evaluación** de viabilidad\n3. **Implementación** de las seleccionadas\n4. **Reconocimiento** cuando es posible\n\n**Nuestra gratitud:**\nCada sugerencia es una oportunidad de mejorar.\n\n¿Tienes alguna idea específica que quieras compartir?",
+      "links": ["/contacto"],
+      "keywords": ["sugerencias", "ideas", "mejorar", "comentarios", "feedback"]
+    },
+    {
+      "id": 95,
+      "category": "informacion_general",
+      "subcategory": "contacto_horarios",
+      "questions": [
+        "horarios de atención",
+        "¿a qué hora abren?",
+        "horarios exactos",
+        "¿abren los domingos?",
+        "¿atienen sábados?",
+        "horario completo"
+      ],
+      "answer": "⏰ **Horarios Completos: Estamos aquí cuando nos necesitas**\n\n**Semana completa:**\n\n**Lunes a Viernes:**\n• 7:00 AM - 8:00 PM\n• **Recomendado:** Agenda temprano para mejores horarios\n\n**Sábados:**\n• 8:00 AM - 6:00 PM\n• **Perfecto para:** Quienes trabajan entre semana\n\n**Domingos:**\n• 9:00 AM - 2:00 PM\n• **Especial para:** Evaluaciones iniciales y tratamientos suaves\n\n**Emergencias con cita:**\n• 24/7 coordinando previamente\n• Llama al 320 2914521\n\n**Administrativo/Contacto:**\n• Lunes a Viernes: 8:00 AM - 6:00 PM\n• Sábados: 9:00 AM - 1:00 PM\n\n**Nuestra flexibilidad:**\nSi necesitas un horario especial, consúltanos.\n\n¿Qué día y hora te funcionaría mejor para tu primera visita?",
+      "links": ["/contacto"],
+      "keywords": ["horarios", "abren", "domingos", "sábados", "atención", "horas"]
+    },
+    {
+      "id": 96,
+      "category": "informacion_general",
+      "subcategory": "contacto_telefonos",
+      "questions": [
+        "teléfono de contacto",
+        "número para llamar",
+        "¿cuál es su teléfono?",
+        "contacto telefónico",
+        "llamar a fisiosalud"
+      ],
+      "answer": "📞 **Teléfonos de Contacto: La línea directa a tu bienestar**\n\n**Línea principal (atención inmediata):**\n• **320 2914521**\n• Horario: 7:00 AM - 8:00 PM\n• Atendemos llamadas y mensajes\n\n**WhatsApp terapéutico:**\n• **https://wa.me/573202914521**\n• Horario: 7:00 AM - 8:00 PM\n• Ideal para: Fotos de lesiones, documentos, preguntas rápidas\n\n**Email (respuesta en 24 horas):**\n• **info@fisiosalud.com**\n• Para: Información detallada, documentación, consultas extensas\n\n**Directo con dirección:**\n• Solicita contacto en recepción\n• Para temas específicos administrativos\n\n**Recomendación:**\nPara primera consulta, llama directamente para orientación personalizada.\n\n**Emergencias fuera de horario:**\nDeja mensaje y te llamaremos a la mayor brevedad.\n\n¿Prefieres que te contactemos por algún medio específico?",
+      "links": ["/contacto"],
+      "keywords": ["teléfono", "whatsapp", "llamar", "contacto", "número"]
+    },
+    {
+      "id": 97,
+      "category": "informacion_general",
+      "subcategory": "direccion",
+      "questions": [
+        "dirección exacta",
+        "¿dónde están ubicados?",
+        "ubicación fisiosalud",
+        "dirección clínica",
+        "cómo llegar"
+      ],
+      "answer": "📍 **Dirección Exacta: Tu destino de bienestar**\n\n**Clínica Principal:**\n**Av. Salud #123, Bogotá, Colombia**\n\n**Características del lugar:**\n• **Acceso completo** para personas con movilidad reducida\n• **Parqueadero seguro** (primeras 2 horas gratis para pacientes)\n• **Cerca de:** Hospitales principales, transporte masivo\n• **Barrio:** Seguro y bien iluminado\n\n**Cómo llegar:**\n\n**En TransMilenio:**\n• Estación \"Salud\" (línea H)\n• 3 minutos caminando desde la estación\n\n**En carro particular:**\n• Waze/Google Maps: \"FisioSalud Bogotá\"\n• Parqueadero en el edificio (indicaciones en recepción)\n\n**En bicicleta:**\n• Ciclorrutas de la Av. Salud\n• Biciparqueadero en entrada\n\n**Recomendación primera vez:**\nSal con 15 minutos adicionales para encontrar el lugar tranquilo.\n\n¿Vienes de alguna zona específica de Bogotá? Te doy indicaciones precisas.",
+      "links": ["/contacto"],
+      "keywords": ["dirección", "ubicación", "av salud", "bogotá", "llegar"]
+    },
+    {
+      "id": 98,
+      "category": "citas_procesos",
+      "subcategory": "como_funciona",
+      "questions": [
+        "¿cómo funciona el agendamiento?",
+        "proceso para pedir cita",
+        "pasos para agendar",
+        "cómo solicitar cita",
+        "proceso de citas"
+      ],
+      "answer": "📅 **Proceso de Agendamiento: Simple y seguro**\n\n**3 pasos claros:**\n\n**Paso 1: Selección (tú decides)**\n• **Servicio** que necesitas\n• **Terapeuta** especializado (o nosotros te recomendamos)\n• **Fecha y hora** que te funcionan\n\n**Paso 2: Registro (nos conocemos)**\n• **Información personal** (si es primera vez)\n• **Historia clínica básica**\n• **Método de pago** preferido\n\n**Paso 3: Confirmación (nos coordinamos)**\n• **Revisión** por el terapeuta asignado\n• **Aceptación** (generalmente en 24 horas)\n• **Notificación** a ti vía email/panel\n\n**Lo que sucede después:**\n1. **Preparación** de tu sesión por el terapeuta\n2. **Recordatorio** 24 horas antes\n3. **Tu llegada** 10 minutos antes\n\n**Flexibilidad:**\nPuedes agendar para otra persona (familiar, amigo).\n\n**Nuestra garantía:**\nSi el terapeuta no puede atenderte, te contactamos para reasignación.\n\n¿Listo para dar el primer paso? Te guío donde necesites.",
+      "links": ["/cita"],
+      "keywords": ["agendamiento", "proceso", "pasos", "solicitar", "funciona"]
+    },
+    {
+      "id": 99,
+      "category": "citas_procesos",
+      "subcategory": "tiempo_respuesta",
+      "questions": [
+        "¿cuánto tardan en responder?",
+        "tiempo de confirmación",
+        "¿cuándo sabré si aceptaron?",
+        "plazo respuesta cita",
+        "espera confirmación"
+      ],
+      "answer": "⏳ **Tiempo de Respuesta: Rápido pero cuidadoso**\n\n**Plazos claros:**\n\n**Confirmación de cita:**\n• **Generalmente:** Menos de 24 horas hábiles\n• **Máximo:** 48 horas hábiles\n• **Depende de:** Tipo de servicio, terapeuta seleccionado\n\n**Por qué este tiempo:**\n1. **Revisión personalizada** por el terapeuta\n2. **Verificación** de adecuación a tu condición\n3. **Preparación** de materiales específicos si son necesarios\n4. **Coordinación** interna de horarios\n\n**Excepciones más rápidas:**\n• **Servicios básicos:** A veces confirmación inmediata\n• **Horarios muy solicitados:** Puede requerir más coordinación\n\n**Cómo sabrás:**\n1. **Email** con todos los detalles\n2. **Notificación** en tu panel de citas\n3. **Opcional:** WhatsApp si así lo configuraste\n\n**Si pasan 48 horas:**\nContáctanos al 320 2914521 para seguimiento.\n\n¿Es urgente tu consulta? Podemos priorizar en algunos casos.",
+      "links": ["/panel_citas"],
+      "keywords": ["tiempo", "respuesta", "confirmación", "horas", "plazo"]
+    },
+    {
+      "id": 100,
+      "category": "citas_procesos",
+      "subcategory": "cancelar_modificar",
+      "questions": [
+        "¿cómo cancelo mi cita?",
+        "modificar cita agendada",
+        "anular consulta",
+        "cambiar fecha cita",
+        "no puedo asistir"
+      ],
+      "answer": "🔄 **Cancelar o Modificar: Entendemos los cambios**\n\n**Para citas pendientes de aceptación:**\n• **Cancela directamente** en tu panel\n• **No hay penalización**\n• **Horario liberado** inmediatamente\n\n**Para citas ya aceptadas:**\n1. **Inicia sesión** en tu panel\n2. **Ve a 'Mis Citas'**\n3. **Selecciona la cita**\n4. **Haz clic en 'Cancelar'**\n5. **Agenda nueva** si es modificación\n\n**Política de cancelación:**\n• **Más de 24 horas:** Sin cargo\n• **Menos de 24 horas:** 50% del valor (excepto emergencias)\n• **No show (sin aviso):** 100% del valor\n\n**Emergencias:**\n• **Comunícanos** lo antes posible\n• **Documentación** si es necesario (ej: incapacidad)\n• **Consideración** caso por caso\n\n**Nuestra recomendación:**\nSi dudas de poder asistir, cancela temprano.\n\n¿Necesitas cancelar por una emergencia médica?",
+      "links": ["/panel_citas"],
+      "keywords": ["cancelar", "modificar", "anular", "cambiar", "asistir"]
+    },
+    {
+      "id": 101,
+      "category": "citas_procesos",
+      "subcategory": "requisitos_primera_vez",
+      "questions": [
+        "¿qué debo llevar primera vez?",
+        "documentos primera consulta",
+        "requisitos iniciales",
+        "preparación primera cita",
+        "qué necesito llevar"
+      ],
+      "answer": "🎒 **Primera Visita: Prepárate para comenzar**\n\n**Documentos esenciales:**\n1. **Identificación** (cédula, pasaporte)\n2. **Carné del seguro** si aplica\n3. **Orden médica** si la tienes\n\n**Exámenes (si los tienes):**\n4. **Radiografías** (físicas o digitales)\n5. **Resonancias/TOMOGRAFÍAS**\n6. **Exámenes de laboratorio** relevantes\n7. **Informes quirúrgicos** si hubo cirugías\n\n**Para tu comodidad:**\n8. **Ropa cómoda** (ver recomendación específica)\n9. **Lista de medicamentos** actuales\n10. **Lista de preguntas** que tengas\n\n**No necesitas traer:**\n• Ansiedad excesiva\n• Expectativas rígidas\n• Toallas (nosotros las proporcionamos)\n\n**Recomendación adicional:**\nLlega 10-15 minutos antes para completar formularios iniciales sin prisa.\n\n**Si olvidas algo:**\nNo te preocupes, podemos comenzar igual.\n\n¿Hay algún documento específico que no tengas pero crees necesario?",
+      "links": ["/servicios_terapeuticos"],
+      "keywords": ["primera vez", "documentos", "requisitos", "llevar", "preparación"]
+    },
+    {
+      "id": 102,
+      "category": "citas_procesos",
+      "subcategory": "panel_paciente",
+      "questions": [
+        "¿qué puedo hacer en mi panel?",
+        "funciones del paciente",
+        "mi cuenta fisiosalud",
+        "panel de usuario",
+        "gestión mis citas"
+      ],
+      "answer": "💻 **Tu Panel Personalizado: Control total de tu recuperación**\n\n**6 secciones principales:**\n\n**1. Mis Citas:**\n• Agendar nuevas\n• Ver próximas\n• Historial completo\n• Cancelar/reprogramar\n\n**2. Mis Ejercicios:**\n• Rutinas asignadas\n• Videos demostrativos\n• Registro de cumplimiento\n• Reportar dificultades\n\n**3. Mi Progreso:**\n• Métricas de mejora\n• Objetivos alcanzados\n• Notas del terapeuta\n• Gráficos de evolución\n\n**4. Mi Carrito:**\n• Productos seleccionados\n• Historial de compras\n• Recomendaciones personalizadas\n• Estado de envíos\n\n**5. Mis Documentos:**\n• Facturas\n• Prescripciones\n• Informes de progreso\n• Consentimientos firmados\n\n**6. Mi Perfil:**\n• Actualizar información\n• Cambiar contraseña\n• Preferencias de contacto\n• Configurar notificaciones\n\n**Acceso desde:**\nCualquier dispositivo con internet.\n\n**Próximamente:**\n• Chat directo con tu terapeuta\n• Recordatorios de medicamentos\n• Integración con wearables\n\n¿Hay alguna función específica que te gustaría explorar primero?",
+      "links": ["/panel_citas", "/panel_ejercicios", "/panel_progreso", "/panel_mercado"],
+      "keywords": ["panel", "paciente", "cuenta", "usuario", "gestión"]
+    },
+    {
+      "id": 103,
+      "category": "terapeutas",
+      "subcategory": "lista_terapeutas",
+      "questions": [
+        "¿quiénes son los terapeutas?",
+        "lista de fisioterapeutas",
+        "equipo de terapeutas",
+        "nombres especialistas",
+        "terapeutas disponibles"
+      ],
+      "answer": "👥 **Nuestro Equipo de Terapeutas: Diversidad de expertise**\n\n**30 profesionales apasionados:**\n\n**Experiencia consolidada (10+ años):**\n• Laura Fernández\n• Carlos Ríos\n• Mariana Soto\n• Andrés Gómez\n\n**Especialistas en áreas específicas:**\n• Camila Rojas (deportiva)\n• Felipe Duarte (columna)\n• Daniela Pérez (post-quirúrgica)\n• Ricardo Ruiz (mano)\n\n**Terapeutas jóvenes con innovación:**\n• Sofía Torres\n• Manuel Quintero\n• Paula Vargas\n• Diego López\n\n**Y muchos más talentosos profesionales...**\n\n**Lo que todos comparten:**\n1. **Formación continua** (cada terapeuta se especializa)\n2. **Pasión por enseñar** (no solo tratar)\n3. **Empatía genuina**\n4. **Compromiso** con resultados medibles\n\n**Proceso de asignación:**\nTe recomendamos el terapeuta ideal según tu condición, o tú eliges.\n\n**Conócelos mejor:**\nPerfiles completos en nuestro sitio web.\n\n¿Te interesa algún área de especialización en particular?",
+      "links": [],
+      "keywords": ["terapeutas", "lista", "equipo", "especialistas", "nombres"]
+    },
+    {
+      "id": 104,
+      "category": "terapeutas",
+      "subcategory": "terapeutas_masaje",
+      "questions": [
+        "terapeutas masaje relajante",
+        "especialistas en masaje",
+        "¿quién atiende masajes?",
+        "terapeutas para masaje básico"
+      ],
+      "answer": "💆 **Especialistas en Masaje Relajante:**\n\n**Laura Fernández:**\n• 12 años de experiencia\n• Especialidad: Reducción de estrés\n• Filosofía: \"El masaje es conversación sin palabras\"\n\n**Carlos Ríos:**\n• 8 años de experiencia\n• Especialidad: Técnicas suecas y californianas\n• Filosofía: \"Cada cuerpo tiene su ritmo\"\n\n**Mariana Soto:**\n• 6 años de experiencia\n• Especialidad: Masaje con aromaterapia\n• Filosofía: \"Los sentidos sanan\"\n\n**Lo que los hace especiales:**\n• Entienden que el estrés se almacena en músculos\n• Crean ambientes de completa relajación\n• Personalizan presión según tus preferencias\n• Incluyen pequeños estiramientos pasivos\n\n**Disponibilidad:**\n• Laura: Lunes a Viernes tarde\n• Carlos: Mañanas y Sábados\n• Mariana: Tardes y Domingos\n\n**Recomendación:**\nSi es tu primer masaje, Mariana es especialmente paciente explicando el proceso.\n\n¿Tienes alguna preferencia de horario o estilo específico?",
+      "links": [],
+      "keywords": ["masaje", "relajante", "terapeutas", "especialistas"]
+    },
+    {
+      "id": 105,
+      "category": "terapeutas",
+      "subcategory": "terapeutas_estiramientos",
+      "questions": [
+        "terapeutas estiramientos",
+        "especialistas en flexibilidad",
+        "¿quién atiende estiramientos?",
+        "terapia de estiramientos terapeutas"
+      ],
+      "answer": "🤸 **Especialistas en Estiramientos:**\n\n**Andrés Gómez:**\n• 10 años de experiencia\n• Especialidad: Deportistas y bailarines\n• Filosofía: \"La flexibilidad es libertad\"\n\n**Camila Rojas:**\n• 7 años de experiencia\n• Especialidad: Adultos mayores\n• Filosofía: \"Nunca es tarde para ganar movilidad\"\n\n**Felipe Duarte:**\n• 5 años de experiencia\n• Especialidad: Personas sedentarias\n• Filosofía: \"El cuerpo está diseñado para moverse\"\n\n**Su enfoque único:**\n• Evaluación inicial de rangos de movimiento\n• Progresión personalizada\n• Educación en autoestiramiento\n• Integración con respiración\n\n**Técnicas que utilizan:**\n• Estiramiento estático\n• FNP (Facilitación Neuromuscular Propioceptiva)\n• Movilidad articular\n• Liberación miofascial suave\n\n**Para quién es cada uno:**\n• Andrés: Si buscas alto rendimiento\n• Camila: Si tienes limitaciones por edad/artritis\n• Felipe: Si pasas mucho tiempo sentado\n\n¿Qué describe mejor tu situación actual?",
+      "links": [],
+      "keywords": ["estiramientos", "flexibilidad", "terapeutas"]
+    },
+    {
+  "id": 106,
+  "category": "terapeutas",
+  "subcategory": "terapeutas_deportiva",
+  "questions": [
+    "terapeutas rehabilitación deportiva",
+    "especialistas en deporte",
+    "¿quién atiende deportistas?",
+    "rehabilitación deportiva terapeutas"
+  ],
+  "answer": "🏃 **Especialistas en Rehabilitación Deportiva:**\n\n**Daniela Pérez:**\n• 9 años de experiencia\n• Especialidad: Corredores y triatletas\n• Certificaciones: Corrección de técnica de carrera\n• Filosofía: \"Corregir para no repetir\"\n\n**Ricardo Ruiz:**\n• 11 años de experiencia\n• Especialidad: Deportes de equipo (fútbol, baloncesto)\n• Certificaciones: FIFA Medical\n• Filosofía: \"El retorno seguro es lo único que importa\"\n\n**Sofía Torres:**\n• 6 años de experiencia\n• Especialidad: Deportes acuáticos\n• Certificaciones: Terapia acuática\n• Filosofía: \"El agua es el medio más amable para rehabilitar\"\n\n**Su metodología:**\n1. **Análisis biomecánico** del gesto deportivo\n2. **Rehabilitación funcional** específica\n3. **Preparación para retorno** progresivo\n4. **Prevención** de recaídas\n\n**Tecnologías que manejan:**\n• Plataformas de fuerza\n• Análisis de video en 3D\n• Monitores de carga de entrenamiento\n\n**Para qué deportista:**\n• Daniela: Running, triatlón\n• Ricardo: Fútbol, baloncesto, voleibol\n• Sofía: Natación, surf, waterpolo\n\n**Dato curioso:**\nRicardo ha trabajado con equipos profesionales de fútbol.\n\n¿Practicas algún deporte específico?",
+  "links": [],
+  "keywords": ["deportiva", "deportistas", "rehabilitación", "terapeutas"]
+},
+    {
+      "id": 107,
+      "category": "terapeutas",
+      "subcategory": "terapeutas_postquirurgica",
+      "questions": [
+        "terapeutas post-quirúrgica",
+        "especialistas en post operatorio",
+        "¿quién atiende post cirugía?",
+        "rehabilitación post-quirúrgica terapeutas"
+      ],
+      "answer": "🔄 **Especialistas en Post-Quirúrgico:**\n\n**Manuel Quintero:**\n• 15 años de experiencia\n• Especialidad: Reemplazos articulares\n• Certificaciones: Ortopedia avanzada\n• Filosofía: \"La paciencia es la mejor medicina\"\n\n**Paula Vargas:**\n• 10 años de experiencia\n• Especialidad: Cirugías de columna\n• Certificaciones: Rehabilitación neuro-ortopédica\n• Filosofía: \"Cada milímetro de avance cuenta\"\n\n**Diego López:**\n• 8 años de experiencia\n• Especialidad: Reconstrucciones ligamentarias\n• Certificaciones: Sports Medicine\n• Filosofía: \"La confianza se recupera paso a paso\"\n\n**Su abordaje meticuloso:**\n• **Coordinación directa** con cirujanos\n• **Respeto absoluto** por tiempos de cicatrización\n• **Progresión milimétrica**\n• **Manejo expectativas** realistas\n\n**Protocolos que dominan:**\n• Artroplastias (cadera, rodilla, hombro)\n• Fusión vertebral\n• Reconstrucción LCA/manguito rotador\n• Osteosíntesis\n\n**Para qué cirugía:**\n• Manuel: Prótesis articulares\n• Paula: Columna\n• Diego: Ligamentos y tendones\n\n**Importante:**\nTodos requieren tu historial quirúrgico completo.\n\n¿Podrías contarme qué tipo de cirugía tuviste?",
+      "links": [],
+      "keywords": ["post-quirúrgica", "cirugía", "operatorio", "terapeutas"]
+    },
+    {
+      "id": 108,
+      "category": "terapeutas",
+      "subcategory": "terapeutas_puncion",
+      "questions": [
+        "terapeutas punción seca",
+        "especialistas en punción",
+        "¿quién atiende punción seca?",
+        "punción seca terapeutas"
+      ],
+      "answer": "🎯 **Especialistas en Punción Seca:**\n\n**Lucía Moreno:**\n• 8 años de experiencia\n• Especialidad: Punción seca superficial y profunda\n• Certificaciones: Dry Needling Level I, II, III\n• Filosofía: \"Precisión sobre velocidad\"\n\n**Santiago Peña:**\n• 6 años de experiencia\n• Especialidad: Punción seca ecoguiada\n• Certificaciones: Ecografía musculoesquelética\n• Filosofía: \"Ver para creer, y para pinchar con seguridad\"\n\n**Su enfoque de seguridad:**\n1. **Evaluación exhaustiva** previa\n2. **Explicación detallada** del procedimiento\n3. **Técnica estéril** impecable\n4. **Seguimiento** post-tratamiento\n\n**Condiciones que tratan frecuentemente:**\n• Síndrome de dolor miofascial\n• Cefaleas tensionales\n• Dolor lumbar crónico\n• Puntos gatillo en hombros/cuello\n\n**Diferencia entre ellos:**\n• **Lucía:** Técnica manual tradicional\n• **Santiago:** Uso de ecógrafo para máxima precisión\n\n**Requisito para agendar con ellos:**\nEvaluación médica/fisioterapéutica previa que indique necesidad.\n\n**Lo que debes saber:**\nAmbos explican cada paso del proceso para tu tranquilidad.\n\n¿Tienes puntos específicos de dolor que sospechas sean puntos gatillo?",
+      "links": [],
+      "keywords": ["punción seca", "agujas", "terapeutas"]
+    },
+    {
+      "id": 109,
+      "category": "terapeutas",
+      "subcategory": "terapeutas_vendaje",
+      "questions": [
+        "terapeutas vendaje neuromuscular",
+        "especialistas en kinesiotape",
+        "¿quién atiende vendajes?",
+        "vendaje neuromuscular terapeutas"
+      ],
+      "answer": "🌈 **Especialistas en Vendaje Neuromuscular:**\n\n**Adriana Castro:**\n• 7 años de experiencia\n• Especialidad: Vendaje para edema y deporte\n• Certificaciones: Kinesio Taping Method\n• Filosofía: \"La cinta es solo el medio, la técnica es el mensaje\"\n\n**Julián Rincón:**\n• 5 años de experiencia\n• Especialidad: Vendaje para corrección postural\n• Certificaciones: Medical Taping Concept\n• Filosofía: \"Pequeños ajustes, grandes cambios\"\n\n**Su arte con cinta:**\n• **Evaluación** de tensión cutánea y muscular\n• **Selección** de técnica específica\n• **Aplicación** con tensión precisa\n• **Educación** en cuidado y retiro\n\n**Aplicaciones comunes:**\n• Soporte durante actividad deportiva\n• Reducción de hematomas/edema\n• Alivio de tendinitis\n• Corrección postural suave\n• Cicatrización\n\n**Diferencia de estilos:**\n• **Adriana:** Más deportivo, colores vivos\n• **Julián:** Más terapéutico, enfoque postural\n\n**Lo que enseñan:**\nCómo identificar cuándo necesitas vendaje y cuándo no.\n\n**Duración de aplicación:**\n3-5 días normalmente, dependiendo de objetivo.\n\n¿Para qué condición específica buscas vendaje?",
+      "links": [],
+      "keywords": ["vendaje", "neuromuscular", "kinesiotape", "terapeutas"]
+    },
+    {
+      "id": 110,
+      "category": "terapeutas",
+      "subcategory": "terapeutas_miofascial",
+      "questions": [
+        "terapeutas terapia miofascial",
+        "especialistas en miofascial",
+        "¿quién atiende miofascial?",
+        "terapia miofascial terapeutas"
+      ],
+      "answer": "🌊 **Especialistas en Terapia Miofascial:**\n\n**Valeria Martínez:**\n• 9 años de experiencia\n• Especialidad: Dolor crónico complejo\n• Certificaciones: Fascial Manipulation®\n• Filosofía: \"La fascia es la memoria del cuerpo\"\n\n**Andrés López:**\n• 6 años de experiencia\n• Especialidad: Restricciones post-quirúrgicas\n• Certificaciones: Myofascial Release\n• Filosofía: \"Escuchar con las manos\"\n\n**Su comprensión profunda de la fascia:**\n• Tejido conectivo que todo lo une\n• Responsable de dolores que migran\n• Almacén de tensiones emocionales\n• Clave en movilidad articular\n\n**Técnicas que utilizan:**\n• Presión sostenida\n• Estiramiento fascial\n• Liberación cruzada\n• Movilización neural\n\n**Condiciones que benefician más:**\n• Fibromialgia\n• Dolores que no responden a otros tratamientos\n• Restricciones post-cirugía\n• Migrañas tensionales\n• Síndrome de dolor regional complejo\n\n**Diferencia de enfoque:**\n• **Valeria:** Más estructural, busca causas profundas\n• **Andrés:** Más funcional, busca recuperación de movimiento\n\n**Lo que experimentarás:**\nPresión firme pero no dolorosa, sensación de liberación.\n\n¿Has tenido dolores que parecen moverse de un lugar a otro?",
+      "links": [],
+      "keywords": ["miofascial", "fascia", "terapeutas"]
+    },
+    {
+      "id": 111,
+      "category": "terapeutas",
+      "subcategory": "terapeutas_masaje_terapeutico",
+      "questions": [
+        "terapeutas masaje terapéutico",
+        "especialistas en masaje terapéutico",
+        "¿quién atiende masaje terapéutico?",
+        "masaje terapéutico terapeutas"
+      ],
+      "answer": "👐 **Especialistas en Masaje Terapéutico:**\n\n**Marcos Rivera:**\n• 11 años de experiencia\n• Especialidad: Contracturas profundas\n• Certificaciones: Deep Tissue Massage\n• Filosofía: \"La intensidad correcta, no la máxima\"\n\n**Natalia Ochoa:**\n• 7 años de experiencia\n• Especialidad: Trigger points y referidos\n• Certificaciones: Neuromuscular Therapy\n• Filosofía: \"Donde duele no siempre es el problema\"\n\n**Su enfoque clínico:**\n• **Evaluación** muscular específica\n• **Identificación** de zonas hipertonicas\n• **Intervención** dirigida\n• **Integración** con ejercicios correctivos\n\n**Técnicas que dominan:**\n• Compresión isquémica\n• Liberación de puntos gatillo\n• Masaje transverso profundo\n• Técnicas de energía muscular\n\n**Para qué condiciones son ideales:**\n• Dolor lumbar mecánico\n• Síndrome del manguito rotador\n• Tendinitis\n• Molestias por sobreuso\n• Recuperación post-ejercicio intenso\n\n**Diferencia entre ellos:**\n• **Marcos:** Más intenso, para problemas muy localizados\n• **Natalia:** Más analítico, busca patrones de dolor\n\n**Comunicación constante:**\nTe piden feedback sobre presión durante la sesión.\n\n¿Podrías señalarme exactamente dónde sientes la contractura o dolor?",
+      "links": [],
+      "keywords": ["masaje terapéutico", "terapeutas"]
+    },
+    {
+      "id": 112,
+      "category": "terapeutas",
+      "subcategory": "terapeutas_craneosacral",
+      "questions": [
+        "terapeutas craneosacral",
+        "especialistas en craneosacral",
+        "¿quién atiende craneosacral?",
+        "terapia craneosacral terapeutas"
+      ],
+      "answer": "🌀 **Especialistas en Terapia Craneosacral:**\n\n**Luis Castillo:**\n• 13 años de experiencia\n• Especialidad: Sistema nervioso central\n• Certificaciones: Upledger Institute\n• Filosofía: \"El cuerpo sabe sanarse, solo hay que escucharlo\"\n\n**Daniela Cruz:**\n• 8 años de experiencia\n• Especialidad: Trauma físico/emocional\n• Certificaciones: Biodinámica Craneosacral\n• Filosofía: \"La suavidad tiene poder\"\n\n**Su toque sutil pero profundo:**\n• Presión de apenas 5 gramos\n• Escucha del ritmo craneosacral\n• Facilitación de autorregulación\n• Respeto absoluto por tu proceso\n\n**Condiciones que más benefician:**\n• Migrañas y cefaleas\n• Estrés y ansiedad crónicos\n• Síntomas post-concusión\n• Problemas de sueño\n• Dolor crónico sin causa estructural clara\n• Trauma emocional almacenado en el cuerpo\n\n**Diferencia de enfoque:**\n• **Luis:** Más estructural, trabajo con huesos craneales\n• **Daniela:** Más fluido, trabajo con líquido cefalorraquídeo\n\n**Lo que experimentarás:**\nRelajación profunda, a veces sensaciones de calor/fluidez.\n\n**Requisito:**\nEvaluación previa para determinar si es adecuado para ti.\n\n¿Has notado relación entre tu estrés y síntomas físicos?",
+      "links": [],
+      "keywords": ["craneosacral", "terapeutas"]
+    },
+    {
+      "id": 113,
+      "category": "terapeutas",
+      "subcategory": "terapeutas_drenaje",
+      "questions": [
+        "terapeutas drenaje linfático",
+        "especialistas en drenaje",
+        "¿quién atiende drenaje linfático?",
+        "drenaje linfático terapeutas"
+      ],
+      "answer": "💧 **Especialistas en Drenaje Linfático:**\n\n**Patricia Gil:**\n• 12 años de experiencia\n• Especialidad: Linfedema post-cáncer\n• Certificaciones: Vodder Method\n• Filosofía: \"La suavidad mueve más que la fuerza\"\n\n**Carlos Navarro:**\n• 9 años de experiencia\n• Especialidad: Edemas post-quirúrgicos\n• Certificaciones: Leduc Method\n• Filosofía: \"Cada sistema linfático tiene su ritmo\"\n\n**Su toque terapéutico único:**\n• Movimientos rítmicos y precisos\n• Seguimiento de anatomía linfática\n• Presión exacta para movilizar sin dañar\n• Atención a ganglios linfáticos\n\n**Indicaciones principales:**\n• Linfedema (primario o secundario)\n• Edemas post-quirúrgicos (cirugía plástica, ortopédica)\n• Insuficiencia venosa crónica\n• Fibromialgia\n• Retención de líquidos idiopática\n\n**Diferencia de métodos:**\n• **Patricia:** Método Vodder, más círculos y bombeos\n• **Carlos:** Método Leduc, más estiramientos cutáneos\n\n**Lo que enseñan:**\nAutodrenaje básico para entre sesiones.\n\n**Requisito importante:**\nDiagnóstico médico claro, especialmente para linfedema.\n\n**Resultados esperados:**\nReducción de volumen, sensación de ligereza.\n\n¿Tienes diagnóstico específico de linfedema o edema?",
+      "links": [],
+      "keywords": ["drenaje linfático", "terapeutas"]
+    },
+    {
+      "id": 114,
+      "category": "terapeutas",
+      "subcategory": "terapeutas_electroterapia",
+      "questions": [
+        "terapeutas electroterapia",
+        "especialistas en electroterapia",
+        "¿quién atiende electroterapia?",
+        "electroterapia terapeutas"
+      ],
+      "answer": "⚡ **Especialistas en Electroterapia:**\n\n**Esteban Vargas:**\n• 10 años de experiencia\n• Especialidad: Manejo del dolor crónico\n• Certificaciones: Electroterapia avanzada\n• Filosofía: \"La tecnología al servicio del alivio\"\n\n**Valentina Muñoz:**\n• 7 años de experiencia\n• Especialidad: Estimulación muscular\n• Certificaciones: Neuromodulación\n• Filosofía: \"Reaprender a contraer\"\n\n**Su dominio tecnológico:**\n• Conocimiento profundo de parámetros\n• Selección precisa de modalidades\n• Ajuste milimétrico de intensidad\n• Combinación inteligente de corrientes\n\n**Aplicaciones principales:**\n• Control de dolor (TENS)\n• Estimulación muscular atrofiada (EMS)\n• Reducción de inflamación (corrientes interferenciales)\n• Aceleración de cicatrización (microcorrientes)\n\n**Condiciones que tratan frecuentemente:**\n• Osteoartritis dolorosa\n• Atrofia muscular post-inmovilización\n• Dolor neuropático\n• Tendinitis crónicas\n\n**Diferencia de enfoque:**\n• **Esteban:** Más enfocado en analgesia\n• **Valentina:** Más enfocada en recuperación muscular\n\n**Lo que sentirás:**\nHormigueo o contracciones musculares, no dolor.\n\n**Requisito:**\nDiagnóstico médico previo para uso seguro.\n\n¿Tu médico te ha recomendado algún tipo específico de electroterapia?",
+      "links": [],
+      "keywords": ["electroterapia", "terapeutas"]
+    },
+    {
+      "id": 115,
+      "category": "terapeutas",
+      "subcategory": "terapeutas_neural",
+      "questions": [
+        "terapeutas terapia neural",
+        "especialistas en neural",
+        "¿quién atiende terapia neural?",
+        "terapia neural terapeutas"
+      ],
+      "answer": "🕸️ **Especialistas en Terapia Neural:**\n\n**Sebastián Cano:**\n• 15 años de experiencia\n• Especialidad: Sistema neurovegetativo\n• Certificaciones: Terapia Neural Huneke\n• Filosofía: \"Reiniciar el sistema operativo del cuerpo\"\n\n**María Pardo:**\n• 11 años de experiencia\n• Especialidad: Neuralgias y dolor neuropático\n• Certificaciones: Medicina Biológica\n• Filosofía: \"El dolor es un mensaje, no un castigo\"\n\n**Pablo Herrera:**\n• 9 años de experiencia\n• Especialidad: Condiciones crónicas complejas\n• Certificaciones: Odontología neurofocal\n• Filosofía: \"Todo está conectado\"\n\n**Ana Gutiérrez:**\n• 8 años de experiencia\n• Especialidad: Disautonomías\n• Certificaciones: Terapia Segmentaria\n• Filosofía: \"Equilibrar el sistema nervioso autónomo\"\n\n**Su intervención precisa:**\n• Microinyecciones de anestésicos diluidos\n• Puntos específicos según teoría de campos interferentes\n• Enfoque en sistema nervioso autónomo\n• Consideración de cicatrices y focos dentales\n\n**Para condiciones particularmente difíciles:**\n• Dolor crónico sin causa estructural clara\n• Neuralgias (trigémino, occipital)\n• Síndromes de dolor regional complejo\n• Alteraciones del sistema nervioso autónomo\n\n**Requisitos estrictos:**\n• Evaluación médica exhaustiva previa\n• Historial médico completo\n• Pacientes que han fallado tratamientos convencionales\n\n**Disponibilidad limitada:**\nSolo con cita especial coordinada previamente.\n\n¿Has recibido múltiples tratamientos sin encontrar alivio duradero?",
+      "links": [],
+      "keywords": ["terapia neural", "neural", "terapeutas"]
+    },
+    {
+      "id": 116,
+      "category": "tecnologia",
+      "subcategory": "fisioapp_planes",
+      "questions": [
+        "¿qué es fisioapp?",
+        "plataforma fisiosalud",
+        "app de fisioterapia",
+        "tecnología fisiosalud",
+        "fisioapp precios"
+      ],
+      "answer": "📱 **FisioApp: Tu bienestar en una aplicación**\n\n**3 planes diseñados para diferentes necesidades:**\n\n**Plan Estándar ($29/mes):**\n• Rutinas básicas personalizadas\n• Recordatorios de ejercicios\n• Seguimiento manual de progreso\n• Acceso a biblioteca de ejercicios\n• **Perfecto para:** Mantenimiento básico\n\n**Plan Premium ($59/mes):**\n• **Todo el Estándar, más:**\n• IA que ajusta rutinas según tu progreso\n• Visión artificial para análisis de movimiento\n• Chat conmigo (FisioBot) 24/7\n• Análisis predictivo para prevenir recaídas\n• **Perfecto para:** Rehabilitación activa\n\n**Plan Elite ($99/mes):**\n• **Todo el Premium, más:**\n• Terapeuta personal asignado\n• Consultas ilimitadas por chat/video\n• Análisis de video de tu técnica\n• Plan nutricional personalizado\n• Integración con wearables\n• **Perfecto para:** Recuperación compleja o alto rendimiento\n\n**Prueba gratuita:**\n7 días del plan Premium, sin tarjeta requerida.\n\n**Valor diferencial:**\nNo es solo una app de ejercicios, es un ecosistema de recuperación.\n\n**Lanzamiento:**\nPróximamente. Lista de espera disponible.\n\n¿Qué plan se adaptaría mejor a tus objetivos actuales?",
+      "links": ["/Fisiobot"],
+      "keywords": ["fisioapp", "plataforma", "app", "planes", "precios"]
+    },
+    {
+  "id": 117,
+  "category": "tecnologia",
+  "subcategory": "fisioapp_funcionalidades",
+  "questions": [
+    "funciones fisioapp",
+    "qué hace la plataforma",
+    "características fisioapp",
+    "tecnologías incluidas"
+  ],
+  "answer": "🚀 **FisioApp: Tecnologías que transforman la rehabilitación**\n\n**Funcionalidades principales:**\n\n**1. Rutinas Guiadas por IA:**\n• Se adaptan a tu progreso diario\n• Consideran tu fatiga y dolor reportado\n• Ajustan intensidad automáticamente\n\n**2. Análisis de Movimiento con Visión Artificial:**\n• Tu cámara analiza tu técnica\n• Feedback inmediato sobre correcciones\n• Seguimiento de rangos de movimiento\n\n**3. FisioBot 24/7 (¡ese soy yo!):**\n• Respuestas inmediatas a dudas\n• Recordatorios personalizados\n• Motivación y apoyo emocional\n• Conexión con terapeuta humano cuando es necesario\n\n**4. Seguimiento Predictivo:**\n• Identifica riesgo de recaídas\n• Sugiere ajustes preventivos\n• Predice tiempos de recuperación\n\n**5. Nutrición Personalizada:**\n• Planes según tu condición\n• Listas de compras automáticas\n• Seguimiento de hidratación\n\n**6. Integración con Wearables:**\n• Apple Watch, Fitbit, Garmin\n• Sincronización automática de actividad\n• Correlación entre actividad y síntomas\n\n**7. Sesiones Grupales Virtuales:**\n• Clases en vivo con terapeutas\n• Comunidad de apoyo\n• Retos grupales motivacionales\n\n**8. Biblioteca de Conocimiento:**\n• Artículos escritos por nuestros especialistas\n• Videos educativos\n• Testimonios reales\n\n**Nuestra promesa:**\nHacer la rehabilitación más efectiva, accesible y motivadora.\n\n**Plataforma única:**\nDesarrollada específicamente para fisioterapia, no adaptada de fitness.\n\n¿Hay alguna funcionalidad que te interese especialmente?",
+  "links": ["/Fisiobot"],
+  "keywords": ["funciones", "características", "tecnologías", "plataforma"]
+},
+    {
+      "id": 118,
+      "category": "tecnologia",
+      "subcategory": "prueba_gratuita",
+      "questions": [
+        "prueba gratuita fisioapp",
+        "testear plataforma",
+        "demo fisioapp",
+        "probar sin costo"
+      ],
+      "answer": "🎁 **Prueba FisioApp Gratis: Experimenta el futuro de tu recuperación**\n\n**Qué incluye la prueba:**\n• **7 días completos** del plan Premium\n• **Acceso a todas las funcionalidades**\n• **Sin tarjeta de crédito** requerida\n• **Sin compromiso** de compra posterior\n• **Soporte completo** durante la prueba\n\n**Cómo acceder:**\n1. Visita la sección de FisioApp en nuestro sitio\n2. Regístrate con tu email\n3. Recibe confirmación inmediata\n4. Comienza a usar desde tu dispositivo\n\n**Durante tu prueba podrás:**\n• Crear tu perfil de salud completo\n• Recibir rutinas personalizadas\n• Probar el análisis de movimiento\n• Chatear conmigo (FisioBot)\n• Explorar la biblioteca de contenido\n\n**Al finalizar los 7 días:**\n• Decides si continuar con algún plan\n• Sin cargos automáticos\n• Sin llamadas de venta molestas\n• Puedes cancelar en un clic\n\n**Requisitos:**\n• Dispositivo con cámara (para análisis de movimiento)\n• Conexión a internet\n• Voluntad de participar activamente en tu recuperación\n\n**Nuestra confianza:**\nSabemos que una vez que experimentes FisioApp, querrás quedarte.\n\n¿Te gustaría que te notifique cuando esté disponible la prueba?",
+      "links": ["/Fisiobot"],
+      "keywords": ["prueba", "gratuita", "demo", "testear", "probar"]
+    },
+    {
+      "id": 119,
+      "category": "emergencias",
+      "subcategory": "atencion_emergencias",
+      "questions": [
+        "atención de emergencias",
+        "urgencias fisiosalud",
+        "dolor agudo ahora",
+        "necesito atención inmediata",
+        "emergencia 24 horas"
+      ],
+      "answer": "🚨 **Atención de Emergencias: Estamos aquí en los momentos críticos**\n\n**Para emergencias médicas graves:**\n• **Dirígete a urgencias** del hospital más cercano\n• **Después** de estabilización, contáctanos\n\n**Para dolor agudo no traumático:**\n• **Llama al 320 2914521** inmediatamente\n• **Coordinamos** atención prioritaria\n• **Horario extendido** según necesidad\n\n**Servicio de urgencias con cita:**\n• **Disponible** las 24 horas\n• **Requiere** coordinación telefónica previa\n• **No es** servicio de ambulancia\n• **Sí es** evaluación y manejo inicial rápido\n\n**Lo que podemos hacer en emergencia:**\n1. **Evaluación** rápida de la situación\n2. **Primeros auxilios** fisioterapéuticos\n3. **Manejo inicial** de dolor e inflamación\n4. **Derivación** a especialista si es necesario\n5. **Planificación** de rehabilitación posterior\n\n**Lo que NO podemos hacer:**\n• Atender fracturas abiertas\n• Manejar emergencias cardíacas/respiratorias\n• Reemplazar servicio de ambulancia\n\n**Recomendación importante:**\nEn duda, siempre prioriza urgencias médicas tradicionales.\n\n¿Podrías describir brevemente lo que está sucediendo? Así te guío correctamente.",
+      "links": ["/contacto"],
+      "keywords": ["emergencias", "urgencias", "24 horas", "inmediata", "agudo"]
+    },
+    {
+      "id": 120,
+      "category": "pagos",
+      "subcategory": "metodos_pago",
+      "questions": [
+        "¿qué métodos de pago aceptan?",
+        "formas de pagar",
+        "pago con tarjeta",
+        "transferencia bancaria",
+        "efectivo aceptado"
+      ],
+      "answer": "💳 **Métodos de Pago: Flexibilidad para tu comodidad**\n\n**En línea (recomendado para agilizar):**\n• **Tarjetas de crédito:** Visa, MasterCard, American Express\n• **Tarjetas débito:** Con clave\n• **Transferencia bancaria:** Datos proporcionados al agendar\n• **PSE (Pagos Seguros en Línea):** Desde tu cuenta bancaria\n\n**En clínica:**\n• **Efectivo:** En pesos colombianos\n• **Tarjetas:** Con datáfono\n• **Cheques:** A nombre de FisioSalud, previa verificación\n\n**Opciones especiales:**\n• **Pago anticipado** de paquetes con descuento adicional\n• **Facturación** a empresas\n• **Convenios** con algunas EPS/aseguradoras\n• **Planes de pago** para tratamientos extensos\n\n**Seguridad garantizada:**\n• Procesamiento en línea con encriptación SSL\n• Datáfono con chip y contacto\n• Recepción de factura electrónica\n\n**Transparencia total:**\nConoces el costo completo antes de pagar.\n\n**Recomendación:**\nPaga en línea al agendar para asegurar tu cita inmediatamente.\n\n¿Tienes alguna preferencia específica o necesidad especial de pago?",
+      "links": ["/cita"],
+      "keywords": ["pagos", "métodos", "tarjeta", "transferencia", "efectivo"]
+    },
+    {
+      "id": 121,
+      "category": "registro",
+      "subcategory": "necesidad_registro",
+      "questions": [
+        "¿necesito registrarme?",
+        "obligatorio crear cuenta",
+        "registro para agendar",
+        "¿puedo agendar sin cuenta?"
+      ],
+      "answer": "📝 **Registro Obligatorio: Por tu seguridad y continuidad**\n\n**SÍ, necesitas registrarte para:**\n\n**1. Agendar y gestionar citas:**\n• Sin cuenta no puedes seleccionar horarios\n• Es parte de nuestro sistema de calidad\n• Permite recordatorios automáticos\n\n**2. Seguimiento de tu tratamiento:**\n• Ejercicios asignados se guardan en tu perfil\n• Progreso documentado para referencia futura\n• Comunicación con tu terapeuta\n\n**3. Comprar productos:**\n• Carrito de compras personalizado\n• Historial de pedidos\n• Recomendaciones basadas en tu condición\n\n**4. Seguridad de datos:**\n• Tu información médica protegida\n• Acceso solo con tus credenciales\n• Historial siempre disponible para ti\n\n**Excepción (muy limitada):**\nSi eres familiar ayudando a una persona mayor, podemos crear cuenta temporal.\n\n**Proceso rápido:**\n3 minutos ahora te ahorran tiempo después.\n\n**Beneficio adicional:**\nUna vez registrado, agendar futuras citas toma 1 minuto.\n\n¿Necesitas ayuda con el proceso de registro?",
+      "links": ["/registro", "/login_user"],
+      "keywords": ["registro", "cuenta", "loguearse", "necesario", "obligatorio"]
+    },
+    {
+      "id": 122,
+      "category": "carrito_compras",
+      "subcategory": "como_funciona",
+      "questions": [
+        "¿cómo funciona el carrito?",
+        "comprar productos fisiosalud",
+        "añadir al carrito",
+        "compra online productos"
+      ],
+      "answer": "🛒 **Carrito de Compras: Tu tienda terapéutica online**\n\n**Proceso simple:**\n\n**1. Explorar productos:**\n• **Implementos:** /servicios_implementos\n• **Nutrición:** /servicios_alimenticios\n• Lee descripciones completas\n• Revisa especificaciones técnicas\n\n**2. Seleccionar:**\n• Haz clic en 'Comprar Ahora'\n• Elige cantidad\n• Agrega al carrito\n• Puedes seguir explorando\n\n**3. Gestionar carrito:**\n• Ve a 'Mi Carrito' en tu panel\n• Revisa productos seleccionados\n• Modifica cantidades si es necesario\n• Elimina lo que no quieras\n\n**4. Completar compra:**\n• Verifica dirección de envío\n• Selecciona método de pago\n• Confirma compra\n• Recibe confirmación por email\n\n**Características especiales:**\n• **Guardado:** Tu carrito se guarda entre sesiones\n• **Recomendaciones:** Productos sugeridos según tu historial\n• **Comparar:** Puedes comparar productos similares\n\n**Separado de citas:**\n• Carrito independiente de sistema de citas\n• Puedes comprar sin tener citas agendadas\n• Puedes agendar citas sin comprar productos\n\n**Asesoramiento disponible:**\n¿Necesitas recomendación sobre qué producto es mejor para ti?",
+      "links": ["/panel_mercado", "/servicios_implementos", "/servicios_alimenticios"],
+      "keywords": ["carrito", "compras", "productos", "añadir", "online"]
+    },
+    {
+  "id": 123,
+  "category": "acudiente",
+  "subcategory": "informacion_acudiente",
+  "questions": [
+    "¿puedo registrar un acudiente?",
+    "información de acompañante",
+    "acudiente para la cita",
+    "registrar persona responsable"
+  ],
+  "answer": "👨👩 **Información de Acudiente: Para tu tranquilidad**\n\n**SÍ, y te recomendamos hacerlo especialmente si:**\n• Eres adulto mayor\n• Tienes movilidad reducida\n• Tu condición requiere acompañante\n• Eres menor de edad\n• Tienes alguna condición cognitiva\n\n**Datos que puedes registrar:**\n• **Nombre completo** del acudiente\n• **Documento de identidad**\n• **Teléfono** de contacto directo\n• **Email** (opcional)\n• **Parentesco/relación**\n\n**Cómo registrarlo:**\n1. **Al agendar cita**, sección opcional\n2. **En tu panel**, editar perfil\n3. **En recepción**, formulario físico\n\n**Beneficios de registrar acudiente:**\n1. **Comunicación** en caso de emergencia\n2. **Autorización** para recibir información\n3. **Coordinación** de pagos si es necesario\n4. **Acompañamiento** durante sesiones si se requiere\n\n**Confidencialidad protegida:**\n• Información médica solo se comparte con tu autorización\n• Acudiente recibe solo información general a menos que autoricés más\n\n**Flexibilidad:**\nPuedes tener diferentes acudientes para diferentes citas.\n\n**Nuestro cuidado extra:**\nPara adultos mayores solos, siempre preguntamos por red de apoyo.\n\n¿Necesitas registrar a alguien como tu acudiente?",
+  "links": ["/cita"],
+  "keywords": ["acudiente", "acompañante", "responsable", "registrar"]
+},
+    {
+      "id": 124,
+      "category": "correo_terapeutas",
+      "subcategory": "contacto_directo",
+      "questions": [
+        "correo de terapeutas",
+        "email especialistas",
+        "contactar terapeuta directo",
+        "correo fisioterapeutas"
+      ],
+      "answer": "📧 **Contacto Directo con Terapeutas: Comunicación coordinada**\n\n**Política de contacto:**\nLos terapeutas tienen correos institucionales (ej: laura.fernandez@fisiosalud.com) pero preferimos un proceso coordinado.\n\n**Por qué esta política:**\n1. **Protección de tu privacidad:** Comunicación segura y documentada\n2. **Continuidad de atención:** Si tu terapeuta no está, otro puede ayudarte\n3. **Respuesta garantizada:** Centralizamos para asegurar respuesta\n4. **Historial completo:** Todas las comunicaciones en tu expediente\n\n**Canales recomendados:**\n1. **A través de nuestra central:** 320 2914521\n2. **Email general:** info@fisiosalud.com (reenviamos al terapeuta)\n3. **En tu panel de paciente:** Mensajería segura (próximamente)\n4. **En persona:** Durante o después de tu sesión\n\n**Excepciones (contacto directo permitido):**\n• Emergencias relacionadas con tu tratamiento\n• Coordinación específica autorizada por ti\n• Seguimientos especiales establecidos\n\n**Proceso actual:**\n1. Contactas a central\n2. Mensaje llega al terapeuta\n3. Terapeuta responde a través del sistema\n4. Tú recibes respuesta\n\n**Beneficio para ti:**\nNunca te quedas sin respuesta si tu terapeuta está de vacaciones/enfermo.\n\n¿Necesitas contactar a tu terapeuta por algún motivo específico?",
+      "links": ["/contacto"],
+      "keywords": ["correo", "email", "terapeutas", "contactar", "directo"]
+    }
+  ],
+
+  "conversation_flows": {
+    "agendar_cita_detallado": {
+      "steps": ["bienvenida_empatica", "explorar_necesidad", "recomendar_servicio", "presentar_terapeutas", "coordinar_horario", "explicar_proceso", "confirmar_compromiso"],
+      "messages": {
+        "step1": "¡Qué alegría que estés considerando dar este paso hacia tu bienestar! En FisioSalud entendemos que buscar ayuda a veces puede generar dudas. ¿Podrías contarme qué te motiva a contactarnos hoy? ¿Es por algún dolor específico, una lesión reciente, o buscas prevenir futuros problemas?",
+        "step2": "Entiendo perfectamente. Muchas personas con [mencionar condición similar] han encontrado alivio con nosotros. Basado en lo que me compartes, te recomendaría especialmente [servicio específico]. ¿Te gustaría que te cuente más sobre esta opción o prefieres explorar otras alternativas?",
+        "step3": "Para este servicio, contamos con especialistas como [nombres de terapeutas]. Cada uno tiene un enfoque particular - algunos son más suaves, otros más intensos según lo que necesites. ¿Tienes alguna preferencia o quieres mi recomendación personalizada?",
+        "step4": "Perfecto. Ahora, ¿qué días y horarios te funcionan mejor? Muchos pacientes prefieren comenzar con [frecuencia sugerida] para ver progresos significativos. ¿Cómo se adapta esto a tu disponibilidad?",
+        "step5": "Excelente elección. Te explico cómo sigue: 1) Agendarás la cita en el sistema, 2) El terapeuta la revisará en las próximas 24 horas, 3) Recibirás confirmación con todos los detalles, 4) Nos vemos en la clínica 10 minutos antes. ¿Tienes alguna pregunta sobre algún paso?",
+        "step6": "¡Maravilloso! Este primer paso ya es un avance en tu recuperación. Recuerda traer [recordar documentos básicos]. Tu terapeuta estará esperándote con toda la preparación necesaria para comenzar este camino juntos."
+      },
+      "fallback_message": "Para agendar una cita que realmente marque diferencia en tu calidad de vida, te invito a visitar /cita. Allí podrás ver disponibilidad real, conocer más sobre cada terapeuta, y dar ese primer paso hacia el movimiento sin dolor. ¡Tu bienestar vale ese clic!"
+    },
+
+    "cancelar_cita": {
+      "steps": ["validar_sentimiento", "explorar_motivo", "ofrecer_alternativas", "guiar_proceso", "mantener_conexion"],
+      "messages": {
+        "step1": "Entiendo que a veces los planes cambian. Lamento que no puedas asistir a tu cita programada. ¿Hay algo específico que ha surgido? Quizás podamos encontrar una solución que se adapte mejor a tu situación actual.",
+        "step2": "Comprendo. Si el problema es el horario, puedo ayudarte a buscar otra opción que funcione mejor para ti. Si definitivamente necesitas cancelar, te explico el proceso para que sea lo más sencillo posible.",
+        "step3": "Para cancelar: Inicia sesión en tu cuenta, ve a 'Mis Citas', selecciona la cita que necesitas cancelar y confirma. Es importante hacerlo con al menos 24 horas de anticipación para evitar cargos.",
+        "step4": "¿Te gustaría que te contactemos cuando tengas nueva disponibilidad? Tu recuperación es importante para nosotros y queremos asegurarnos de que puedas continuar tu proceso cuando sea el momento adecuado."
+      },
+      "fallback_message": "Para gestionar tus citas con el cuidado y respeto que mereces, visita /panel_citas. Allí puedes ver todas tus opciones y tomar la mejor decisión para tu proceso de recuperación, siempre con nuestra disposición de ayudarte a reajustar cuando lo necesites."
+    },
+
+    "comprar_producto": {
+      "steps": ["entender_objetivo", "recomendar_inteligente", "explicar_beneficios", "guiar_experiencia", "ofrecer_seguimiento"],
+      "messages": {
+        "step1": "¡Excelente decisión complementar tu recuperación con productos de calidad! ¿Estás buscando algún producto en particular o prefieres que te recomiende según la terapia que estás recibiendo o la condición que estás manejando?",
+        "step2": "Basado en [mencionar condición/terapia específica], te sugiero especialmente [producto] porque [beneficio específico relacionado]. Muchos pacientes con situaciones similares han encontrado gran ayuda con este producto. ¿Te gustaría conocer más detalles?",
+        "step3": "Este producto te ayudará a [beneficio 1], [beneficio 2] y [beneficio 3]. Lo que más valoran nuestros pacientes es [testimonio implícito o dato específico]. ¿Hay algo en particular que te gustaría saber sobre su uso o resultados?",
+        "step4": "Para adquirirlo es muy sencillo: Visita la sección correspondiente en nuestro sitio, selecciona 'Comprar Ahora', y luego revisa en 'Mi Carrito' en tu panel personal. ¿Necesitas que te guíe en algún paso específico o tienes dudas sobre envíos?",
+        "step5": "Una vez que tengas el producto, estaré aquí para resolver cualquier duda sobre su uso. Además, en tu próxima cita puedes comentarle a tu terapeuta que lo adquiriste para integrarlo óptimamente a tu tratamiento."
+      },
+      "fallback_message": "Nuestros productos están diseñados específicamente para potenciar tu recuperación y bienestar. Explora /servicios_implementos para equipos terapéuticos profesionales para casa, o /servicios_alimenticios para suplementación inteligente basada en evidencia. ¡Cada elección es un paso más consciente hacia tu salud integral!"
+    }
+  },
+
+  "tone_guidelines": {
+    "always_include": [
+      "Validación emocional antes de información técnica",
+      "Lenguaje de posibilidades y esperanza",
+      "Menciones de éxitos anteriores (genéricos, respetando privacidad)",
+      "Invitaciones suaves a profundizar la conversación",
+      "Metáforas de viaje, recuperación y renovación",
+      "Reconocimiento del valor de dar el primer paso"
+    ],
+
+    "avoid": [
+      "Lenguaje médico excesivamente técnico sin explicación",
+      "Garantías absolutas (usar 'altamente efectivo', 'resultados consistentes')",
+      "Presión para decidir inmediatamente",
+      "Minimización del dolor o preocupación del usuario ('no es nada')",
+      "Respuestas de una sola línea sin contexto",
+      "Términos negativos o alarmantes"
+    ],
+
+    "preferred_phrases": [
+      "En FisioSalud acompañamos cada paso de tu recuperación...",
+      "Tu camino hacia el bienestar comienza con decisiones como esta...",
+      "Juntos podemos encontrar la mejor alternativa para ti...",
+      "Muchos pacientes en situaciones similares han descubierto que...",
+      "Cada paso, por pequeño que parezca, te acerca a tu objetivo...",
+      "Tu cuerpo tiene una sabiduría increíble para sanar...",
+      "La recuperación es un viaje que vale la pena emprender...",
+      "Nos sentimos honrados de que consideres confiar en nosotros...",
+      "Tu comodidad y seguridad son nuestra prioridad...",
+      "Celebramos contigo cada avance en tu proceso..."
+    ],
+
+    "emotional_validation_phrases": [
+      "Es completamente normal sentirse así cuando...",
+      "Entiendo perfectamente tu preocupación acerca de...",
+      "Muchas personas experimentan dudas similares al comenzar...",
+      "Tu cautela es comprensible y respetable...",
+      "Agradezco que compartas eso conmigo, ayuda a entender mejor cómo ayudarte...",
+      "No estás solo/a en este proceso, estamos aquí para acompañarte..."
+    ]
+  }
+}

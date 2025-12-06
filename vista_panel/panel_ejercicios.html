@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FisioSalud - Mis Ejercicios</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== Variables ===== */
+        :root {
+            --primary: #0A2540;
+            --secondary: #00A3FF;
+            --accent: #00D4AA;
+            --background: #FFFFFF;
+            --background-alt: #F8FAFC;
+            --text: #0F172A;
+            --gray: #64748B;
+            --gray-light: #E2E8F0;
+            --gray-lighter: #F1F5F9;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --border-radius-sm: 4px;
+            --border-radius: 8px;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.2s ease;
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-alt);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ===== Sidebar ===== */
+        .sidebar {
+            width: 260px;
+            background-color: var(--primary);
+            color: white;
+            padding: var(--spacing-md) 0;
+            transition: var(--transition);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0 var(--spacing-md) var(--spacing-md);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-right: var(--spacing-sm);
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            padding: var(--spacing-sm) var(--spacing-md);
+            transition: var(--transition);
+        }
+
+        .nav-links li:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-links li.active {
+            background-color: rgba(255, 255, 255, 0.12);
+            border-left: 3px solid var(--secondary);
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .nav-links i {
+            margin-right: var(--spacing-sm);
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ===== Main Content ===== */
+        .main-content {
+            flex: 1;
+            padding: var(--spacing-lg);
+            overflow-y: auto;
+            background: var(--background-alt);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .header h2 {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--border-radius-sm);
+            margin-right: var(--spacing-sm);
+            border: 2px solid var(--secondary);
+            object-fit: cover;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .user-role {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* ===== Welcome Banner ===== */
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary), #0d2e4d);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-light);
+        }
+
+        .welcome-banner h3 {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 600;
+        }
+
+        .welcome-banner p {
+            opacity: 0.9;
+            margin-bottom: var(--spacing-sm);
+            font-size: 0.95rem;
+        }
+
+        /* ===== Estadísticas ===== */
+        .exercises-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .stat-item {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            border: 1px solid var(--gray-light);
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .stat-icon-primary {
+            background-color: var(--secondary);
+        }
+
+        .stat-icon-success {
+            background-color: var(--success);
+        }
+
+        .stat-icon-warning {
+            background-color: var(--warning);
+        }
+
+        .stat-icon-danger {
+            background-color: var(--danger);
+        }
+
+        .stat-info h4 {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 700;
+        }
+
+        .stat-info p {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* ===== Tabs ===== */
+        .exercise-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-light);
+            margin-bottom: var(--spacing-md);
+            background: var(--background);
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            padding: 0 var(--spacing-md);
+        }
+
+        .exercise-tab {
+            padding: var(--spacing-sm) var(--spacing-md);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .exercise-tab.active {
+            border-bottom: 2px solid var(--secondary);
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .exercise-tab:hover:not(.active) {
+            color: var(--secondary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ===== Ejercicios Grid ===== */
+        .exercises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-sm);
+        }
+
+        .exercise-card {
+            background: var(--background);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            border-left: 3px solid var(--secondary);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--gray-light);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .exercise-card.completed {
+            border-left-color: var(--success);
+        }
+
+        .exercise-card.pending {
+            border-left-color: var(--warning);
+        }
+
+        .exercise-image {
+            width: 100%;
+            height: 180px;
+            border-radius: var(--border-radius-sm);
+            overflow: hidden;
+            margin-bottom: var(--spacing-sm);
+            background-color: var(--gray-lighter);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+        }
+
+        .exercise-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .exercise-details {
+            flex-grow: 1;
+        }
+
+        .exercise-card h4 {
+            margin-bottom: var(--spacing-xs);
+            color: var(--text);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .exercise-card p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .exercise-meta {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .exercise-meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .exercise-meta-item i {
+            color: var(--secondary);
+        }
+
+        .exercise-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--spacing-md);
+        }
+
+        .exercise-status {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-completed {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .status-pending {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        .btn-sm {
+            padding: 8px 12px;
+            font-size: 0.8rem;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #0d9c6d;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ===== Empty State ===== */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xl) var(--spacing-md);
+            color: var(--gray);
+            background: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-light);
+            grid-column: 1 / -1;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--gray-light);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .empty-state h4 {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .empty-state p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* ===== Modal ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .modal-content {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-light);
+            animation: modalAppear 0.3s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content.large {
+            max-width: 800px;
+        }
+
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            margin-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--gray-light);
+            padding-bottom: var(--spacing-sm);
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .modal-header p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .feedback-options {
+            display: flex;
+            justify-content: space-between;
+            margin: var(--spacing-md) 0;
+            gap: var(--spacing-sm);
+        }
+
+        .feedback-option {
+            flex: 1;
+            text-align: center;
+            padding: var(--spacing-md);
+            border: 2px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .feedback-option:hover {
+            border-color: var(--secondary);
+        }
+
+        .feedback-option.selected {
+            border-color: var(--secondary);
+            background-color: rgba(0, 163, 255, 0.1);
+        }
+
+        .feedback-option i {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+            display: block;
+        }
+
+        .feedback-text {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 500;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.9rem;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 163, 255, 0.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: var(--spacing-md);
+            gap: var(--spacing-sm);
+        }
+
+        /* ===== Detalles del Ejercicio ===== */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .detail-card {
+            background: var(--gray-lighter);
+            padding: var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            border-left: 3px solid var(--secondary);
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            font-size: 0.9rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .info-section {
+            background: var(--gray-lighter);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-sm);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .info-section h4 {
+            color: var(--primary);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1rem;
+        }
+
+        .info-section p {
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ===== Loading States ===== */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .spinner {
+            border: 2px solid var(--gray-light);
+            border-top: 2px solid var(--secondary);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+            
+            .main-content {
+                padding: var(--spacing-md);
+            }
+            
+            .exercises-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .exercises-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .exercise-tabs {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .exercise-tab {
+                padding: var(--spacing-sm);
+            }
+            
+            .feedback-options {
+                flex-direction: column;
+            }
+            
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content.large {
+                max-width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                text-align: center;
+            }
+            
+            .user-info {
+                justify-content: center;
+            }
+            
+            .exercises-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .exercise-actions {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">FS</div>
+                <div class="logo-text">FisioSalud</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/panel_citas"><i class="fas fa-calendar-alt"></i> Mis Citas</a></li>
+                <li class="active"><a href="/panel_ejercicios"><i class="fas fa-dumbbell"></i> Mis Ejercicios</a></li>
+                <li><a href="/panel_progreso"><i class="fas fa-chart-line"></i> Mi Progreso</a></li>
+                <li><a href="/panel_mercado"><i class="fas fa-shopping-bag"></i> Mis Productos</a></li>
+                <li><a href="/inicio"><i class="fas fa-home"></i> Volver al Menú</a></li>                
+                <li><a href="/logout_user"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h2>Mis Ejercicios de Rehabilitación</h2>
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/150?img=5" alt="Usuario" id="user-avatar">
+                    <div class="user-details">
+                        <div class="user-name" id="user-name">{{ usuario.nombre if usuario else 'Cargando...' }}</div>
+                        <div class="user-role">Paciente</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Welcome Banner -->
+            <div class="welcome-banner" id="welcome-banner">
+                <h3>Ejercicios de Rehabilitación</h3>
+                <p id="welcome-message">Cargando tus ejercicios...</p>
+                <button class="btn btn-primary" id="today-exercises-btn" disabled>
+                    <i class="fas fa-dumbbell"></i> Cargando...
+                </button>
+            </div>
+
+            <!-- Estadísticas de ejercicios -->
+            <div class="exercises-stats" id="exercises-stats">
+                <div class="stat-item">
+                    <div class="stat-icon stat-icon-primary">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4 id="stat-asignados">-</h4>
+                        <p>Ejercicios asignados</p>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon stat-icon-success">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4 id="stat-completados">-</h4>
+                        <p>Completados</p>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon stat-icon-warning">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4 id="stat-pendientes">-</h4>
+                        <p>Pendientes hoy</p>
+                    </div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon stat-icon-danger">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4 id="stat-dias-seguidos">-</h4>
+                        <p>Días seguidos</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pestañas de ejercicios -->
+            <div class="exercise-tabs">
+                <div class="exercise-tab active" onclick="changeExerciseTab('pendientes')">Para Hoy</div>
+                <div class="exercise-tab" onclick="changeExerciseTab('todos')">Todos</div>
+                <div class="exercise-tab" onclick="changeExerciseTab('completados')">Completados</div>
+            </div>
+
+            <!-- Contenido de pestaña: Para Hoy -->
+            <div id="ejercicios-pendientes" class="tab-content active">
+                <div class="exercises-grid" id="grid-pendientes">
+                    <div class="empty-state">
+                        <div class="spinner"></div>
+                        <h4>Cargando ejercicios...</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido de pestaña: Todos -->
+            <div id="ejercicios-todos" class="tab-content">
+                <div class="exercises-grid" id="grid-todos">
+                    <div class="empty-state">
+                        <div class="spinner"></div>
+                        <h4>Cargando ejercicios...</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido de pestaña: Completados -->
+            <div id="ejercicios-completados" class="tab-content">
+                <div class="exercises-grid" id="grid-completados">
+                    <div class="empty-state">
+                        <div class="spinner"></div>
+                        <h4>Cargando ejercicios...</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de feedback -->
+    <div class="modal-overlay" id="feedback-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">¿Cómo te sentiste con este ejercicio?</h3>
+                <p>Tu feedback ayuda a tu médico a ajustar tu tratamiento</p>
+            </div>
+            
+            <div class="feedback-options">
+                <div class="feedback-option" onclick="selectFeedback(this, 'facil')">
+                    <i class="fas fa-smile" style="color: #10B981;"></i>
+                    <div class="feedback-text">Fácil</div>
+                </div>
+                
+                <div class="feedback-option" onclick="selectFeedback(this, 'normal')">
+                    <i class="fas fa-meh" style="color: #F59E0B;"></i>
+                    <div class="feedback-text">Normal</div>
+                </div>
+                
+                <div class="feedback-option" onclick="selectFeedback(this, 'dificil')">
+                    <i class="fas fa-frown" style="color: #EF4444;"></i>
+                    <div class="feedback-text">Difícil</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="exercise-notes" class="form-label">Notas adicionales (opcional)</label>
+                <textarea id="exercise-notes" rows="3" placeholder="Describe cualquier molestia o observación..."></textarea>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="closeFeedbackModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="submitFeedback()" id="submit-feedback-btn">
+                    <span class="btn-text">Enviar Feedback</span>
+                    <div class="spinner" style="display: none;"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de detalles del ejercicio -->
+    <div class="modal-overlay" id="details-modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 class="modal-title" id="details-title">Detalles del Ejercicio</h3>
+                <p id="details-subtitle">Información completa del ejercicio</p>
+            </div>
+            
+            <div class="details-grid">
+                <div class="detail-card">
+                    <div class="detail-label">Duración</div>
+                    <div class="detail-value" id="details-duration">-</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Intensidad</div>
+                    <div class="detail-value" id="details-intensity">-</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Repeticiones</div>
+                    <div class="detail-value" id="details-repetitions">-</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Series</div>
+                    <div class="detail-value" id="details-series">-</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Frecuencia</div>
+                    <div class="detail-value" id="details-frequency">-</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Dificultad</div>
+                    <div class="detail-value" id="details-difficulty">-</div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h4><i class="fas fa-info-circle"></i> Descripción</h4>
+                <p id="details-description">Cargando descripción...</p>
+            </div>
+            
+            <div class="info-section">
+                <h4><i class="fas fa-list-ol"></i> Instrucciones Detalladas</h4>
+                <p id="details-instructions">Cargando instrucciones...</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                <div class="info-section">
+                    <h4><i class="fas fa-tools"></i> Equipamento Requerido</h4>
+                    <p id="details-equipment">-</p>
+                </div>
+                
+                <div class="info-section">
+                    <h4><i class="fas fa-heart"></i> Beneficios</h4>
+                    <p id="details-benefits">-</p>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                <div class="info-section">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Precauciones</h4>
+                    <p id="details-precautions">-</p>
+                </div>
+                
+                <div class="info-section">
+                    <h4><i class="fas fa-ban"></i> Contraindicaciones</h4>
+                    <p id="details-contraindications">-</p>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="closeDetailsModal()">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentExerciseData = {
+            pendientes: [],
+            todos: [],
+            completados: []
+        };
+        let currentExerciseId = null;
+
+        // Función para cargar estadísticas
+        async function loadStatistics() {
+            try {
+                const response = await fetch('/api/ejercicios/estadisticas');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const stats = data.estadisticas;
+                    document.getElementById('stat-asignados').textContent = stats.total_asignados;
+                    document.getElementById('stat-completados').textContent = stats.total_completados;
+                    document.getElementById('stat-pendientes').textContent = stats.pendientes_hoy;
+                    document.getElementById('stat-dias-seguidos').textContent = stats.dias_seguidos;
+                    
+                    // Actualizar banner
+                    const welcomeBanner = document.getElementById('welcome-banner');
+                    const welcomeMessage = document.getElementById('welcome-message');
+                    const todayBtn = document.getElementById('today-exercises-btn');
+                    
+                    if (stats.pendientes_hoy > 0) {
+                        welcomeMessage.textContent = `Tienes ${stats.pendientes_hoy} ejercicio(s) pendiente(s) para hoy`;
+                        todayBtn.innerHTML = `<i class="fas fa-dumbbell"></i> Ver Ejercicios de Hoy`;
+                        todayBtn.disabled = false;
+                        todayBtn.onclick = () => changeExerciseTab('pendientes');
+                    } else if (stats.total_asignados > 0) {
+                        welcomeMessage.textContent = 'No tienes ejercicios pendientes para hoy';
+                        todayBtn.innerHTML = `<i class="fas fa-check-circle"></i> Sin ejercicios pendientes`;
+                        todayBtn.disabled = true;
+                    } else {
+                        welcomeMessage.textContent = 'Aún no tienes ejercicios asignados';
+                        todayBtn.innerHTML = `<i class="fas fa-dumbbell"></i> Sin ejercicios asignados`;
+                        todayBtn.disabled = true;
+                    }
+                }
+            } catch (error) {
+                console.error('Error cargando estadísticas:', error);
+            }
+        }
+
+        // Función para cargar ejercicios por tipo
+        async function loadExercises(type) {
+            const gridId = `grid-${type}`;
+            const grid = document.getElementById(gridId);
+            
+            // Mostrar loading
+            grid.innerHTML = `
+                <div class="empty-state">
+                    <div class="spinner"></div>
+                    <h4>Cargando ejercicios...</h4>
+                </div>
+            `;
+            
+            try {
+                let endpoint;
+                switch(type) {
+                    case 'pendientes':
+                        endpoint = '/api/ejercicios/pendientes';
+                        break;
+                    case 'todos':
+                        endpoint = '/api/ejercicios/paciente';
+                        break;
+                    case 'completados':
+                        endpoint = '/api/ejercicios/completados';
+                        break;
+                }
+                
+                const response = await fetch(endpoint);
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentExerciseData[type] = data.ejercicios;
+                    renderExercises(type, data.ejercicios);
+                } else {
+                    throw new Error(data.message || 'Error al cargar ejercicios');
+                }
+            } catch (error) {
+                console.error(`Error cargando ejercicios ${type}:`, error);
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h4>Error al cargar ejercicios</h4>
+                        <p>Intenta recargar la página</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Función para renderizar ejercicios
+        function renderExercises(type, ejercicios) {
+            const gridId = `grid-${type}`;
+            const grid = document.getElementById(gridId);
+            
+            if (!ejercicios || ejercicios.length === 0) {
+                let message, icon;
+                switch(type) {
+                    case 'pendientes':
+                        message = 'No hay ejercicios pendientes para hoy';
+                        icon = 'fa-check-circle';
+                        break;
+                    case 'todos':
+                        message = 'No hay ejercicios asignados';
+                        icon = 'fa-dumbbell';
+                        break;
+                    case 'completados':
+                        message = 'No hay ejercicios completados';
+                        icon = 'fa-check-circle';
+                        break;
+                }
+                
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas ${icon}"></i>
+                        <h4>${message}</h4>
+                        <p>${type === 'pendientes' ? 'Tu médico te asignará ejercicios según tu tratamiento' : 'Completa tus ejercicios para ver tu progreso aquí'}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = ejercicios.map(ejercicio => `
+                <div class="exercise-card ${type === 'completados' ? 'completed' : 'pending'}">
+                    <div class="exercise-image">
+                        <i class="fas fa-dumbbell" style="font-size: 3rem;"></i>
+                    </div>
+                    
+                    <div class="exercise-details">
+                        <h4>${ejercicio.nombre_ejercicio || 'Ejercicio'}</h4>
+                        <p>${ejercicio.descripcion ? ejercicio.descripcion.substring(0, 100) + '...' : 'Sin descripción disponible'}</p>
+                        
+                        <div class="exercise-meta">
+                            ${ejercicio['duracion_minutos'] ? `
+                            <div class="exercise-meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>${ejercicio['duracion_minutos']}</span>
+                            </div>
+                            ` : ''}
+                            
+                            ${ejercicio.intensidad ? `
+                            <div class="exercise-meta-item">
+                                <i class="fas fa-bolt"></i>
+                                <span>${ejercicio.intensidad}</span>
+                            </div>
+                            ` : ''}
+
+                            ${ejercicio.repeticiones ? `
+                            <div class="exercise-meta-item">
+                                <i class="fas fa-redo"></i>
+                                <span>${ejercicio.repeticiones} rep</span>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="exercise-actions">
+                        <div class="exercise-status">
+                            <span class="status-badge ${type === 'completados' ? 'status-completed' : 'status-pending'}">
+                                ${type === 'completados' ? 'Completado' : 'Pendiente'}
+                            </span>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            ${type !== 'completados' ? `
+                            <button class="btn btn-success btn-sm" onclick="completeExercise('${ejercicio.codigo_ejercicio}')">
+                                <i class="fas fa-check"></i> Completar
+                            </button>
+                            ` : ''}
+                            
+                            <button class="btn btn-outline btn-sm" onclick="showExerciseDetails('${ejercicio.codigo_ejercicio}')">
+                                <i class="fas fa-eye"></i> Ver Más
+                            </button>
+                        </div>
+                    </div>
+                    
+                    ${type === 'completados' && ejercicio.fecha_completado ? `
+                    <div style="margin-top: 10px; font-size: 0.8rem; color: var(--gray);">
+                        <i class="fas fa-calendar-check"></i> Completado: ${new Date(ejercicio.fecha_completado).toLocaleDateString()}
+                    </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Función para cambiar pestañas
+        function changeExerciseTab(tabName) {
+            // Ocultar todos los contenidos de pestañas
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostrar el contenido de la pestaña seleccionada
+            document.getElementById(`ejercicios-${tabName}`).classList.add('active');
+            
+            // Actualizar pestañas activas
+            const tabs = document.querySelectorAll('.exercise-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Encontrar y activar la pestaña correcta
+            const activeTab = Array.from(tabs).find(tab => tab.textContent.trim() === 
+                (tabName === 'pendientes' ? 'Para Hoy' : 
+                 tabName === 'todos' ? 'Todos' : 'Completados'));
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
+            
+            // Cargar ejercicios si no están cargados
+            if (currentExerciseData[tabName].length === 0) {
+                loadExercises(tabName);
+            }
+        }
+
+        // Función para completar ejercicio
+        async function completeExercise(codigoEjercicio) {
+            currentExerciseId = codigoEjercicio;
+            showFeedbackModal();
+        }
+
+        // Funciones para el modal de detalles
+        function showDetailsModal(ejercicio) {
+            document.getElementById('details-title').textContent = ejercicio.nombre_ejercicio || 'Ejercicio';
+            document.getElementById('details-subtitle').textContent = `Código: ${ejercicio.codigo_ejercicio}`;
+            document.getElementById('details-description').textContent = ejercicio.descripcion || 'No hay descripción disponible';
+            document.getElementById('details-instructions').textContent = ejercicio.instrucciones_detalladas || 'No hay instrucciones detalladas disponibles';
+            document.getElementById('details-duration').textContent = ejercicio['duracion_minutos'] || 'No especificada';
+            document.getElementById('details-intensity').textContent = ejercicio.intensidad || 'No especificada';
+            document.getElementById('details-repetitions').textContent = ejercicio.repeticiones || 'No especificadas';
+            document.getElementById('details-series').textContent = ejercicio.series || 'No especificadas';
+            document.getElementById('details-frequency').textContent = ejercicio.frecuencia_semanal || 'No especificada';
+            document.getElementById('details-difficulty').textContent = ejercicio.nivel_dificultad || 'No especificada';
+            document.getElementById('details-equipment').textContent = ejercicio.equipamento || 'No se requiere equipamento especial';
+            document.getElementById('details-benefits').textContent = ejercicio.beneficios || 'No especificados';
+            document.getElementById('details-precautions').textContent = ejercicio.precauciones || 'No hay precauciones especiales';
+            document.getElementById('details-contraindications').textContent = ejercicio.contraindicaciones || 'No hay contraindicaciones específicas';
+            
+            document.getElementById('details-modal').style.display = 'flex';
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('details-modal').style.display = 'none';
+        }
+
+        // Función para mostrar detalles del ejercicio
+        async function showExerciseDetails(codigoEjercicio) {
+            try {
+                const response = await fetch(`/api/ejercicios/${codigoEjercicio}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const ejercicio = data.ejercicio;
+                    showDetailsModal(ejercicio);
+                } else {
+                    alert('Error al cargar los detalles del ejercicio');
+                }
+            } catch (error) {
+                console.error('Error cargando detalles:', error);
+                alert('Error al cargar los detalles del ejercicio');
+            }
+        }
+
+        // Funciones del modal de feedback
+        function showFeedbackModal() {
+            document.getElementById('feedback-modal').style.display = 'flex';
+            // Limpiar selección anterior
+            const options = document.querySelectorAll('.feedback-option');
+            options.forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.getElementById('exercise-notes').value = '';
+        }
+
+        function closeFeedbackModal() {
+            document.getElementById('feedback-modal').style.display = 'none';
+            currentExerciseId = null;
+        }
+
+        function selectFeedback(element, nivel) {
+            const options = document.querySelectorAll('.feedback-option');
+            options.forEach(option => {
+                option.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            document.getElementById('feedback-modal').dataset.feedbackLevel = nivel;
+        }
+
+        async function submitFeedback() {
+            const nivel = document.getElementById('feedback-modal').dataset.feedbackLevel;
+            const notas = document.getElementById('exercise-notes').value;
+            
+            if (!nivel) {
+                alert('Por favor, selecciona cómo te sentiste con el ejercicio');
+                return;
+            }
+
+            const submitBtn = document.getElementById('submit-feedback-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const spinner = submitBtn.querySelector('.spinner');
+            
+            // Mostrar loading
+            btnText.textContent = 'Enviando...';
+            spinner.style.display = 'inline-block';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/ejercicios/completar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        codigo_ejercicio: currentExerciseId,
+                        feedback: notas,
+                        nivel_dificultad: nivel
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Recargar datos
+                    await Promise.all([
+                        loadStatistics(),
+                        loadExercises('pendientes'),
+                        loadExercises('completados'),
+                        loadExercises('todos')
+                    ]);
+                    
+                    closeFeedbackModal();
+                    alert('¡Ejercicio marcado como completado!');
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error enviando feedback:', error);
+                alert('Error al enviar el feedback');
+            } finally {
+                // Restaurar botón
+                btnText.textContent = 'Enviar Feedback';
+                spinner.style.display = 'none';
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar datos iniciales
+            loadStatistics();
+            loadExercises('pendientes');
+            
+            // Establecer nombre de usuario si está disponible
+            const userNameElement = document.getElementById('user-name');
+            // Aquí puedes obtener el nombre del usuario de la sesión si está disponible
+        });
+    </script>
+</body>
+</html>

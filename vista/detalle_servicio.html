@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ servicio.nombre }} - FisioSalud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A2540;
+            --primary-dark: #061A2C;
+            --primary-light: #1A365D;
+            --secondary: #00A3FF;
+            --accent: #00D4AA;
+            --light: #FFFFFF;
+            --light-gray: #F8FAFC;
+            --gray: #64748B;
+            --dark: #0F172A;
+            --border-radius: 8px;
+            --border-radius-sm: 4px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light-gray);
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            background: var(--light);
+            box-shadow: var(--shadow);
+            border-radius: var(--border-radius);
+            padding: 16px 24px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            min-width: 120px;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: #0092E0;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Service Detail Card */
+        .service-detail {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .service-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><polygon points="0,0 1000,0 1000,1000" fill="white"/></svg>');
+            background-size: cover;
+        }
+
+        .service-title {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            flex-shrink: 0;
+        }
+
+        .service-info {
+            flex: 1;
+        }
+
+        .service-info h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .service-info p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            max-width: 800px;
+        }
+
+        .service-meta {
+            display: flex;
+            gap: 24px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.95rem;
+        }
+
+        /* Service Content */
+        .service-content {
+            padding: 40px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .info-section {
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            border: 1px solid #F1F5F9;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Info Items */
+        .info-items {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 140px;
+        }
+
+        .info-value {
+            text-align: right;
+            color: var(--gray);
+            flex: 1;
+            margin-left: 16px;
+        }
+
+        /* Lists */
+        .features-list, .requirements-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 8px 0;
+        }
+
+        .list-item i {
+            color: var(--accent);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        /* Therapist Card */
+        .therapist-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid #F1F5F9;
+        }
+
+        .therapist-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin: 0 auto 16px;
+        }
+
+        .therapist-name {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .therapist-specialty {
+            font-size: 0.95rem;
+            color: var(--gray);
+            margin-bottom: 12px;
+        }
+
+        .therapist-schedule {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-top: 12px;
+        }
+
+        /* Modality Tag */
+        .modality-tag {
+            background: var(--secondary);
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* Full Width Sections */
+        .full-width-section {
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 32px;
+            margin-bottom: 24px;
+            border: 1px solid #F1F5F9;
+        }
+
+        /* Service Footer */
+        .service-footer {
+            background: var(--light);
+            border-top: 1px solid #E2E8F0;
+            padding: 32px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .price-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .duration {
+            font-size: 1rem;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 12px;
+        }
+
+        .badge-popular {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .badge-new {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .service-info h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+            
+            .service-header {
+                padding: 24px;
+            }
+            
+            .service-title {
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+            }
+            
+            .service-meta {
+                justify-content: center;
+            }
+            
+            .service-content {
+                padding: 24px;
+            }
+            
+            .service-footer {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .footer-actions .btn {
+                width: 100%;
+            }
+            
+            .info-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .info-value {
+                text-align: left;
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .service-info h1 {
+                font-size: 1.7rem;
+            }
+            
+            .service-info p {
+                font-size: 1rem;
+            }
+            
+            .service-meta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .meta-item {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <div class="logo-icon">FS</div>
+                <div class="logo-text">FisioSalud</div>
+            </div>
+            <div class="nav-actions">
+                <a href="/servicios_terapeuticos" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> Volver a Servicios
+                </a>
+                <a href="/cita" class="btn">
+                    <i class="fas fa-calendar-plus"></i> Agendar Cita
+                </a>
+            </div>
+        </header>
+
+        <!-- Service Detail Card -->
+        <div class="service-detail">
+            <!-- Service Header -->
+            <div class="service-header">
+                <div class="service-title">
+                    <div class="service-icon">
+                        <i class="fas fa-hand-holding-medical"></i>
+                    </div>
+                    <div class="service-info">
+                        <h1>{{ servicio.nombre or 'Servicio de Terapia' }}</h1>
+                        <p>{{ servicio.descripcion or 'Descripción no disponible' }}</p>
+                        <div class="service-meta">
+                            {% if servicio.duracion %}
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>{{ servicio.duracion }} minutos</span>
+                            </div>
+                            {% endif %}
+                            
+                            {% if servicio.inicio_jornada_str and servicio.final_jornada_str %}
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>{{ servicio.inicio_jornada_str }} - {{ servicio.final_jornada_str }}</span>
+                            </div>
+                            {% endif %}
+                            
+                            {% if servicio.intensidad %}
+                            <div class="meta-item">
+                                <i class="fas fa-bolt"></i>
+                                <span>{{ servicio.intensidad }}</span>
+                            </div>
+                            {% endif %}
+                            
+                            {% if servicio.promedio_sesiones %}
+                            <div class="meta-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>{{ servicio.promedio_sesiones }} sesiones</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service Content -->
+            <div class="service-content">
+                <div class="content-grid">
+                    <!-- Left Column -->
+                    <div>
+                        <!-- Therapist Section -->
+                        {% if servicio.terapeutas %}
+                        <div class="info-section">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-user-md"></i>
+                                </div>
+                                <h3 class="section-title">Terapeutas Disponibles</h3>
+                            </div>
+                            
+                            <div class="therapists-container">
+                                {% for terapeuta in servicio.terapeutas %}
+                                <div class="therapist-card" style="margin-bottom: 16px;">
+                                    <div class="therapist-avatar">
+                                        <i class="fas fa-user-md"></i>
+                                    </div>
+                                    <div class="therapist-name">{{ terapeuta.nombre_completo }}</div>
+                                    
+                                    {% if terapeuta.especializacion %}
+                                    <div class="therapist-specialty">
+                                        <i class="fas fa-certificate"></i> {{ terapeuta.especializacion }}
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if terapeuta.horario_completo %}
+                                    <div class="therapist-schedule">
+                                        <i class="fas fa-calendar-alt"></i> 
+                                        <span>{{ terapeuta.horario_completo }}</span>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    <div style="margin-top: 12px; font-size: 0.9rem; color: var(--gray);">
+                                        <div><i class="fas fa-phone"></i> {{ terapeuta.telefono }}</div>
+                                        <div><i class="fas fa-envelope"></i> {{ terapeuta.fisio_correo }}</div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            
+                            {% if servicio.horarios_disponibles %}
+                            <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #E2E8F0;">
+                                <h4 style="font-size: 1rem; color: var(--primary); margin-bottom: 8px;">
+                                    <i class="fas fa-clock"></i> Horarios Disponibles
+                                </h4>
+                                {% for horario in servicio.horarios_disponibles %}
+                                <div style="padding: 6px 0; display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-check-circle" style="color: var(--accent); font-size: 0.9rem;"></i>
+                                    <span>{{ horario }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Service Details -->
+                        <div class="info-section">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                                <h3 class="section-title">Detalles del Servicio</h3>
+                            </div>
+                            <div class="info-items">
+                                {% if servicio.duracion %}
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="fas fa-clock"></i>
+                                        <span>Duración</span>
+                                    </div>
+                                    <div class="info-value">{{ servicio.duracion }} minutos</div>
+                                </div>
+                                {% endif %}
+                                
+                                {% if servicio.precio %}
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="fas fa-dollar-sign"></i>
+                                        <span>Precio</span>
+                                    </div>
+                                    <div class="info-value">${{ "{:,}".format(servicio.precio) }}</div>
+                                </div>
+                                {% endif %}
+                                
+                                {% if servicio.inicio_jornada_str and servicio.final_jornada_str %}
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="fas fa-clock"></i>
+                                        <span>Horario</span>
+                                    </div>
+                                    <div class="info-value">{{ servicio.inicio_jornada_str }} - {{ servicio.final_jornada_str }}</div>
+                                </div>
+                                {% endif %}
+                                
+                                {% if servicio.intensidad %}
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="fas fa-bolt"></i>
+                                        <span>Intensidad</span>
+                                    </div>
+                                    <div class="info-value">{{ servicio.intensidad }}</div>
+                                </div>
+                                {% endif %}
+                                
+                                {% if servicio.equipamento %}
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="fas fa-dumbbell"></i>
+                                        <span>Equipamiento</span>
+                                    </div>
+                                    <div class="info-value">{{ servicio.equipamento }}</div>
+                                </div>
+                                {% endif %}
+                                
+                                {% if servicio.promedio_sesiones %}
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>Sesiones Promedio</span>
+                                    </div>
+                                    <div class="info-value">{{ servicio.promedio_sesiones }}</div>
+                                </div>
+                                {% endif %}
+                                
+                                {% if servicio.terapeutas %}
+                                <div class="info-item">
+                                    <div class="info-label">
+                                        <i class="fas fa-users"></i>
+                                        <span>Terapeutas</span>
+                                    </div>
+                                    <div class="info-value">{{ servicio.terapeutas|length }} disponibles</div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div>
+                        <!-- Modality Section -->
+                        {% if servicio.modalidad %}
+                        <div class="info-section">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-laptop-house"></i>
+                                </div>
+                                <h3 class="section-title">Modalidad de Atención</h3>
+                            </div>
+                            <div class="modality-tag">
+                                <i class="fas fa-clinic-medical"></i> {{ servicio.modalidad }}
+                            </div>
+                            
+                            {% if servicio.inicio_jornada_str and servicio.final_jornada_str %}
+                            <div style="margin-top: 16px;">
+                                <div style="font-weight: 500; color: var(--dark); margin-bottom: 4px;">
+                                    <i class="fas fa-clock"></i> Horario de Atención del Servicio
+                                </div>
+                                <div style="color: var(--gray);">
+                                    {{ servicio.inicio_jornada_str }} - {{ servicio.final_jornada_str }}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Conditions Section -->
+                        {% if servicio.condiciones_tratar %}
+                        <div class="info-section">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-heartbeat"></i>
+                                </div>
+                                <h3 class="section-title">Condiciones que Trata</h3>
+                            </div>
+                            <div class="features-list">
+                                {% if servicio.condiciones_tratar is string %}
+                                    {% for condicion in servicio.condiciones_tratar.split(',') %}
+                                    <div class="list-item">
+                                        <i class="fas fa-check"></i>
+                                        <span>{{ condicion.strip() }}</span>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="list-item">
+                                        <i class="fas fa-check"></i>
+                                        <span>{{ servicio.condiciones_tratar }}</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Requirements Section -->
+                        {% if servicio.requisitos %}
+                        <div class="info-section">
+                            <div class="section-header">
+                                <div class="section-icon">
+                                    <i class="fas fa-clipboard-check"></i>
+                                </div>
+                                <h3 class="section-title">Requisitos Especiales</h3>
+                            </div>
+                            <div class="requirements-list">
+                                {% if servicio.requisitos is string %}
+                                    {% for requisito in servicio.requisitos.split(',') %}
+                                    <div class="list-item">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <span>{{ requisito.strip() }}</span>
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="list-item">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <span>{{ servicio.requisitos }}</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Benefits Section -->
+                {% if servicio.beneficios %}
+                <div class="full-width-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 class="section-title">Beneficios y Resultados</h3>
+                    </div>
+                    <div class="features-list">
+                        {% if servicio.beneficios is string %}
+                            {% for beneficio in servicio.beneficios.split(',') %}
+                            <div class="list-item">
+                                <i class="fas fa-check"></i>
+                                <span>{{ beneficio.strip() }}</span>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="list-item">
+                                <i class="fas fa-check"></i>
+                                <span>{{ servicio.beneficios }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Recommendations Section -->
+                {% if servicio.recomendacion_precita %}
+                <div class="full-width-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <h3 class="section-title">Recomendaciones Pre-cita</h3>
+                    </div>
+                    <div class="requirements-list">
+                        {% if servicio.recomendacion_precita is string %}
+                            {% for recomendacion in servicio.recomendacion_precita.split('.') %}
+                                {% if recomendacion.strip() %}
+                                <div class="list-item">
+                                    <i class="fas fa-clipboard-list"></i>
+                                    <span>{{ recomendacion.strip() }}</span>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <div class="list-item">
+                                <i class="fas fa-clipboard-list"></i>
+                                <span>{{ servicio.recomendacion_precita }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Considerations Section -->
+                {% if servicio.consideraciones %}
+                <div class="full-width-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3 class="section-title">Consideraciones Importantes</h3>
+                    </div>
+                    <div class="requirements-list">
+                        {% if servicio.consideraciones is string %}
+                            {% for consideracion in servicio.consideraciones.split(',') %}
+                            <div class="list-item">
+                                <i class="fas fa-info-circle"></i>
+                                <span>{{ consideracion.strip() }}</span>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="list-item">
+                                <i class="fas fa-info-circle"></i>
+                                <span>{{ servicio.consideraciones }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Service Footer -->
+            <div class="service-footer">
+                <div class="price-section">
+                    {% if servicio.precio %}
+                    <div class="price">${{ "{:,}".format(servicio.precio) }}</div>
+                    {% endif %}
+                    {% if servicio.duracion %}
+                    <div class="duration">
+                        <i class="fas fa-clock"></i> {{ servicio.duracion }} minutos
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="footer-actions">
+                    <a href="/servicios_terapeuticos" class="btn btn-outline">
+                        <i class="fas fa-arrow-left"></i> Volver a Servicios
+                    </a>
+                    <a href="/cita" class="btn btn-secondary">
+                        <i class="fas fa-calendar-plus"></i> Agendar Cita Ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animación suave al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.service-detail, .info-section, .therapist-card');
+            
+            elements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, 100 + index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

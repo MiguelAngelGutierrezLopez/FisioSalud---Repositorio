@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Pacientes - FisioSalud</title>
+    <style>
+        :root {
+            /* COLORES EXACTOS */
+            --primary: #0A2540;
+            --secondary: #00A3FF;
+            --accent: #00D4AA;
+            --background: #FFFFFF;
+            --background-alt: #F8FAFC;
+            --text: #0F172A;
+            --gray: #64748B;
+            --gray-light: #E2E8F0;
+            --gray-lighter: #F1F5F9;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --info: #17a2b8;
+            
+            /* VARIABLES CSS */
+            --border-radius-sm: 4px;
+            --border-radius: 8px;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition: all 0.2s ease;
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-alt);
+            color: var(--text);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR SIMPLIFICADO */
+        .sidebar {
+            width: 260px;
+            background-color: var(--primary);
+            color: white;
+            padding: var(--spacing-md) 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0 var(--spacing-md) var(--spacing-md);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-right: var(--spacing-sm);
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            padding: var(--spacing-sm) var(--spacing-md);
+        }
+
+        .nav-links li:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-links li.active {
+            background-color: rgba(255, 255, 255, 0.12);
+            border-left: 3px solid var(--secondary);
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .nav-links i {
+            margin-right: var(--spacing-sm);
+            font-size: 1.1rem;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            padding: var(--spacing-lg);
+            overflow-y: auto;
+            background: var(--background-alt);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .header h2 {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--border-radius-sm);
+            margin-right: var(--spacing-sm);
+            border: 2px solid var(--secondary);
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .user-role {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* CARDS GRID SIMPLIFICADO */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .card {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-md);
+            border: 1px solid var(--gray-light);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .card-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .bg-primary { background-color: var(--primary); }
+        .bg-success { background-color: var(--success); }
+        .bg-warning { background-color: var(--warning); }
+        .bg-info { background-color: var(--info); }
+
+        .card-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .card-description {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        /* TABS SIMPLIFICADOS */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-light);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .tab {
+            padding: var(--spacing-sm) var(--spacing-md);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-size: 0.95rem;
+        }
+
+        .tab.active {
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .tab:hover:not(.active) {
+            background-color: var(--gray-lighter);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* BUSQUEDA Y FILTROS */
+        .search-filters-container {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            border: 1px solid var(--gray-light);
+        }
+
+        .search-container {
+            display: flex;
+            margin-bottom: var(--spacing-sm);
+            gap: var(--spacing-sm);
+        }
+
+        .search-input {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-input input {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.9rem;
+        }
+
+        .search-input i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .filters-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        select, input {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.9rem;
+            background-color: var(--background);
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 163, 255, 0.1);
+        }
+
+        /* VIEW TOGGLE SIMPLIFICADO */
+        .view-toggle {
+            display: flex;
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: var(--spacing-md);
+            border: 1px solid var(--gray-light);
+        }
+
+        .view-option {
+            padding: var(--spacing-sm) var(--spacing-md);
+            cursor: pointer;
+            background-color: white;
+        }
+
+        .view-option.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* PATIENT CARDS */
+        .patients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .patient-card {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-md);
+            border: 1px solid var(--gray-light);
+        }
+
+        .patient-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .patient-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .patient-info img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: var(--spacing-md);
+        }
+
+        .patient-details h3 {
+            margin-bottom: var(--spacing-xs);
+            color: var(--primary);
+        }
+
+        .patient-details p {
+            color: var(--gray);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .patient-details i {
+            margin-right: var(--spacing-xs);
+            width: 16px;
+        }
+
+        /* STATUS BADGES SIMPLIFICADOS */
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 10px;
+            margin-right: var(--spacing-xs);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .badge-status {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .badge-priority {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .badge-tag {
+            background-color: rgba(10, 37, 64, 0.1);
+            color: var(--primary);
+        }
+
+        /* TABLES SIMPLIFICADAS */
+        .table-container {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid var(--gray-light);
+            overflow-x: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        th, td {
+            padding: var(--spacing-sm);
+            text-align: left;
+            border-bottom: 1px solid var(--gray-lighter);
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: var(--gray-lighter);
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        tr:hover {
+            background-color: var(--gray-lighter);
+        }
+
+        .table-patient-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .table-patient-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: var(--spacing-sm);
+        }
+
+        /* STATUS INDICATORS */
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .status-followup {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        /* BUTTONS SIMPLIFICADOS */
+        .btn {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        .btn-sm {
+            padding: 6px 10px;
+            font-size: 0.8rem;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: var(--spacing-xs);
+        }
+
+        /* EMPTY STATE SIMPLIFICADO */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xl) var(--spacing-md);
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--gray-light);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .empty-state h3 {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        /* MODAL SIMPLIFICADO */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md);
+        }
+
+        .modal-content {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--gray-light);
+        }
+
+        .modal-header {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary), #0d2e4d);
+            color: white;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        .modal-body {
+            padding: var(--spacing-md);
+        }
+
+        .modal-footer {
+            padding: var(--spacing-md);
+            border-top: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--spacing-sm);
+        }
+
+        /* EXERCISE SELECTION SIMPLIFICADO */
+        .exercise-item {
+            padding: var(--spacing-sm);
+            border: 1px solid var(--gray-light);
+            margin-bottom: var(--spacing-xs);
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+        }
+
+        .exercise-item:hover {
+            background-color: var(--gray-lighter);
+        }
+
+        .exercise-item.selected {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+        }
+
+        .selected-exercise {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .selected-exercise .remove {
+            margin-left: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .exercises-container {
+            max-height: 500px;
+            overflow-y: auto;
+            margin: var(--spacing-md) 0;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+        }
+
+        .selected-exercises-container {
+            margin-top: var(--spacing-md);
+            padding: var(--spacing-md);
+            background: var(--gray-lighter);
+            border-radius: var(--border-radius);
+        }
+
+        /* RESPONSIVE SIMPLIFICADO */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+            
+            .main-content {
+                padding: var(--spacing-md);
+            }
+            
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .patients-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .table-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: var(--spacing-sm);
+            }
+            
+            .filters-container {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                min-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+    <!-- IMPORT EXACTO DE GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- SIDEBAR SIMPLIFICADO -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">FS</div>
+                <div class="logo-text">FisioSalud</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/panel_citas_fisio"><i class="fas fa-calendar-alt"></i> Mis Citas</a></li>
+                <li class="active"><a href="/panel_pacientes_fisio"><i class="fas fa-user-injured"></i> Mis Pacientes</a></li>
+                <li><a href="/panel_progreso_fisio"><i class="fas fa-chart-line"></i> Progreso</a></li>
+                <li><a href="/logout-fisio"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <!-- HEADER SIMPLIFICADO -->
+            <div class="header">
+                <h2>Gestión de Mis Pacientes</h2>
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/150?img=32" alt="Usuario">
+                    <div class="user-details">
+                        <div class="user-name" id="user-name">{{ fisioterapeuta.nombre_completo }}</div>
+                        <div class="user-role" id="user-role">{{ fisioterapeuta.especializacion }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARDS GRID SIMPLIFICADO -->
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Total Pacientes</div>
+                        <div class="card-icon bg-primary">
+                            <i class="fas fa-user-injured"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="total-patients">0</div>
+                    <div class="card-description" id="gender-distribution">0 con ejercicios, 0 sin ejercicios</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Pacientes Confirmados</div>
+                        <div class="card-icon bg-success">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="new-patients-month">0</div>
+                    <div class="card-description" id="month-comparison">Todos confirmados</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Tratamientos Activos</div>
+                        <div class="card-icon bg-warning">
+                            <i class="fas fa-file-medical"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="active-treatments">0</div>
+                    <div class="card-description" id="ending-treatments">Todos activos</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Ejercicios Asignados</div>
+                        <div class="card-icon bg-info">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="recent-discharges">0</div>
+                    <div class="card-description" id="followup-patients">0 pacientes con ejercicios</div>
+                </div>
+            </div>
+
+            <!-- TABS SIMPLIFICADOS -->
+            <div class="tabs">
+                <div class="tab active" onclick="changeTab('activos')">Pacientes Activos</div>
+                <div class="tab" onclick="changeTab('todos')">Todos los Pacientes</div>
+            </div>
+
+            <!-- BUSQUEDA Y FILTROS SIMPLIFICADOS -->
+            <div class="search-filters-container">
+                <div class="search-container">
+                    <div class="search-input">
+                        <input type="text" id="patientSearch" placeholder="Buscar pacientes por nombre, teléfono, servicio...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <button class="btn btn-outline" onclick="toggleAdvancedSearch()">
+                        <i class="fas fa-sliders-h"></i> Filtros
+                    </button>
+                </div>
+                
+                <div class="filters-container" id="advancedFilters" style="display: none;">
+                    <div class="filter-group">
+                        <label for="filter-status">Estado de Ejercicios</label>
+                        <select id="filter-status">
+                            <option value="">Todos los estados</option>
+                            <option value="with-exercises">Con ejercicios</option>
+                            <option value="without-exercises">Sin ejercicios</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filter-plan">Tipo de Plan</label>
+                        <select id="filter-plan">
+                            <option value="">Todos los planes</option>
+                            <option value="Básico">Básico</option>
+                            <option value="Premium">Premium</option>
+                            <option value="Personalizado">Personalizado</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <button class="btn btn-primary" onclick="applyFilters()">
+                            <i class="fas fa-filter"></i> Aplicar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW TOGGLE SIMPLIFICADO -->
+            <div class="view-toggle">
+                <div class="view-option active" onclick="toggleView('grid')">
+                    <i class="fas fa-th"></i> Vista Grid
+                </div>
+                <div class="view-option" onclick="toggleView('table')">
+                    <i class="fas fa-list"></i> Vista Tabla
+                </div>
+            </div>
+
+            <!-- TAB CONTENT: ACTIVOS -->
+            <div id="activos" class="tab-content active">
+                <div class="patients-grid" id="patientsGridView">
+                    <div class="empty-state">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <h3>Cargando pacientes...</h3>
+                    </div>
+                </div>
+                
+                <!-- TABLE VIEW -->
+                <div class="table-container" id="patientsTableView" style="display: none;">
+                    <div class="table-header">
+                        <h3>Pacientes Activos</h3>
+                        <div>
+                            <button class="btn btn-outline" id="export-active-button">
+                                <i class="fas fa-download"></i> Exportar
+                            </button>
+                        </div>
+                    </div>
+                    <div id="active-patients-table">
+                        <div class="empty-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <h3>Cargando pacientes...</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB CONTENT: TODOS -->
+            <div id="todos" class="tab-content">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Todos los Pacientes</h3>
+                        <div>
+                            <button class="btn btn-outline" id="export-all-button">
+                                <i class="fas fa-download"></i> Exportar
+                            </button>
+                        </div>
+                    </div>
+                    <div id="all-patients-table">
+                        <div class="empty-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <h3>Cargando pacientes...</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let allPatients = [];
+        let allExercises = [];
+        let selectedPatientForExercises = null;
+        let currentViewPatients = [];
+
+        // Tab navigation
+        function changeTab(tabName) {
+            // Ocultar todos los contenidos de pestañas
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostrar el contenido de la pestaña seleccionada
+            document.getElementById(tabName).classList.add('active');
+            
+            // Actualizar pestañas activas
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            event.currentTarget.classList.add('active');
+        }
+
+        // Toggle between grid and table view
+        function toggleView(viewType) {
+            const gridView = document.getElementById('patientsGridView');
+            const tableView = document.getElementById('patientsTableView');
+            const viewOptions = document.querySelectorAll('.view-option');
+            
+            if (viewType === 'grid') {
+                gridView.style.display = 'grid';
+                tableView.style.display = 'none';
+            } else {
+                gridView.style.display = 'none';
+                tableView.style.display = 'block';
+            }
+            
+            // Update active view option
+            viewOptions.forEach(option => {
+                option.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        // Toggle advanced filters
+        function toggleAdvancedSearch() {
+            const filters = document.getElementById('advancedFilters');
+            if (filters.style.display === 'none') {
+                filters.style.display = 'flex';
+            } else {
+                filters.style.display = 'none';
+            }
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const statusFilter = document.getElementById('filter-status').value;
+            const planFilter = document.getElementById('filter-plan').value;
+
+            currentViewPatients = allPatients.filter(paciente => {
+                const hasExercises = paciente.ejercicios_registrados && paciente.ejercicios_registrados.trim() !== '';
+                const matchesStatus = !statusFilter || 
+                    (statusFilter === 'with-exercises' && hasExercises) ||
+                    (statusFilter === 'without-exercises' && !hasExercises);
+                const matchesPlan = !planFilter || paciente.tipo_plan === planFilter;
+
+                return matchesStatus && matchesPlan;
+            });
+
+            renderPatientsGrid();
+            renderPatientsTable();
+        }
+
+        // Cargar datos al iniciar
+        async function loadInitialData() {
+            try {
+                await loadStatistics();
+                await loadPatients();
+                await loadExercises();
+            } catch (error) {
+                console.error('Error al cargar datos iniciales:', error);
+            }
+        }
+
+        // Cargar estadísticas
+        async function loadStatistics() {
+            try {
+                const response = await fetch('/api/pacientes/estadisticas');
+                const result = await response.json();
+                
+                if (result.success) {
+                    const stats = result.data;
+                    
+                    // Actualizar tarjetas
+                    document.getElementById('total-patients').textContent = stats.total_pacientes || 0;
+                    
+                    const conEjercicios = stats.pacientes_con_ejercicios || 0;
+                    const sinEjercicios = stats.pacientes_sin_ejercicios || 0;
+                    document.getElementById('gender-distribution').textContent = 
+                        `${conEjercicios} con ejercicios, ${sinEjercicios} sin ejercicios`;
+                    
+                    document.getElementById('new-patients-month').textContent = stats.total_pacientes || 0;
+                    document.getElementById('month-comparison').textContent = 'Todos confirmados';
+                    
+                    document.getElementById('active-treatments').textContent = stats.total_pacientes || 0;
+                    document.getElementById('recent-discharges').textContent = conEjercicios || 0;
+                    document.getElementById('followup-patients').textContent = `${conEjercicios} pacientes con ejercicios`;
+                }
+            } catch (error) {
+                console.error('Error al cargar estadísticas:', error);
+            }
+        }
+
+        // Cargar pacientes
+        async function loadPatients() {
+            try {
+                showLoadingState('activos');
+                showLoadingState('todos');
+                
+                const response = await fetch('/api/pacientes');
+                const result = await response.json();
+                
+                if (result.success) {
+                    allPatients = result.data || [];
+                    currentViewPatients = [...allPatients];
+                    renderPatientsGrid();
+                    renderPatientsTable();
+                    renderAllPatientsTable();
+                } else {
+                    throw new Error(result.error || 'Error al cargar pacientes');
+                }
+            } catch (error) {
+                console.error('Error al cargar pacientes:', error);
+                showErrorState('activos', 'Error al cargar pacientes: ' + error.message);
+                showErrorState('todos', 'Error al cargar pacientes: ' + error.message);
+            }
+        }
+
+        // Cargar ejercicios disponibles
+        async function loadExercises() {
+            try {
+                const response = await fetch('/api/ejercicios');
+                const result = await response.json();
+                
+                if (result.success) {
+                    allExercises = result.data || [];
+                    console.log(`✅ ${allExercises.length} ejercicios cargados`);
+                }
+            } catch (error) {
+                console.error('Error al cargar ejercicios:', error);
+            }
+        }
+
+        // Mostrar estado de carga
+        function showLoadingState(tab) {
+            const container = tab === 'activos' ? 
+                document.getElementById('patientsGridView') : 
+                document.getElementById('all-patients-table');
+            
+            container.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <h3>Cargando pacientes...</h3>
+                </div>
+            `;
+        }
+
+        // Mostrar estado de error
+        function showErrorState(tab, message) {
+            const container = tab === 'activos' ? 
+                document.getElementById('patientsGridView') : 
+                document.getElementById('all-patients-table');
+            
+            container.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Error</h3>
+                    <p>${message}</p>
+                    <button class="btn btn-primary" onclick="loadInitialData()">
+                        <i class="fas fa-redo"></i> Reintentar
+                    </button>
+                </div>
+            `;
+        }
+
+        // Renderizar grid de pacientes
+        function renderPatientsGrid() {
+            const gridContainer = document.getElementById('patientsGridView');
+            
+            if (currentViewPatients.length === 0) {
+                gridContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-user-injured"></i>
+                        <h3>No hay pacientes confirmados</h3>
+                        <p>Los pacientes aparecerán aquí una vez que sus citas sean confirmadas</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let gridHTML = '';
+            
+            currentViewPatients.forEach(paciente => {
+                const tieneEjercicios = paciente.ejercicios_registrados && paciente.ejercicios_registrados.trim() !== '';
+                const estadoEjercicios = tieneEjercicios ? 'Completado' : 'Pendiente';
+                const badgeClass = tieneEjercicios ? 'badge-status' : 'badge-priority';
+                
+                gridHTML += `
+                    <div class="patient-card">
+                        <div class="patient-header">
+                            <div class="patient-info">
+                                <img src="https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}" alt="${paciente.nombre_completo}">
+                                <div class="patient-details">
+                                    <h3>${paciente.nombre_completo || 'Nombre no disponible'}</h3>
+                                    <p><i class="fas fa-calendar-alt"></i> ${paciente.fecha_cita || 'Fecha no disponible'}</p>
+                                    <p><i class="fas fa-clock"></i> ${paciente.hora_cita || 'Hora no disponible'}</p>
+                                    <p><i class="fas fa-phone"></i> ${paciente.telefono || 'N/A'}</p>
+                                    <p><i class="fas fa-stethoscope"></i> ${paciente.servicio || 'Servicio no especificado'}</p>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="badge ${badgeClass}">${estadoEjercicios}</span>
+                                <span class="badge badge-tag">${paciente.tipo_plan || 'Plan no especificado'}</span>
+                            </div>
+                        </div>
+                        
+                        ${paciente.historial_medico ? `
+                        <div style="margin-top: 15px; padding: 15px; background: var(--gray-lighter); border-radius: var(--border-radius-sm);">
+                            <h4 style="margin-bottom: 10px; color: var(--primary);">Historial Médico</h4>
+                            <p>${paciente.historial_medico.substring(0, 100)}${paciente.historial_medico.length > 100 ? '...' : ''}</p>
+                        </div>
+                        ` : ''}
+                        
+                        <div style="margin-top: 15px; display: flex; gap: 8px;">
+                            <button class="btn btn-sm btn-primary" onclick="openAssignExercisesModal('${paciente.codigo_cita}', '${paciente.nombre_completo}')">
+                                <i class="fas fa-dumbbell"></i> Registrar Ejercicios
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="deletePatient('${paciente.codigo_cita}', '${paciente.nombre_completo}')">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            gridContainer.innerHTML = gridHTML;
+        }
+
+        // Renderizar tabla de pacientes activos
+        function renderPatientsTable() {
+            const tableContainer = document.getElementById('active-patients-table');
+            
+            if (currentViewPatients.length === 0) {
+                tableContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-user-injured"></i>
+                        <h3>No hay pacientes activos</h3>
+                        <p>Los pacientes aparecerán aquí una vez que sus citas sean confirmadas</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let tableHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Paciente</th>
+                            <th>Contacto</th>
+                            <th>Servicio</th>
+                            <th>Fecha Cita</th>
+                            <th>Plan</th>
+                            <th>Ejercicios</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            currentViewPatients.forEach(paciente => {
+                const tieneEjercicios = paciente.ejercicios_registrados && paciente.ejercicios_registrados.trim() !== '';
+                const estadoEjercicios = tieneEjercicios ? 'Completado' : 'Pendiente';
+                const statusClass = tieneEjercicios ? 'status-active' : 'status-followup';
+                
+                tableHTML += `
+                    <tr>
+                        <td>
+                            <div class="table-patient-info">
+                                <img src="https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}" alt="${paciente.nombre_completo}">
+                                <div>
+                                    <strong>${paciente.nombre_completo || 'Nombre no disponible'}</strong>
+                                    <div style="font-size: 0.8rem; color: var(--gray);">${paciente.historial_medico ? paciente.historial_medico.substring(0, 30) + '...' : 'Sin historial'}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>${paciente.telefono || 'N/A'}</div>
+                            <div style="font-size: 0.8rem; color: var(--gray);">${paciente.correo || 'Sin email'}</div>
+                        </td>
+                        <td>${paciente.servicio || 'N/A'}</td>
+                        <td>${paciente.fecha_cita || 'N/A'}</td>
+                        <td>${paciente.tipo_plan || 'N/A'}</td>
+                        <td><span class="status ${statusClass}">${estadoEjercicios}</span></td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-primary" onclick="openAssignExercisesModal('${paciente.codigo_cita}', '${paciente.nombre_completo}')">
+                                    <i class="fas fa-dumbbell"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="deletePatient('${paciente.codigo_cita}', '${paciente.nombre_completo}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            tableHTML += `
+                    </tbody>
+                </table>
+            `;
+
+            tableContainer.innerHTML = tableHTML;
+        }
+
+        // Renderizar tabla de todos los pacientes
+        function renderAllPatientsTable() {
+            const tableContainer = document.getElementById('all-patients-table');
+            
+            if (allPatients.length === 0) {
+                tableContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <h3>No hay pacientes registrados</h3>
+                        <p>Los pacientes aparecerán aquí una vez que sus citas sean confirmadas</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let tableHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Paciente</th>
+                            <th>Contacto</th>
+                            <th>Servicio</th>
+                            <th>Fecha Cita</th>
+                            <th>Plan</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            allPatients.forEach(paciente => {
+                const tieneEjercicios = paciente.ejercicios_registrados && paciente.ejercicios_registrados.trim() !== '';
+                const estadoEjercicios = tieneEjercicios ? 'Completado' : 'Pendiente';
+                const statusClass = tieneEjercicios ? 'status-active' : 'status-followup';
+                
+                tableHTML += `
+                    <tr>
+                        <td>
+                            <div class="table-patient-info">
+                                <img src="https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}" alt="${paciente.nombre_completo}">
+                                <div>
+                                    <strong>${paciente.nombre_completo || 'Nombre no disponible'}</strong>
+                                    <div style="font-size: 0.8rem; color: var(--gray);">${paciente.historial_medico ? paciente.historial_medico.substring(0, 30) + '...' : 'Sin historial'}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div>${paciente.telefono || 'N/A'}</div>
+                            <div style="font-size: 0.8rem; color: var(--gray);">${paciente.correo || 'Sin email'}</div>
+                        </td>
+                        <td>${paciente.servicio || 'N/A'}</td>
+                        <td>${paciente.fecha_cita || 'N/A'}</td>
+                        <td>${paciente.tipo_plan || 'N/A'}</td>
+                        <td><span class="status ${statusClass}">${estadoEjercicios}</span></td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-primary" onclick="openAssignExercisesModal('${paciente.codigo_cita}', '${paciente.nombre_completo}')">
+                                    <i class="fas fa-dumbbell"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="deletePatient('${paciente.codigo_cita}', '${paciente.nombre_completo}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            tableHTML += `
+                    </tbody>
+                </table>
+            `;
+
+            tableContainer.innerHTML = tableHTML;
+        }
+
+        // Modal para asignar ejercicios
+        async function openAssignExercisesModal(codigoCita, nombrePaciente) {
+            selectedPatientForExercises = codigoCita;
+            
+            // Cargar ejercicios actuales del paciente
+            let ejerciciosActuales = [];
+            try {
+                const response = await fetch(`/api/pacientes/${codigoCita}/ejercicios`);
+                const result = await response.json();
+                if (result.success) {
+                    ejerciciosActuales = result.data || [];
+                }
+            } catch (error) {
+                console.error('Error al cargar ejercicios del paciente:', error);
+            }
+            
+            // Crear modal de ejercicios
+            const modalHTML = `
+                <div class="modal" id="exercisesModal" style="display: flex;">
+                    <div class="modal-content" style="max-width: 1000px;">
+                        <div class="modal-header">
+                            <h3 class="modal-title">🏋️ Asignar Ejercicios - ${nombrePaciente}</h3>
+                            <button class="modal-close" onclick="closeExercisesModal()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="margin-bottom: 20px; padding: 15px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                                <h4 style="margin-bottom: 10px; color: var(--success);">
+                                    <i class="fas fa-info-circle"></i> Instrucciones
+                                </h4>
+                                <p style="margin: 0;">Selecciona los ejercicios apropiados para el tratamiento del paciente. Los ejercicios se guardarán como nombres separados por comas.</p>
+                            </div>
+                            
+                            <div class="search-container">
+                                <div class="search-input">
+                                    <input type="text" id="exerciseSearch" placeholder="Buscar ejercicios por nombre, descripción, intensidad..." oninput="filterExercises()">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="exercises-container">
+                                <h4 style="margin-bottom: 15px; color: var(--primary);">
+                                    <i class="fas fa-list"></i> Ejercicios Disponibles (${allExercises.length})
+                                </h4>
+                                <div id="exercisesList">
+                                    ${renderExercisesList(ejerciciosActuales)}
+                                </div>
+                            </div>
+                            
+                            <div class="selected-exercises-container">
+                                <h4 style="margin-bottom: 15px; color: var(--success);">
+                                    <i class="fas fa-check-circle"></i> Ejercicios Seleccionados
+                                    <span id="selectedCount" style="font-size: 0.9rem; color: var(--gray); margin-left: 10px;">(${ejerciciosActuales.length} seleccionados)</span>
+                                </h4>
+                                <div id="selectedExercisesList" style="min-height: 60px;">
+                                    ${renderSelectedExercises(ejerciciosActuales)}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-outline" onclick="closeExercisesModal()">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                            <button class="btn btn-primary" onclick="saveExercises()">
+                                <i class="fas fa-save"></i> Guardar Ejercicios
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Agregar modal al documento
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        }
+
+        // Renderizar lista de ejercicios
+        function renderExercisesList(ejerciciosSeleccionados = []) {
+            if (allExercises.length === 0) {
+                return '<div class="empty-state"><p>No hay ejercicios disponibles en la base de datos</p></div>';
+            }
+            
+            return allExercises.map(ejercicio => {
+                const isSelected = ejerciciosSeleccionados.includes(ejercicio.nombre_ejercicio);
+                return `
+                    <div class="exercise-item ${isSelected ? 'selected' : ''}" onclick="toggleExercise('${ejercicio.nombre_ejercicio}')">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div style="flex: 1;">
+                                <strong style="font-size: 1.1rem; color: var(--primary);">${ejercicio.nombre_ejercicio}</strong>
+                                <div style="margin-top: 8px; padding: 10px; background: white; border-radius: 5px; border-left: 3px solid var(--primary);">
+                                    <p style="margin: 0 0 8px 0; font-size: 0.95rem;">${ejercicio.descripcion || 'Sin descripción disponible'}</p>
+                                    <div style="display: flex; gap: 15px; margin-top: 8px; flex-wrap: wrap;">
+                                        <div style="display: flex; align-items: center; gap: 5px; font-size: 0.85rem; color: var(--gray);">
+                                            <i class="fas fa-clock" style="color: var(--primary);"></i>
+                                            <span>Duración: ${ejercicio.duracion || 'No especificada'}</span>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 5px; font-size: 0.85rem; color: var(--gray);">
+                                            <i class="fas fa-bolt" style="color: var(--primary);"></i>
+                                            <span>Intensidad: ${ejercicio.intensidad || 'No especificada'}</span>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 5px; font-size: 0.85rem; color: var(--gray);">
+                                            <i class="fas fa-tools" style="color: var(--primary);"></i>
+                                            <span>Equipo: ${ejercicio.equipamento || 'Ninguno requerido'}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-left: 15px;">
+                                <input type="checkbox" ${isSelected ? 'checked' : ''} 
+                                       onchange="toggleExercise('${ejercicio.nombre_ejercicio}')"
+                                       style="transform: scale(1.2); margin-top: 5px;">
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Renderizar ejercicios seleccionados
+        function renderSelectedExercises(ejerciciosSeleccionados = []) {
+            if (ejerciciosSeleccionados.length === 0) {
+                return '<p style="color: var(--gray); font-style: italic; text-align: center; padding: 20px;">No hay ejercicios seleccionados. Haz clic en los ejercicios de la lista para seleccionarlos.</p>';
+            }
+            
+            // Actualizar contador
+            const selectedCount = document.getElementById('selectedCount');
+            if (selectedCount) {
+                selectedCount.textContent = `(${ejerciciosSeleccionados.length} seleccionados)`;
+            }
+            
+            return ejerciciosSeleccionados.map(ejercicioNombre => `
+                <div class="selected-exercise">
+                    ${ejercicioNombre}
+                    <span class="remove" onclick="removeExercise('${ejercicioNombre}')">×</span>
+                </div>
+            `).join('');
+        }
+
+        // Alternar selección de ejercicio
+        function toggleExercise(nombreEjercicio) {
+            const selectedExercisesList = document.getElementById('selectedExercisesList');
+            let currentSelected = getCurrentSelectedExercises();
+            
+            if (currentSelected.includes(nombreEjercicio)) {
+                currentSelected = currentSelected.filter(ej => ej !== nombreEjercicio);
+            } else {
+                currentSelected.push(nombreEjercicio);
+            }
+            
+            selectedExercisesList.innerHTML = renderSelectedExercises(currentSelected);
+            document.getElementById('exercisesList').innerHTML = renderExercisesList(currentSelected);
+        }
+
+        // Remover ejercicio seleccionado
+        function removeExercise(nombreEjercicio) {
+            const currentSelected = getCurrentSelectedExercises().filter(ej => ej !== nombreEjercicio);
+            document.getElementById('selectedExercisesList').innerHTML = renderSelectedExercises(currentSelected);
+            document.getElementById('exercisesList').innerHTML = renderExercisesList(currentSelected);
+        }
+
+        // Obtener ejercicios actualmente seleccionados
+        function getCurrentSelectedExercises() {
+            const selectedContainer = document.getElementById('selectedExercisesList');
+            const exerciseElements = selectedContainer.querySelectorAll('.selected-exercise');
+            return Array.from(exerciseElements).map(el => {
+                const textContent = el.textContent || '';
+                return textContent.replace('×', '').trim();
+            }).filter(nombre => nombre);
+        }
+
+        // Filtrar ejercicios
+        function filterExercises() {
+            const searchTerm = document.getElementById('exerciseSearch').value.toLowerCase();
+            const currentSelected = getCurrentSelectedExercises();
+            
+            const filteredExercises = allExercises.filter(ejercicio => 
+                ejercicio.nombre_ejercicio.toLowerCase().includes(searchTerm) ||
+                (ejercicio.descripcion && ejercicio.descripcion.toLowerCase().includes(searchTerm)) ||
+                (ejercicio.intensidad && ejercicio.intensidad.toLowerCase().includes(searchTerm)) ||
+                (ejercicio.equipamento && ejercicio.equipamento.toLowerCase().includes(searchTerm))
+            );
+            
+            document.getElementById('exercisesList').innerHTML = filteredExercises.map(ejercicio => {
+                const isSelected = currentSelected.includes(ejercicio.nombre_ejercicio);
+                return `
+                    <div class="exercise-item ${isSelected ? 'selected' : ''}" onclick="toggleExercise('${ejercicio.nombre_ejercicio}')">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div style="flex: 1;">
+                                <strong style="font-size: 1.1rem; color: var(--primary);">${ejercicio.nombre_ejercicio}</strong>
+                                <div style="margin-top: 8px; padding: 10px; background: white; border-radius: 5px; border-left: 3px solid var(--primary);">
+                                    <p style="margin: 0 0 8px 0; font-size: 0.95rem;">${ejercicio.descripcion || 'Sin descripción disponible'}</p>
+                                    <div style="display: flex; gap: 15px; margin-top: 8px; flex-wrap: wrap;">
+                                        <div style="display: flex; align-items: center; gap: 5px; font-size: 0.85rem; color: var(--gray);">
+                                            <i class="fas fa-clock" style="color: var(--primary);"></i>
+                                            <span>Duración: ${ejercicio.duracion || 'No especificada'}</span>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 5px; font-size: 0.85rem; color: var(--gray);">
+                                            <i class="fas fa-bolt" style="color: var(--primary);"></i>
+                                            <span>Intensidad: ${ejercicio.intensidad || 'No especificada'}</span>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 5px; font-size: 0.85rem; color: var(--gray);">
+                                            <i class="fas fa-tools" style="color: var(--primary);"></i>
+                                            <span>Equipo: ${ejercicio.equipamento || 'Ninguno requerido'}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-left: 15px;">
+                                <input type="checkbox" ${isSelected ? 'checked' : ''} 
+                                       onchange="toggleExercise('${ejercicio.nombre_ejercicio}')"
+                                       style="transform: scale(1.2); margin-top: 5px;">
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Cerrar modal de ejercicios
+        function closeExercisesModal() {
+            const modal = document.getElementById('exercisesModal');
+            if (modal) {
+                modal.remove();
+            }
+            selectedPatientForExercises = null;
+        }
+
+        // Guardar ejercicios
+        async function saveExercises() {
+            if (!selectedPatientForExercises) {
+                alert('No hay paciente seleccionado');
+                return;
+            }
+            
+            const selectedExercises = getCurrentSelectedExercises();
+            
+            if (selectedExercises.length === 0) {
+                if (!confirm('No has seleccionado ningún ejercicio. ¿Deseas continuar sin asignar ejercicios?')) {
+                    return;
+                }
+            }
+            
+            try {
+                const formData = new FormData();
+                formData.append('codigo_cita', selectedPatientForExercises);
+                selectedExercises.forEach(ejercicio => {
+                    formData.append('ejercicios_seleccionados', ejercicio);
+                });
+                
+                const response = await fetch('/api/pacientes/asignar-ejercicios', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('✅ Ejercicios guardados exitosamente');
+                    closeExercisesModal();
+                    loadPatients(); // Recargar la lista
+                } else {
+                    alert('❌ Error: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Error al guardar ejercicios:', error);
+                alert('❌ Error de conexión al guardar ejercicios');
+            }
+        }
+
+        // Eliminar paciente
+        async function deletePatient(codigoCita, nombrePaciente) {
+            if (!confirm(`¿Está seguro de que desea eliminar al paciente "${nombrePaciente}"?\n\nEsta acción no se puede deshacer.`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/pacientes/${codigoCita}`, {
+                    method: 'DELETE'
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('✅ Paciente eliminado exitosamente');
+                    loadPatients(); // Recargar la lista
+                } else {
+                    alert('❌ Error: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Error al eliminar paciente:', error);
+                alert('❌ Error de conexión al eliminar paciente');
+            }
+        }
+
+        // Real-time search functionality
+        document.getElementById('patientSearch').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            currentViewPatients = allPatients.filter(paciente => 
+                (paciente.nombre_completo && paciente.nombre_completo.toLowerCase().includes(searchTerm)) ||
+                (paciente.telefono && paciente.telefono.includes(searchTerm)) ||
+                (paciente.servicio && paciente.servicio.toLowerCase().includes(searchTerm)) ||
+                (paciente.tipo_plan && paciente.tipo_plan.toLowerCase().includes(searchTerm))
+            );
+            renderPatientsGrid();
+            renderPatientsTable();
+        });
+
+        // Inicializar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            loadInitialData();
+            
+            console.log('Fisioterapeuta logueado en panel pacientes:', {
+                nombre: "{{ fisioterapeuta.nombre_completo }}",
+                especializacion: "{{ fisioterapeuta.especializacion }}",
+                codigo: "{{ fisioterapeuta.codigo_trabajador }}"
+            });
+        });
+    </script>
+</body>
+</html>

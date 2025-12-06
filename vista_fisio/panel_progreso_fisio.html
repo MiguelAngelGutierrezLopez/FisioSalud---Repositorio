@@ -1,0 +1,2467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progreso - FisioSalud</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            /* Colores exactos */
+            --primary-color: #0A2540;
+            --secondary-color: #00A3FF;
+            --accent-color: #00D4AA;
+            --background-color: #F8FAFC;
+            --text-color: #0F172A;
+            --text-secondary: #64748B;
+            --border-color: #E2E8F0;
+            --light-bg: #F1F5F9;
+            --success-color: #10B981;
+            --warning-color: #F59E0B;
+            --danger-color: #EF4444;
+            --info-color: #3B82F6;
+            
+            /* Variables CSS */
+            --border-radius-sm: 4px;
+            --border-radius: 8px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition: all 0.2s ease;
+            
+            /* Spacing */
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 260px;
+            background-color: var(--primary-color);
+            padding: var(--spacing-lg) 0;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0 var(--spacing-lg) var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: var(--spacing-sm);
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .logo h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0 var(--spacing-sm);
+        }
+
+        .nav-links li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: var(--border-radius-sm);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+
+        .nav-links i {
+            margin-right: var(--spacing-sm);
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            flex: 1;
+            padding: var(--spacing-lg);
+            overflow-y: auto;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--secondary-color);
+            object-fit: cover;
+        }
+
+        .user-details .name {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .user-details .specialty {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Welcome Banner */
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary-color), #0d2e4d);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .banner-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .banner-content p {
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .banner-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .stat-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            padding: var(--spacing-lg);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .stat-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .stat-card-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .stat-description {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* Filtros */
+        .filters-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            align-items: end;
+        }
+
+        .filter-group {
+            margin-bottom: 0;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .filter-input {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.875rem;
+            transition: var(--transition);
+            background-color: white;
+        }
+
+        .filter-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(0, 163, 255, 0.1);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: var(--spacing-lg);
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: var(--spacing-sm) 0;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-secondary);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+
+        .tab:hover:not(.active) {
+            color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Tablas */
+        .table-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .table-header h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: var(--light-bg);
+            position: sticky;
+            top: 0;
+        }
+
+        th {
+            padding: var(--spacing-sm) var(--spacing-md);
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.875rem;
+        }
+
+        tbody tr {
+            transition: var(--transition);
+        }
+
+        tbody tr:hover {
+            background-color: var(--light-bg);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+
+        .badge-warning {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+
+        .badge-danger {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+        }
+
+        .badge-info {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--info-color);
+        }
+
+        /* Botones */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0090e0;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--light-bg);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: var(--spacing-xs);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.75rem;
+        }
+
+        /* Charts */
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .chart-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            padding: var(--spacing-lg);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .chart-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .chart-placeholder {
+            height: 250px;
+            background-color: var(--light-bg);
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .chart-placeholder i {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--border-color);
+        }
+
+        /* Evaluation Form */
+        .evaluation-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .evaluation-header {
+            background: linear-gradient(135deg, var(--primary-color), #0d2e4d);
+            color: white;
+            padding: var(--spacing-xl);
+            text-align: center;
+        }
+
+        .evaluation-header .heading {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .evaluation-header p {
+            opacity: 0.9;
+            font-size: 0.875rem;
+        }
+
+        .evaluation-content {
+            padding: var(--spacing-xl);
+        }
+
+        .evaluation-section {
+            background-color: var(--light-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .evaluation-section h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-xs);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .evaluation-label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .evaluation-input, .evaluation-select, .evaluation-textarea {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-md);
+            background-color: white;
+            transition: var(--transition);
+        }
+
+        .evaluation-input:focus, .evaluation-select:focus, .evaluation-textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(0, 163, 255, 0.1);
+        }
+
+        .evaluation-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .evaluation-button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            padding: var(--spacing-md) var(--spacing-xl);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+            margin-top: var(--spacing-md);
+        }
+
+        .evaluation-button:hover {
+            background-color: #0090e0;
+            transform: translateY(-1px);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 37, 64, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color), #0d2e4d);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-body {
+            padding: var(--spacing-lg);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(0, 163, 255, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--text-secondary);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--border-color);
+        }
+
+        .empty-state p {
+            margin-top: var(--spacing-xs);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: var(--spacing-md) 0;
+            }
+            
+            .logo {
+                padding: 0 var(--spacing-md) var(--spacing-md);
+            }
+            
+            .nav-links {
+                display: flex;
+                overflow-x: auto;
+                padding: var(--spacing-sm);
+                gap: var(--spacing-xs);
+            }
+            
+            .nav-links li {
+                margin-bottom: 0;
+                flex-shrink: 0;
+            }
+            
+            .nav-links a {
+                padding: var(--spacing-sm);
+                white-space: nowrap;
+            }
+            
+            .main-content {
+                padding: var(--spacing-md);
+            }
+            
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .filters-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .table-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                gap: var(--spacing-xs);
+            }
+            
+            .tab {
+                width: 100%;
+                padding: var(--spacing-sm);
+                text-align: center;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .btn-group {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+            
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .banner-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h1>FisioSalud</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/panel_citas_fisio"><i class="fas fa-calendar-alt"></i> Mis Citas</a></li>
+                <li><a href="/panel_pacientes_fisio"><i class="fas fa-user-injured"></i> Mis Pacientes</a></li>
+                <li><a href="/panel_progreso_fisio" class="active"><i class="fas fa-chart-line"></i> Progreso</a></li>
+                <li><a href="/logout-fisio"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h2>Seguimiento del Progreso</h2>
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/150?img=32" alt="Usuario" class="user-avatar">
+                    <div class="user-details">
+                        <div class="name">{{ fisioterapeuta.nombre_completo }}</div>
+                        <div class="specialty">{{ fisioterapeuta.especializacion }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <div class="banner-content">
+                    <h3>Bienvenido de nuevo, {{ fisioterapeuta.nombre_completo.split(' ')[0] }}</h3>
+                    <p>Sigue el progreso de tus pacientes y registra nuevas evaluaciones para un tratamiento más efectivo.</p>
+                    
+                    <div class="banner-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="banner-patients">-</div>
+                            <div class="stat-label">Pacientes Activos</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="banner-evaluations">-</div>
+                            <div class="stat-label">Evaluaciones</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="banner-progress">-</div>
+                            <div class="stat-label">Progreso Promedio</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-card-title">Pacientes en Seguimiento</div>
+                        <div class="stat-icon" style="background-color: var(--secondary-color);">
+                            <i class="fas fa-user-injured"></i>
+                        </div>
+                    </div>
+                    <div id="patients-tracking" class="stat-value">-</div>
+                    <div id="patients-tracking-desc" class="stat-description">En seguimiento activo</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-card-title">Evaluaciones Este Mes</div>
+                        <div class="stat-icon" style="background-color: var(--success-color);">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                    </div>
+                    <div id="month-evaluations" class="stat-value">-</div>
+                    <div id="month-evaluations-desc" class="stat-description">Evaluaciones completadas</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-card-title">Progreso Promedio</div>
+                        <div class="stat-icon" style="background-color: var(--warning-color);">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div id="average-progress" class="stat-value">-</div>
+                    <div id="average-progress-desc" class="stat-description">Tasa de completitud</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-card-title">Alertas Activas</div>
+                        <div class="stat-icon" style="background-color: var(--danger-color);">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                    </div>
+                    <div id="active-alerts" class="stat-value">-</div>
+                    <div id="active-alerts-desc" class="stat-description">Pacientes pendientes</div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="filter-patient">Paciente</label>
+                    <select id="filter-patient" class="filter-input">
+                        <option value="">Todos los pacientes</option>
+                        <!-- Los pacientes se cargarán dinámicamente -->
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-date-from">Desde</label>
+                    <input type="date" id="filter-date-from" class="filter-input">
+                </div>
+                <div class="filter-group">
+                    <label for="filter-date-to">Hasta</label>
+                    <input type="date" id="filter-date-to" class="filter-input">
+                </div>
+                <div class="filter-group">
+                    <button class="btn btn-primary" onclick="applyFilters()">
+                        <i class="fas fa-filter"></i> Aplicar Filtros
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tab active" onclick="changeTab('metricas')">Métricas de Progreso</div>
+                <div class="tab" onclick="changeTab('evaluacion')">Nueva Evaluación</div>
+                <div class="tab" onclick="changeTab('reportes')">Reportes</div>
+            </div>
+
+            <!-- Tab Content: Métricas de Progreso -->
+            <div id="metricas" class="tab-content active">
+                <!-- Charts -->
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Evolución del Dolor (Escala 0-10)</div>
+                            <div class="btn-group">
+                                <button class="btn btn-outline btn-sm" onclick="changeChartRange('pain', '3M')">3M</button>
+                                <button class="btn btn-primary btn-sm" onclick="changeChartRange('pain', '6M')">6M</button>
+                                <button class="btn btn-outline btn-sm" onclick="changeChartRange('pain', '1A')">1A</button>
+                            </div>
+                        </div>
+                        <div id="pain-chart" class="chart-placeholder">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Cargando datos de dolor...</span>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Rango de Movimiento (Flexión)</div>
+                            <div class="btn-group">
+                                <button class="btn btn-outline btn-sm" onclick="changeChartRange('mobility', '3M')">3M</button>
+                                <button class="btn btn-primary btn-sm" onclick="changeChartRange('mobility', '6M')">6M</button>
+                                <button class="btn btn-outline btn-sm" onclick="changeChartRange('mobility', '1A')">1A</button>
+                            </div>
+                        </div>
+                        <div id="mobility-chart" class="chart-placeholder">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Cargando datos de movilidad...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparison View -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Comparación de Evaluaciones</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Paciente</th>
+                                <th>Evaluación Inicial</th>
+                                <th>Evaluación Actual</th>
+                                <th>Progreso</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="comparison-table-body">
+                            <tr>
+                                <td colspan="5" class="empty-state">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <p>No hay datos de comparación disponibles</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Milestones -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Hitos y Logros</h3>
+                        <button class="btn btn-primary" onclick="openAddMilestoneModal()">
+                            <i class="fas fa-plus"></i> Agregar Hito
+                        </button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Paciente</th>
+                                <th>Hito</th>
+                                <th>Fecha</th>
+                                <th>Descripción</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="milestones-table-body">
+                            <tr>
+                                <td colspan="5" class="empty-state">
+                                    <i class="fas fa-flag"></i>
+                                    <p>No hay hitos registrados</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab Content: Nueva Evaluación -->
+            <div id="evaluacion" class="tab-content">
+                <div class="evaluation-container">
+                    <header class="evaluation-header">
+                        <div class="heading">Evaluación Fisioterapéutica</div>
+                        <p>Sistema de Registro y Análisis Clínico Profesional</p>
+                    </header>
+
+                    <div class="evaluation-content">
+                        <form id="evaluation-form">
+                            <!-- Datos del Paciente -->
+                            <section class="evaluation-section">
+                                <h2>Datos del Paciente</h2>
+                                
+                                <label class="evaluation-label">Fecha de Evaluación</label>
+                                <input type="date" class="evaluation-input" id="evaluation-date" required>
+                                
+                                <label class="evaluation-label">Nombre Completo</label>
+                                <input type="text" class="evaluation-input" placeholder="Ingrese el nombre del paciente" />
+                                
+                                <label class="evaluation-label">Edad</label>
+                                <input type="number" class="evaluation-input" placeholder="Edad del paciente" />
+                                
+                                <label class="evaluation-label">Género</label>
+                                <select class="evaluation-select">
+                                    <option>Seleccione</option>
+                                    <option>Masculino</option>
+                                    <option>Femenino</option>
+                                    <option>Otro</option>
+                                </select>
+                            </section>
+
+                            <!-- Evaluación Funcional -->
+                            <section class="evaluation-section">
+                                <h2>Evaluación Funcional</h2>
+                                
+                                <div class="grid-3">
+                                    <div>
+                                        <label class="evaluation-label">Flexión (°)</label>
+                                        <input type="number" class="evaluation-input" placeholder="Ej: 120" />
+                                    </div>
+                                    <div>
+                                        <label class="evaluation-label">Extensión (°)</label>
+                                        <input type="number" class="evaluation-input" placeholder="Ej: 30" />
+                                    </div>
+                                    <div>
+                                        <label class="evaluation-label">Rotación (°)</label>
+                                        <input type="number" class="evaluation-input" placeholder="Ej: 45" />
+                                    </div>
+                                </div>
+                                
+                                <label class="evaluation-label">Nivel de Dolor (0-10)</label>
+                                <input type="range" class="evaluation-input" min="0" max="10" value="0" />
+                                
+                                <label class="evaluation-label">Descripción del Dolor</label>
+                                <textarea class="evaluation-textarea" placeholder="Describa localización, tipo, factores..."></textarea>
+                            </section>
+
+                            <!-- Análisis -->
+                            <section class="evaluation-section">
+                                <h2>Análisis del Especialista</h2>
+                                
+                                <label class="evaluation-label">Hallazgos Principales</label>
+                                <textarea class="evaluation-textarea" placeholder="Describa los principales hallazgos encontrados..."></textarea>
+                                
+                                <label class="evaluation-label">Diagnóstico Fisioterapéutico</label>
+                                <textarea class="evaluation-textarea" placeholder="Ingrese el diagnóstico fisioterapéutico..."></textarea>
+                            </section>
+
+                            <!-- Plan Terapéutico -->
+                            <section class="evaluation-section">
+                                <h2>Plan de Tratamiento</h2>
+                                
+                                <label class="evaluation-label">Objetivos Terapéuticos</label>
+                                <textarea class="evaluation-textarea" placeholder="Ejemplo: Reducir dolor a 3/10 en 2 semanas..."></textarea>
+                                
+                                <label class="evaluation-label">Firma del Fisioterapeuta</label>
+                                <input type="text" class="evaluation-input" value="{{ fisioterapeuta.nombre_completo }}" readonly />
+                            </section>
+                        </form>
+                        
+                        <button class="evaluation-button" onclick="submitEvaluation()">Guardar Evaluación</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Reportes -->
+            <div id="reportes" class="tab-content">
+                <!-- Reportes -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Reportes de Progreso</h3>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="exportReports('pdf')">
+                                <i class="fas fa-file-pdf"></i> Exportar PDF
+                            </button>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Paciente</th>
+                                <th>Fecha</th>
+                                <th>Tipo</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reports-table-body">
+                            <tr>
+                                <td colspan="5" class="empty-state">
+                                    <i class="fas fa-file-alt"></i>
+                                    <p>No hay reportes generados</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Alertas -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Alertas de Estancamiento</h3>
+                        <button class="btn btn-outline" onclick="configureAlerts()">
+                            <i class="fas fa-cog"></i> Configurar
+                        </button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Paciente</th>
+                                <th>Última Evaluación</th>
+                                <th>Métrica</th>
+                                <th>Duración</th>
+                                <th>Severidad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stagnation-alerts-table-body">
+                            <tr>
+                                <td colspan="5" class="empty-state">
+                                    <i class="fas fa-bell-slash"></i>
+                                    <p>No hay alertas activas</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modales (mantener igual estructura que antes) -->
+    <div id="add-milestone-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Agregar Nuevo Hito</h3>
+                <button class="modal-close" onclick="closeAddMilestoneModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="milestone-form">
+                    <div class="form-group">
+                        <label for="milestone-title">Título del Hito</label>
+                        <input type="text" id="milestone-title" class="form-input" placeholder="Ej: Primera caminata sin dolor">
+                    </div>
+                    <div class="form-group">
+                        <label for="milestone-date">Fecha</label>
+                        <input type="date" id="milestone-date" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="milestone-description">Descripción</label>
+                        <textarea id="milestone-description" class="form-textarea" placeholder="Describe el logro alcanzado..."></textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline" onclick="closeAddMilestoneModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Hito</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="patient-code-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Guardar Evaluación</h3>
+                <button class="modal-close" onclick="closePatientCodeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="patient-code">Seleccionar Paciente</label>
+                    <select id="patient-code" class="form-input" required>
+                        <option value="">Cargando pacientes...</option>
+                    </select>
+                    <small style="color: var(--text-secondary);">Seleccione el paciente para guardar la evaluación</small>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline" onclick="closePatientCodeModal()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="generateAndSavePDF()">
+                        <i class="fas fa-save"></i> Generar PDF y Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // =============================================
+    // FUNCIONES PARA CARGAR DATOS DINÁMICOS
+    // =============================================
+
+    // 1. Cargar pacientes para el modal
+    async function loadValidUsers() {
+        try {
+            const response = await fetch('/api/progreso/pacientes-filtros');
+            const result = await response.json();
+            
+            const patientCodeSelect = document.getElementById('patient-code');
+            
+            if (result.success && result.data.length > 0) {
+                patientCodeSelect.innerHTML = '<option value="">Seleccionar paciente</option>';
+                
+                result.data.forEach(paciente => {
+                    const option = document.createElement('option');
+                    option.value = paciente.codigo_cita;
+                    option.textContent = `${paciente.codigo_cita} - ${paciente.nombre_completo || 'Sin nombre'}`;
+                    patientCodeSelect.appendChild(option);
+                });
+                
+                console.log(`✅ ${result.data.length} pacientes cargados para evaluación`);
+            } else {
+                patientCodeSelect.innerHTML = '<option value="">No hay pacientes disponibles</option>';
+                console.warn('⚠️ No se encontraron pacientes para este terapeuta');
+            }
+        } catch (error) {
+            console.error('❌ Error al cargar pacientes:', error);
+            const patientCodeSelect = document.getElementById('patient-code');
+            patientCodeSelect.innerHTML = '<option value="">Error al cargar pacientes</option>';
+        }
+    }
+
+    // 2. Cargar pacientes para filtros
+    async function loadPatientsForFilters() {
+        try {
+            const response = await fetch('/api/progreso/pacientes-filtros');
+            const result = await response.json();
+            
+            if (result.success) {
+                const select = document.getElementById('filter-patient');
+                select.innerHTML = '<option value="">Todos los pacientes</option>';
+                
+                result.data.forEach(paciente => {
+                    const option = document.createElement('option');
+                    option.value = paciente.codigo_cita;
+                    option.textContent = `${paciente.nombre_completo} (${paciente.codigo_cita})`;
+                    select.appendChild(option);
+                });
+                
+                console.log(`✅ ${result.data.length} pacientes cargados para filtros`);
+            }
+        } catch (error) {
+            console.error('Error al cargar pacientes para filtros:', error);
+        }
+    }
+
+    // 3. Cargar estadísticas del dashboard
+    async function loadProgressStatistics() {
+        try {
+            const response = await fetch('/api/progreso/estadisticas');
+            const result = await response.json();
+            
+            if (result.success) {
+                const stats = result.data;
+                
+                // Actualizar tarjetas
+                document.getElementById('patients-tracking').textContent = stats.pacientes_seguimiento || '0';
+                document.getElementById('patients-tracking-desc').textContent = 'En seguimiento activo';
+                
+                document.getElementById('month-evaluations').textContent = stats.evaluaciones_mes || '0';
+                document.getElementById('month-evaluations-desc').textContent = 'Evaluaciones este mes';
+                
+                document.getElementById('average-progress').textContent = `${stats.progreso_promedio || '0'}%`;
+                document.getElementById('average-progress-desc').textContent = 'Tasa de completitud';
+                
+                document.getElementById('active-alerts').textContent = stats.alertas_activas || '0';
+                document.getElementById('active-alerts-desc').textContent = 'Pacientes pendientes';
+                
+                // Actualizar banner stats
+                document.getElementById('banner-patients').textContent = stats.pacientes_seguimiento || '0';
+                document.getElementById('banner-evaluations').textContent = stats.evaluaciones_mes || '0';
+                document.getElementById('banner-progress').textContent = `${stats.progreso_promedio || '0'}%`;
+            }
+        } catch (error) {
+            console.error('Error al cargar estadísticas:', error);
+        }
+    }
+
+    // 4. Cargar comparaciones de evaluaciones
+    async function loadEvaluationComparisons() {
+        try {
+            const response = await fetch('/api/progreso/comparaciones');
+            const result = await response.json();
+            
+            const tbody = document.getElementById('comparison-table-body');
+            
+            if (result.success && result.data.length > 0) {
+                let tableHTML = '';
+                
+                result.data.forEach(comparison => {
+                    const progress = comparison.progreso || 0;
+                    let progressBadge = '';
+                    
+                    if (progress > 20) {
+                        progressBadge = `<span class="badge badge-success">+${progress}%</span>`;
+                    } else if (progress > 0) {
+                        progressBadge = `<span class="badge badge-warning">+${progress}%</span>`;
+                    } else if (progress < 0) {
+                        progressBadge = `<span class="badge badge-danger">${progress}%</span>`;
+                    } else {
+                        progressBadge = `<span class="badge">${progress}%</span>`;
+                    }
+                    
+                    let statusBadge = '';
+                    if (progress > 15) {
+                        statusBadge = `<span class="badge badge-success">Mejorando</span>`;
+                    } else if (progress > 0) {
+                        statusBadge = `<span class="badge badge-warning">Estable</span>`;
+                    } else {
+                        statusBadge = `<span class="badge badge-danger">Declinando</span>`;
+                    }
+                    
+                    tableHTML += `
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <img src="https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}" alt="${comparison.nombre_completo}" style="width: 36px; height: 36px; border-radius: 50%;">
+                                    <div>
+                                        <div style="font-weight: 500;">${comparison.nombre_completo || 'Paciente'}</div>
+                                        <div style="font-size: 0.75rem; color: var(--text-secondary);">${comparison.codigo_cita || ''}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${comparison.inicial_dolor || '0'}/10</td>
+                            <td>${comparison.actual_dolor || '0'}/10</td>
+                            <td>${progressBadge}</td>
+                            <td>${statusBadge}</td>
+                        </tr>
+                    `;
+                });
+                
+                tbody.innerHTML = tableHTML;
+            }
+        } catch (error) {
+            console.error('Error al cargar comparaciones:', error);
+        }
+    }
+
+    // 5. Cargar hitos y logros
+    async function loadMilestones() {
+        try {
+            const response = await fetch('/api/progreso/hitos');
+            const result = await response.json();
+            
+            const tbody = document.getElementById('milestones-table-body');
+            
+            if (result.success && result.data.length > 0) {
+                let tableHTML = '';
+                
+                result.data.forEach(hito => {
+                    const fecha = hito.fecha_hito ? 
+                        new Date(hito.fecha_hito).toLocaleDateString('es-ES') : 
+                        'No especificada';
+                    
+                    let icon = 'flag';
+                    if (hito.tipo_hito === 'dolor') icon = 'thermometer-half';
+                    if (hito.tipo_hito === 'movilidad') icon = 'walking';
+                    if (hito.tipo_hito === 'fuerza') icon = 'dumbbell';
+                    
+                    tableHTML += `
+                        <tr>
+                            <td>
+                                <div style="font-weight: 500;">${hito.nombre_completo || 'Paciente'}</div>
+                                <div style="font-size: 0.75rem; color: var(--text-secondary);">${hito.codigo_cita || ''}</div>
+                            </td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-${icon}" style="color: var(--secondary-color);"></i>
+                                    <span>${hito.titulo_hito || 'Hito importante'}</span>
+                                </div>
+                            </td>
+                            <td>${fecha}</td>
+                            <td style="font-size: 0.875rem;">${hito.descripcion_hito || 'Sin descripción'}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline" onclick="editMilestone('${hito.id_hito}')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline" onclick="deleteMilestone('${hito.id_hito}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                tbody.innerHTML = tableHTML;
+            }
+        } catch (error) {
+            console.error('Error al cargar hitos:', error);
+        }
+    }
+
+    // 6. Cargar reportes existentes
+    async function loadReports() {
+        try {
+            const response = await fetch('/api/reportes');
+            const result = await response.json();
+            
+            const tbody = document.getElementById('reports-table-body');
+            
+            if (result.success && result.data.length > 0) {
+                let tableHTML = '';
+                
+                result.data.forEach(reporte => {
+                    const fecha = reporte.fecha_creacion_reporte ? 
+                        new Date(reporte.fecha_creacion_reporte).toLocaleDateString('es-ES') : 
+                        'No especificada';
+                    
+                    const statusClass = reporte.tiene_reporte === '1' ? 'badge-success' : 'badge-warning';
+                    const statusText = reporte.tiene_reporte === '1' ? 'Completado' : 'Pendiente';
+                    
+                    tableHTML += `
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <img src="https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}" alt="${reporte.nombre_completo}" style="width: 36px; height: 36px; border-radius: 50%;">
+                                    <div>
+                                        <div style="font-weight: 500;">${reporte.nombre_completo || 'Nombre no disponible'}</div>
+                                        <div style="font-size: 0.75rem; color: var(--text-secondary);">${reporte.codigo_cita}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${fecha}</td>
+                            <td>Evaluación de Progreso</td>
+                            <td><span class="badge ${statusClass}">${statusText}</span></td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-primary" onclick="viewReport('${reporte.codigo_cita}')">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-success" onclick="downloadReport('${reporte.codigo_cita}')">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                tbody.innerHTML = tableHTML;
+            }
+        } catch (error) {
+            console.error('Error al cargar reportes:', error);
+        }
+    }
+
+    // 7. Cargar alertas de estancamiento
+    async function loadStagnationAlerts() {
+        try {
+            const response = await fetch('/api/progreso/alertas');
+            const result = await response.json();
+            
+            const tbody = document.getElementById('stagnation-alerts-table-body');
+            
+            if (result.success && result.data.length > 0) {
+                let tableHTML = '';
+                
+                result.data.forEach(alerta => {
+                    const fecha = alerta.ultima_evaluacion ? 
+                        new Date(alerta.ultima_evaluacion).toLocaleDateString('es-ES') : 
+                        'No especificada';
+                    
+                    let severityClass = 'badge-warning';
+                    if (alerta.severidad === 'alta') severityClass = 'badge-danger';
+                    if (alerta.severidad === 'baja') severityClass = 'badge-info';
+                    
+                    tableHTML += `
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <img src="https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70)}" alt="${alerta.nombre_completo}" style="width: 36px; height: 36px; border-radius: 50%;">
+                                    <div>
+                                        <div style="font-weight: 500;">${alerta.nombre_completo || 'Paciente'}</div>
+                                        <div style="font-size: 0.75rem; color: var(--text-secondary);">${alerta.codigo_cita}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${fecha}</td>
+                            <td>${alerta.metrica_afectada || 'Dolor'}</td>
+                            <td>${alerta.duracion_estancamiento || '0'} días</td>
+                            <td><span class="badge ${severityClass}">${alerta.severidad || 'media'}</span></td>
+                        </tr>
+                    `;
+                });
+                
+                tbody.innerHTML = tableHTML;
+            }
+        } catch (error) {
+            console.error('Error al cargar alertas:', error);
+        }
+    }
+
+    // 8. Ver reporte
+    async function viewReport(codigoCita) {
+        try {
+            const response = await fetch(`/api/reportes/${codigoCita}/descargar`);
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                window.open(url, '_blank');
+            } else {
+                alert('Error al cargar el reporte');
+            }
+        } catch (error) {
+            console.error('Error al ver reporte:', error);
+            alert('Error al cargar el reporte');
+        }
+    }
+
+    // 9. Descargar reporte
+    async function downloadReport(codigoCita) {
+        try {
+            const response = await fetch(`/api/reportes/${codigoCita}/descargar`);
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `reporte_${codigoCita}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            } else {
+                alert('Error al descargar el reporte');
+            }
+        } catch (error) {
+            console.error('Error al descargar reporte:', error);
+            alert('Error al descargar el reporte');
+        }
+    }
+
+    // 10. Función auxiliar para obtener valores del formulario
+    function getFormValue(selector) {
+        const element = document.querySelector(`#evaluation-form ${selector}`);
+        if (element) {
+            const value = element.value || element.textContent || '';
+            return value;
+        } else {
+            console.warn(`⚠️ Campo no encontrado: ${selector}`);
+            return '';
+        }
+    }
+
+    // 11. Función para recopilar datos del formulario
+    function collectFormData() {
+        const form = document.getElementById('evaluation-form');
+        
+        // Obtener todos los campos del formulario de manera más robusta
+        const formData = {
+            // Datos básicos del paciente
+            patientName: form.querySelector('input[placeholder="Ingrese el nombre del paciente"]')?.value || '',
+            age: form.querySelector('input[placeholder="Edad del paciente"]')?.value || '',
+            gender: form.querySelector('select:first-of-type')?.value || '',
+            occupation: form.querySelector('input[placeholder="Ejemplo: oficinista, deportista, ama de casa..."]')?.value || '',
+            medicalHistory: form.querySelector('textarea[placeholder="Describa los antecedentes médicos del paciente..."]')?.value || '',
+            currentCondition: form.querySelector('textarea[placeholder="Describa la condición actual del paciente y el motivo de consulta..."]')?.value || '',
+            
+            // Evaluación funcional
+            flexion: form.querySelector('input[placeholder="Ej: 120"]')?.value || '',
+            extension: form.querySelector('input[placeholder="Ej: 30"]')?.value || '',
+            rotation: form.querySelector('input[placeholder="Ej: 45"]')?.value || '',
+            painLevel: form.querySelector('input[type="range"]')?.value || '0',
+            painDescription: form.querySelector('textarea[placeholder="Describa localización, tipo, factores..."]')?.value || '',
+            
+            // Análisis
+            findings: form.querySelector('textarea[placeholder="Describa los principales hallazgos encontrados..."]')?.value || '',
+            diagnosis: form.querySelector('textarea[placeholder="Ingrese el diagnóstico fisioterapéutico..."]')?.value || '',
+            
+            // Plan de tratamiento
+            goals: form.querySelector('textarea[placeholder="Ejemplo: Reducir dolor a 3/10 en 2 semanas..."]')?.value || '',
+            signature: form.querySelector('input[value="{{ fisioterapeuta.nombre_completo }}"]')?.value || '',
+            evaluationDate: document.getElementById('evaluation-date')?.value || new Date().toISOString().split('T')[0]
+        };
+
+        console.log('📊 Datos recopilados del formulario:', formData);
+        return formData;
+    }
+
+    // 12. Función para generar PDF - VERSIÓN CORREGIDA
+    function generatePDF(formData) {
+        return new Promise((resolve, reject) => {
+            console.log('🔄 Iniciando generación de PDF...');
+            
+            // Validar que hay datos
+            if (!formData.patientName || formData.patientName.trim() === '') {
+                console.error('❌ ERROR: Nombre del paciente está vacío');
+                reject(new Error('El nombre del paciente es requerido'));
+                return;
+            }
+            
+            // Crear el HTML del reporte
+            const reportHTML = createReportHTML(formData);
+            
+            // Verificar que el HTML tenga contenido
+            if (!reportHTML || reportHTML.length < 100) {
+                console.error('❌ ERROR: HTML del reporte está vacío o es muy corto');
+                reject(new Error('Error al generar el contenido del PDF'));
+                return;
+            }
+            
+            // DEBUG: Ver el HTML generado
+            console.log('📄 HTML generado (primeros 300 chars):', reportHTML.substring(0, 300));
+            
+            // Crear un elemento temporal para renderizar
+            const tempDiv = document.createElement('div');
+            tempDiv.style.position = 'absolute';
+            tempDiv.style.left = '-9999px';
+            tempDiv.style.top = '0';
+            tempDiv.style.width = '800px';
+            tempDiv.style.backgroundColor = '#ffffff';
+            tempDiv.style.padding = '20px';
+            tempDiv.innerHTML = reportHTML;
+            document.body.appendChild(tempDiv);
+            
+            try {
+                // Configuración de html2pdf
+                const options = {
+                    margin: [15, 15, 15, 15],
+                    filename: `evaluacion_${formData.patientName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`,
+                    image: { 
+                        type: 'jpeg', 
+                        quality: 0.95 
+                    },
+                    html2canvas: { 
+                        scale: 2,
+                        logging: true,
+                        useCORS: true,
+                        allowTaint: true,
+                        backgroundColor: '#ffffff',
+                        width: 800
+                    },
+                    jsPDF: { 
+                        unit: 'mm', 
+                        format: 'a4', 
+                        orientation: 'portrait',
+                        compress: true
+                    }
+                };
+                
+                console.log('🎯 Generando PDF con html2pdf...');
+                
+                // Generar PDF usando el elemento temporal
+                html2pdf()
+                    .from(tempDiv)
+                    .set(options)
+                    .outputPdf('blob')
+                    .then((blob) => {
+                        console.log(`✅ PDF generado exitosamente - Tamaño: ${blob.size} bytes`);
+                        
+                        // Limpiar elemento temporal
+                        document.body.removeChild(tempDiv);
+                        
+                        // Verificar que el blob no esté vacío
+                        if (blob.size < 1000) {
+                            console.warn('⚠️ PDF muy pequeño, puede estar vacío');
+                            reject(new Error('PDF generado está vacío o casi vacío'));
+                            return;
+                        }
+                        
+                        // Verificar tipo MIME
+                        if (blob.type !== 'application/pdf') {
+                            console.warn(`⚠️ Tipo MIME inesperado: ${blob.type}`);
+                        }
+                        
+                        resolve(blob);
+                    })
+                    .catch((error) => {
+                        console.error('❌ Error en html2pdf:', error);
+                        // Limpiar elemento temporal
+                        if (document.body.contains(tempDiv)) {
+                            document.body.removeChild(tempDiv);
+                        }
+                        reject(error);
+                    });
+                    
+            } catch (error) {
+                // Limpiar elemento temporal
+                if (document.body.contains(tempDiv)) {
+                    document.body.removeChild(tempDiv);
+                }
+                console.error('❌ Error en try-catch de generatePDF:', error);
+                reject(error);
+            }
+        });
+    }
+
+    // 13. Función para crear HTML del reporte - VERSIÓN MEJORADA
+    function createReportHTML(formData) {
+        console.log('🎨 Creando HTML del reporte con datos:', formData);
+        
+        // Validar y limpiar datos
+        const cleanData = {
+            patientName: formData.patientName?.trim() || 'Nombre no proporcionado',
+            age: formData.age?.trim() || 'No especificado',
+            gender: formData.gender?.trim() || 'No especificado',
+            occupation: formData.occupation?.trim() || 'No especificado',
+            medicalHistory: formData.medicalHistory?.trim() || 'No especificado',
+            currentCondition: formData.currentCondition?.trim() || 'No especificado',
+            flexion: formData.flexion?.trim() || 'No especificado',
+            extension: formData.extension?.trim() || 'No especificado',
+            rotation: formData.rotation?.trim() || 'No especificado',
+            painLevel: formData.painLevel?.trim() || '0',
+            painDescription: formData.painDescription?.trim() || 'No especificado',
+            findings: formData.findings?.trim() || 'No especificado',
+            diagnosis: formData.diagnosis?.trim() || 'No especificado',
+            goals: formData.goals?.trim() || 'No especificado',
+            signature: formData.signature?.trim() || 'Fisioterapeuta no especificado',
+            evaluationDate: formData.evaluationDate || new Date().toISOString().split('T')[0]
+        };
+        
+        // Función helper para escapar HTML
+        const escapeHTML = (str) => {
+            if (!str) return 'No especificado';
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;")
+                .replace(/\n/g, "<br>");
+        };
+
+        const html = `
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Informe de Evaluación Fisioterapéutica</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 20px;
+                    color: #333;
+                    background-color: #ffffff;
+                    line-height: 1.6;
+                }
+
+                .report-container {
+                    max-width: 800px;
+                    margin: 0 auto;
+                    background: white;
+                    padding: 30px;
+                    border: 1px solid #ddd;
+                }
+
+                header {
+                    text-align: center;
+                    border-bottom: 3px solid #2c3e50;
+                    padding-bottom: 15px;
+                    margin-bottom: 25px;
+                }
+
+                header h1 {
+                    margin: 0;
+                    color: #2c3e50;
+                    font-size: 24px;
+                    font-weight: bold;
+                }
+
+                header p {
+                    margin: 5px 0 0;
+                    font-style: italic;
+                    color: #7f8c8d;
+                    font-size: 14px;
+                }
+
+                section {
+                    margin-bottom: 25px;
+                    page-break-inside: avoid;
+                }
+
+                h2 {
+                    color: #2c3e50;
+                    border-bottom: 2px solid #3498db;
+                    padding-bottom: 5px;
+                    font-size: 18px;
+                    font-weight: bold;
+                    margin-bottom: 15px;
+                }
+
+                .info-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 8px 20px;
+                    margin-bottom: 15px;
+                }
+
+                .info-item {
+                    margin-bottom: 10px;
+                }
+
+                .label {
+                    font-weight: bold;
+                    color: #2c3e50;
+                    display: block;
+                    font-size: 14px;
+                    margin-bottom: 3px;
+                }
+
+                .value {
+                    color: #34495e;
+                    font-size: 14px;
+                    padding-left: 10px;
+                }
+
+                .textarea {
+                    background: #f8f9fa;
+                    border-left: 4px solid #3498db;
+                    padding: 10px 12px;
+                    border-radius: 4px;
+                    margin-top: 5px;
+                    color: #2c3e50;
+                    font-size: 13px;
+                    min-height: 40px;
+                    line-height: 1.5;
+                }
+
+                footer {
+                    text-align: center;
+                    font-size: 11px;
+                    color: #7f8c8d;
+                    margin-top: 30px;
+                    border-top: 1px solid #ddd;
+                    padding-top: 10px;
+                }
+
+                .signature {
+                    margin-top: 25px;
+                    text-align: right;
+                    padding-top: 20px;
+                    border-top: 1px solid #ddd;
+                }
+
+                .signature p {
+                    margin: 0;
+                }
+
+                .signature .name {
+                    font-weight: bold;
+                    color: #2c3e50;
+                    font-size: 14px;
+                }
+
+                @media print {
+                    body { 
+                        margin: 0; 
+                        padding: 10px;
+                    }
+                    .report-container { 
+                        max-width: none; 
+                        border: none;
+                        padding: 15px;
+                    }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="report-container">
+                <header>
+                    <h1>INFORME DE EVALUACIÓN FISIOTERAPÉUTICA</h1>
+                    <p>Sistema FisioSalud — Registro Clínico Profesional</p>
+                </header>
+
+                <!-- DATOS DEL PACIENTE -->
+                <section>
+                    <h2>DATOS DEL PACIENTE</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Nombre:</span>
+                            <span class="value">${escapeHTML(cleanData.patientName)}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Edad:</span>
+                            <span class="value">${escapeHTML(cleanData.age)} años</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Género:</span>
+                            <span class="value">${escapeHTML(cleanData.gender)}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Ocupación:</span>
+                            <span class="value">${escapeHTML(cleanData.occupation)}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Fecha de Evaluación:</span>
+                            <span class="value">${escapeHTML(cleanData.evaluationDate)}</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="label">Antecedentes Médicos:</span>
+                        <div class="textarea">${escapeHTML(cleanData.medicalHistory)}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Condición Actual y Motivo de Consulta:</span>
+                        <div class="textarea">${escapeHTML(cleanData.currentCondition)}</div>
+                    </div>
+                </section>
+
+                <!-- EVALUACIÓN FUNCIONAL -->
+                <section>
+                    <h2>EVALUACIÓN FUNCIONAL</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Flexión:</span>
+                            <span class="value">${escapeHTML(cleanData.flexion)}°</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Extensión:</span>
+                            <span class="value">${escapeHTML(cleanData.extension)}°</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Rotación:</span>
+                            <span class="value">${escapeHTML(cleanData.rotation)}°</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Nivel de Dolor (0-10):</span>
+                            <span class="value">${escapeHTML(cleanData.painLevel)} / 10</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="label">Descripción del Dolor:</span>
+                        <div class="textarea">${escapeHTML(cleanData.painDescription)}</div>
+                    </div>
+                </section>
+
+                <!-- ANÁLISIS -->
+                <section>
+                    <h2>ANÁLISIS DEL ESPECIALISTA</h2>
+                    <div class="info-item">
+                        <span class="label">Hallazgos Principales:</span>
+                        <div class="textarea">${escapeHTML(cleanData.findings)}</div>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Diagnóstico Fisioterapéutico:</span>
+                        <div class="textarea">${escapeHTML(cleanData.diagnosis)}</div>
+                    </div>
+                </section>
+
+                <!-- PLAN DE TRATAMIENTO -->
+                <section>
+                    <h2>PLAN DE TRATAMIENTO</h2>
+                    <div class="info-item">
+                        <span class="label">Objetivos Terapéuticos:</span>
+                        <div class="textarea">${escapeHTML(cleanData.goals)}</div>
+                    </div>
+                </section>
+
+                <!-- FIRMA -->
+                <div class="signature">
+                    <p class="name">${escapeHTML(cleanData.signature)}</p>
+                    <p>Fisioterapeuta Responsable</p>
+                </div>
+
+                <footer>
+                    FisioSalud © ${new Date().getFullYear()} — Documento emitido electrónicamente
+                </footer>
+            </div>
+        </body>
+        </html>
+        `;
+        
+        console.log('✅ HTML del reporte creado exitosamente');
+        return html;
+    }
+
+    // 14. Guardar evaluación
+    function submitEvaluation() {
+        // Validar formulario primero
+        const form = document.getElementById('evaluation-form');
+        if (!form.checkValidity()) {
+            alert('Por favor, complete todos los campos requeridos.');
+            form.reportValidity();
+            return;
+        }
+        
+        // Cargar pacientes antes de mostrar el modal
+        loadValidUsers().then(() => {
+            // Mostrar modal para seleccionar paciente
+            document.getElementById('patient-code-modal').style.display = 'flex';
+        }).catch(error => {
+            console.error('Error al cargar pacientes:', error);
+            alert('Error al cargar la lista de pacientes');
+        });
+    }
+
+    // 15. Función para cerrar modal de código de paciente
+    function closePatientCodeModal() {
+        document.getElementById('patient-code-modal').style.display = 'none';
+        document.getElementById('patient-code').value = '';
+    }
+
+    // 16. Función principal para generar y guardar PDF - VERSIÓN MEJORADA
+    async function generateAndSavePDF() {
+        const patientCode = document.getElementById('patient-code').value;
+        
+        if (!patientCode) {
+            alert('Por favor, seleccione un paciente de la lista.');
+            return;
+        }
+
+        try {
+            // 1. Recopilar datos del formulario
+            const formData = collectFormData();
+            
+            console.log('🔍 Datos recopilados para PDF:', formData);
+            
+            // Validar datos críticos
+            if (!formData.patientName || formData.patientName.trim() === '') {
+                alert('El nombre del paciente es requerido.');
+                return;
+            }
+            
+            // 2. Mostrar indicador de carga
+            const saveButton = document.querySelector('#patient-code-modal .btn-primary');
+            const originalText = saveButton.innerHTML;
+            saveButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generando PDF...';
+            saveButton.disabled = true;
+            
+            // 3. Generar PDF
+            console.log('📄 Generando PDF...');
+            const pdfBlob = await generatePDF(formData);
+            
+            console.log(`📦 PDF generado: ${pdfBlob.size} bytes, tipo: ${pdfBlob.type}`);
+            
+            // 4. Validar que el PDF no esté vacío
+            if (pdfBlob.size < 1000) {
+                throw new Error(`PDF generado está muy pequeño (${pdfBlob.size} bytes). Verifica los datos del formulario.`);
+            }
+            
+            // 5. Crear FormData para enviar
+            const uploadFormData = new FormData();
+            uploadFormData.append('ID', patientCode);
+            uploadFormData.append('reporte', pdfBlob, `evaluacion_${patientCode}.pdf`);
+            
+            console.log('📤 Enviando FormData...');
+            
+            // 6. Enviar al backend
+            console.log('🚀 Enviando PDF al servidor...');
+            saveButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+            
+            const response = await fetch('/api/reportes', {
+                method: 'POST',
+                body: uploadFormData
+            });
+            
+            console.log('📨 Respuesta del servidor:', response.status, response.statusText);
+            
+            const result = await response.json();
+            console.log('📊 Resultado del servidor:', result);
+            
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || `Error ${response.status}: ${response.statusText}`);
+            }
+            
+            // 7. Éxito
+            alert(`✅ Evaluación guardada exitosamente\n\n• Paciente: ${patientCode}\n• Tamaño PDF: ${(pdfBlob.size / 1024).toFixed(2)} KB`);
+            
+            // 8. Cerrar modal y limpiar
+            closePatientCodeModal();
+            document.getElementById('evaluation-form').reset();
+            
+            // 9. Recargar datos
+            loadReports();
+            loadProgressStatistics();
+            
+        } catch (error) {
+            console.error('❌ Error en generateAndSavePDF:', error);
+            
+            let errorMessage = 'Error al guardar la evaluación: ';
+            
+            if (error.message.includes('PDF generado está vacío')) {
+                errorMessage = 'El PDF generado está vacío. Por favor, verifica que todos los campos del formulario estén completos.';
+            } else if (error.message.includes('fetch')) {
+                errorMessage = 'Error de conexión con el servidor. Verifica tu conexión a internet.';
+            } else if (error.message.includes('html2pdf')) {
+                errorMessage = 'Error al generar el PDF. Intenta recargar la página.';
+            } else {
+                errorMessage += error.message;
+            }
+            
+            alert(`❌ ${errorMessage}`);
+            
+        } finally {
+            // Restaurar botón
+            const saveButton = document.querySelector('#patient-code-modal .btn-primary');
+            if (saveButton) {
+                saveButton.innerHTML = '<i class="fas fa-save"></i> Generar PDF y Guardar';
+                saveButton.disabled = false;
+            }
+        }
+    }
+
+    // 17. Función para agregar hito
+    async function addMilestone(event) {
+        event.preventDefault();
+        
+        const title = document.getElementById('milestone-title').value;
+        const date = document.getElementById('milestone-date').value;
+        const description = document.getElementById('milestone-description').value;
+        const patientCode = document.getElementById('filter-patient').value;
+        
+        if (!title || !date || !description) {
+            alert('Por favor, complete todos los campos del hito.');
+            return;
+        }
+        
+        if (!patientCode) {
+            alert('Por favor, seleccione un paciente primero usando los filtros.');
+            return;
+        }
+        
+        try {
+            const response = await fetch('/api/progreso/hitos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    codigo_cita: patientCode,
+                    titulo_hito: title,
+                    fecha_hito: date,
+                    descripcion_hito: description
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                alert('✅ Hito agregado exitosamente');
+                closeAddMilestoneModal();
+                loadMilestones();
+                document.getElementById('milestone-form').reset();
+            } else {
+                alert('❌ Error al agregar hito: ' + result.message);
+            }
+        } catch (error) {
+            console.error('Error al agregar hito:', error);
+            alert('❌ Error al agregar hito');
+        }
+    }
+
+    // 18. Función para editar hito
+    async function editMilestone(hitoId) {
+        const newTitle = prompt('Ingrese el nuevo título del hito:');
+        if (newTitle) {
+            try {
+                const response = await fetch(`/api/progreso/hitos/${hitoId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ titulo_hito: newTitle })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('✅ Hito actualizado exitosamente');
+                    loadMilestones();
+                } else {
+                    alert('❌ Error al actualizar hito');
+                }
+            } catch (error) {
+                console.error('Error al editar hito:', error);
+                alert('❌ Error al editar hito');
+            }
+        }
+    }
+
+    // 19. Función para eliminar hito
+    async function deleteMilestone(hitoId) {
+        if (confirm('¿Está seguro de que desea eliminar este hito?')) {
+            try {
+                const response = await fetch(`/api/progreso/hitos/${hitoId}`, {
+                    method: 'DELETE'
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('✅ Hito eliminado exitosamente');
+                    loadMilestones();
+                } else {
+                    alert('❌ Error al eliminar hito');
+                }
+            } catch (error) {
+                console.error('Error al eliminar hito:', error);
+                alert('❌ Error al eliminar hito');
+            }
+        }
+    }
+
+    // =============================================
+    // FUNCIONES DE INTERFAZ
+    // =============================================
+
+    // 20. Tab navigation
+    function changeTab(tabName) {
+        // Ocultar todos los contenidos de pestañas
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabContents.forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // Mostrar el contenido de la pestaña seleccionada
+        document.getElementById(tabName).classList.add('active');
+        
+        // Actualizar pestañas activas
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        event.currentTarget.classList.add('active');
+        
+        // Cargar datos específicos de la pestaña
+        if (tabName === 'metricas') {
+            loadEvaluationComparisons();
+            loadMilestones();
+        } else if (tabName === 'reportes') {
+            loadReports();
+            loadStagnationAlerts();
+        }
+    }
+
+    // 21. Inicialización al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        // Cargar datos iniciales
+        loadPatientsForFilters();
+        loadProgressStatistics();
+        loadEvaluationComparisons();
+        loadMilestones();
+        loadReports();
+        loadStagnationAlerts();
+        
+        // Establecer fecha actual como valor por defecto
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('filter-date-to').value = today;
+        document.getElementById('evaluation-date').value = today;
+        document.getElementById('milestone-date').value = today;
+        
+        // Manejar envío del formulario de hitos
+        const milestoneForm = document.getElementById('milestone-form');
+        if (milestoneForm) {
+            milestoneForm.addEventListener('submit', addMilestone);
+        }
+    });
+
+    // 22. Funciones auxiliares para modales
+    function openAddMilestoneModal() {
+        document.getElementById('add-milestone-modal').style.display = 'flex';
+    }
+
+    function closeAddMilestoneModal() {
+        document.getElementById('add-milestone-modal').style.display = 'none';
+    }
+
+    // 23. Aplicar filtros
+    async function applyFilters() {
+        const patientCode = document.getElementById('filter-patient').value;
+        const dateFrom = document.getElementById('filter-date-from').value;
+        const dateTo = document.getElementById('filter-date-to').value;
+        
+        console.log('Aplicando filtros:', { patientCode, dateFrom, dateTo });
+        
+        // Mostrar indicador de carga
+        const filterButton = document.querySelector('.filters-container .btn-primary');
+        const originalText = filterButton.innerHTML;
+        filterButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Filtrando...';
+        filterButton.disabled = true;
+        
+        try {
+            // Cargar datos con filtros
+            await loadProgressStatistics();
+            await loadEvaluationComparisons();
+            await loadMilestones();
+            
+            console.log('✅ Filtros aplicados');
+            
+        } catch (error) {
+            console.error('Error al aplicar filtros:', error);
+            alert('Error al aplicar filtros');
+        } finally {
+            // Restaurar botón
+            filterButton.innerHTML = '<i class="fas fa-filter"></i> Aplicar Filtros';
+            filterButton.disabled = false;
+        }
+    }
+
+    // 24. Cambiar rango de gráficos
+    function changeChartRange(chartType, range) {
+        console.log(`Cambiando rango de ${chartType} a ${range}`);
+        
+        // Actualizar botones activos
+        const buttons = event.target.parentElement.querySelectorAll('button');
+        buttons.forEach(btn => {
+            btn.classList.remove('btn-primary');
+            btn.classList.add('btn-outline');
+        });
+        
+        event.target.classList.remove('btn-outline');
+        event.target.classList.add('btn-primary');
+        
+        // Simular actualización de gráfico
+        const chartPlaceholder = event.target.closest('.chart-card').querySelector('.chart-placeholder');
+        chartPlaceholder.innerHTML = `
+            <i class="fas fa-chart-line"></i>
+            <span>Gráfico de ${chartType} - Rango: ${range}</span>
+        `;
+    }
+
+    // 25. Exportar reportes
+    function exportReports(format) {
+        console.log(`Exportando reportes en formato ${format}`);
+        alert(`Exportando reportes en formato ${format.toUpperCase()}...`);
+    }
+
+    // 26. Configurar alertas
+    function configureAlerts() {
+        console.log('Configurando alertas...');
+        alert('Función de configuración de alertas');
+    }
+</script>
+</body>
+</html>
+
+

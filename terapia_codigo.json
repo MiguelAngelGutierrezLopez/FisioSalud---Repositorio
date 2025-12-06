@@ -1,0 +1,90 @@
+{
+  "clinica": "FisioSalud Centro de Terapias Integrales",
+  "version": "1.0",
+  "plantillas_finalizacion": [
+    {
+      "terapia_codigo": "12AB34",
+      "terapia_nombre": "Masaje Relajante",
+      "asunto_correo": "¡Felicidades por completar tu terapia de Masaje Relajante en [NOMBRE_CLINICA]! 🌿",
+      "mensaje_cuerpo": "Hola [NOMBRE_PACIENTE],\n\nHa sido un placer acompañarte en tu proceso de relajación y liberación del estrés. Nos complace informarte que has completado satisfactoriamente tu ciclo de **Masaje Relajante**.\n\nTu dedicación a tu bienestar es admirable. Para ayudarte a mantener y potenciar los beneficios alcanzados (reducción del estrés, mejora de la circulación y alivio de tensiones leves), te compartimos algunas recomendaciones:\n\n**🧘 Ejercicio para Continuar en Casa:**\nTe recomendamos practicar **'Deslizamientos Superficiales' (Ejercicio #1001)**. Realiza movimientos largos y fluidos con tus manos (puedes usar un aceite ligero) desde las extremidades hacia el corazón durante 5-10 minutos, 2 veces por semana.\n\n**💆 Implemento Recomendado:**\nConsidera el uso de la **'Almohadilla Térmica de Infrarrojo' (Código: 5903LK)**. Aplicar calor suave en la espalda o cuello durante 15-20 minutos antes de dormir puede profundizar la relajación muscular.\n\n**🌱 Suplemento de Apoyo:**\nEl **'Multivitamínico Completo' (Código: BD1245)** puede ser un gran aliado. Tomar 1 tableta diaria con el desayuno ayuda a fortalecer tu sistema inmunológico.\n\nRecuerda que en [NOMBRE_CLINICA] siempre estaremos aquí para ti.\n\nCordialmente,\nEl Equipo de Fisioterapia\n[NOMBRE_CLINICA]",
+      "keywords": ["relajación", "estrés", "circulación", "tensión"]
+    },
+    {
+      "terapia_codigo": "23WE45",
+      "terapia_nombre": "Terapia de Estiramientos",
+      "asunto_correo": "¡Excelente trabajo completando tu Terapia de Estiramientos! Tu flexibilidad te lo agradece 🤸",
+      "mensaje_cuerpo": "Estimado/a [NOMBRE_PACIENTE],\n\n¡Enhorabuena! Has finalizado tu programa de **Terapia de Estiramientos**. Has mostrado un gran compromiso para mejorar tu flexibilidad y postura.\n\n**🏃‍♂️ Rutina de Mantenimiento:**\n1. **'Estiramiento de Cadena Posterior' (Ejercicio #1003):** 3 series de 30 segundos, 3 veces por semana.\n2. **'Rotaciones de Hombros' (Ejercicio #1004):** 3 series de 10 repeticiones diarias.\n\n**🎽 Implemento Esencial:**\nUn **'Set de Bloques de Yoga Terapéutico' (Código: YB47KQ)** te permitirá realizar estiramientos con alineación perfecta.\n\n**💊 Suplemento para Tejidos:**\nEl **'Colágeno Hidrolizado' (Código: CH6741)** ayuda a mantener tus tejidos conectivos flexibles.\n\nSigue escuchando a tu cuerpo. Si vuelves a sentir rigidez, aquí estaremos.\n\nUn fuerte abrazo,\nEl Equipo de [NOMBRE_CLINICA]",
+      "keywords": ["flexibilidad", "postura", "sedentarismo", "estiramiento"]
+    },
+    {
+      "terapia_codigo": "56DF12",
+      "terapia_nombre": "Rehabilitación Deportiva",
+      "asunto_correo": "¡Meta alcanzada! Finalizas tu Rehabilitación Deportiva listo/a para retomar tu actividad 🏆",
+      "mensaje_cuerpo": "Hola [NOMBRE_PACIENTE],\n\n¡Felicidades! Has superado con éxito tu programa de **Rehabilitación Deportiva**.\n\n**💪 Circuito de Mantenimiento (2-3 veces/semana):**\n- **Sentadilla con Peso Corporal (Ejercicio #1006):** 3x12 repeticiones.\n- **Puente de Glúteos (Ejercicio #1007):** 3x15 repeticiones.\n\n**⚙️ Implemento para Progresión:**\nUn **'Set de Mancuernas Ajustables Pro' (Código: 3316FD)** te permitirá seguir fortaleciéndote de manera segura.\n\n**🥤 Suplementación:**\n- **Recuperación:** **'Proteína en Polvo' (Código: AC3311)**.\n- **Antiinflamatorio:** **'Omega 3 Premium' (Código: NH4316)**.\n\n¡A por tus próximos retos!\nEl Equipo de Fisioterapia Deportiva\n[NOMBRE_CLINICA]",
+      "keywords": ["deporte", "lesión", "fortalecimiento", "propiocepción"]
+    },
+    {
+      "terapia_codigo": "65AF31",
+      "terapia_nombre": "Rehabilitación Post-Quirúrgica",
+      "asunto_correo": "Un importante logro: Finalización de tu Rehabilitación Post-Quirúrgica 💪",
+      "mensaje_cuerpo": "Estimado/a [NOMBRE_PACIENTE],\n\nHoy celebramos contigo un hito significativo: la **finalización de tu intensivo programa de Rehabilitación Post-Quirúrgica**.\n\n**🔁 Ejercicios de Continuidad:**\n- Continúa con los **'Ejercicios de Escalera de Movilidad' (Ejercicio #1012)**.\n- Incorpora **'Ejercicios en Cadena Cinética Cerrada' (Ejercicio #1029)**.\n\n**🏥 Implemento para Autogestión:**\nLa **'Compresa de Gel Reutilizable' (Código: A93F7G)** es invaluable para manejar inflamación y relajar la zona.\n\n**💊 Soporte Nutricional:**\n- **Huesos:** **'Calcio + Vitamina D3' (Código: CV3952)**.\n- **Tejidos:** **'Colágeno Hidrolizado' (Código: CH6741)**.\n\nTe recomendamos una **consulta de control en 3 meses**. Ante cualquier dolor nuevo, contáctanos.\n\nUn saludo cordial,\nEl Equipo de Rehabilitación\n[NOMBRE_CLINICA]",
+      "keywords": ["postquirúrgico", "cirugía", "movilidad", "recuperación"]
+    },
+    {
+      "terapia_codigo": "67HH34",
+      "terapia_nombre": "Punción Seca",
+      "asunto_correo": "Tratamiento de Punción Seca completado - Guía para mantener los resultados 📌",
+      "mensaje_cuerpo": "Hola [NOMBRE_PACIENTE],\n\nHas completado el tratamiento de **Punción Seca**. Esperamos que disfrutes de la mejora en tu movilidad y la reducción del dolor.\n\n**✨ Ejercicio Clave:**\nEl **'Estiramiento Post-Punción' (Ejercicio #1013)** es tu mejor aliado. Realiza estiramientos suaves del músculo tratado durante 30-60 segundos, 2-3 veces al día.\n\n**🛠️ Implemento para Autotratamiento:**\nUna **'Pelota de Tenis'** puede servirte para aplicar compresión isquémica suave en puntos de tensión incipiente.\n\n**🌿 Suplemento Antiinflamatorio:**\nEl **'Omega 3 Premium' (Código: NH4316)** actúa como un antiinflamatorio natural. 2 cápsulas diarias con alimentos.\n\nLa hidratación y el manejo del estrés son fundamentales. Si la tensión vuelve, agenda una sesión de mantenimiento.\n\nCuídate mucho,\nEl Equipo de Terapia Manual\n[NOMBRE_CLINICA]",
+      "keywords": ["puntos gatillo", "contractura", "punción", "dolor miofascial"]
+    },
+    {
+      "terapia_codigo": "67RE23",
+      "terapia_nombre": "Vendaje Neuromuscular",
+      "asunto_correo": "Finalización de tu terapia con Vendaje Neuromuscular - Sigue el buen camino 🩹",
+      "mensaje_cuerpo": "Estimado/a [NOMBRE_PACIENTE],\n\nHas llegado al final de tu ciclo de **Vendaje Neuromuscular**.\n\n**🧠 Ejercicios de Conciencia Corporal:**\nPractica los **'Ejercicios con Vendaje Activo' (Ejercicio #1014)** que realizabas, pero ahora *sin el vendaje*. Visualiza la dirección de facilitación.\n\n**💪 Implemento para Fortalecimiento:**\nUn **'Set de Bandas de Resistencia Profesionales' (Código: 5634KJ)** es ideal para continuar el trabajo con resistencia gradual.\n\n**🍃 Suplemento para Recuperación Muscular:**\nLa **'Proteína en Polvo' (Código: AC3311)** provee aminoácidos para mantener tus músculos sanos. 1 porción diaria post-ejercicio.\n\nMantén una postura consciente. Si necesitas soporte futuro, sabemos cómo ayudarte.\n\nSaludos,\nEl Equipo de [NOMBRE_CLINICA]",
+      "keywords": ["vendaje", "kinesiotape", "postura", "dolor muscular"]
+    },
+    {
+      "terapia_codigo": "75KE23",
+      "terapia_nombre": "Terapia Miofascial",
+      "asunto_cuerpo": "¡Liberación alcanzada! Has completado tu Terapia Miofascial ✨",
+      "mensaje_correo": "Hola [NOMBRE_PACIENTE],\n\n¡Fantásticas noticias! Has finalizado tu **Terapia Miofascial**.\n\n**🔄 Ritual de Auto-Liberación (1-2 veces por semana):**\n1. **Auto-Liberación con Rodillo (Ejercicio #1016):** 10-15 min.\n2. **Liberación con Pelota (Ejercicio #1017):** 5 min en puntos específicos.\n3. **Estiramiento Fascial Dinámico (Ejercicio #1018).**\n\n**⚙️ Implemento Imprescindible:**\nUn **'Rodillo de Espuma de Alta Densidad' (Código: 2489HT)** es básico para tu mantenimiento.\n\n**💊 Suplemento para Tejido Conectivo:**\nEl **'Colágeno Hidrolizado' (Código: CH6741)** es excelente para la fascia. 10g diarios.\n\nSigue hidratándote bien y mantén una rutina de movimiento variado.\n\nCon cariño,\nEl Equipo de Terapia Miofascial\n[NOMBRE_CLINICA]",
+      "keywords": ["fascia", "adherencias", "liberación", "dolor crónico"]
+    },
+    {
+      "terapia_codigo": "76BG11",
+      "terapia_nombre": "Masaje Terapéutico",
+      "asunto_correo": "Ciclo completado: Masaje Terapéutico para tus contracturas ✅",
+      "mensaje_cuerpo": "Estimado/a [NOMBRE_PACIENTE],\n\nHas finalizado tu ciclo de **Masaje Terapéutico**.\n\n**🔧 Técnica de Autotratamiento:**\nSi sientes un nudo incipiente, aplica una versión suave de **'Compresión Isquémica' (Ejercicio #1019)**. Presión constante 30-60 segundos, respirando profundamente.\n\n**🔥 Implemento para Alivio y Prevención:**\nEl **'Masajeador Percusivo Profesional' (Código: 6308BP)** usado a baja velocidad puede ayudar a relajar la musculatura después del esfuerzo.\n\n**🌱 Suplemento Relajante Muscular:**\nEl **'Magnesio'** (citrato o glicinato) es esencial para la relajación muscular y nerviosa.\n\nRevisa tus posturas diarias y realiza pausas activas.\n\nUn saludo,\nEl Equipo de Masoterapia\n[NOMBRE_CLINICA]",
+      "keywords": ["contractura", "masaje profundo", "puntos gatillo", "dolor localizado"]
+    },
+    {
+      "terapia_codigo": "765Q64",
+      "terapia_nombre": "Terapia Craneosacral",
+      "asunto_correo": "Armonía Restaurada: Culminación de tu Terapia Craneosacral ☯️",
+      "mensaje_cuerpo": "Hola [NOMBRE_PACIENTE],\n\nHas completado tu **Terapia Craneosacral**.\n\n**😌 Práctica de Conexión:**\nDedica 5-10 minutos al día a la conciencia craneosacral. Acuéstate, manos suaves en cabeza o abdomen, respira y presta atención a los sutiles movimientos.\n\n**🧘 Implemento para el Ambiente:**\nUna **'Almohadilla Térmica de Infrarrojo' (Código: 5903LK)** durante esta práctica puede profundizar la calma.\n\n**🍵 Suplemento para el Sistema Nervioso:**\n- **'Omega 3 Premium' (Código: NH4316)** (DHA).\n- **'Coenzima Q10' (Código: CQ5128)** como antioxidante cerebral.\n\nGestiona tu estrés, hidrátate y protege tu sueño.\n\nEn paz y bienestar,\nEl Equipo de Terapia Craneosacral\n[NOMBRE_CLINICA]",
+      "keywords": ["craneosacral", "cefalea", "estrés", "sistema nervioso"]
+    },
+    {
+      "terapia_codigo": "865F14",
+      "terapia_nombre": "Drenaje Linfático Manual",
+      "asunto_correo": "¡Despedida de la hinchazón! Finalizas tu Drenaje Linfático Manual 💧",
+      "mensaje_cuerpo": "Estimado/a [NOMBRE_PACIENTE],\n\n¡Enhorabuena por completar tu **Drenaje Linfático Manual**!\n\n**🩹 Técnica de Autodrenaje Básico:**\nDiariamente, con las yemas de los dedos, haz círculos muy suaves en ingles, axilas y clavícula, hacia el corazón. 30 segundos cada zona.\n\n**🔄 Implemento para Estimulación:**\nUn **'Rodillo de Espuma' (Código: 2489HT)** con *muy poca presión* y movimientos hacia el torso favorece el flujo linfático.\n\n**🌿 Suplemento Depurativo:**\nEl **'Jugo de Aloe Vera Orgánico' (Código: JA7294)**. 60-120ml en ayunas.\n\n**RECUERDA:** Hidrátate bien, reduce la sal y muévete a diario (caminar).\n\nCuídate,\nEl Equipo de Drenaje Linfático\n[NOMBRE_CLINICA]",
+      "keywords": ["linfático", "edema", "toxinas", "circulación"]
+    },
+    {
+      "terapia_codigo": "87FT88",
+      "terapia_nombre": "Electroterapia Avanzada",
+      "asunto_correo": "Culminación exitosa de tu tratamiento con Electroterapia Avanzada ⚡",
+      "mensaje_cuerpo": "Hola [NOMBRE_PACIENTE],\n\nHas llegado al final de tu protocolo de **Electroterapia Avanzada**.\n\n**💪 Protocolo de Transición:**\nRealiza los **'Ejercicios con EMS' (Ejercicio #1026) APAGANDO EL EQUIPO**. Concéntrate en la contracción muscular voluntaria, lenta y controlada.\n\n**🏋️‍♂️ Implemento para Fortalecimiento:**\n**'Mancuernas Ajustables' (Código: 3316FD)** o **'Bandas de Resistencia' (Código: 5634KJ)** para carga progresiva.\n\n**🥤 Suplementación:**\n- **Recuperación:** **'Proteína en Polvo' (Código: AC3311)**.\n- **Nervios/Inflamación:** **'Omega 3 Premium' (Código: NH4316)** y **'Coenzima Q10' (Código: CQ5128)**.\n\nMantén una rutina de ejercicio regular.\n\n¡Sigue brillando!\nEl Equipo de Electroterapia\n[NOMBRE_CLINICA]",
+      "keywords": ["electroterapia", "TENS", "EMS", "dolor crónico", "estimulación"]
+    },
+    {
+      "terapia_codigo": "90AS12",
+      "terapia_nombre": "Terapia Neural",
+      "asunto_correo": "Un logro significativo: Finalización de tu Terapia Neural ⚖️",
+      "mensaje_cuerpo": "Estimado/a [NOMBRE_PACIENTE],\n\nHas completado tu **Terapia Neural**.\n\n**🧘‍♀️ Prácticas de Regulación Nerviosa:**\nIncorpora **meditación o respiración diafragmática** 10-15 minutos diarios.\n\n**🔋 Implemento para Autocuidado:**\nUna **'Almohadilla Térmica de Infrarrojo' (Código: 5903LK)** aplicada en la espalda durante la relajación ayuda a soltar tensiones profundas.\n\n**🌿 Suplementación de Apoyo:**\n- **Sistema Nervioso:** **'Omega 3 Premium' (Código: NH4316)** y **'Coenzima Q10' (Código: CQ5128)**.\n- **General:** **'Multivitamínico Completo' (Código: BD1245)**.\n- **Relajación:** **'Magnesio'** (consulta profesional).\n\n**OBSERVACIÓN CRUCIAL:** Sigue las recomendaciones de tu especialista. Cambia tu estilo de vida: alimentación, estrés, sueño.\n\nTe deseamos equilibrio y salud perdurable.\nAtentamente,\nEl Equipo de Terapia Neural\n[NOMBRE_CLINICA]",
+      "keywords": ["neural", "neurovegetativo", "holístico", "dolor complejo"]
+    }
+  ]
+}

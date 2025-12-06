@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FisioSalud - Próximamente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Estilos del Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            animation: fadeIn 0.4s ease;
+            display: none;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            animation: slideUp 0.5s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .modal-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            animation: subtleFloat 3s ease-in-out infinite;
+        }
+
+        .modal-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 8px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .modal-subtitle {
+            font-size: 1rem;
+            color: #64748b;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .modal-message {
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        .modal-highlight {
+            color: #1e40af;
+            font-weight: 600;
+        }
+
+        .modal-features {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+        }
+
+        .feature-list li i {
+            color: #3b82f6;
+            width: 20px;
+            font-size: 1rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .modal-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .modal-btn.primary {
+            background: #1e40af;
+            color: white;
+        }
+
+        .modal-btn.secondary {
+            background: transparent;
+            border: 1.5px solid #cbd5e1;
+            color: #64748b;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .modal-btn.primary:hover {
+            background: #1e3a8a;
+        }
+
+        .modal-btn.secondary:hover {
+            border-color: #94a3b8;
+            color: #475569;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: #64748b;
+            background: #f1f5f9;
+        }
+
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-text {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #1e40af);
+            border-radius: 2px;
+            animation: progress 2s ease-in-out infinite;
+        }
+
+        .modal-footer {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .modal-footer p {
+            color: #64748b;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -45%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        @keyframes subtleFloat {
+            0%, 100% { 
+                transform: translateY(0px);
+            }
+            50% { 
+                transform: translateY(-4px);
+            }
+        }
+
+        @keyframes progress {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Demo Button Styles */
+        .demo-button {
+            padding: 16px 32px;
+            background: #1e40af;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .demo-button:hover {
+            background: #1e3a8a;
+            transform: translateY(-1px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 32px 24px;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .modal-btn {
+                width: 100%;
+            }
+            
+            .modal-icon {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .modal-icon i {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modal-content {
+                padding: 24px 20px;
+            }
+            
+            .modal-title {
+                font-size: 1.3rem;
+            }
+            
+            .modal-features {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Botón de demostración -->
+<div style="text-align: center;">
+    <button class="demo-button" onclick="openModal()">
+        <i class="fas fa-eye"></i> Ver Modal
+    </button>
+</div>
+
+<!-- Modal Structure -->
+<div id="fisiosalud-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        
+        <div class="modal-icon">
+            <i class="fas fa-hammer"></i>
+        </div>
+        
+        <h2 class="modal-title">En Desarrollo</h2>
+        <p class="modal-subtitle">Próximamente disponible</p>
+        
+        <div class="progress-container">
+            <div class="progress-text">Trabajando en la mejor experiencia</div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+        
+        <p class="modal-message">
+            Nuestro equipo está creando una aplicación avanzada con 
+            <span class="modal-highlight">tecnología de vanguardia</span> 
+            para tu bienestar físico y rehabilitación.
+        </p>
+        
+        <div class="modal-features">
+            <ul class="feature-list">
+                <li><i class="fas fa-check"></i> Rutinas personalizadas por IA</li>
+                <li><i class="fas fa-check"></i> Seguimiento inteligente</li>
+                <li><i class="fas fa-check"></i> Tecnología médica certificada</li>
+            </ul>
+        </div>
+        
+        <div class="modal-actions">
+            <button class="modal-btn primary" onclick="notifyMe()">
+                <i class="fas fa-bell"></i> Notificarme
+            </button>
+            <button class="modal-btn secondary" onclick="closeModal()">
+                Entendido
+            </button>
+        </div>
+        
+        <div class="modal-footer">
+            <p>FisioSalud - Tecnología para tu salud</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Función para abrir el modal
+    function openModal() {
+        document.getElementById('fisiosalud-modal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Función para cerrar el modal
+    function closeModal() {
+        document.getElementById('fisiosalud-modal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    // Función para notificar al usuario
+    function notifyMe() {
+        const email = prompt('Ingresa tu email para recibir novedades:');
+        if (email && email.includes('@')) {
+            alert(`Te notificaremos a ${email} cuando estemos listos. Gracias.`);
+            closeModal();
+        } else if (email) {
+            alert('Por favor, ingresa un email válido.');
+        }
+    }
+
+    // Cerrar modal al hacer clic fuera del contenido
+    document.getElementById('fisiosalud-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
+        }
+    });
+
+    // Cerrar con tecla ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+</script>
+
+</body>
+</html>

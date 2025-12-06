@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosotros | FisioSalud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A2540;
+            --primary-dark: #061A2C;
+            --primary-light: #1A365D;
+            --secondary: #00A3FF;
+            --accent: #00D4AA;
+            --light: #FFFFFF;
+            --light-gray: #F8FAFC;
+            --gray: #64748B;
+            --dark: #0F172A;
+            --border-radius: 8px;
+            --border-radius-sm: 4px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: var(--light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--secondary);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            min-width: 120px;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: #0092E0;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* User Dropdown Styles */
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .user-menu-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 220px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            padding: 8px 0;
+            margin-top: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s;
+            z-index: 1000;
+            border: 1px solid #F1F5F9;
+        }
+
+        .user-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: var(--light-gray);
+        }
+
+        .dropdown-item i {
+            width: 16px;
+            color: var(--gray);
+            text-align: center;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--light-gray);
+            margin: 8px 0;
+        }
+
+        .dropdown-item.logout {
+            color: #dc2626;
+        }
+
+        .dropdown-item.logout i {
+            color: #dc2626;
+        }
+
+        /* Hero Section para Nosotros */
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 160px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><polygon points="0,0 1000,0 1000,1000" fill="white"/></svg>');
+            background-size: cover;
+        }
+
+        .page-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .page-hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background: var(--light);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .about-features {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--light-gray);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .feature-content p {
+            color: var(--gray);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .about-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .about-image-container {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 100px 0;
+            background: var(--light-gray);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .team-member {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .member-image {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover .member-image img {
+            transform: scale(1.05);
+        }
+
+        .member-info {
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .member-name {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .member-role {
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .member-description {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Values Section */
+        .values {
+            padding: 100px 0;
+            background: var(--light);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .value-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid #F1F5F9;
+            text-align: center;
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 2rem;
+            margin: 0 auto;
+        }
+
+        .value-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .value-card p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Technology Section */
+        .technology {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .technology::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.03"><polygon points="0,1000 1000,0 1000,1000" fill="white"/></svg>');
+            background-size: cover;
+        }
+
+        .technology-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .technology-content {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .technology-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            width: fit-content;
+        }
+
+        .technology-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .technology-description {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .technology-features {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .technology-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .tech-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .tech-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .tech-content p {
+            opacity: 0.8;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .technology-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tech-dashboard {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .dashboard-header {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-title {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .dashboard-content {
+            flex: 1;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .app-preview {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .app-screen {
+            width: 200px;
+            height: 350px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .app-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .app-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .app-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: var(--light);
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .cta-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 60px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-column h3 {
+            color: var(--light);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .social-icon:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Login buttons in footer */
+        .login-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-login {
+            padding: 10px 16px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn-patient {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-patient:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-staff {
+            background: var(--accent);
+            color: var(--primary);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-staff:hover {
+            background: #00C299;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .about-grid, .technology-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            
+            .team-grid, .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+            
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .team-grid, .values-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .login-buttons {
+                flex-direction: column;
+            }
+
+            .btn-login {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <div class="logo-icon">FS</div>
+                    <div class="logo-text">FisioSalud</div>
+                </div>
+                <nav class="nav-menu">
+                    <a href="/" class="nav-link">Inicio</a>
+                    <a href="/servicios" class="nav-link">Servicios</a>
+                    <a href="/Fisiobot" class="nav-link">FisioBot</a>
+                    <a href="/nosotros" class="nav-link active">Nosotros</a>
+                    <a href="/contacto" class="nav-link">Contacto</a>
+                </nav>
+                <div class="nav-actions">
+                    {% if request.session.get('usuario') and request.session.usuario.get('logged_in') %}
+                    <!-- Mostrar dropdown cuando el usuario está logueado -->
+                    <div class="user-dropdown">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-user-circle"></i>
+                            {{ request.session.usuario.nombre }}
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="/panel_citas" class="dropdown-item">
+                                <i class="fas fa-calendar-check"></i> Mis Citas
+                            </a>
+                            <a href="/panel_ejercicios" class="dropdown-item">
+                                <i class="fas fa-running"></i> Ejercicios Pendientes
+                            </a>
+                            <a href="/panel_progreso" class="dropdown-item">
+                                <i class="fas fa-chart-line"></i> Mi Progreso
+                            </a>
+                            <a href="/panel_mercado" class="dropdown-item">
+                                <i class="fas fa-shopping-bag"></i> Mis Productos
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/logout_user" class="dropdown-item logout">
+                                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                            </a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <!-- Mostrar botones de registro/login cuando no hay sesión -->
+                    <a href="/registro" class="btn btn-outline">Registrate</a>
+                    <a href="/login_user" class="btn btn-outline">Iniciar Sesión</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section para Nosotros -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-content">
+                <h1>Conoce a FisioSalud</h1>
+                <p>Líderes en rehabilitación digital con más de 15 años transformando vidas a través de tratamientos personalizados y tecnología de vanguardia.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <div class="section-header">
+                        <div class="section-label">Nuestra Historia</div>
+                        <h2 class="section-title">Innovación en rehabilitación física</h2>
+                        <p class="section-subtitle">Desde 2008, hemos estado a la vanguardia de la terapia física, combinando lo mejor de la práctica tradicional con las últimas tecnologías digitales.</p>
+                    </div>
+                    
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Misión</h4>
+                                <p>Proporcionar tratamientos de rehabilitación física innovadores y personalizados que mejoren la calidad de vida de nuestros pacientes, utilizando tecnología de vanguardia y un enfoque humano centrado en sus necesidades.</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Visión</h4>
+                                <p>Ser el centro de rehabilitación física líder en América Latina, reconocido por nuestra excelencia clínica, innovación tecnológica y compromiso con los resultados medibles de nuestros pacientes.</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h4>Compromiso</h4>
+                                <p>Nos dedicamos a ofrecer atención de la más alta calidad, con profesionales certificados y tratamientos basados en evidencia científica, siempre con un enfoque ético y humano.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-image">
+                    <div class="about-image-container">
+                        <img src="https://i.pinimg.com/736x/58/4d/1a/584d1ab91ddfd29bab9d673483cbfed6.jpg" alt="Equipo de FisioSalud trabajando">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Nuestro Equipo</div>
+                <h2 class="section-title">Liderazgo especializado</h2>
+                <p class="section-subtitle">Contamos con un equipo multidisciplinario de profesionales altamente capacitados y comprometidos con tu recuperación.</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Miguel Angel Gutierrez Lopez">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Miguel Angel Gutierrez Lopez</h3>
+                        <p class="member-role">Director General</p>
+                        <p class="member-description">Con más de 20 años de experiencia en administración de servicios de salud y una visión estratégica que ha posicionado a FisioSalud como referente en rehabilitación digital.</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Juan Sebastian Corredor">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Juan Sebastian Corredor</h3>
+                        <p class="member-role">Director Médico</p>
+                        <p class="member-description">Especialista en medicina física y rehabilitación, con amplia experiencia en el desarrollo de protocolos de tratamiento innovadores y supervisión clínica de calidad.</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Camilo Rivas Blandon">
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Camilo Rivas Blandon</h3>
+                        <p class="member-role">Director de Tecnología</p>
+                        <p class="member-description">Líder en innovación digital, responsable del desarrollo de FisioBot y nuestras plataformas tecnológicas que han revolucionado la experiencia de rehabilitación.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Nuestros Valores</div>
+                <h2 class="section-title">Principios que nos guían</h2>
+                <p class="section-subtitle">Estos valores fundamentales definen nuestra cultura organizacional y nuestro compromiso con cada paciente.</p>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-user-injured"></i>
+                    </div>
+                    <h3>Enfoque Centrado en el Paciente</h3>
+                    <p>Cada tratamiento es personalizado según las necesidades, objetivos y capacidades individuales de nuestros pacientes.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Evidencia Científica</h3>
+                    <p>Nuestros protocolos de tratamiento están respaldados por la más reciente investigación científica en el campo de la rehabilitación.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Innovación Constante</h3>
+                    <p>Invertimos continuamente en tecnología de vanguardia y desarrollo profesional para ofrecer los tratamientos más avanzados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="technology">
+        <div class="container">
+            <div class="technology-grid">
+                <div class="technology-content">
+                    <div class="technology-badge">
+                        <i class="fas fa-robot"></i>
+                        <span>INNOVACIÓN TECNOLÓGICA</span>
+                    </div>
+                    <h2>Rehabilitación del futuro, hoy</h2>
+                    <p class="technology-description">En FisioSalud integramos las últimas tecnologías para ofrecer una experiencia de rehabilitación más efectiva, accesible y personalizada.</p>
+                    
+                    <div class="technology-features">
+                        <div class="technology-feature">
+                            <div class="tech-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="tech-content">
+                                <h4>FisioBot - Asistente de IA</h4>
+                                <p>Nuestro asistente virtual especializado proporciona guía 24/7, seguimiento personalizado y recomendaciones basadas en tu progreso.</p>
+                            </div>
+                        </div>
+                        <div class="technology-feature">
+                            <div class="tech-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="tech-content">
+                                <h4>App Móvil Propia (Próximamente)</h4>
+                                <p>Estamos desarrollando una aplicación móvil integral que te permitirá gestionar tu tratamiento desde cualquier lugar.</p>
+                            </div>
+                        </div>
+                        <div class="technology-feature">
+                            <div class="tech-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="tech-content">
+                                <h4>Tele-rehabilitación Avanzada</h4>
+                                <p>Sesiones virtuales con seguimiento por video y análisis de movimiento para tratamientos efectivos a distancia.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="technology-visual">
+                    <div class="tech-dashboard">
+                        <div class="dashboard-header">
+                            <div class="dashboard-title">FisioSalud - Tecnología Integrada</div>
+                            <div class="status-indicator">
+                                <i class="fas fa-circle" style="color: var(--accent); font-size: 0.7rem;"></i>
+                                <span style="font-size: 0.8rem; margin-left: 6px;">Sistema Activo</span>
+                            </div>
+                        </div>
+                        <div class="dashboard-content">
+                            <div class="app-preview">
+                                <div class="app-screen">
+                                    <div class="app-header">
+                                        <div class="app-title">FisioSalud App</div>
+                                        <i class="fas fa-battery-three-quarters"></i>
+                                    </div>
+                                    <div class="app-content">
+                                        <div class="app-item">Ejercicios de Hoy ✓</div>
+                                        <div class="app-item">Progreso: 85%</div>
+                                        <div class="app-item">Próxima cita: Mañana</div>
+                                        <div class="app-item">Chat con FisioBot</div>
+                                        <div class="app-item">Mi Plan Nutricional</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Únete a la revolución de la rehabilitación</h2>
+                <p>Descubre cómo nuestra combinación de experiencia clínica y tecnología avanzada puede acelerar tu recuperación.</p>
+                <div class="cta-buttons">
+                    <a href="/cita" class="btn btn-secondary">Agendar Evaluación</a>
+                    <a href="/contacto" class="btn btn-outline">Conocer Más</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <div class="logo">
+                            <div class="logo-icon">FS</div>
+                            <div class="logo-text">FisioSalud</div>
+                        </div>
+                    </div>
+                    <p class="footer-description">Líderes en rehabilitación digital con más de 15 años de experiencia transformando vidas a través de tratamientos personalizados y tecnología de vanguardia.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <!-- Login buttons -->
+                    <div class="login-buttons">
+                        <button class="btn-login btn-patient" onclick="location.href='/panel_fisio'">
+                            <i class="fas fa-user-injured"></i> Acceso Fisioterapeuta
+                        </button>
+                        <button class="btn-login btn-staff" onclick="location.href='/administrador'">
+                            <i class="fas fa-user-md"></i> Acceso Administrador
+                        </button>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Servicios</h3>
+                    <div class="footer-links">
+                        <a href="/servicios_terapia">Terapia Física</a>
+                        <a href="/implementos">Implementos Terapéuticos</a>
+                        <a href="/nutricionales">Nutrición y Suplementos</a>
+                        <a href="/Fisiobot">FisioBot AI</a>
+                        <a href="#">Consultas Virtuales</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Empresa</h3>
+                    <div class="footer-links">
+                        <a href="/nosotros">Nosotros</a>
+                        <a href="#">Equipo</a>
+                        <a href="#">Tecnología</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Carreras</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <div class="footer-links">
+                        <a href="tel:3202914521"><i class="fas fa-phone"></i> 320 2914521</a>
+                        <a href="mailto:info@fisiosalud.com"><i class="fas fa-envelope"></i> info@fisiosalud.com</a>
+                        <a href="#"><i class="fas fa-map-marker-alt"></i> Av. Salud #123, Bogotá</a>
+                        <a href="#"><i class="fas fa-clock"></i> Lun-Vie: 7am-8pm</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 FisioSalud. Todos los derechos reservados. | <a href="#" style="color: rgba(255,255,255,0.7);">Política de Privacidad</a> | <a href="#" style="color: rgba(255,255,255,0.7);">Términos de Servicio</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

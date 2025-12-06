@@ -1,0 +1,2424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Cita - FisioSalud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* PALETA DE COLORES */
+            --primary: #0A2540;
+            --secondary: #00A3FF;
+            --accent: #00D4AA;
+            --background: #FFFFFF;
+            --background-alt: #F8FAFC;
+            --text: #0F172A;
+            --gray: #64748B;
+            --gray-light: #E2E8F0;
+            --gray-ultralight: #F1F5F9;
+            
+            /* ESTILOS VISUALES */
+            --border-radius-sm: 8px;
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08), 0 1px 4px 0 rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 8px 16px -2px rgba(0, 0, 0, 0.1), 0 4px 8px -2px rgba(0, 0, 0, 0.06);
+            --spacing-sm: 12px;
+            --spacing: 20px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --spacing-xxl: 64px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--background-alt);
+            font-weight: 400;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 var(--spacing);
+        }
+
+        header {
+            background-color: var(--background);
+            box-shadow: var(--shadow);
+            padding: var(--spacing) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background-color: var(--primary);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            text-align: center;
+            text-decoration: none;
+            gap: var(--spacing-sm);
+        }
+
+        .btn:hover {
+            background-color: #083057;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn:focus {
+            outline: 2px solid var(--secondary);
+            outline-offset: 2px;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background-color: #00C098;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #0092E0;
+        }
+
+        .appointment-section {
+            padding: var(--spacing-xl) 0;
+            flex: 1;
+        }
+
+        .appointment-container {
+            background-color: var(--background);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: var(--spacing-xxl);
+            position: relative;
+            max-width: 1600px;
+            margin: 0 auto;
+            min-height: 700px;
+        }
+
+        .appointment-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .appointment-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: var(--spacing);
+            font-weight: 700;
+        }
+
+        .appointment-header p {
+            color: var(--gray);
+            font-weight: 400;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .appointment-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-xxl);
+            position: relative;
+        }
+
+        .appointment-steps::before {
+            content: '';
+            position: absolute;
+            top: 28px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--gray-light);
+            z-index: 1;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--border-radius-sm);
+            background-color: var(--gray-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            transition: var(--transition);
+            border: 2px solid transparent;
+            font-size: 1.2rem;
+        }
+
+        .step.active .step-number {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .step.completed .step-number {
+            background-color: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .step-label {
+            font-size: 16px;
+            color: var(--gray);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .step.active .step-label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .step-content {
+            display: none;
+            min-height: 650px;
+        }
+
+        .step-content.active {
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-content h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: var(--spacing);
+            font-weight: 600;
+        }
+
+        .step-content > p {
+            color: var(--gray);
+            margin-bottom: var(--spacing-lg);
+            font-weight: 400;
+            font-size: 1.1rem;
+        }
+
+        /* DISEÑO MEJORADO PARA TARJETAS DE SERVICIOS - MÁS ANCHO Y MEJOR VISUALIZACIÓN */
+        .service-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing);
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: var(--spacing);
+            scrollbar-width: thin;
+            scrollbar-color: var(--gray-light) var(--background);
+        }
+
+        .service-options::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .service-options::-webkit-scrollbar-track {
+            background: var(--background);
+            border-radius: 10px;
+        }
+
+        .service-options::-webkit-scrollbar-thumb {
+            background-color: var(--gray-light);
+            border-radius: 10px;
+        }
+
+        .service-option {
+            border: 2px solid var(--gray-light);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            transition: var(--transition);
+            cursor: pointer;
+            background-color: var(--background);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        .service-option:hover {
+            border-color: var(--secondary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-option.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(10, 37, 64, 0.02), rgba(10, 37, 64, 0.05));
+            transform: translateY(-2px);
+        }
+
+        .service-header {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing);
+            margin-bottom: var(--spacing);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-content {
+            flex: 1;
+        }
+
+        .service-content h4 {
+            color: var(--primary);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+
+        .service-description {
+            color: var(--gray);
+            line-height: 1.6;
+            font-size: 15px;
+            margin-bottom: var(--spacing);
+        }
+
+        .service-details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing);
+            margin-bottom: var(--spacing);
+        }
+
+        .service-detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .service-detail-item i {
+            color: var(--primary);
+            width: 16px;
+            text-align: center;
+            font-size: 1rem;
+            margin-top: 2px;
+        }
+
+        .service-detail-item span {
+            line-height: 1.4;
+        }
+
+        /* MEJOR DISEÑO PARA TERAPEUTAS */
+        .terapeutas-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .terapeutas-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .terapeuta-tag {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 1px solid #90caf9;
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 0.85em;
+            color: #1565c0;
+            font-weight: 500;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .terapeuta-tag:hover {
+            background: linear-gradient(135deg, #bbdefb, #90caf9);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(21, 101, 192, 0.2);
+        }
+
+        .no-terapeutas {
+            color: var(--gray);
+            font-style: italic;
+            font-size: 0.9em;
+        }
+
+        .service-benefits {
+            background: var(--gray-ultralight);
+            padding: var(--spacing);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing);
+            font-size: 14px;
+            line-height: 1.5;
+            border-left: 4px solid var(--accent);
+        }
+
+        .service-benefits strong {
+            color: var(--primary);
+            font-size: 14px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .service-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: var(--spacing);
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .service-price {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .btn-select-service {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-select-service:hover {
+            background: linear-gradient(135deg, #083057, #0092E0);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(10, 37, 64, 0.2);
+        }
+
+        .no-services {
+            text-align: center;
+            padding: var(--spacing-xxl);
+            color: var(--gray);
+            grid-column: 1 / -1;
+        }
+
+        .no-services i {
+            font-size: 4rem;
+            color: var(--gray-light);
+            margin-bottom: var(--spacing);
+        }
+
+        /* SECCIÓN DE TERAPEUTAS CON HORARIOS - MEJORADA */
+        #therapist-selection {
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-xl);
+            border-top: 2px solid var(--gray-light);
+            display: none;
+        }
+
+        .therapist-header {
+            margin-bottom: var(--spacing);
+        }
+
+        .therapist-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing);
+            margin-top: var(--spacing);
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: var(--spacing);
+        }
+
+        .therapist-option {
+            border: 2px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-xl);
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: var(--background);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .therapist-option:hover {
+            border-color: var(--secondary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .therapist-option.selected {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.05), rgba(0, 212, 170, 0.02));
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 212, 170, 0.15);
+        }
+
+        .therapist-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .therapist-option.selected .therapist-avatar {
+            background: linear-gradient(135deg, var(--accent), #00C098);
+            box-shadow: 0 6px 16px rgba(0, 212, 170, 0.3);
+        }
+
+        .therapist-name {
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .therapist-option.selected .therapist-name {
+            color: var(--primary);
+        }
+
+        .therapist-specialty {
+            color: var(--secondary);
+            font-size: 0.9em;
+            font-weight: 500;
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.4;
+        }
+
+        .therapist-schedule {
+            background: var(--gray-ultralight);
+            padding: var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            margin-top: var(--spacing-sm);
+            width: 100%;
+        }
+
+        .schedule-days {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .schedule-hours {
+            color: var(--gray);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: var(--spacing-xl);
+        }
+
+        /* MENSAJE DE ERROR DE HORARIO */
+        .schedule-error {
+            text-align: center;
+            margin: var(--spacing) 0;
+            padding: var(--spacing-lg);
+            background-color: #FFF3CD;
+            color: #856404;
+            border: 2px solid #FFEEBA;
+            border-radius: var(--border-radius);
+            animation: fadeIn 0.3s ease;
+            font-size: 16px;
+            display: none;
+        }
+
+        .schedule-error.show {
+            display: block;
+        }
+
+        .schedule-error i {
+            margin-right: var(--spacing-sm);
+            font-size: 1.5rem;
+            color: #FFC107;
+        }
+
+        /* Estilos para el mensaje de error de selección de servicio */
+        .service-selection-error {
+            text-align: center;
+            margin: var(--spacing) 0;
+            padding: var(--spacing-lg);
+            background-color: #FEF2F2;
+            color: #991B1B;
+            border: 2px solid #FECACA;
+            border-radius: var(--border-radius);
+            animation: fadeIn 0.3s ease;
+            font-size: 16px;
+            display: none;
+        }
+
+        .service-selection-error.show {
+            display: block;
+        }
+
+        .service-selection-error i {
+            margin-right: var(--spacing-sm);
+            font-size: 1.5rem;
+            color: #DC2626;
+        }
+
+        /* Resto de estilos (para los otros pasos) se mantienen igual */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 16px;
+        }
+
+        .form-control {
+            padding: 16px 20px;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--border-radius-sm);
+            font-size: 16px;
+            transition: var(--transition);
+            background-color: var(--background);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(0, 163, 255, 0.1);
+        }
+
+        .appointment-summary {
+            background-color: var(--gray-ultralight);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+            border: 2px solid var(--gray-light);
+        }
+
+        .appointment-summary h3 {
+            color: var(--primary);
+            margin-bottom: var(--spacing);
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .summary-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .summary-label {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 16px;
+        }
+
+        .summary-value {
+            color: var(--text);
+            font-size: 16px;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--spacing);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .payment-option {
+            border: 2px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-xl);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: var(--background);
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .payment-option:hover {
+            border-color: var(--secondary);
+            transform: translateY(-4px);
+        }
+
+        .payment-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(10, 37, 64, 0.02);
+        }
+
+        .payment-icon {
+            width: 64px;
+            height: 64px;
+            background-color: var(--gray-ultralight);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin: 0 auto var(--spacing);
+        }
+
+        .payment-option h4 {
+            color: var(--primary);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+
+        .payment-option p {
+            color: var(--gray);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            accent-color: var(--primary);
+        }
+
+        .checkbox-group label {
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .acudiente-fields {
+            display: none;
+            margin-top: var(--spacing);
+            padding: var(--spacing-xl);
+            background-color: var(--gray-ultralight);
+            border-radius: var(--border-radius);
+            border: 2px solid var(--gray-light);
+        }
+
+        .acudiente-fields.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .service-selected {
+            background-color: var(--gray-ultralight);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            border-left: 6px solid var(--primary);
+        }
+
+        .service-selected h4 {
+            color: var(--primary);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+
+        .email-section {
+            margin-top: var(--spacing);
+            padding: var(--spacing-xl);
+            background-color: var(--gray-ultralight);
+            border-radius: var(--border-radius);
+            border: 2px solid var(--gray-light);
+        }
+
+        .email-section h3 {
+            color: var(--primary);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+
+        .email-section p {
+            color: var(--gray);
+            margin-bottom: var(--spacing);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .email-input-group {
+            display: flex;
+            gap: var(--spacing);
+            margin-bottom: var(--spacing);
+        }
+
+        .email-input-group input {
+            flex: 1;
+        }
+
+        .add-email-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing);
+            padding: var(--spacing) 0;
+        }
+
+        .add-email-btn:hover {
+            color: #083057;
+        }
+
+        .remove-email {
+            background: var(--gray-light);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .remove-email:hover {
+            background: var(--gray);
+            color: white;
+        }
+
+        .help-link {
+            text-align: center;
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing);
+            border-top: 2px solid var(--gray-light);
+        }
+
+        .help-link a {
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .help-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #DC2626;
+            font-size: 15px;
+            margin-top: var(--spacing-sm);
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .form-control.error {
+            border-color: #DC2626;
+        }
+
+        .success-message {
+            background-color: #DCFCE7;
+            color: #166534;
+            padding: var(--spacing);
+            border-radius: var(--border-radius);
+            margin: var(--spacing) 0;
+            text-align: center;
+            border: 2px solid #BBF7D0;
+            font-size: 16px;
+        }
+
+        /* NUEVOS ESTILOS PARA EL MENSAJE DE CONFIRMACIÓN */
+        .confirmation-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 37, 64, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .confirmation-card {
+            background: var(--background);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xxl);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            animation: scaleIn 0.5s ease;
+            border: 2px solid var(--gray-light);
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .confirmation-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--accent), #00C098);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing);
+            color: white;
+            font-size: 2.5rem;
+            animation: bounce 0.8s ease;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
+        }
+
+        .confirmation-title {
+            color: var(--primary);
+            margin-bottom: var(--spacing);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .confirmation-code {
+            background: var(--primary);
+            color: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            font-size: 2rem;
+            font-weight: 700;
+            margin: var(--spacing) 0;
+            letter-spacing: 3px;
+            display: inline-block;
+            min-width: 280px;
+        }
+
+        .confirmation-details {
+            text-align: left;
+            background: var(--gray-ultralight);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            margin: var(--spacing) 0;
+            border: 2px solid var(--gray-light);
+        }
+
+        .confirmation-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing);
+            padding-bottom: var(--spacing);
+            border-bottom: 2px solid var(--gray-light);
+            font-size: 16px;
+        }
+
+        .confirmation-detail:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .confirmation-timer {
+            margin: var(--spacing) 0;
+            font-size: 16px;
+            color: var(--gray);
+        }
+
+        .timer-bar {
+            height: 8px;
+            background: var(--gray-light);
+            border-radius: 4px;
+            margin-top: var(--spacing);
+            overflow: hidden;
+        }
+
+        .timer-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #00C098);
+            width: 100%;
+            animation: countdown 10s linear forwards;
+        }
+
+        @keyframes countdown {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        .skip-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 12px 24px;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: var(--spacing);
+            font-size: 16px;
+        }
+
+        .skip-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Animación de pulso para errores */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+        }
+
+        @keyframes pulse-warning {
+            0% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 193, 7, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .service-options {
+                grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .appointment-container {
+                padding: var(--spacing-xl);
+            }
+            
+            .service-options {
+                grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            }
+            
+            .service-details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .therapist-options {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: var(--spacing);
+            }
+            
+            .appointment-steps {
+                flex-direction: column;
+                gap: var(--spacing);
+            }
+            
+            .appointment-steps::before {
+                display: none;
+            }
+            
+            .step {
+                flex-direction: row;
+                gap: var(--spacing);
+            }
+            
+            .step-label {
+                font-size: 16px;
+            }
+            
+            .service-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-options {
+                grid-template-columns: 1fr;
+            }
+
+            .confirmation-card {
+                padding: var(--spacing-xl);
+            }
+
+            .confirmation-code {
+                font-size: 1.5rem;
+                min-width: 200px;
+            }
+
+            .appointment-container {
+                padding: var(--spacing-lg);
+            }
+            
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .terapeutas-tags {
+                gap: 6px;
+            }
+            
+            .terapeuta-tag {
+                padding: 5px 10px;
+                font-size: 0.8em;
+            }
+            
+            .therapist-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .therapist-avatar {
+                width: 70px;
+                height: 70px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">FS</div>
+                <div class="logo-text">FisioSalud</div>
+            </div>
+            <a href="/inicio" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i>
+                Volver al Inicio
+            </a>
+        </div>
+    </header>
+
+    <section class="appointment-section">
+        <div class="container">
+            <div class="appointment-container">
+                <div class="appointment-header">
+                    <h1>Agendar Cita Terapéutica</h1>
+                    <p>Programa tu consulta o tratamiento con nuestros especialistas</p>
+                </div>
+                
+                <div class="appointment-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Servicio</div>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Información</div>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Confirmación</div>
+                    </div>
+                </div>
+                
+                <!-- Paso 1: Selección de Servicio -->
+                <div class="step-content active" id="step-1">
+                    <h2>Selecciona un Servicio Terapéutico</h2>
+                    <p>Elige el tratamiento que necesitas de nuestra amplia gama de servicios especializados</p>
+                    
+                    <!-- Mensaje de error para selección de servicio -->
+                    <div class="service-selection-error" id="service-selection-error">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>No se puede continuar</strong> - Debes seleccionar un servicio terapéutico y un terapeuta para continuar con el agendamiento.
+                    </div>
+                    
+                    <div class="service-options" id="service-options-container">
+                        <div class="no-services">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <h4>Cargando servicios disponibles</h4>
+                            <p>Por favor espera mientras cargamos nuestros tratamientos</p>
+                        </div>
+                    </div>
+                    
+                    <!-- SECCIÓN PARA SELECCIÓN DE TERAPEUTAS CON HORARIOS -->
+                    <div id="therapist-selection">
+                        <div class="therapist-header">
+                            <h3>Selecciona tu Terapeuta</h3>
+                            <p>Elige el especialista con quien prefieres tu sesión. Se mostrarán sus horarios disponibles:</p>
+                        </div>
+                        <div class="therapist-options" id="therapist-options-container">
+                            <!-- Los terapeutas se cargarán aquí dinámicamente con sus horarios -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancel-appointment">
+                            <i class="fas fa-times"></i>
+                            Cancelar
+                        </button>
+                        <button type="button" class="btn" id="next-to-step-2" disabled>
+                            Siguiente
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Paso 2: Información Personal y Pago -->
+                <div class="step-content" id="step-2">
+                    <h2>Información Personal y Pago</h2>
+                    <p>Completa tus datos y selecciona método de pago</p>
+                    
+                    <!-- Mensaje de error de horario -->
+                    <div class="schedule-error" id="schedule-error">
+                        <i class="fas fa-clock"></i>
+                        <strong>Horario fuera del rango laboral</strong> - La hora seleccionada está fuera de las horas laborales del terapeuta seleccionado. Por favor elige una hora dentro del horario disponible.
+                    </div>
+                    
+                    <form id="patient-info-form">
+                        <h3>Datos del Paciente</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="patient-name">Nombre Completo *</label>
+                                <input type="text" id="patient-name" class="form-control" placeholder="Tu nombre completo" required>
+                                <div class="error-message" id="name-error">Por favor ingresa tu nombre completo</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="patient-phone">Teléfono *</label>
+                                <input type="tel" id="patient-phone" class="form-control" placeholder="Tu número de teléfono" required>
+                                <div class="error-message" id="phone-error">Por favor ingresa un número de teléfono válido</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="patient-email">Correo Electrónico *</label>
+                                <input type="email" id="patient-email" class="form-control" placeholder="tu@email.com" required>
+                                <div class="error-message" id="email-error">Por favor ingresa un correo electrónico válido</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointment-date">Fecha Preferida *</label>
+                                <input type="date" id="appointment-date" class="form-control" required>
+                                <div class="error-message" id="date-error">Por favor selecciona una fecha válida</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="appointment-time">Hora Preferida *</label>
+                            <select id="appointment-time" class="form-control" required>
+                                <option value="">Selecciona una hora</option>
+                                <option value="08:00">8:00 AM</option>
+                                <option value="09:00">9:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">1:00 PM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                                <option value="16:00">4:00 PM</option>
+                                <option value="17:00">5:00 PM</option>
+                                <option value="18:00">6:00 PM</option>
+                            </select>
+                            <div class="error-message" id="time-error">Por favor selecciona una hora</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="appointment-notes">Notas Adicionales</label>
+                            <textarea id="appointment-notes" class="form-control" rows="4" placeholder="Describe brevemente tu condición, síntomas o necesidades específicas..."></textarea>
+                        </div>
+
+                        <h3>Información del Acudiente (Opcional)</h3>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="acudiente-toggle">
+                            <label for="acudiente-toggle">Registrar información de acudiente</label>
+                        </div>
+                        
+                        <div class="acudiente-fields" id="acudiente-fields">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="acudiente-name">Nombre Completo *</label>
+                                    <input type="text" id="acudiente-name" class="form-control" placeholder="Nombre del acudiente">
+                                    <div class="error-message" id="acudiente-name-error">Por favor ingresa el nombre del acudiente</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acudiente-id">ID *</label>
+                                    <input type="number" id="acudiente-id" class="form-control" placeholder="Número de identificación">
+                                    
+                                    <div class="error-message" id="acudiente-id-error">Por favor ingresa un número de identificación válido</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="acudiente-phone">Teléfono *</label>
+                                    <input type="tel" id="acudiente-phone" class="form-control" placeholder="Teléfono del acudiente">
+                                    <div class="error-message" id="acudiente-phone-error">Por favor ingresa un número de teléfono válido</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acudiente-email">Correo Electrónico</label>
+                                    <input type="email" id="acudiente-email" class="form-control" placeholder="correo@acudiente.com">
+                                    <div class="error-message" id="acudiente-email-error">Por favor ingresa un correo electrónico válido</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Método de Pago</h3>
+                        <div class="payment-options">
+                            <div class="payment-option" data-payment="tarjeta">
+                                <div class="payment-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <h4>Tarjeta de Crédito/Débito</h4>
+                                <p>Pago seguro con tarjeta a través de nuestra plataforma protegida</p>
+                            </div>
+                            <div class="payment-option" data-payment="transferencia">
+                                <div class="payment-icon">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <h4>Transferencia Bancaria</h4>
+                                <p>Transferencia desde tu banco con los datos que te proporcionaremos</p>
+                            </div>
+                            <div class="payment-option" data-payment="efectivo">
+                                <div class="payment-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <h4>Pago en Efectivo</h4>
+                                <p>Pagarás al llegar a la cita en nuestras instalaciones</p>
+                            </div>
+                        </div>
+                        <input type="hidden" id="selected-payment" required>
+                        <div class="error-message" id="payment-error">Por favor selecciona un método de pago</div>
+                    </form>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="back-to-step-1">
+                            <i class="fas fa-arrow-left"></i>
+                            Anterior
+                        </button>
+                        <button type="button" class="btn" id="next-to-step-3">
+                            Siguiente
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Paso 3: Confirmación -->
+                <div class="step-content" id="step-3">
+                    <h2>Confirmación de Cita</h2>
+                    <p>Revisa tu información antes de confirmar</p>
+                    
+                    <div class="appointment-summary">
+                        <h3>Resumen de tu Cita</h3>
+                        <div class="summary-grid">
+                            <div class="summary-item">
+                                <span class="summary-label">Servicio:</span>
+                                <span id="summary-service" class="summary-value">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Terapeuta:</span>
+                                <span id="summary-therapist" class="summary-value">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Modalidad:</span>
+                                <span id="summary-modality" class="summary-value">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Paciente:</span>
+                                <span id="summary-patient" class="summary-value">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Teléfono:</span>
+                                <span id="summary-phone" class="summary-value">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Correo:</span>
+                                <span id="summary-email" class="summary-value">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Fecha:</span>
+                                <span id="summary-date" class="summary-value">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Hora:</span>
+                                <span id="summary-time" class="summary-value">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Precio:</span>
+                                <span id="summary-price" class="summary-value">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Método de Pago:</span>
+                                <span id="summary-payment" class="summary-value">-</span>
+                            </div>
+                            <div class="summary-item" id="acudiente-summary" style="display: none;">
+                                <span class="summary-label">Acudiente:</span>
+                                <span id="summary-acudiente" class="summary-value">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="email-section">
+                        <h3>¿A qué correos enviar esta información?</h3>
+                        <p>Puedes agregar hasta 3 correos electrónicos para recibir la confirmación</p>
+                        
+                        <div id="email-inputs-container">
+                            <div class="email-input-group">
+                                <input type="email" class="form-control email-input" placeholder="correo@ejemplo.com" value="">
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="add-email-btn" id="add-email-btn">
+                            <i class="fas fa-plus"></i> Agregar otro correo
+                        </button>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="back-to-step-2">
+                            <i class="fas fa-arrow-left"></i>
+                            Anterior
+                        </button>
+                        <button type="button" class="btn btn-accent" id="confirm-appointment">
+                            <i class="fas fa-calendar-check"></i>
+                            Confirmar Cita
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="help-link">
+                    <a href="/advertencia">
+                        <i class="fas fa-question-circle"></i> ¿Necesitas ayuda para completar este formulario?
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overlay de confirmación -->
+    <div id="confirmation-overlay" class="confirmation-overlay" style="display: none;">
+        <div class="confirmation-card">
+            <div class="confirmation-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h2 class="confirmation-title">¡Cita Agendada Exitosamente!</h2>
+            <p>Tu cita ha sido registrada en nuestro sistema con el siguiente código:</p>
+            
+            <div class="confirmation-code" id="confirmation-code">FS-0000</div>
+            
+            <div class="confirmation-details">
+                <div class="confirmation-detail">
+                    <span>Servicio:</span>
+                    <span id="confirmation-service">-</span>
+                </div>
+                <div class="confirmation-detail">
+                    <span>Terapeuta:</span>
+                    <span id="confirmation-therapist">-</span>
+                </div>
+                <div class="confirmation-detail">
+                    <span>Fecha:</span>
+                    <span id="confirmation-date">-</span>
+                </div>
+                <div class="confirmation-detail">
+                    <span>Hora:</span>
+                    <span id="confirmation-time">-</span>
+                </div>
+            </div>
+            
+            <div class="confirmation-timer">
+                <p>Serás redirigido automáticamente en <span id="timer-count">10</span> segundos</p>
+                <div class="timer-bar">
+                    <div class="timer-progress"></div>
+                </div>
+            </div>
+            
+            <button class="skip-btn" id="skip-timer">
+                <i class="fas fa-forward"></i> Saltar espera
+            </button>
+        </div>
+    </div>
+
+    <script>
+    // Variable global para almacenar información de terapeutas
+    let terapeutasInfo = {};
+    
+    // Función para formatear terapeutas con etiquetas elegantes
+    function formatTerapeutas(terapeutasString) {
+        if (!terapeutasString) return '<span class="no-terapeutas">No especificado</span>';
+        
+        // Separar por "|" como en tu base de datos
+        const terapeutas = terapeutasString.split('|').map(t => t.trim()).filter(t => t);
+        
+        if (terapeutas.length === 0) {
+            return '<span class="no-terapeutas">No especificado</span>';
+        }
+        
+        // Crear etiquetas para cada terapeuta
+        return terapeutas.map(terapeuta => 
+            `<span class="terapeuta-tag">${terapeuta}</span>`
+        ).join('');
+    }
+
+    // Función para generar iniciales de un nombre
+    function getInitials(name) {
+        return name.split(' ')
+            .map(word => word[0])
+            .join('')
+            .substring(0, 2)
+            .toUpperCase();
+    }
+
+    // Función para cargar información de terapeutas
+    async function loadTherapistsInfo() {
+        try {
+            const response = await fetch('/api/terapeutas');
+            if (response.ok) {
+                const data = await response.json();
+                if (data.terapeutas) {
+                    data.terapeutas.forEach(terapeuta => {
+                        terapeutasInfo[terapeuta.nombre_completo] = {
+                            dias: terapeuta.franja_horaria_dias,
+                            horas: terapeuta.franja_horaria_horas
+                        };
+                    });
+                    console.log('Información de terapeutas cargada:', terapeutasInfo);
+                }
+            }
+        } catch (error) {
+            console.warn('No se pudieron cargar los horarios de terapeutas:', error);
+        }
+    }
+
+    // Función para validar si una hora está dentro del horario del terapeuta
+    function validateTherapistSchedule(therapistName, selectedTime) {
+        const therapist = terapeutasInfo[therapistName];
+        if (!therapist || !therapist.horas) {
+            console.warn(`No hay información de horario para ${therapistName}`);
+            return true; // Si no hay info, permitir continuar
+        }
+        
+        // Parsear el rango de horas (ejemplo: "8:00 - 17:00")
+        const [startStr, endStr] = therapist.horas.split('-').map(s => s.trim());
+        
+        try {
+            // Convertir a objetos Date para comparación
+            const now = new Date();
+            const selected = new Date(now.toDateString() + ' ' + selectedTime + ':00');
+            const start = new Date(now.toDateString() + ' ' + startStr + ':00');
+            const end = new Date(now.toDateString() + ' ' + endStr + ':00');
+            
+            // Verificar si la hora seleccionada está dentro del rango
+            const isValid = selected >= start && selected <= end;
+            
+            console.log(`Validación horario ${therapistName}:`, {
+                selectedTime,
+                startStr,
+                endStr,
+                isValid
+            });
+            
+            return isValid;
+        } catch (error) {
+            console.error('Error validando horario:', error);
+            return true; // En caso de error, permitir continuar
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const servicioCodigo = urlParams.get('servicio');
+        
+        if (servicioCodigo) {
+            console.log('Servicio a preseleccionar:', servicioCodigo);
+            
+            // Esperar a que se carguen los servicios
+            const waitForServices = setInterval(() => {
+                const servicioElement = document.querySelector(`[data-service="${servicioCodigo}"]`);
+                if (servicioElement) {
+                    clearInterval(waitForServices);
+                    
+                    // Simular clic en el servicio
+                    servicioElement.click();
+                    
+                    // Hacer scroll suave al servicio seleccionado
+                    servicioElement.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                    
+                    // Resaltar visualmente
+                    servicioElement.style.border = '3px solid var(--accent)';
+                    servicioElement.style.boxShadow = '0 0 20px rgba(0, 212, 170, 0.3)';
+                    
+                    console.log('Servicio preseleccionado exitosamente');
+                }
+            }, 500);
+            
+            // Timeout después de 5 segundos
+            setTimeout(() => {
+                clearInterval(waitForServices);
+            }, 5000);
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Variables globales
+        let currentStep = 1;
+        let selectedService = {};
+        let selectedPayment = '';
+        let hasAcudiente = false;
+        let emailCount = 1;
+        const maxEmails = 3;
+        let countdownTimer;
+        
+        // Elementos del DOM
+        const steps = document.querySelectorAll('.step');
+        const stepContents = document.querySelectorAll('.step-content');
+        const serviceOptionsContainer = document.getElementById('service-options-container');
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        const acudienteToggle = document.getElementById('acudiente-toggle');
+        const acudienteFields = document.getElementById('acudiente-fields');
+        const acudienteSummary = document.getElementById('acudiente-summary');
+        const emailInputsContainer = document.getElementById('email-inputs-container');
+        const addEmailBtn = document.getElementById('add-email-btn');
+        const nextToStep2Btn = document.getElementById('next-to-step-2');
+        const scheduleError = document.getElementById('schedule-error');
+        const appointmentTimeSelect = document.getElementById('appointment-time');
+        
+        // Elementos del overlay de confirmación
+        const confirmationOverlay = document.getElementById('confirmation-overlay');
+        const confirmationCode = document.getElementById('confirmation-code');
+        const confirmationService = document.getElementById('confirmation-service');
+        const confirmationTherapist = document.getElementById('confirmation-therapist');
+        const confirmationDate = document.getElementById('confirmation-date');
+        const confirmationTime = document.getElementById('confirmation-time');
+        const timerCount = document.getElementById('timer-count');
+        const skipTimerBtn = document.getElementById('skip-timer');
+        
+        // Cargar información de terapeutas al iniciar
+        loadTherapistsInfo();
+        
+        // Navegación entre pasos
+        function goToStep(stepNumber) {
+            stepContents.forEach(content => content.classList.remove('active'));
+            steps.forEach(step => step.classList.remove('active'));
+            
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
+            document.querySelector(`.step[data-step="${stepNumber}"]`).classList.add('active');
+            
+            currentStep = stepNumber;
+            
+            if (stepNumber === 3) {
+                updateAppointmentSummary();
+            }
+        }
+        
+        // Cargar servicios desde la API
+        // En cita.html, actualiza la función loadServices para manejar el nuevo formato:
+        async function loadServices() {
+            try {
+                const response = await fetch('/api/servicios-terapia');
+                const data = await response.json();
+                
+                if (data.servicios && data.servicios.length > 0) {
+                    // Asegurarse que los precios sean números
+                    const servicios = data.servicios.map(servicio => ({
+                        ...servicio,
+                        precio: parseFloat(servicio.precio) || 0
+                    }));
+                    renderServices(servicios);
+                } else {
+                    serviceOptionsContainer.innerHTML = `
+                        <div class="no-services">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h4>No hay servicios disponibles</h4>
+                            <p>Por favor contacta con nosotros para más información</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error al cargar servicios:', error);
+                serviceOptionsContainer.innerHTML = `
+                    <div class="no-services">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h4>Error al cargar servicios</h4>
+                        <p>Por favor intenta nuevamente más tarde</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Renderizar servicios en la interfaz
+        function renderServices(servicios) {
+            if (!servicios || servicios.length === 0) {
+                serviceOptionsContainer.innerHTML = `
+                    <div class="no-services">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h4>No hay servicios disponibles</h4>
+                        <p>Por favor contacta con nosotros para más información</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            serviceOptionsContainer.innerHTML = '';
+            
+            servicios.forEach(service => {
+                const serviceElement = document.createElement('div');
+                serviceElement.className = 'service-option';
+                serviceElement.setAttribute('data-service', service.codigo);
+                serviceElement.setAttribute('tabindex', '0');
+                serviceElement.setAttribute('role', 'button');
+                serviceElement.setAttribute('aria-label', `Seleccionar servicio: ${service.nombre}`);
+                
+                serviceElement.innerHTML = `
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="fas fa-hand-holding-medical"></i>
+                        </div>
+                        <div class="service-content">
+                            <h4>${service.nombre}</h4>
+                            <p class="service-description">${service.descripcion}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="service-details-grid">
+                        <div class="service-detail-item">
+                            <i class="fas fa-user-md"></i>
+                            <div class="terapeutas-info">
+                                <strong>Terapeutas disponibles:</strong>
+                                <div class="terapeutas-tags">
+                                    ${formatTerapeutas(service.terapeuta_disponible)}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="service-detail-item">
+                            <i class="fas fa-clock"></i>
+                            <span><strong>Duración:</strong> ${service.duracion} minutos</span>
+                        </div>
+                        <div class="service-detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span><strong>Modalidad:</strong> ${service.modalidad}</span>
+                        </div>
+                        <div class="service-detail-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span><strong>Horario del servicio:</strong> ${service.inicio_jornada} - ${service.final_jornada}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="service-benefits">
+                        <strong>Beneficios:</strong>
+                        <p>${service.beneficios}</p>
+                    </div>
+                    
+                    <div class="service-meta">
+                        <div class="service-price">$${service.precio?.toLocaleString() || 'Consultar'}</div>
+                        <div class="service-actions">
+                            <button class="btn-select-service">
+                                <i class="fas fa-check"></i> Seleccionar
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                // Evento de clic para seleccionar servicio
+                serviceElement.addEventListener('click', function() {
+                    selectService(this, service);
+                });
+                
+                // Evento de teclado para accesibilidad
+                serviceElement.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectService(this, service);
+                    }
+                });
+                
+                serviceOptionsContainer.appendChild(serviceElement);
+            });
+        }
+
+        // Seleccionar un servicio y mostrar terapeutas
+        function selectService(element, service) {
+            document.querySelectorAll('.service-option').forEach(opt => {
+                opt.classList.remove('selected');
+                opt.setAttribute('aria-selected', 'false');
+            });
+            
+            element.classList.add('selected');
+            element.setAttribute('aria-selected', 'true');
+            selectedService = service;
+            
+            // Ocultar mensaje de error si estaba visible
+            hideServiceSelectionError();
+            
+            // Mostrar selección de terapeutas
+            showTherapistSelection(service);
+        }
+
+        // Mostrar opciones de terapeutas con horarios
+        function showTherapistSelection(service) {
+            const therapistSelection = document.getElementById('therapist-selection');
+            const therapistOptionsContainer = document.getElementById('therapist-options-container');
+            
+            // Parsear terapeutas (separados por "|")
+            const therapists = service.terapeuta_disponible.split('|').map(t => t.trim()).filter(t => t);
+            
+            therapistOptionsContainer.innerHTML = '';
+            
+            if (therapists.length === 0) {
+                therapistOptionsContainer.innerHTML = `
+                    <div class="no-services">
+                        <i class="fas fa-user-md"></i>
+                        <p>No hay terapeutas disponibles para este servicio</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Crear opciones para cada terapeuta
+            therapists.forEach((therapist, index) => {
+                const therapistElement = document.createElement('div');
+                therapistElement.className = 'therapist-option';
+                therapistElement.setAttribute('data-therapist', therapist);
+                therapistElement.setAttribute('tabindex', '0');
+                therapistElement.setAttribute('role', 'button');
+                
+                // Generar iniciales para el avatar
+                const initials = getInitials(therapist);
+                
+                // Obtener información del horario del terapeuta
+                const therapistSchedule = terapeutasInfo[therapist] || {};
+                
+                therapistElement.innerHTML = `
+                    <div class="therapist-avatar">
+                        ${initials}
+                    </div>
+                    <div class="therapist-name">${therapist}</div>
+                    <div class="therapist-specialty">Especialista en ${service.nombre}</div>
+                    
+                    ${therapistSchedule.dias && therapistSchedule.horas ? `
+                    <div class="therapist-schedule">
+                        <div class="schedule-days">${therapistSchedule.dias}</div>
+                        <div class="schedule-hours">${therapistSchedule.horas}</div>
+                    </div>
+                    ` : `
+                    <div class="therapist-schedule">
+                        <div class="schedule-days">Horario no disponible</div>
+                        <div class="schedule-hours">Consulta disponibilidad</div>
+                    </div>
+                    `}
+                `;
+                
+                therapistElement.addEventListener('click', function() {
+                    selectTherapist(this, therapist, therapistSchedule);
+                });
+                
+                therapistElement.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectTherapist(this, therapist, therapistSchedule);
+                    }
+                });
+                
+                therapistOptionsContainer.appendChild(therapistElement);
+            });
+            
+            therapistSelection.style.display = 'block';
+            
+            // Deshabilitar botón siguiente hasta que se seleccione terapeuta
+            nextToStep2Btn.disabled = true;
+            
+            // Hacer scroll suave a la sección de terapeutas
+            setTimeout(() => {
+                therapistSelection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+        }
+
+        // Seleccionar terapeuta
+        function selectTherapist(element, therapist, schedule) {
+            document.querySelectorAll('.therapist-option').forEach(opt => {
+                opt.classList.remove('selected');
+                opt.setAttribute('aria-selected', 'false');
+            });
+            
+            element.classList.add('selected');
+            element.setAttribute('aria-selected', 'true');
+            
+            // Actualizar servicio seleccionado con el terapeuta elegido y su horario
+            selectedService.terapeuta_seleccionado = therapist;
+            selectedService.terapeuta_horario = schedule;
+            
+            // Ocultar mensaje de error si estaba visible
+            hideServiceSelectionError();
+            
+            // Habilitar botón siguiente
+            nextToStep2Btn.disabled = false;
+            
+            console.log('Terapeuta seleccionado:', {
+                nombre: therapist,
+                horario: schedule
+            });
+        }
+        
+        // Función para mostrar error de selección de servicio
+        function showServiceSelectionError() {
+            const errorElement = document.getElementById('service-selection-error');
+            errorElement.classList.add('show');
+            
+            // Hacer scroll suave hacia el mensaje de error
+            errorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Resaltar visualmente las opciones de servicio
+            document.querySelectorAll('.service-option, .therapist-option').forEach(option => {
+                option.style.animation = 'pulse 2s infinite';
+            });
+            
+            // Quitar la animación después de 3 segundos
+            setTimeout(() => {
+                document.querySelectorAll('.service-option, .therapist-option').forEach(option => {
+                    option.style.animation = '';
+                });
+            }, 3000);
+        }
+        
+        // Función para ocultar el mensaje de error
+        function hideServiceSelectionError() {
+            const errorElement = document.getElementById('service-selection-error');
+            errorElement.classList.remove('show');
+        }
+        
+        // Función para mostrar error de horario
+        function showScheduleError() {
+            scheduleError.classList.add('show');
+            
+            // Hacer scroll suave hacia el mensaje de error
+            scheduleError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Resaltar el campo de hora
+            appointmentTimeSelect.style.animation = 'pulse-warning 2s infinite';
+            
+            // Quitar la animación después de 3 segundos
+            setTimeout(() => {
+                appointmentTimeSelect.style.animation = '';
+            }, 3000);
+        }
+        
+        // Función para ocultar error de horario
+        function hideScheduleError() {
+            scheduleError.classList.remove('show');
+        }
+        
+        // Toggle acudiente
+        acudienteToggle.addEventListener('change', function() {
+            hasAcudiente = this.checked;
+            if (hasAcudiente) {
+                acudienteFields.classList.add('active');
+            } else {
+                acudienteFields.classList.remove('active');
+            }
+        });
+        
+        // Selección de método de pago
+        paymentOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                paymentOptions.forEach(opt => {
+                    opt.classList.remove('selected');
+                    opt.setAttribute('aria-selected', 'false');
+                });
+                
+                this.classList.add('selected');
+                this.setAttribute('aria-selected', 'true');
+                selectedPayment = this.getAttribute('data-payment');
+                
+                // Ocultar error de pago si está visible
+                document.getElementById('payment-error').classList.remove('show');
+            });
+        });
+        
+        // Validar horario cuando se cambia la hora seleccionada
+        appointmentTimeSelect.addEventListener('change', function() {
+            if (selectedService.terapeuta_seleccionado && this.value) {
+                const isValid = validateTherapistSchedule(selectedService.terapeuta_seleccionado, this.value);
+                
+                if (!isValid) {
+                    showScheduleError();
+                } else {
+                    hideScheduleError();
+                }
+            }
+        });
+        
+        // Agregar campos de email
+        addEmailBtn.addEventListener('click', function() {
+            if (emailCount < maxEmails) {
+                emailCount++;
+                const emailInputGroup = document.createElement('div');
+                emailInputGroup.className = 'email-input-group';
+                emailInputGroup.innerHTML = `
+                    <input type="email" class="form-control email-input" placeholder="correo${emailCount}@ejemplo.com">
+                    <button type="button" class="remove-email">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                emailInputsContainer.appendChild(emailInputGroup);
+                
+                if (emailCount >= maxEmails) {
+                    addEmailBtn.style.display = 'none';
+                }
+            }
+        });
+        
+        // Remover campos de email
+        emailInputsContainer.addEventListener('click', function(e) {
+            if (e.target.closest('.remove-email')) {
+                const emailGroup = e.target.closest('.email-input-group');
+                emailGroup.remove();
+                emailCount--;
+                addEmailBtn.style.display = 'block';
+            }
+        });
+        
+        // Obtener emails ingresados
+        function getEmails() {
+            const emailInputs = document.querySelectorAll('.email-input');
+            const emails = [];
+            emailInputs.forEach(input => {
+                if (input.value.trim()) {
+                    emails.push(input.value.trim());
+                }
+            });
+            return emails;
+        }
+        
+        // Actualizar resumen de la cita
+        function updateAppointmentSummary() {
+            document.getElementById('summary-service').textContent = selectedService.nombre || '-';
+            document.getElementById('summary-therapist').textContent = selectedService.terapeuta_seleccionado || '-';
+            document.getElementById('summary-modality').textContent = selectedService.modalidad || '-';
+            document.getElementById('summary-patient').textContent = document.getElementById('patient-name').value || '-';
+            document.getElementById('summary-phone').textContent = document.getElementById('patient-phone').value || '-';
+            document.getElementById('summary-email').textContent = document.getElementById('patient-email').value || '-';
+            document.getElementById('summary-date').textContent = document.getElementById('appointment-date').value || '-';
+            document.getElementById('summary-time').textContent = document.getElementById('appointment-time').value || '-';
+            document.getElementById('summary-price').textContent = selectedService.precio ? `$${selectedService.precio.toLocaleString()}` : '-';
+            document.getElementById('summary-payment').textContent = getPaymentMethodText(selectedPayment);
+            
+            if (hasAcudiente && document.getElementById('acudiente-name').value) {
+                acudienteSummary.style.display = 'block';
+                document.getElementById('summary-acudiente').textContent = document.getElementById('acudiente-name').value;
+            } else {
+                acudienteSummary.style.display = 'none';
+            }
+        }
+        
+        // Obtener texto del método de pago
+        function getPaymentMethodText(payment) {
+            const paymentMethods = {
+                'tarjeta': 'Tarjeta de Crédito/Débito',
+                'transferencia': 'Transferencia Bancaria',
+                'efectivo': 'Pago en Efectivo'
+            };
+            return paymentMethods[payment] || '-';
+        }
+        
+        // Validar formulario de información
+        function validateInfoForm() {
+            let isValid = true;
+            
+            // Limpiar errores previos
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.classList.remove('show');
+            });
+            document.querySelectorAll('.form-control').forEach(input => {
+                input.classList.remove('error');
+            });
+            
+            hideScheduleError();
+            
+            // Validar campos obligatorios del paciente
+            const name = document.getElementById('patient-name').value;
+            const phone = document.getElementById('patient-phone').value;
+            const email = document.getElementById('patient-email').value;
+            const date = document.getElementById('appointment-date').value;
+            const time = document.getElementById('appointment-time').value;
+            
+            if (!name) {
+                showError('patient-name', 'name-error', 'Por favor ingresa tu nombre completo');
+                isValid = false;
+            }
+            
+            if (!phone || !/^[0-9+\-\s()]{10,}$/.test(phone)) {
+                showError('patient-phone', 'phone-error', 'Por favor ingresa un número de teléfono válido');
+                isValid = false;
+            }
+            
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError('patient-email', 'email-error', 'Por favor ingresa un correo electrónico válido');
+                isValid = false;
+            }
+            
+            if (!date) {
+                showError('appointment-date', 'date-error', 'Por favor selecciona una fecha');
+                isValid = false;
+            }
+            
+            if (!time) {
+                showError('appointment-time', 'time-error', 'Por favor selecciona una hora');
+                isValid = false;
+            }
+            
+            // Validar horario del terapeuta si hay información disponible
+            if (time && selectedService.terapeuta_seleccionado) {
+                const therapistInfo = terapeutasInfo[selectedService.terapeuta_seleccionado];
+                if (therapistInfo && therapistInfo.horas) {
+                    const isWithinSchedule = validateTherapistSchedule(selectedService.terapeuta_seleccionado, time);
+                    if (!isWithinSchedule) {
+                        showScheduleError();
+                        isValid = false;
+                    }
+                }
+            }
+            
+            // Validar método de pago
+            if (!selectedPayment) {
+                document.getElementById('payment-error').classList.add('show');
+                isValid = false;
+            }
+            
+            // Validar campos del acudiente si está activo
+            if (hasAcudiente) {
+                const acudienteName = document.getElementById('acudiente-name').value;
+                const acudienteId = document.getElementById('acudiente-id').value;
+                const acudientePhone = document.getElementById('acudiente-phone').value;
+                const acudienteEmail = document.getElementById('acudiente-email').value;
+                
+                if (!acudienteName) {
+                    showError('acudiente-name', 'acudiente-name-error', 'Por favor ingresa el nombre del acudiente');
+                    isValid = false;
+                }
+                
+                if (!acudienteId || !/^[0-9]{6,12}$/.test(acudienteId)) {
+                    showError('acudiente-id', 'acudiente-id-error', 'Por favor ingresa un número de identificación válido');
+                    isValid = false;
+                }
+                
+                if (!acudientePhone || !/^[0-9+\-\s()]{10,}$/.test(acudientePhone)) {
+                    showError('acudiente-phone', 'acudiente-phone-error', 'Por favor ingresa un número de teléfono válido');
+                    isValid = false;
+                }
+                
+                if (acudienteEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(acudienteEmail)) {
+                    showError('acudiente-email', 'acudiente-email-error', 'Por favor ingresa un correo electrónico válido');
+                    isValid = false;
+                }
+            }
+            
+            return isValid;
+        }
+        
+        // Mostrar error en un campo
+        function showError(fieldId, errorId, message) {
+            const field = document.getElementById(fieldId);
+            const error = document.getElementById(errorId);
+            
+            field.classList.add('error');
+            error.textContent = message;
+            error.classList.add('show');
+        }
+        
+        // Mostrar mensaje de confirmación
+        function showConfirmation(citaData) {
+            // Usar directamente el código alfanumérico que viene del backend
+            confirmationCode.textContent = citaData.codigo_cita; // FS-0001 directamente
+            
+            // Actualizar información en el overlay
+            confirmationService.textContent = citaData.servicio || citaData.cita?.servicio || selectedService.nombre;
+            confirmationTherapist.textContent = citaData.terapeuta_designado || citaData.cita?.terapeuta_designado || selectedService.terapeuta_seleccionado;
+            confirmationDate.textContent = citaData.fecha_cita || citaData.cita?.fecha_cita || document.getElementById('appointment-date').value;
+            confirmationTime.textContent = citaData.hora_cita || citaData.cita?.hora_cita || document.getElementById('appointment-time').value;
+            
+            // Mostrar overlay
+            confirmationOverlay.style.display = 'flex';
+            
+            // Iniciar cuenta regresiva
+            let seconds = 10;
+            timerCount.textContent = seconds;
+            
+            countdownTimer = setInterval(() => {
+                seconds--;
+                timerCount.textContent = seconds;
+                
+                if (seconds <= 0) {
+                    clearInterval(countdownTimer);
+                    redirectToHome();
+                }
+            }, 1000);
+        }
+        
+        // Redirigir al inicio
+        function redirectToHome() {
+            window.location.href = '/inicio';
+        }
+        
+        // Ocultar mensaje de confirmación
+        function hideConfirmation() {
+            confirmationOverlay.style.display = 'none';
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+            }
+        }
+        
+        // Enviar datos de la cita al backend
+        async function submitAppointment() {
+            const appointmentData = {
+                servicio: selectedService.nombre,
+                terapeuta_designado: selectedService.terapeuta_seleccionado,
+                nombre_paciente: document.getElementById('patient-name').value,
+                telefono: document.getElementById('patient-phone').value,
+                correo: document.getElementById('patient-email').value,
+                fecha_cita: document.getElementById('appointment-date').value,
+                hora_cita: document.getElementById('appointment-time').value,
+                notas_adicionales: document.getElementById('appointment-notes').value,
+                tipo_pago: selectedPayment,
+                emails_adicionales: JSON.stringify(getEmails())
+            };
+            
+            if (hasAcudiente) {
+                appointmentData.acudiente_nombre = document.getElementById('acudiente-name').value;
+                appointmentData.acudiente_id = document.getElementById('acudiente-id').value;
+                appointmentData.acudiente_telefono = document.getElementById('acudiente-phone').value;
+                appointmentData.acudiente_correo = document.getElementById('acudiente-email').value;
+            }
+            
+            try {
+                const response = await fetch('/api/agendar-cita', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams(appointmentData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.success) {
+                    return result; // Retornar el resultado completo con cita_id
+                } else {
+                    throw new Error(result.error || 'Error al agendar la cita');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                throw error;
+            }
+        }
+        
+        // Event listeners para navegación
+        document.getElementById('next-to-step-2').addEventListener('click', function() {
+            if (!selectedService.codigo || !selectedService.terapeuta_seleccionado) {
+                // Mostrar mensaje de error
+                showServiceSelectionError();
+                return;
+            }
+            goToStep(2);
+        });
+        
+        document.getElementById('back-to-step-1').addEventListener('click', function() {
+            goToStep(1);
+        });
+        
+        document.getElementById('next-to-step-3').addEventListener('click', function() {
+            if (!validateInfoForm()) return;
+            goToStep(3);
+        });
+        
+        document.getElementById('back-to-step-2').addEventListener('click', function() {
+            goToStep(2);
+        });
+        
+        document.getElementById('confirm-appointment').addEventListener('click', async function() {
+            const btn = this;
+            const originalText = btn.textContent;
+            
+            // Mostrar estado de carga
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
+            
+            try {
+                const result = await submitAppointment();
+                
+                if (result.success) {
+                    showConfirmation(result);
+                } else {
+                    alert('Error al agendar la cita. Por favor intenta nuevamente.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al agendar la cita. Por favor intenta nuevamente.');
+            } finally {
+                // Restaurar estado del botón
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        });
+        
+        // Event listener para saltar el temporizador
+        skipTimerBtn.addEventListener('click', function() {
+            redirectToHome();
+        });
+        
+        // Cerrar overlay si se hace clic fuera del card
+        confirmationOverlay.addEventListener('click', function(e) {
+            if (e.target === confirmationOverlay) {
+                hideConfirmation();
+            }
+        });
+        
+        // Cancelar cita
+        document.getElementById('cancel-appointment').addEventListener('click', function() {
+            if (confirm('¿Estás seguro de que deseas cancelar el agendamiento? Se perderá toda la información ingresada.')) {
+                window.location.href = '/inicio';
+            }
+        });
+        
+        // Establecer fecha mínima como hoy
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('appointment-date').min = today;
+        
+        // Cargar servicios al iniciar
+        loadServices();
+    });
+    </script>
+</body>
+</html>

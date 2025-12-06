@@ -1,0 +1,2029 @@
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Gestión de Servicios - Panel Administrador</title>
+        <style>
+            :root {
+                --primary: #0A2540;
+                --secondary: #00A3FF;
+                --accent: #00D4AA;
+                --background: #FFFFFF;
+                --background-alt: #F8FAFC;
+                --text: #0F172A;
+                --gray: #64748B;
+                --gray-light: #E2E8F0;
+                --gray-lighter: #F1F5F9;
+                --success: #10B981;
+                --warning: #F59E0B;
+                --danger: #EF4444;
+                --info: #17a2b8;
+                
+                --border-radius: 8px;
+                --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                --transition: all 0.2s ease;
+                --spacing-sm: 16px;
+                --spacing-md: 24px;
+                --spacing-lg: 32px;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Inter', sans-serif;
+            }
+
+            body {
+                background-color: var(--background-alt);
+                color: var(--text);
+                line-height: 1.5;
+                min-height: 100vh;
+            }
+
+            .container {
+                display: flex;
+                min-height: 100vh;
+            }
+
+            /* SIDEBAR */
+            .sidebar {
+                width: 260px;
+                background-color: var(--primary);
+                color: white;
+                padding: var(--spacing-md) 0;
+                flex-shrink: 0;
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                padding: 0 var(--spacing-md) var(--spacing-md);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                margin-bottom: var(--spacing-md);
+            }
+
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+                background-color: var(--secondary);
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 1.1rem;
+                margin-right: var(--spacing-sm);
+            }
+
+            .logo-text {
+                font-size: 1.25rem;
+                font-weight: 700;
+            }
+
+            .nav-links {
+                list-style: none;
+            }
+
+            .nav-links li {
+                padding: var(--spacing-sm) var(--spacing-md);
+                transition: var(--transition);
+            }
+
+            .nav-links li:hover {
+                background-color: rgba(255, 255, 255, 0.08);
+            }
+
+            .nav-links li.active {
+                background-color: rgba(255, 255, 255, 0.12);
+                border-left: 3px solid var(--secondary);
+            }
+
+            .nav-links a {
+                color: white;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                font-weight: 500;
+                font-size: 0.95rem;
+            }
+
+            .nav-links i {
+                margin-right: var(--spacing-sm);
+                font-size: 1.1rem;
+                width: 20px;
+            }
+
+            /* MAIN CONTENT */
+            .main-content {
+                flex: 1;
+                padding: var(--spacing-lg);
+                overflow-y: auto;
+                background: var(--background-alt);
+            }
+
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: var(--spacing-lg);
+                padding-bottom: var(--spacing-sm);
+                border-bottom: 1px solid var(--gray-light);
+            }
+
+            .header h2 {
+                color: var(--primary);
+                font-weight: 600;
+                font-size: 1.5rem;
+            }
+
+            .user-info {
+                display: flex;
+                align-items: center;
+            }
+
+            .user-info img {
+                width: 44px;
+                height: 44px;
+                border-radius: 4px;
+                margin-right: var(--spacing-sm);
+                border: 2px solid var(--secondary);
+                object-fit: cover;
+            }
+
+            .user-details .user-name {
+                font-weight: 600;
+                font-size: 0.95rem;
+            }
+
+            .user-details .user-role {
+                font-size: 0.8rem;
+                color: var(--gray);
+            }
+
+            /* WELCOME BANNER */
+            .welcome-banner {
+                background: linear-gradient(135deg, var(--primary), #0d2e4d);
+                border-radius: var(--border-radius);
+                padding: var(--spacing-lg);
+                margin-bottom: var(--spacing-lg);
+                color: white;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .banner-content {
+                position: relative;
+                z-index: 1;
+            }
+
+            .banner-text h3 {
+                font-size: 1.5rem;
+                font-weight: 600;
+                margin-bottom: 8px;
+            }
+
+            .banner-text p {
+                opacity: 0.9;
+                max-width: 600px;
+            }
+
+            .banner-stats {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: var(--spacing-sm);
+                margin-top: var(--spacing-sm);
+            }
+
+            .stat-item {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: var(--border-radius);
+                padding: var(--spacing-sm);
+                text-align: center;
+                transition: var(--transition);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .stat-value {
+                font-size: 2rem;
+                font-weight: 700;
+                margin-bottom: 4px;
+            }
+
+            .stat-label {
+                font-size: 0.875rem;
+                opacity: 0.9;
+            }
+
+            .banner-actions {
+                display: flex;
+                gap: var(--spacing-sm);
+                margin-top: var(--spacing-sm);
+                flex-wrap: wrap;
+            }
+
+            .btn-white {
+                background: rgba(255, 255, 255, 0.9);
+                color: var(--primary);
+                border: none;
+                border-radius: 4px;
+                padding: 10px 20px;
+                font-weight: 600;
+                font-size: 0.875rem;
+                cursor: pointer;
+                transition: var(--transition);
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .btn-white:hover {
+                background: white;
+                transform: translateY(-2px);
+            }
+
+            /* CARDS GRID */
+            .cards-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: var(--spacing-sm);
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .card {
+                background-color: var(--background);
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow);
+                padding: var(--spacing-sm);
+                transition: var(--transition);
+                border: 1px solid var(--gray-light);
+            }
+
+            .card:hover {
+                transform: translateY(-1px);
+                box-shadow: var(--shadow-lg);
+            }
+
+            .card-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 8px;
+            }
+
+            .card-title {
+                font-size: 0.95rem;
+                font-weight: 600;
+            }
+
+            .card-icon {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+            }
+
+            .bg-primary { background-color: var(--primary); }
+            .bg-success { background-color: var(--success); }
+            .bg-warning { background-color: var(--warning); }
+            .bg-info { background-color: var(--info); }
+
+            .card-value {
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin-bottom: 4px;
+            }
+
+            .card-description {
+                color: var(--gray);
+                font-size: 0.85rem;
+            }
+
+            /* TABS */
+            .tabs {
+                display: flex;
+                border-bottom: 1px solid var(--gray-light);
+                margin-bottom: var(--spacing-sm);
+                flex-wrap: wrap;
+            }
+
+            .tab {
+                padding: var(--spacing-sm) var(--spacing-sm);
+                cursor: pointer;
+                border-bottom: 3px solid transparent;
+                transition: var(--transition);
+                font-size: 0.95rem;
+            }
+
+            .tab.active {
+                border-bottom: 3px solid var(--primary);
+                color: var(--primary);
+                font-weight: 600;
+            }
+
+            .tab:hover:not(.active) {
+                background-color: var(--gray-lighter);
+            }
+
+            .tab-content {
+                display: none;
+            }
+
+            .tab-content.active {
+                display: block;
+            }
+
+            /* FILTROS */
+            .filters-container {
+                background-color: var(--background);
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow);
+                padding: var(--spacing-sm);
+                margin-bottom: var(--spacing-sm);
+                display: flex;
+                flex-wrap: wrap;
+                gap: var(--spacing-sm);
+                align-items: end;
+                border: 1px solid var(--gray-light);
+            }
+
+            .filter-group {
+                flex: 1;
+                min-width: 150px;
+            }
+
+            .filter-group label {
+                display: block;
+                margin-bottom: 4px;
+                font-weight: 600;
+                font-size: 0.9rem;
+                color: var(--text);
+            }
+
+            .filter-select, .filter-input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid var(--gray-light);
+                border-radius: 4px;
+                font-size: 0.9rem;
+                transition: var(--transition);
+            }
+
+            .filter-select:focus, .filter-input:focus {
+                outline: none;
+                border-color: var(--secondary);
+            }
+
+            /* TABLES */
+            .table-container {
+                background-color: var(--background);
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow);
+                padding: var(--spacing-sm);
+                margin-bottom: var(--spacing-lg);
+                border: 1px solid var(--gray-light);
+            }
+
+            .table-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: var(--spacing-sm);
+                flex-wrap: wrap;
+                gap: var(--spacing-sm);
+            }
+
+            .table-header h3 {
+                font-size: 1.1rem;
+                font-weight: 600;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid var(--gray-lighter);
+                font-size: 0.9rem;
+            }
+
+            th {
+                background-color: var(--gray-lighter);
+                font-weight: 600;
+                cursor: pointer;
+            }
+
+            th:hover {
+                background-color: var(--gray-light);
+            }
+
+            tr:hover {
+                background-color: var(--gray-lighter);
+            }
+
+            /* STATUS BADGES */
+            .status {
+                padding: 6px 12px;
+                border-radius: 20px;
+                font-size: 0.75rem;
+                font-weight: 600;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+            }
+
+            .status-active {
+                background-color: rgba(16, 185, 129, 0.1);
+                color: var(--success);
+                border: 1px solid rgba(16, 185, 129, 0.2);
+            }
+
+            .status-inactive {
+                background-color: rgba(239, 68, 68, 0.1);
+                color: var(--danger);
+                border: 1px solid rgba(239, 68, 68, 0.2);
+            }
+
+            /* BOTONES */
+            .btn {
+                padding: 10px 16px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: var(--transition);
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 0.85rem;
+                text-decoration: none;
+            }
+
+            .btn-sm {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+
+            .btn-primary {
+                background-color: var(--secondary);
+                color: white;
+            }
+
+            .btn-primary:hover {
+                background-color: #0090e0;
+                transform: translateY(-1px);
+            }
+
+            .btn-success {
+                background-color: var(--success);
+                color: white;
+            }
+
+            .btn-danger {
+                background-color: var(--danger);
+                color: white;
+            }
+
+            .btn-info {
+                background-color: var(--info);
+                color: white;
+            }
+
+            .btn-outline {
+                background-color: transparent;
+                border: 1px solid var(--secondary);
+                color: var(--secondary);
+            }
+
+            .btn-outline:hover {
+                background-color: var(--secondary);
+                color: white;
+            }
+
+            .btn-group {
+                display: flex;
+                gap: 4px;
+            }
+
+            /* MODAL */
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+                align-items: center;
+                justify-content: center;
+                padding: var(--spacing-sm);
+            }
+
+            .modal.active {
+                display: flex;
+            }
+
+            .modal-content {
+                background-color: var(--background);
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow-lg);
+                width: 90%;
+                max-width: 700px;
+                max-height: 90vh;
+                overflow-y: auto;
+                animation: slideIn 0.3s ease-out;
+                border: 1px solid var(--gray-light);
+            }
+
+            @keyframes slideIn {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            .modal-header {
+                padding: var(--spacing-sm);
+                border-bottom: 1px solid var(--gray-light);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: linear-gradient(135deg, var(--primary), #0d2e4d);
+                color: white;
+                border-radius: var(--border-radius) var(--border-radius) 0 0;
+            }
+
+            .modal-title {
+                font-size: 1.25rem;
+                font-weight: 600;
+            }
+
+            .modal-close {
+                background: none;
+                border: none;
+                font-size: 1.25rem;
+                cursor: pointer;
+                color: white;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .modal-close:hover {
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+
+            .modal-body {
+                padding: var(--spacing-sm);
+            }
+
+            .modal-footer {
+                padding: var(--spacing-sm);
+                border-top: 1px solid var(--gray-light);
+                display: flex;
+                justify-content: flex-end;
+                gap: var(--spacing-sm);
+            }
+
+            /* FORMULARIOS */
+            .form-group {
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 4px;
+                font-weight: 600;
+                font-size: 0.9rem;
+            }
+
+            .form-row {
+                display: flex;
+                gap: var(--spacing-sm);
+            }
+
+            .form-row .form-group {
+                flex: 1;
+            }
+
+            /* NOTIFICACIONES */
+            .notification {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: white;
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow-lg);
+                padding: var(--spacing-sm);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: var(--spacing-sm);
+                min-width: 300px;
+                max-width: 400px;
+                z-index: 9999;
+                animation: slideInRight 0.3s ease;
+                border-left: 4px solid;
+            }
+
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+
+            .notification-success {
+                border-left-color: var(--success);
+            }
+
+            .notification-error {
+                border-left-color: var(--danger);
+            }
+
+            .notification-info {
+                border-left-color: var(--info);
+            }
+
+            /* ESTADOS */
+            .empty-state {
+                text-align: center;
+                padding: var(--spacing-lg) var(--spacing-sm);
+                color: var(--gray);
+                background: var(--background);
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow);
+                border: 1px solid var(--gray-light);
+            }
+
+            .empty-state i {
+                font-size: 2rem;
+                color: var(--gray-light);
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .empty-state h3 {
+                font-size: 1.25rem;
+                margin-bottom: var(--spacing-sm);
+                font-weight: 600;
+            }
+
+            .empty-state p {
+                font-size: 0.95rem;
+                opacity: 0.8;
+                max-width: 400px;
+                margin: 0 auto var(--spacing-sm);
+            }
+
+            /* ESPECIALES */
+            .service-type-badge {
+                background-color: rgba(0, 212, 170, 0.1);
+                color: var(--accent);
+                padding: 4px 8px;
+                border-radius: 4px;
+                font-size: 0.75rem;
+                font-weight: 500;
+                display: inline-block;
+            }
+
+            .price-badge {
+                background-color: rgba(16, 185, 129, 0.1);
+                color: var(--success);
+                padding: 4px 8px;
+                border-radius: 4px;
+                font-size: 0.75rem;
+                font-weight: 500;
+                display: inline-block;
+            }
+
+            /* RESPONSIVE */
+            @media (max-width: 768px) {
+                .container {
+                    flex-direction: column;
+                }
+                
+                .sidebar {
+                    width: 100%;
+                    height: auto;
+                }
+                
+                .main-content {
+                    padding: var(--spacing-sm);
+                }
+                
+                .banner-stats {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                
+                .cards-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                
+                .table-header {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+                
+                .filters-container {
+                    flex-direction: column;
+                }
+                
+                .filter-group {
+                    min-width: 100%;
+                }
+                
+                .form-row {
+                    flex-direction: column;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .cards-grid {
+                    grid-template-columns: 1fr;
+                }
+                
+                .banner-stats {
+                    grid-template-columns: 1fr;
+                }
+                
+                .btn-group {
+                    flex-direction: column;
+                }
+            }
+        </style>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+    <div class="container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">FS</div>
+                <div class="logo-text">FisioSalud Admin</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/admin/panel-usuarios"><i class="fas fa-user-injured"></i> Pacientes</a></li>
+                <li><a href="/admin/panel-fisio"><i class="fas fa-user-md"></i> Fisioterapeutas</a></li>
+                <li class="active"><a href="/admin/panel-servicios"><i class="fas fa-hand-holding-medical"></i> Servicios</a></li>
+                <li><a href="/admin/panel-agenda"><i class="fas fa-calendar-alt"></i> Agenda</a></li>
+                <li><a href="/admin/panel-correos"><i class="fas fa-cog"></i> Correos recibidos</a></li>
+                <li><a href="/admin/logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <!-- HEADER -->
+            <div class="header">
+                <h2>Gestión de Servicios</h2>
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/150?img=11" alt="Administrador">
+                    <div class="user-details">
+                        <div class="user-name">Administrador</div>
+                        <div class="user-role">Clínica FisioSalud</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <div class="banner-content">
+                    <div class="banner-text">
+                        <h3>Catálogo de Servicios</h3>
+                        <p>Administra terapias, productos de nutrición e implementos de rehabilitación.</p>
+                    </div>
+                    <div class="banner-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="total-servicios">0</div>
+                            <div class="stat-label">Total Servicios</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="total-nutricion">0</div>
+                            <div class="stat-label">Nutrición</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="total-implementos">0</div>
+                            <div class="stat-label">Implementos</div>
+                        </div>
+                    </div>
+                    <div class="banner-actions">
+                        <button class="btn btn-white" onclick="openNewServiceModal('terapia')">
+                            <i class="fas fa-plus"></i> Nueva Terapia
+                        </button>
+                        <button class="btn btn-white" onclick="openNewServiceModal('nutricion')">
+                            <i class="fas fa-apple-alt"></i> Nuevo Producto Nutrición
+                        </button>
+                        <button class="btn btn-white" onclick="openNewServiceModal('implemento')">
+                            <i class="fas fa-dumbbell"></i> Nuevo Implemento
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARDS GRID -->
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Productos Nutrición</div>
+                        <div class="card-icon bg-success">
+                            <i class="fas fa-apple-alt"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="card-nutricion">0</div>
+                    <div class="card-description">Suplementos y alimentos</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Implementos</div>
+                        <div class="card-icon bg-warning">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="card-implementos">0</div>
+                    <div class="card-description">Equipos y herramientas</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Porciones Totales</div>
+                        <div class="card-icon bg-info">
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="card-porciones">0</div>
+                    <div class="card-description">Productos de nutrición</div>
+                </div>
+            </div>
+
+            <!-- TABS -->
+            <div class="tabs">
+                <div class="tab" onclick="changeTab('nutricion')">Nutrición</div>
+                <div class="tab" onclick="changeTab('implementos')">Implementos</div>
+            </div>
+
+            <!-- TAB CONTENT: TERAPIAS -->
+            <div id="terapias" class="tab-content active">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Servicios de Terapia</h3>
+                        <div>
+                            <button class="btn btn-outline" onclick="clearFilters('terapias')">
+                                <i class="fas fa-filter"></i> Limpiar Filtros
+                            </button>
+                            <button class="btn btn-primary" onclick="loadTerapias()">
+                                <i class="fas fa-sync-alt"></i> Actualizar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- FILTROS TERAPIAS -->
+                    <div class="filters-container">
+                        <div class="filter-group">
+                            <label for="filter-terapia-nombre">Nombre Terapia</label>
+                            <input type="text" class="filter-input" id="filter-terapia-nombre" placeholder="Buscar terapia...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-terapia-modalidad">Modalidad</label>
+                            <input type="text" class="filter-input" id="filter-terapia-modalidad" placeholder="Ej: Individual, Grupal...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-terapia-duracion-min">Duración Mín (min)</label>
+                            <input type="number" class="filter-input" id="filter-terapia-duracion-min" placeholder="30">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-terapia-duracion-max">Duración Máx (min)</label>
+                            <input type="number" class="filter-input" id="filter-terapia-duracion-max" placeholder="60">
+                        </div>
+                        <div class="filter-group">
+                            <button class="btn btn-primary" onclick="filterTerapias()" style="margin-top: 24px;">
+                                <i class="fas fa-filter"></i> Filtrar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- TABLA TERAPIAS -->
+                    <div id="terapias-table">
+                        <div class="empty-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <h3>Cargando terapias...</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB CONTENT: NUTRICIÓN -->
+            <div id="nutricion" class="tab-content">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Productos de Nutrición</h3>
+                        <div>
+                            <button class="btn btn-outline" onclick="clearFilters('nutricion')">
+                                <i class="fas fa-filter"></i> Limpiar Filtros
+                            </button>
+                            <button class="btn btn-primary" onclick="loadNutricion()">
+                                <i class="fas fa-sync-alt"></i> Actualizar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- FILTROS NUTRICIÓN -->
+                    <div class="filters-container">
+                        <div class="filter-group">
+                            <label for="filter-nutricion-nombre">Nombre Producto</label>
+                            <input type="text" class="filter-input" id="filter-nutricion-nombre" placeholder="Buscar producto...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-nutricion-sabor">Sabor</label>
+                            <input type="text" class="filter-input" id="filter-nutricion-sabor" placeholder="Ej: Chocolate, Vainilla...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-nutricion-porciones-min">Porciones Mín</label>
+                            <input type="number" class="filter-input" id="filter-nutricion-porciones-min" placeholder="1">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-nutricion-porciones-max">Porciones Máx</label>
+                            <input type="number" class="filter-input" id="filter-nutricion-porciones-max" placeholder="30">
+                        </div>
+                        <div class="filter-group">
+                            <button class="btn btn-primary" onclick="filterNutricion()" style="margin-top: 24px;">
+                                <i class="fas fa-filter"></i> Filtrar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- TABLA NUTRICIÓN -->
+                    <div id="nutricion-table">
+                        <div class="empty-state">
+                            <i class="fas fa-apple-alt"></i>
+                            <h3>Productos de Nutrición</h3>
+                            <p>Administra suplementos y alimentos especializados</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB CONTENT: IMPLEMENTOS -->
+            <div id="implementos" class="tab-content">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Implementos de Rehabilitación</h3>
+                        <div>
+                            <button class="btn btn-outline" onclick="clearFilters('implementos')">
+                                <i class="fas fa-filter"></i> Limpiar Filtros
+                            </button>
+                            <button class="btn btn-primary" onclick="loadImplementos()">
+                                <i class="fas fa-sync-alt"></i> Actualizar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- FILTROS IMPLEMENTOS -->
+                    <div class="filters-container">
+                        <div class="filter-group">
+                            <label for="filter-implemento-nombre">Nombre Implemento</label>
+                            <input type="text" class="filter-input" id="filter-implemento-nombre" placeholder="Buscar implemento...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-implemento-material">Material</label>
+                            <input type="text" class="filter-input" id="filter-implemento-material" placeholder="Ej: Acero, Plástico...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-implemento-grupo">Grupo Muscular</label>
+                            <input type="text" class="filter-input" id="filter-implemento-grupo" placeholder="Ej: Piernas, Brazos...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-implemento-peso-min">Peso Mín (kg)</label>
+                            <input type="number" class="filter-input" id="filter-implemento-peso-min" placeholder="0.5" step="0.1">
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-implemento-peso-max">Peso Máx (kg)</label>
+                            <input type="number" class="filter-input" id="filter-implemento-peso-max" placeholder="10" step="0.1">
+                        </div>
+                        <div class="filter-group">
+                            <button class="btn btn-primary" onclick="filterImplementos()" style="margin-top: 24px;">
+                                <i class="fas fa-filter"></i> Filtrar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- TABLA IMPLEMENTOS -->
+                    <div id="implementos-table">
+                        <div class="empty-state">
+                            <i class="fas fa-dumbbell"></i>
+                            <h3>Implementos de Rehabilitación</h3>
+                            <p>Administra equipos, herramientas y materiales</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL NUEVO SERVICIO (GENERAL) -->
+    <div id="newServiceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="service-modal-title">Nuevo Servicio</h3>
+                <button class="modal-close" onclick="closeNewServiceModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="serviceForm">
+                    <!-- Campo oculto para tipo de servicio -->
+                    <input type="hidden" id="service-type-hidden">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="service-codigo">Código *</label>
+                            <input type="text" class="filter-input" id="service-codigo" required placeholder="Ej: TER-001, NUT-001, IMP-001">
+                        </div>
+                        <div class="form-group">
+                            <label for="service-nombre">Nombre *</label>
+                            <input type="text" class="filter-input" id="service-nombre" required placeholder="Nombre del servicio">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="service-descripcion">Descripción</label>
+                        <textarea class="filter-input" id="service-descripcion" rows="2" placeholder="Descripción del servicio..."></textarea>
+                    </div>
+
+                    <!-- CAMPOS ESPECÍFICOS PARA TERAPIAS -->
+                    <div id="terapia-fields" style="display: none;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="terapia-duracion">Duración (minutos)</label>
+                                <input type="number" class="filter-input" id="terapia-duracion" placeholder="30">
+                            </div>
+                            <div class="form-group">
+                                <label for="terapia-modalidad">Modalidad</label>
+                                <input type="text" class="filter-input" id="terapia-modalidad" placeholder="Individual, Grupal, Domiciliaria">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="terapia-inicio">Inicio Jornada</label>
+                                <input type="time" class="filter-input" id="terapia-inicio">
+                            </div>
+                            <div class="form-group">
+                                <label for="terapia-fin">Fin Jornada</label>
+                                <input type="time" class="filter-input" id="terapia-fin">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="terapia-intensidad">Intensidad</label>
+                                <input type="text" class="filter-input" id="terapia-intensidad" placeholder="Baja, Media, Alta">
+                            </div>
+                            <div class="form-group">
+                                <label for="terapia-equipamento">Equipamento</label>
+                                <input type="text" class="filter-input" id="terapia-equipamento" placeholder="Equipos necesarios">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CAMPOS ESPECÍFICOS PARA NUTRICIÓN -->
+                    <div id="nutricion-fields" style="display: none;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nutricion-porciones">Porciones *</label>
+                                <input type="number" class="filter-input" id="nutricion-porciones" required placeholder="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="nutricion-sabores">Sabores</label>
+                                <input type="text" class="filter-input" id="nutricion-sabores" placeholder="Chocolate, Vainilla, Fresa">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nutricion-proteinas">Proteínas (g)</label>
+                                <input type="number" class="filter-input" id="nutricion-proteinas" step="0.1" placeholder="20.5">
+                            </div>
+                            <div class="form-group">
+                                <label for="nutricion-carbohidratos">Carbohidratos (g)</label>
+                                <input type="number" class="filter-input" id="nutricion-carbohidratos" step="0.1" placeholder="15.0">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nutricion-grasas">Grasas (g)</label>
+                                <input type="number" class="filter-input" id="nutricion-grasas" step="0.1" placeholder="5.0">
+                            </div>
+                            <div class="form-group">
+                                <label for="nutricion-valor-energetico">Valor Energético (kcal)</label>
+                                <input type="number" class="filter-input" id="nutricion-valor-energetico" step="0.1" placeholder="250.0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CAMPOS ESPECÍFICOS PARA IMPLEMENTOS -->
+                    <div id="implemento-fields" style="display: none;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="implemento-peso">Peso (kg) *</label>
+                                <input type="number" class="filter-input" id="implemento-peso" required step="0.1" placeholder="5.0">
+                            </div>
+                            <div class="form-group">
+                                <label for="implemento-material">Material</label>
+                                <input type="text" class="filter-input" id="implemento-material" placeholder="Acero, Plástico, Caucho">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="implemento-dimensiones">Dimensiones</label>
+                                <input type="text" class="filter-input" id="implemento-dimensiones" placeholder="30x20x15 cm">
+                            </div>
+                            <div class="form-group">
+                                <label for="implemento-grupo-muscular">Grupo Muscular</label>
+                                <input type="text" class="filter-input" id="implemento-grupo-muscular" placeholder="Piernas, Brazos, Espalda">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="implemento-dificultad">Dificultad (1-10)</label>
+                                <input type="number" class="filter-input" id="implemento-dificultad" min="1" max="10" placeholder="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="implemento-rango-peso">Rango/Peso</label>
+                                <input type="text" class="filter-input" id="implemento-rango-peso" placeholder="2-10 kg">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="service-precio">Precio (USD) *</label>
+                            <input type="number" class="filter-input" id="service-precio" required step="0.01" placeholder="25.00">
+                        </div>
+                        <div class="form-group">
+                            <label for="service-beneficios">Beneficios</label>
+                            <textarea class="filter-input" id="service-beneficios" rows="2" placeholder="Beneficios del servicio..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeNewServiceModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveService()">Guardar Servicio</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentTab = 'terapias';
+        let currentServiceType = '';
+        let isEditing = false;
+        let editingCode = '';
+        let allServices = {
+            terapias: [],
+            nutricion: [],
+            implementos: []
+        };
+        let currentFilters = {
+            terapias: {},
+            nutricion: {},
+            implementos: {}
+        };
+
+        // ===== INICIALIZACIÓN =====
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔄 Panel de servicios cargado');
+            
+            // Cargar datos iniciales
+            loadStats();
+            loadTerapias();
+            
+            // Configurar eventos de logout
+            const logoutBtn = document.querySelector('a[href="/admin/logout"]');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = '/admin/logout';
+                });
+            }
+        });
+
+        // ===== FUNCIONES DE ESTADÍSTICAS =====
+        async function loadStats() {
+            console.log('📊 Cargando estadísticas de servicios...');
+            
+            try {
+                const response = await fetch('/api/admin/servicios/estadisticas', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const stats = data.data;
+                    
+                    // Actualizar banner
+                    document.getElementById('total-servicios').textContent = stats.total_servicios;
+                    document.getElementById('total-terapias').textContent = stats.terapias;
+                    document.getElementById('total-nutricion').textContent = stats.nutricion;
+                    document.getElementById('total-implementos').textContent = stats.implementos;
+                    
+                    // Actualizar cards
+                    document.getElementById('card-terapias').textContent = stats.terapias;
+                    document.getElementById('card-nutricion').textContent = stats.nutricion;
+                    document.getElementById('card-implementos').textContent = stats.implementos;
+                    document.getElementById('card-porciones').textContent = stats.total_porciones_nutricion;
+                    
+                    console.log('✅ Estadísticas cargadas:', stats);
+                } else {
+                    console.error('❌ Error en estadísticas:', data.error);
+                    showNotification('Error al cargar estadísticas', 'error');
+                }
+            } catch (error) {
+                console.error('❌ Error al cargar estadísticas:', error);
+                showNotification('Error de conexión', 'error');
+            }
+        }
+
+        // ===== FUNCIONES DE TERAPIAS =====
+        async function loadTerapias(filters = {}) {
+            console.log('💆 Cargando terapias...', filters);
+            
+            const terapiasTable = document.getElementById('terapias-table');
+            terapiasTable.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <h3>Cargando terapias...</h3>
+                </div>
+            `;
+            
+            try {
+                // Construir query string
+                const params = new URLSearchParams();
+                if (filters.nombre) params.append('nombre', filters.nombre);
+                if (filters.modalidad) params.append('modalidad', filters.modalidad);
+                if (filters.duracion_min) params.append('duracion_min', filters.duracion_min);
+                if (filters.duracion_max) params.append('duracion_max', filters.duracion_max);
+                
+                const response = await fetch(`/api/admin/servicios/terapias?${params.toString()}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    allServices.terapias = data.data;
+                    renderTerapiasTable(allServices.terapias);
+                    console.log(`✅ ${data.total} terapias cargadas`);
+                } else {
+                    console.error('❌ Error al cargar terapias:', data.error);
+                    showNotification('Error al cargar terapias', 'error');
+                    terapiasTable.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>Error al cargar terapias</h3>
+                            <p>${data.error || 'Intenta nuevamente'}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('❌ Error al cargar terapias:', error);
+                showNotification('Error de conexión', 'error');
+                terapiasTable.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Error de conexión</h3>
+                        <p>No se pudieron cargar las terapias</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderTerapiasTable(terapias) {
+            if (!terapias || terapias.length === 0) {
+                document.getElementById('terapias-table').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-hand-holding-medical"></i>
+                        <h3>No hay terapias registradas</h3>
+                        <p>Registra la primera terapia del sistema</p>
+                        <button class="btn btn-primary" onclick="openNewServiceModal('terapia')">
+                            <i class="fas fa-plus"></i> Crear Terapia
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            let tableHTML = `
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Modalidad</th>
+                                <th>Duración</th>
+                                <th>Terapeuta</th>
+                                <th>Precio</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            terapias.forEach(terapia => {
+                tableHTML += `
+                    <tr>
+                        <td><strong>${terapia.codigo}</strong></td>
+                        <td>${terapia.nombre}</td>
+                        <td><span class="service-type-badge">${terapia.modalidad || 'No especificada'}</span></td>
+                        <td>${terapia.duracion || '0'} min</td>
+                        <td>${terapia.terapeuta_disponible || 'No asignado'}</td>
+                        <td><span class="price-badge">$${terapia.precio || '0.00'}</span></td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-primary" onclick="editService('terapia', '${terapia.codigo}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-info" onclick="viewServiceDetails('terapia', '${terapia.codigo}')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += `
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer" style="margin-top: 20px; padding: 10px 0; display: flex; justify-content: space-between;">
+                    <div class="table-info">
+                        Mostrando ${terapias.length} terapia${terapias.length !== 1 ? 's' : ''}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('terapias-table').innerHTML = tableHTML;
+        }
+
+        function filterTerapias() {
+            const filters = {
+                nombre: document.getElementById('filter-terapia-nombre').value.trim(),
+                modalidad: document.getElementById('filter-terapia-modalidad').value.trim(),
+                duracion_min: document.getElementById('filter-terapia-duracion-min').value || null,
+                duracion_max: document.getElementById('filter-terapia-duracion-max').value || null
+            };
+            
+            currentFilters.terapias = filters;
+            loadTerapias(filters);
+        }
+
+        // ===== FUNCIONES DE NUTRICIÓN =====
+        async function loadNutricion(filters = {}) {
+            console.log('🍎 Cargando productos de nutrición...', filters);
+            
+            const nutricionTable = document.getElementById('nutricion-table');
+            nutricionTable.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <h3>Cargando productos de nutrición...</h3>
+                </div>
+            `;
+            
+            try {
+                // Construir query string
+                const params = new URLSearchParams();
+                if (filters.nombre) params.append('nombre', filters.nombre);
+                if (filters.sabor) params.append('sabor', filters.sabor);
+                if (filters.porciones_min) params.append('porciones_min', filters.porciones_min);
+                if (filters.porciones_max) params.append('porciones_max', filters.porciones_max);
+                
+                const response = await fetch(`/api/admin/servicios/nutricion?${params.toString()}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    allServices.nutricion = data.data;
+                    renderNutricionTable(allServices.nutricion);
+                    console.log(`✅ ${data.total} productos de nutrición cargados`);
+                } else {
+                    console.error('❌ Error al cargar nutrición:', data.error);
+                    showNotification('Error al cargar productos de nutrición', 'error');
+                    nutricionTable.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>Error al cargar productos</h3>
+                            <p>${data.error || 'Intenta nuevamente'}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('❌ Error al cargar nutrición:', error);
+                showNotification('Error de conexión', 'error');
+                nutricionTable.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Error de conexión</h3>
+                        <p>No se pudieron cargar los productos</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderNutricionTable(productos) {
+            if (!productos || productos.length === 0) {
+                document.getElementById('nutricion-table').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-apple-alt"></i>
+                        <h3>No hay productos de nutrición</h3>
+                        <p>Registra el primer producto de nutrición</p>
+                        <button class="btn btn-primary" onclick="openNewServiceModal('nutricion')">
+                            <i class="fas fa-plus"></i> Crear Producto
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            let tableHTML = `
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Sabores</th>
+                                <th>Porciones</th>
+                                <th>Proteínas (g)</th>
+                                <th>Precio</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            productos.forEach(producto => {
+                tableHTML += `
+                    <tr>
+                        <td><strong>${producto.codigo}</strong></td>
+                        <td>${producto.nombre}</td>
+                        <td><span class="service-type-badge">${producto.sabores || 'No especificado'}</span></td>
+                        <td><span class="price-badge">${producto.porciones || '0'}</span></td>
+                        <td>${producto.proteinas || '0.0'}</td>
+                        <td><span class="price-badge">$${producto.precio || '0.00'}</span></td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-primary" onclick="editService('nutricion', '${producto.codigo}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-info" onclick="viewServiceDetails('nutricion', '${producto.codigo}')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += `
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer" style="margin-top: 20px; padding: 10px 0; display: flex; justify-content: space-between;">
+                    <div class="table-info">
+                        Mostrando ${productos.length} producto${productos.length !== 1 ? 's' : ''}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('nutricion-table').innerHTML = tableHTML;
+        }
+
+        function filterNutricion() {
+            const filters = {
+                nombre: document.getElementById('filter-nutricion-nombre').value.trim(),
+                sabor: document.getElementById('filter-nutricion-sabor').value.trim(),
+                porciones_min: document.getElementById('filter-nutricion-porciones-min').value || null,
+                porciones_max: document.getElementById('filter-nutricion-porciones-max').value || null
+            };
+            
+            currentFilters.nutricion = filters;
+            loadNutricion(filters);
+        }
+
+        // ===== FUNCIONES DE IMPLEMENTOS =====
+        async function loadImplementos(filters = {}) {
+            console.log('🏋️ Cargando implementos...', filters);
+            
+            const implementosTable = document.getElementById('implementos-table');
+            implementosTable.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <h3>Cargando implementos...</h3>
+                </div>
+            `;
+            
+            try {
+                // Construir query string
+                const params = new URLSearchParams();
+                if (filters.nombre) params.append('nombre', filters.nombre);
+                if (filters.material) params.append('material', filters.material);
+                if (filters.grupo_muscular) params.append('grupo_muscular', filters.grupo_muscular);
+                if (filters.dificultad_min) params.append('dificultad_min', filters.dificultad_min);
+                if (filters.dificultad_max) params.append('dificultad_max', filters.dificultad_max);
+                
+                const response = await fetch(`/api/admin/servicios/implementos?${params.toString()}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    allServices.implementos = data.data;
+                    renderImplementosTable(allServices.implementos);
+                    console.log(`✅ ${data.total} implementos cargados`);
+                } else {
+                    console.error('❌ Error al cargar implementos:', data.error);
+                    showNotification('Error al cargar implementos', 'error');
+                    implementosTable.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>Error al cargar implementos</h3>
+                            <p>${data.error || 'Intenta nuevamente'}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('❌ Error al cargar implementos:', error);
+                showNotification('Error de conexión', 'error');
+                implementosTable.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Error de conexión</h3>
+                        <p>No se pudieron cargar los implementos</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderImplementosTable(implementos) {
+            if (!implementos || implementos.length === 0) {
+                document.getElementById('implementos-table').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-dumbbell"></i>
+                        <h3>No hay implementos registrados</h3>
+                        <p>Registra el primer implemento del sistema</p>
+                        <button class="btn btn-primary" onclick="openNewServiceModal('implemento')">
+                            <i class="fas fa-plus"></i> Crear Implemento
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            let tableHTML = `
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Material</th>
+                                <th>Grupo Muscular</th>
+                                <th>Peso (kg)</th>
+                                <th>Precio</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            implementos.forEach(implemento => {
+                tableHTML += `
+                    <tr>
+                        <td><strong>${implemento.codigo}</strong></td>
+                        <td>${implemento.nombre}</td>
+                        <td><span class="service-type-badge">${implemento.material || 'No especificado'}</span></td>
+                        <td>${implemento.grupo_muscular || 'General'}</td>
+                        <td><span class="price-badge">${implemento.peso || '0.0'} kg</span></td>
+                        <td><span class="price-badge">$${implemento.precio || '0.00'}</span></td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-primary" onclick="editService('implemento', '${implemento.codigo}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-info" onclick="viewServiceDetails('implemento', '${implemento.codigo}')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += `
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer" style="margin-top: 20px; padding: 10px 0; display: flex; justify-content: space-between;">
+                    <div class="table-info">
+                        Mostrando ${implementos.length} implemento${implementos.length !== 1 ? 's' : ''}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('implementos-table').innerHTML = tableHTML;
+        }
+
+        function filterImplementos() {
+            const filters = {
+                nombre: document.getElementById('filter-implemento-nombre').value.trim(),
+                material: document.getElementById('filter-implemento-material').value.trim(),
+                grupo_muscular: document.getElementById('filter-implemento-grupo').value.trim(),
+                dificultad_min: document.getElementById('filter-implemento-dificultad-min')?.value || null,
+                dificultad_max: document.getElementById('filter-implemento-dificultad-max')?.value || null,
+                peso_min: document.getElementById('filter-implemento-peso-min').value || null,
+                peso_max: document.getElementById('filter-implemento-peso-max').value || null
+            };
+            
+            currentFilters.implementos = filters;
+            loadImplementos(filters);
+        }
+
+        // ===== FUNCIONES DE TABS =====
+        function changeTab(tabName) {
+            console.log(`📁 Cambiando a pestaña: ${tabName}`);
+            
+            // Actualizar tabs activos
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Activar tab seleccionado
+            const activeTab = document.querySelector(`.tab[onclick*="${tabName}"]`);
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
+            
+            const activeContent = document.getElementById(tabName);
+            if (activeContent) {
+                activeContent.classList.add('active');
+            }
+            
+            currentTab = tabName;
+            
+            // Cargar datos según la pestaña
+            switch(tabName) {
+                case 'terapias':
+                    loadTerapias(currentFilters.terapias || {});
+                    break;
+                case 'nutricion':
+                    loadNutricion(currentFilters.nutricion || {});
+                    break;
+                case 'implementos':
+                    loadImplementos(currentFilters.implementos || {});
+                    break;
+            }
+        }
+
+        // ===== FUNCIONES DE FILTROS =====
+        function clearFilters(tab) {
+            switch(tab) {
+                case 'terapias':
+                    document.getElementById('filter-terapia-nombre').value = '';
+                    document.getElementById('filter-terapia-modalidad').value = '';
+                    document.getElementById('filter-terapia-duracion-min').value = '';
+                    document.getElementById('filter-terapia-duracion-max').value = '';
+                    currentFilters.terapias = {};
+                    loadTerapias();
+                    break;
+                case 'nutricion':
+                    document.getElementById('filter-nutricion-nombre').value = '';
+                    document.getElementById('filter-nutricion-sabor').value = '';
+                    document.getElementById('filter-nutricion-porciones-min').value = '';
+                    document.getElementById('filter-nutricion-porciones-max').value = '';
+                    currentFilters.nutricion = {};
+                    loadNutricion();
+                    break;
+                case 'implementos':
+                    document.getElementById('filter-implemento-nombre').value = '';
+                    document.getElementById('filter-implemento-material').value = '';
+                    document.getElementById('filter-implemento-grupo').value = '';
+                    document.getElementById('filter-implemento-peso-min').value = '';
+                    document.getElementById('filter-implemento-peso-max').value = '';
+                    currentFilters.implementos = {};
+                    loadImplementos();
+                    break;
+            }
+        }
+
+        // ===== FUNCIONES DE MODALES =====
+        function openNewServiceModal(serviceType) {
+            isEditing = false;
+            editingCode = '';
+            currentServiceType = serviceType;
+            
+            // Configurar título según tipo
+            let title = '';
+            switch(serviceType) {
+                case 'terapia':
+                    title = 'Nueva Terapia';
+                    break;
+                case 'nutricion':
+                    title = 'Nuevo Producto de Nutrición';
+                    break;
+                case 'implemento':
+                    title = 'Nuevo Implemento';
+                    break;
+            }
+            
+            document.getElementById('service-modal-title').textContent = title;
+            document.getElementById('service-type-hidden').value = serviceType;
+            
+            // Mostrar campos específicos
+            document.getElementById('terapia-fields').style.display = serviceType === 'terapia' ? 'block' : 'none';
+            document.getElementById('nutricion-fields').style.display = serviceType === 'nutricion' ? 'block' : 'none';
+            document.getElementById('implemento-fields').style.display = serviceType === 'implemento' ? 'block' : 'none';
+            
+            // Limpiar formulario
+            document.getElementById('serviceForm').reset();
+            
+            // Mostrar modal
+            document.getElementById('newServiceModal').classList.add('active');
+        }
+
+        function closeNewServiceModal() {
+            document.getElementById('newServiceModal').classList.remove('active');
+            isEditing = false;
+            editingCode = '';
+            currentServiceType = '';
+        }
+
+        // ===== FUNCIONES DE EDICIÓN =====
+        async function editService(serviceType, codigo) {
+            try {
+                let url = '';
+                switch(serviceType) {
+                    case 'terapia':
+                        url = `/api/admin/servicios/terapias/${codigo}`;
+                        break;
+                    case 'nutricion':
+                        url = `/api/admin/servicios/nutricion/${codigo}`;
+                        break;
+                    case 'implemento':
+                        url = `/api/admin/servicios/implementos/${codigo}`;
+                        break;
+                }
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const service = data.data;
+                    
+                    isEditing = true;
+                    editingCode = codigo;
+                    currentServiceType = serviceType;
+                    
+                    // Configurar título
+                    let title = '';
+                    switch(serviceType) {
+                        case 'terapia':
+                            title = 'Editar Terapia';
+                            break;
+                        case 'nutricion':
+                            title = 'Editar Producto de Nutrición';
+                            break;
+                        case 'implemento':
+                            title = 'Editar Implemento';
+                            break;
+                    }
+                    
+                    document.getElementById('service-modal-title').textContent = title;
+                    document.getElementById('service-type-hidden').value = serviceType;
+                    
+                    // Mostrar campos específicos
+                    document.getElementById('terapia-fields').style.display = serviceType === 'terapia' ? 'block' : 'none';
+                    document.getElementById('nutricion-fields').style.display = serviceType === 'nutricion' ? 'block' : 'none';
+                    document.getElementById('implemento-fields').style.display = serviceType === 'implemento' ? 'block' : 'none';
+                    
+                    // Llenar campos comunes
+                    document.getElementById('service-codigo').value = service.codigo;
+                    document.getElementById('service-codigo').readOnly = true; // No se puede editar el código
+                    document.getElementById('service-nombre').value = service.nombre;
+                    document.getElementById('service-descripcion').value = service.descripcion || '';
+                    document.getElementById('service-precio').value = service.precio || 0;
+                    document.getElementById('service-beneficios').value = service.beneficios || '';
+                    
+                    // Llenar campos específicos
+                    if (serviceType === 'terapia') {
+                        document.getElementById('terapia-duracion').value = service.duracion || '';
+                        document.getElementById('terapia-modalidad').value = service.modalidad || '';
+                        document.getElementById('terapia-inicio').value = service.inicio_jornada || '';
+                        document.getElementById('terapia-fin').value = service.final_jornada || '';
+                        document.getElementById('terapia-intensidad').value = service.intensidad || '';
+                        document.getElementById('terapia-equipamento').value = service.equipamento || '';
+                    } else if (serviceType === 'nutricion') {
+                        document.getElementById('nutricion-porciones').value = service.porciones || 1;
+                        document.getElementById('nutricion-sabores').value = service.sabores || '';
+                        document.getElementById('nutricion-proteinas').value = service.proteinas || 0;
+                        document.getElementById('nutricion-carbohidratos').value = service.carbohidratos || 0;
+                        document.getElementById('nutricion-grasas').value = service.grasas || 0;
+                        document.getElementById('nutricion-valor-energetico').value = service.valor_energetico || 0;
+                    } else if (serviceType === 'implemento') {
+                        document.getElementById('implemento-peso').value = service.peso || 0;
+                        document.getElementById('implemento-material').value = service.material || '';
+                        document.getElementById('implemento-dimensiones').value = service.dimensiones || '';
+                        document.getElementById('implemento-grupo-muscular').value = service.grupo_muscular || '';
+                        document.getElementById('implemento-dificultad').value = service.dificultad || 1;
+                        document.getElementById('implemento-rango-peso').value = service['rango/peso'] || '';
+                    }
+                    
+                    // Mostrar modal
+                    document.getElementById('newServiceModal').classList.add('active');
+                } else {
+                    showNotification(`Error: ${data.error}`, 'error');
+                }
+            } catch (error) {
+                console.error('Error al cargar servicio:', error);
+                showNotification('Error de conexión', 'error');
+            }
+        }
+
+        function viewServiceDetails(serviceType, codigo) {
+            // Por ahora solo redirige a edición
+            editService(serviceType, codigo);
+        }
+
+        // ===== FUNCIONES DE GUARDADO =====
+        async function saveService() {
+            const serviceType = document.getElementById('service-type-hidden').value;
+            const formData = {
+                codigo: document.getElementById('service-codigo').value,
+                nombre: document.getElementById('service-nombre').value,
+                descripcion: document.getElementById('service-descripcion').value,
+                precio: parseFloat(document.getElementById('service-precio').value) || 0,
+                beneficios: document.getElementById('service-beneficios').value
+            };
+            
+            // Agregar campos específicos
+            if (serviceType === 'terapia') {
+                formData.duracion = document.getElementById('terapia-duracion').value ? parseInt(document.getElementById('terapia-duracion').value) : null;
+                formData.modalidad = document.getElementById('terapia-modalidad').value;
+                formData.inicio_jornada = document.getElementById('terapia-inicio').value;
+                formData.final_jornada = document.getElementById('terapia-fin').value;
+                formData.intensidad = document.getElementById('terapia-intensidad').value;
+                formData.equipamento = document.getElementById('terapia-equipamento').value;
+            } else if (serviceType === 'nutricion') {
+                formData.porciones = parseInt(document.getElementById('nutricion-porciones').value) || 1;
+                formData.sabores = document.getElementById('nutricion-sabores').value;
+                formData.proteinas = parseFloat(document.getElementById('nutricion-proteinas').value) || 0;
+                formData.carbohidratos = parseFloat(document.getElementById('nutricion-carbohidratos').value) || 0;
+                formData.grasas = parseFloat(document.getElementById('nutricion-grasas').value) || 0;
+                formData.valor_energetico = parseFloat(document.getElementById('nutricion-valor-energetico').value) || 0;
+            } else if (serviceType === 'implemento') {
+                formData.peso = parseFloat(document.getElementById('implemento-peso').value) || 0;
+                formData.material = document.getElementById('implemento-material').value;
+                formData.dimensiones = document.getElementById('implemento-dimensiones').value;
+                formData.grupo_muscular = document.getElementById('implemento-grupo-muscular').value;
+                formData.dificultad = document.getElementById('implemento-dificultad').value ? parseInt(document.getElementById('implemento-dificultad').value) : 1;
+                formData.rango_peso = document.getElementById('implemento-rango-peso').value;
+            }
+            
+            try {
+                let url = '';
+                let method = 'POST';
+                
+                if (isEditing) {
+                    method = 'PUT';
+                    url = `/api/admin/servicios/${serviceType}s/${editingCode}`;
+                } else {
+                    url = `/api/admin/servicios/${serviceType}s`;
+                }
+                
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const action = isEditing ? 'actualizado' : 'creado';
+                    showNotification(`Servicio ${action} exitosamente`, 'success');
+                    closeNewServiceModal();
+                    
+                    // Recargar datos según la pestaña activa
+                    loadStats();
+                    switch(currentTab) {
+                        case 'terapias':
+                            loadTerapias(currentFilters.terapias);
+                            break;
+                        case 'nutricion':
+                            loadNutricion(currentFilters.nutricion);
+                            break;
+                        case 'implementos':
+                            loadImplementos(currentFilters.implementos);
+                            break;
+                    }
+                    
+                    // Restaurar estado del modal
+                    setTimeout(() => {
+                        document.getElementById('service-codigo').readOnly = false;
+                    }, 300);
+                } else {
+                    showNotification(`Error: ${data.error}`, 'error');
+                }
+            } catch (error) {
+                console.error('Error al guardar servicio:', error);
+                showNotification('Error de conexión', 'error');
+            }
+        }
+
+        // ===== FUNCIONES DE UTILIDAD =====
+        function showNotification(message, type = 'info') {
+            // Eliminar notificaciones existentes
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => {
+                notification.remove();
+            });
+            
+            // Crear nueva notificación
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            
+            let icon = 'fas fa-info-circle';
+            if (type === 'success') icon = 'fas fa-check-circle';
+            if (type === 'error') icon = 'fas fa-exclamation-circle';
+            
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="${icon}"></i>
+                    <span>${message}</span>
+                </div>
+                <button class="notification-close" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto-remover después de 5 segundos
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        // ===== FUNCIONES DE EXPORTACIÓN =====
+        function exportServices() {
+            showNotification('Funcionalidad de exportación en desarrollo', 'info');
+        }
+    </script>
+</body>
+</html>

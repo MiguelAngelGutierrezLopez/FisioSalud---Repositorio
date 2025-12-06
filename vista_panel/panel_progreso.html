@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FisioSalud - Mi Progreso</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== Variables ===== */
+        :root {
+            --primary: #0A2540;
+            --secondary: #00A3FF;
+            --accent: #00D4AA;
+            --background: #FFFFFF;
+            --background-alt: #F8FAFC;
+            --text: #0F172A;
+            --gray: #64748B;
+            --gray-light: #E2E8F0;
+            --gray-lighter: #F1F5F9;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --border-radius-sm: 4px;
+            --border-radius: 8px;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.2s ease;
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-alt);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ===== Sidebar ===== */
+        .sidebar {
+            width: 260px;
+            background-color: var(--primary);
+            color: white;
+            padding: var(--spacing-md) 0;
+            transition: var(--transition);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0 var(--spacing-md) var(--spacing-md);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-right: var(--spacing-sm);
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            padding: var(--spacing-sm) var(--spacing-md);
+            transition: var(--transition);
+        }
+
+        .nav-links li:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-links li.active {
+            background-color: rgba(255, 255, 255, 0.12);
+            border-left: 3px solid var(--secondary);
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .nav-links i {
+            margin-right: var(--spacing-sm);
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ===== Main Content ===== */
+        .main-content {
+            flex: 1;
+            padding: var(--spacing-lg);
+            overflow-y: auto;
+            background: var(--background-alt);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .header h2 {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--border-radius-sm);
+            margin-right: var(--spacing-sm);
+            border: 2px solid var(--secondary);
+            object-fit: cover;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .user-role {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* ===== Cards Grid ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .card {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-md);
+            transition: var(--transition);
+            border: 1px solid var(--gray-light);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .icon-primary {
+            background-color: var(--secondary);
+        }
+
+        .icon-danger {
+            background-color: var(--danger);
+        }
+
+        .icon-success {
+            background-color: var(--success);
+        }
+
+        .icon-warning {
+            background-color: var(--warning);
+        }
+
+        .card-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .card-description {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        /* ===== Tabs ===== */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-light);
+            margin-bottom: var(--spacing-md);
+            background: var(--background);
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            padding: 0 var(--spacing-md);
+        }
+
+        .tab {
+            padding: var(--spacing-sm) var(--spacing-md);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .tab.active {
+            border-bottom: 2px solid var(--secondary);
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .tab:hover:not(.active) {
+            color: var(--secondary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ===== Form Container ===== */
+        .form-container {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            border: 1px solid var(--gray-light);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 500;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 163, 255, 0.1);
+        }
+
+        .form-row {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* ===== Charts ===== */
+        .chart-container {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            border: 1px solid var(--gray-light);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .chart {
+            height: 300px;
+            position: relative;
+        }
+
+        .chart-placeholder {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--gray-lighter);
+            border-radius: var(--border-radius);
+            color: var(--gray);
+            font-style: italic;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .chart-placeholder i {
+            font-size: 3rem;
+            color: var(--gray-light);
+        }
+
+        /* ===== Calendar ===== */
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: var(--spacing-xs);
+        }
+
+        .calendar-header {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: var(--spacing-sm);
+            background-color: var(--primary);
+            color: white;
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+        }
+
+        .calendar-day {
+            background-color: var(--background);
+            border-radius: var(--border-radius-sm);
+            padding: var(--spacing-sm);
+            text-align: center;
+            min-height: 80px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-light);
+            font-size: 0.9rem;
+        }
+
+        .calendar-day.other-month {
+            color: var(--gray-light);
+            background-color: var(--gray-lighter);
+        }
+
+        .calendar-day.today {
+            background-color: rgba(0, 212, 170, 0.1);
+            border: 1px solid var(--accent);
+        }
+
+        .calendar-day.session {
+            background-color: rgba(0, 163, 255, 0.1);
+            border: 1px solid var(--secondary);
+        }
+
+        .calendar-day.metric-recorded {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+        }
+
+        .calendar-event {
+            background-color: var(--secondary);
+            color: white;
+            padding: 2px 6px;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.75rem;
+            margin-top: var(--spacing-xs);
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ===== Empty State ===== */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xl) var(--spacing-md);
+            color: var(--gray);
+            background: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-light);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--gray-light);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .empty-state h4 {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .empty-state p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* ===== Progress Bar ===== */
+        .progress-container {
+            margin: var(--spacing-md) 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-xs);
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: var(--gray-lighter);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success);
+            border-radius: 4px;
+        }
+
+        /* ===== Metrics Grid ===== */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .metric-card {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-md);
+            text-align: center;
+            border: 1px solid var(--gray-light);
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .metric-label {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .metric-trend {
+            font-size: 0.8rem;
+            margin-top: var(--spacing-xs);
+            font-weight: 600;
+        }
+
+        .trend-up {
+            color: var(--success);
+        }
+
+        .trend-down {
+            color: var(--danger);
+        }
+
+        .trend-neutral {
+            color: var(--warning);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+            
+            .main-content {
+                padding: var(--spacing-md);
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar {
+                grid-template-columns: repeat(7, 1fr);
+                font-size: 0.8rem;
+            }
+            
+            .calendar-day {
+                min-height: 60px;
+                padding: var(--spacing-xs);
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                text-align: center;
+            }
+            
+            .user-info {
+                justify-content: center;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-header {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">FS</div>
+                <div class="logo-text">FisioSalud</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/panel_citas"><i class="fas fa-calendar-alt"></i> Mis Citas</a></li>
+                <li><a href="/panel_ejercicios"><i class="fas fa-dumbbell"></i> Mis Ejercicios</a></li>
+                <li class="active"><a href="/panel_progreso"><i class="fas fa-chart-line"></i> Mi Progreso</a></li>
+                <li><a href="/panel_mercado"><i class="fas fa-shopping-bag"></i> Mis Productos</a></li>
+                <li><a href="/inicio"><i class="fas fa-home"></i> Volver al Menú</a></li>                
+                <li><a href="/logout_user"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h2>Gestión de Citas Médicas</h2>
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/150?img=5" alt="Usuario" id="user-avatar">
+                    <div class="user-details">
+                        <div class="user-name" id="user-name">{{ usuario.nombre if usuario else 'Cargando...' }}</div>
+                        <div class="user-role">Paciente</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Sesiones Completadas</div>
+                        <div class="card-icon icon-primary">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="completed-sessions">-/-</div>
+                    <div class="card-description">Aún no se han registrado sesiones</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Nivel de Dolor Promedio</div>
+                        <div class="card-icon icon-danger">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="pain-level">-/10</div>
+                    <div class="card-description">Aún no se han registrado métricas de dolor</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Movilidad Mejorada</div>
+                        <div class="card-icon icon-success">
+                            <i class="fas fa-running"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="mobility-improvement">-</div>
+                    <div class="card-description">Aún no se han registrado métricas de movilidad</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Días de Tratamiento</div>
+                        <div class="card-icon icon-warning">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="treatment-days">-</div>
+                    <div class="card-description">Sin fecha de inicio registrada</div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tab active" onclick="changeProgressTab('metricas')">Métricas</div>
+                <div class="tab" onclick="changeProgressTab('graficos')">Gráficos</div>
+                <div class="tab" onclick="changeProgressTab('calendario')">Calendario</div>
+            </div>
+
+            <!-- Tab Content: Métricas -->
+            <div id="metricas" class="tab-content active">
+                <div class="form-container">
+                    <div class="form-group">
+                        <label class="form-label">Período de Comparación</label>
+                        <select class="form-control" id="comparison-period">
+                            <option value="week">Última Semana</option>
+                            <option value="month">Último Mes</option>
+                            <option value="treatment" selected>Desde Inicio del Tratamiento</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="empty-state" id="no-metrics-data">
+                    <i class="fas fa-chart-bar"></i>
+                    <h4>No hay métricas registradas</h4>
+                    <p>Comienza registrando tus métricas diarias para ver tu progreso</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Resumen de Progreso</div>
+                        <button class="btn btn-outline" id="export-metrics-btn" disabled>
+                            <i class="fas fa-download"></i> Exportar Reporte
+                        </button>
+                    </div>
+                    <div class="empty-state" style="padding: var(--spacing-md);">
+                        <i class="fas fa-chart-line"></i>
+                        <p>Aún no hay datos de progreso para mostrar</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Gráficos -->
+            <div id="graficos" class="tab-content">
+                <div class="form-container">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Tipo de Gráfico</label>
+                            <select class="form-control" id="chart-type">
+                                <option value="pain">Nivel de Dolor</option>
+                                <option value="mobility">Movilidad</option>
+                                <option value="strength">Fuerza</option>
+                                <option value="compliance">Cumplimiento</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Período</label>
+                            <select class="form-control" id="chart-period">
+                                <option value="week">Última Semana</option>
+                                <option value="month" selected>Último Mes</option>
+                                <option value="treatment">Todo el Tratamiento</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Evolución del Nivel de Dolor</div>
+                        <button class="btn btn-outline" disabled>
+                            <i class="fas fa-download"></i> Exportar Gráfico
+                        </button>
+                    </div>
+                    <div class="chart">
+                        <div class="chart-placeholder">
+                            <i class="fas fa-chart-line"></i>
+                            <p>No hay datos para mostrar</p>
+                            <p style="font-size: 0.9rem;">Aún no se han registrado métricas de dolor</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Comparativa de Movilidad</div>
+                    </div>
+                    <div class="chart">
+                        <div class="chart-placeholder">
+                            <i class="fas fa-chart-bar"></i>
+                            <p>No hay datos para mostrar</p>
+                            <p style="font-size: 0.9rem;">Aún no se han registrado métricas de movilidad</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Calendario -->
+            <div id="calendario" class="tab-content">
+                <div class="form-container">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Mes</label>
+                            <select class="form-control" id="calendar-month">
+                                <option value="0">Enero</option>
+                                <option value="1">Febrero</option>
+                                <option value="2">Marzo</option>
+                                <option value="3">Abril</option>
+                                <option value="4" selected>Mayo</option>
+                                <option value="5">Junio</option>
+                                <option value="6">Julio</option>
+                                <option value="7">Agosto</option>
+                                <option value="8">Septiembre</option>
+                                <option value="9">Octubre</option>
+                                <option value="10">Noviembre</option>
+                                <option value="11">Diciembre</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Año</label>
+                            <select class="form-control" id="calendar-year">
+                                <option value="2023">2023</option>
+                                <option value="2024" selected>2024</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Calendario de Tratamiento</div>
+                    </div>
+                    <div class="calendar" id="treatment-calendar">
+                        <!-- El calendario se generará dinámicamente -->
+                    </div>
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h4>No hay eventos de tratamiento</h4>
+                        <p>Las sesiones y registros aparecerán aquí cuando estén programados</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para cambiar entre pestañas de progreso
+        function changeProgressTab(tabName) {
+            // Ocultar todos los contenidos de pestañas
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostrar el contenido de la pestaña seleccionada
+            document.getElementById(tabName).classList.add('active');
+            
+            // Actualizar pestañas activas
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            event.currentTarget.classList.add('active');
+            
+            // Si es la pestaña de calendario, generarlo vacío
+            if (tabName === 'calendario') {
+                generateEmptyCalendar();
+            }
+        }
+
+        // Función para generar calendario vacío
+        function generateEmptyCalendar() {
+            const calendar = document.getElementById('treatment-calendar');
+            const monthSelect = document.getElementById('calendar-month');
+            const yearSelect = document.getElementById('calendar-year');
+            
+            const month = parseInt(monthSelect.value);
+            const year = parseInt(yearSelect.value);
+            
+            const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                               "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            
+            const today = new Date();
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDay = firstDay.getDay(); // 0 = Domingo, 1 = Lunes, etc.
+            
+            // Ajustar para que la semana empiece en lunes
+            const startOffset = startingDay === 0 ? 6 : startingDay - 1;
+            
+            let calendarHTML = `
+                <div class="calendar-header">${monthNames[month]} ${year} - Mi Tratamiento</div>
+                <div class="calendar-day">Lun</div>
+                <div class="calendar-day">Mar</div>
+                <div class="calendar-day">Mié</div>
+                <div class="calendar-day">Jue</div>
+                <div class="calendar-day">Vie</div>
+                <div class="calendar-day">Sáb</div>
+                <div class="calendar-day">Dom</div>
+            `;
+            
+            // Días del mes anterior
+            const prevMonthLastDay = new Date(year, month, 0).getDate();
+            for (let i = 0; i < startOffset; i++) {
+                const day = prevMonthLastDay - startOffset + i + 1;
+                calendarHTML += `<div class="calendar-day other-month">${day}</div>`;
+            }
+            
+            // Días del mes actual (todos vacíos)
+            for (let i = 1; i <= daysInMonth; i++) {
+                const currentDate = new Date(year, month, i);
+                const isToday = currentDate.toDateString() === today.toDateString();
+                
+                calendarHTML += `
+                    <div class="calendar-day ${isToday ? 'today' : ''}">
+                        ${i}
+                    </div>
+                `;
+            }
+            
+            // Días del mes siguiente
+            const totalCells = 42; // 6 semanas * 7 días
+            const remainingCells = totalCells - (startOffset + daysInMonth);
+            for (let i = 1; i <= remainingCells; i++) {
+                calendarHTML += `<div class="calendar-day other-month">${i}</div>`;
+            }
+            
+            calendar.innerHTML = calendarHTML;
+        }
+
+        // Inicializar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generar calendario vacío
+            generateEmptyCalendar();
+            
+            // Configurar botón de exportación (deshabilitado)
+            document.getElementById('export-metrics-btn').addEventListener('click', function() {
+                alert('Funcionalidad de exportación preparada para integración con backend');
+            });
+        });
+    </script>
+</body>
+</html>

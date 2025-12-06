@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FisioSalud - Mi Panel</title>
+    <style>
+        :root {
+            --primary-color: #2c7fb8;
+            --secondary-color: #7fcdbb;
+            --accent-color: #edf8b1;
+            --dark-color: #253237;
+            --light-color: #f8f9fa;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(to bottom, var(--primary-color), #1a5a8a);
+            color: white;
+            padding: 20px 0;
+            transition: all 0.3s;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            padding: 12px 20px;
+            transition: all 0.3s;
+        }
+
+        .nav-links li:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links li.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .header h2 {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        /* Welcome Banner */
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .welcome-banner h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .welcome-banner p {
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .bg-primary {
+            background-color: var(--primary-color);
+        }
+
+        .bg-success {
+            background-color: var(--success-color);
+        }
+
+        .bg-warning {
+            background-color: var(--warning-color);
+        }
+
+        .bg-danger {
+            background-color: var(--danger-color);
+        }
+
+        .card-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .card-description {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        /* Tables */
+        .table-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success-color);
+        }
+
+        .status-pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: var(--warning-color);
+        }
+
+        .status-inactive {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger-color);
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1a5a8a;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            border-bottom: 3px solid var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Treatment Progress */
+        .treatment-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .treatment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .treatment-info h3 {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .treatment-info p {
+            color: #6c757d;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 15px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success-color);
+            border-radius: 5px;
+        }
+
+        .next-session {
+            background-color: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            margin-top: 15px;
+        }
+
+        /* Exercises */
+        .exercises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .exercise-card {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .exercise-card h4 {
+            margin-bottom: 8px;
+            color: var(--dark-color);
+        }
+
+        .exercise-card p {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+
+        /* Calendar */
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .calendar-header {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+        }
+
+        .calendar-day {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 10px;
+            text-align: center;
+            min-height: 80px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .calendar-day.other-month {
+            color: #adb5bd;
+        }
+
+        .calendar-day.today {
+            background-color: var(--accent-color);
+        }
+
+        .calendar-event {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar {
+                grid-template-columns: repeat(7, 1fr);
+                font-size: 0.8rem;
+            }
+            
+            .calendar-day {
+                min-height: 60px;
+            }
+            
+            .exercises-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-heartbeat fa-2x"></i>
+                <h1>FisioSalud</h1>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Mi Panel</a></li>
+                <li><a href="#"><i class="fas fa-calendar-alt"></i> Mis Citas</a></li>
+                <li><a href="#"><i class="fas fa-file-medical"></i> Mi Tratamiento</a></li>
+                <li><a href="#"><i class="fas fa-chart-line"></i> Mi Progreso</a></li>
+                <li><a href="#"><i class="fas fa-dumbbell"></i> Mis Ejercicios</a></li>
+                <li><a href="#"><i class="fas fa-user-md"></i> Mi Médico</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Configuración</a></li>
+                <li><a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h2>Mi Panel de Paciente</h2>
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/150?img=5" alt="Usuario">
+                    <div>
+                        <div>Carlos Rodríguez</div>
+                        <div style="font-size: 0.8rem; color: #6c757d;">Paciente</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <h3>¡Bienvenido de nuevo, Carlos!</h3>
+                <p>Tu próxima cita es hoy a las 10:30 AM con el Dr. Javier López. No olvides realizar tus ejercicios de hoy.</p>
+                <button class="btn" style="background-color: white; color: var(--primary-color);">
+                    <i class="fas fa-dumbbell"></i> Ver ejercicios de hoy
+                </button>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Próxima Cita</div>
+                        <div class="card-icon bg-primary">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">Hoy, 10:30 AM</div>
+                    <div class="card-description">Dr. Javier López</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Sesiones Completadas</div>
+                        <div class="card-icon bg-success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">8/12</div>
+                    <div class="card-description">67% del tratamiento</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Ejercicios Pendientes</div>
+                        <div class="card-icon bg-warning">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">3</div>
+                    <div class="card-description">Para hoy</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Días de Tratamiento</div>
+                        <div class="card-icon bg-danger">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">42</div>
+                    <div class="card-description">Desde el 10/05/2023</div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tab active" onclick="changeTab('tratamiento')">Mi Tratamiento</div>
+                <div class="tab" onclick="changeTab('citas')">Mis Citas</div>
+                <div class="tab" onclick="changeTab('progreso')">Mi Progreso</div>
+            </div>
+
+            <!-- Tab Content: Tratamiento -->
+            <div id="tratamiento" class="tab-content active">
+                <div class="treatment-card">
+                    <div class="treatment-header">
+                        <div class="treatment-info">
+                            <h3>Tratamiento de Lumbalgia</h3>
+                            <p>Dr. Javier López • Iniciado: 10/05/2023</p>
+                        </div>
+                        <div class="treatment-actions">
+                            <button class="btn btn-outline">
+                                <i class="fas fa-download"></i> Descargar Informe
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Progreso general del tratamiento</span>
+                            <span>67%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 67%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="next-session">
+                        <h4><i class="fas fa-calendar-alt"></i> Próxima sesión</h4>
+                        <p><strong>Fecha:</strong> Hoy, 15/06/2023</p>
+                        <p><strong>Hora:</strong> 10:30 AM</p>
+                        <p><strong>Lugar:</strong> Consultorio 3, FisioSalud Centro</p>
+                    </div>
+                </div>
+                
+                <div class="treatment-card">
+                    <div class="treatment-header">
+                        <div class="treatment-info">
+                            <h3>Ejercicios para Hoy</h3>
+                            <p>Realiza estos ejercicios antes de tu cita</p>
+                        </div>
+                    </div>
+                    
+                    <div class="exercises-grid">
+                        <div class="exercise-card">
+                            <h4>Estiramiento Lumbar</h4>
+                            <p>3 series de 10 repeticiones</p>
+                            <button class="btn btn-primary" style="padding: 5px 10px; font-size: 0.8rem;">
+                                <i class="fas fa-play-circle"></i> Ver Demo
+                            </button>
+                        </div>
+                        
+                        <div class="exercise-card">
+                            <h4>Puente de Cadera</h4>
+                            <p>3 series de 12 repeticiones</p>
+                            <button class="btn btn-primary" style="padding: 5px 10px; font-size: 0.8rem;">
+                                <i class="fas fa-play-circle"></i> Ver Demo
+                            </button>
+                        </div>
+                        
+                        <div class="exercise-card">
+                            <h4>Plancha Abdominal</h4>
+                            <p>3 series de 30 segundos</p>
+                            <button class="btn btn-primary" style="padding: 5px 10px; font-size: 0.8rem;">
+                                <i class="fas fa-play-circle"></i> Ver Demo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Citas -->
+            <div id="citas" class="tab-content">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Mis Próximas Citas</h3>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Solicitar Cita
+                        </button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Médico</th>
+                                <th>Tipo</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>15/06/2023</td>
+                                <td>10:30 AM</td>
+                                <td>Dr. Javier López</td>
+                                <td>Seguimiento</td>
+                                <td><span class="status status-active">Confirmada</span></td>
+                                <td>
+                                    <button class="btn btn-outline">Ver detalles</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>22/06/2023</td>
+                                <td>11:00 AM</td>
+                                <td>Dr. Javier López</td>
+                                <td>Rehabilitación</td>
+                                <td><span class="status status-active">Confirmada</span></td>
+                                <td>
+                                    <button class="btn btn-outline">Ver detalles</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>29/06/2023</td>
+                                <td>10:00 AM</td>
+                                <td>Dr. Javier López</td>
+                                <td>Evaluación</td>
+                                <td><span class="status status-pending">Por confirmar</span></td>
+                                <td>
+                                    <button class="btn btn-outline">Ver detalles</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Historial de Citas</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Médico</th>
+                                <th>Diagnóstico</th>
+                                <th>Notas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>08/06/2023</td>
+                                <td>Dr. Javier López</td>
+                                <td>Mejora movilidad lumbar</td>
+                                <td>Continuar con ejercicios</td>
+                            </tr>
+                            <tr>
+                                <td>01/06/2023</td>
+                                <td>Dr. Javier López</td>
+                                <td>Dolor lumbar disminuido</td>
+                                <td>Incrementar intensidad ejercicios</td>
+                            </tr>
+                            <tr>
+                                <td>25/05/2023</td>
+                                <td>Dr. Javier López</td>
+                                <td>Progreso satisfactorio</td>
+                                <td>Mantener rutina actual</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab Content: Progreso -->
+            <div id="progreso" class="tab-content">
+                <div class="treatment-card">
+                    <div class="treatment-header">
+                        <div class="treatment-info">
+                            <h3>Mi Progreso</h3>
+                            <p>Seguimiento de mi evolución durante el tratamiento</p>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Reducción del dolor (escala 1-10)</span>
+                            <span>De 8 a 3</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 62.5%; background-color: var(--success-color);"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Movilidad lumbar recuperada</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%; background-color: var(--primary-color);"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Fuerza muscular</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%; background-color: var(--warning-color);"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="treatment-card">
+                    <div class="treatment-header">
+                        <div class="treatment-info">
+                            <h3>Mi Calendario de Tratamiento</h3>
+                            <p>Junio 2023</p>
+                        </div>
+                    </div>
+                    
+                    <div class="calendar">
+                        <div class="calendar-header">Junio 2023 - Mi Tratamiento</div>
+                        <div class="calendar-day">Lun</div>
+                        <div class="calendar-day">Mar</div>
+                        <div class="calendar-day">Mié</div>
+                        <div class="calendar-day">Jue</div>
+                        <div class="calendar-day">Vie</div>
+                        <div class="calendar-day">Sáb</div>
+                        <div class="calendar-day">Dom</div>
+                        
+                        <div class="calendar-day other-month">29</div>
+                        <div class="calendar-day other-month">30</div>
+                        <div class="calendar-day other-month">31</div>
+                        <div class="calendar-day">1</div>
+                        <div class="calendar-day">2</div>
+                        <div class="calendar-day">3</div>
+                        <div class="calendar-day">4</div>
+                        
+                        <div class="calendar-day">5</div>
+                        <div class="calendar-day">6</div>
+                        <div class="calendar-day">7</div>
+                        <div class="calendar-day">8 <div class="calendar-event">Cita</div></div>
+                        <div class="calendar-day">9</div>
+                        <div class="calendar-day">10</div>
+                        <div class="calendar-day">11</div>
+                        
+                        <div class="calendar-day">12</div>
+                        <div class="calendar-day">13</div>
+                        <div class="calendar-day">14</div>
+                        <div class="calendar-day today">15 <div class="calendar-event">Cita Hoy</div></div>
+                        <div class="calendar-day">16</div>
+                        <div class="calendar-day">17</div>
+                        <div class="calendar-day">18</div>
+                        
+                        <div class="calendar-day">19</div>
+                        <div class="calendar-day">20</div>
+                        <div class="calendar-day">21</div>
+                        <div class="calendar-day">22 <div class="calendar-event">Cita</div></div>
+                        <div class="calendar-day">23</div>
+                        <div class="calendar-day">24</div>
+                        <div class="calendar-day">25</div>
+                        
+                        <div class="calendar-day">26</div>
+                        <div class="calendar-day">27</div>
+                        <div class="calendar-day">28</div>
+                        <div class="calendar-day">29 <div class="calendar-event">Cita</div></div>
+                        <div class="calendar-day">30</div>
+                        <div class="calendar-day other-month">1</div>
+                        <div class="calendar-day other-month">2</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeTab(tabName) {
+            // Ocultar todos los contenidos de pestañas
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostrar el contenido de la pestaña seleccionada
+            document.getElementById(tabName).classList.add('active');
+            
+            // Actualizar pestañas activas
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>

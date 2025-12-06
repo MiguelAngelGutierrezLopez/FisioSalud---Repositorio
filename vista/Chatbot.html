@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FisioBot | Asistente Virtual Inteligente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* === ESTILOS DEL PRIMER HTML (PÁGINA PRINCIPAL) === */
+        :root {
+            --primary: #0A2540;
+            --primary-dark: #061A2C;
+            --primary-light: #1A365D;
+            --secondary: #00A3FF;
+            --accent: #00D4AA;
+            --light: #FFFFFF;
+            --light-gray: #F8FAFC;
+            --gray: #64748B;
+            --dark: #0F172A;
+            --border-radius: 8px;
+            --border-radius-sm: 4px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: var(--light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--secondary);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            min-width: 120px;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: #0092E0;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* User Dropdown Styles */
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .user-menu-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 220px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            padding: 8px 0;
+            margin-top: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s;
+            z-index: 1000;
+            border: 1px solid #F1F5F9;
+        }
+
+        .user-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: var(--light-gray);
+        }
+
+        .dropdown-item i {
+            width: 16px;
+            color: var(--gray);
+            text-align: center;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--light-gray);
+            margin: 8px 0;
+        }
+
+        .dropdown-item.logout {
+            color: #dc2626;
+        }
+
+        .dropdown-item.logout i {
+            color: #dc2626;
+        }
+
+        /* Hero Section para chatbot */
+        .chatbot-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 160px 0 80px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .chatbot-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><polygon points="0,0 1000,0 1000,1000" fill="white"/></svg>');
+            background-size: cover;
+        }
+
+        .chatbot-hero .container {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            width: fit-content;
+            margin: 0 auto 24px;
+        }
+
+        .chatbot-hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .chatbot-hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto 32px;
+        }
+
+        /* Main Chat Container */
+        .main-chat-section {
+            padding: 80px 0;
+            background: var(--light-gray);
+        }
+
+        .chat-wrapper {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid #F1F5F9;
+            height: 70vh;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header-fixed {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .bot-avatar {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .header-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .header-info p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* Messages Container */
+        .messages-container {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            background: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 15px 20px;
+            border-radius: 12px;
+            line-height: 1.5;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bot-message {
+            background: var(--light);
+            border: 1px solid #e2e8f0;
+            align-self: flex-start;
+            border-top-left-radius: 4px;
+        }
+
+        .user-message {
+            background: var(--secondary);
+            color: white;
+            align-self: flex-end;
+            border-top-right-radius: 4px;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 8px;
+            text-align: right;
+        }
+
+        /* Input Area */
+        .input-container {
+            padding: 20px 24px;
+            border-top: 1px solid #e2e8f0;
+            background: white;
+            display: flex;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        #user-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #user-input:focus {
+            border-color: var(--secondary);
+        }
+
+        #send-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        #send-btn:hover:not(:disabled) {
+            background: #0092E0;
+            transform: translateY(-2px);
+        }
+
+        #send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Suggestions */
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .suggestion {
+            background: var(--light-gray);
+            border: 1px solid var(--secondary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            color: var(--primary);
+            transition: all 0.2s;
+        }
+
+        .suggestion:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* Links */
+        .links {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #e2e8f0;
+        }
+
+        .link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--secondary);
+            text-decoration: none;
+            margin-right: 15px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            text-align: center;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid #F1F5F9;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--light-gray);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 1.8rem;
+            margin: 0 auto;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 60px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-column h3 {
+            color: var(--light);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .social-icon:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Login buttons in footer */
+        .login-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-login {
+            padding: 10px 16px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn-patient {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-patient:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-staff {
+            background: var(--accent);
+            color: var(--primary);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-staff:hover {
+            background: #00C299;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .chatbot-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .chat-wrapper {
+                height: 65vh;
+                min-height: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chat-header-fixed {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .header-left {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+            
+            .suggestions {
+                flex-direction: column;
+            }
+            
+            .suggestion {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .chat-wrapper {
+                height: 75vh;
+                min-height: 400px;
+            }
+            
+            .login-buttons {
+                flex-direction: column;
+            }
+
+            .btn-login {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (igual al primer HTML) -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <div class="logo-icon">FS</div>
+                    <div class="logo-text">FisioSalud</div>
+                </div>
+                <nav class="nav-menu">
+                    <a href="/" class="nav-link">Inicio</a>
+                    <a href="/servicios" class="nav-link">Servicios</a>
+                    <a href="/fisiobot" class="nav-link active">FisioBot</a>
+                    <a href="/nosotros" class="nav-link">Nosotros</a>
+                    <a href="/contacto" class="nav-link">Contacto</a>
+                </nav>
+                <div class="nav-actions">
+                    {% if request.session.get('usuario') and request.session.usuario.get('logged_in') %}
+                    <!-- Mostrar dropdown cuando el usuario está logueado -->
+                    <div class="user-dropdown">
+                        <button class="user-menu-btn">
+                            <i class="fas fa-user-circle"></i>
+                            {{ request.session.usuario.nombre }}
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="/panel_citas" class="dropdown-item">
+                                <i class="fas fa-calendar-check"></i> Mis Citas
+                            </a>
+                            <a href="/panel_ejercicios" class="dropdown-item">
+                                <i class="fas fa-running"></i> Ejercicios Pendientes
+                            </a>
+                            <a href="/panel_progreso" class="dropdown-item">
+                                <i class="fas fa-chart-line"></i> Mi Progreso
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/logout_user" class="dropdown-item logout">
+                                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                            </a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <!-- Mostrar botones de registro/login cuando no hay sesión -->
+                    <a href="/registro" class="btn btn-outline">Registrate</a>
+                    <a href="/login_user" class="btn btn-outline">Iniciar Sesión</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section para Chatbot -->
+    <section class="chatbot-hero">
+        <div class="container">
+            <div class="ai-badge">
+                <i class="fas fa-robot"></i>
+                <span>ASISTENTE VIRTUAL INTELIGENTE</span>
+            </div>
+            <h1>FisioBot: Tu compañero de recuperación 24/7</h1>
+            <p>Habla con nuestro asistente especializado en fisioterapia. Resuelve dudas, recibe guía personalizada y obtén recomendaciones para optimizar tu tratamiento desde cualquier lugar.</p>
+        </div>
+    </section>
+
+    <!-- Main Chat Section -->
+    <section class="main-chat-section">
+        <div class="container">
+            <div class="chat-wrapper">
+                <!-- Chat Header -->
+                <div class="chat-header-fixed">
+                    <div class="header-left">
+                        <div class="bot-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="header-info">
+                            <h2>FisioBot</h2>
+                            <p>Tu asistente virtual de FisioSalud</p>
+                        </div>
+                    </div>
+                    <div class="status">
+                        <div class="status-dot"></div>
+                        <span>En línea - Disponible 24/7</span>
+                    </div>
+                </div>
+                
+                <!-- Messages Container -->
+                <div class="messages-container" id="messages-container">
+                    <!-- Mensajes aparecerán aquí dinámicamente -->
+                </div>
+                
+                <!-- Input Area -->
+                <div class="input-container">
+                    <div class="input-wrapper">
+                        <input type="text" id="user-input" placeholder="Escribe tu pregunta aquí..." autocomplete="off">
+                    </div>
+                    <button id="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Capacidades de FisioBot</div>
+                <h2 class="section-title">¿Qué puede hacer tu asistente virtual?</h2>
+                <p class="section-subtitle">FisioBot está entrenado específicamente para ayudarte en todo lo relacionado con fisioterapia y recuperación física.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comment-medical"></i>
+                    </div>
+                    <h3>Asesoría Inmediata</h3>
+                    <p>Responde preguntas sobre tratamientos, síntomas, ejercicios y cuidados postoperatorios en tiempo real.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Gestión de Citas</h3>
+                    <p>Te ayuda a agendar, reprogramar o cancelar citas con nuestros especialistas de manera sencilla.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Guía de Ejercicios</h3>
+                    <p>Proporciona rutinas personalizadas y corrige la técnica mediante descripciones detalladas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (igual al primer HTML) -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <div class="logo">
+                            <div class="logo-icon">FS</div>
+                            <div class="logo-text">FisioSalud</div>
+                        </div>
+                    </div>
+                    <p class="footer-description">Líderes en rehabilitación digital con más de 15 años de experiencia transformando vidas a través de tratamientos personalizados y tecnología de vanguardia.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <!-- Login buttons -->
+                    <div class="login-buttons">
+                        <button class="btn-login btn-patient" onclick="location.href='/panel_fisio'">
+                            <i class="fas fa-user-injured"></i> Acceso Fisioterapeuta
+                        </button>
+                        <button class="btn-login btn-staff" onclick="location.href='/administrador'">
+                            <i class="fas fa-user-md"></i> Acceso Administrador
+                        </button>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Servicios</h3>
+                    <div class="footer-links">
+                        <a href="/servicios_terapia">Terapia Física</a>
+                        <a href="/implementos">Implementos Terapéuticos</a>
+                        <a href="/nutricionales">Nutrición y Suplementos</a>
+                        <a href="/fisiobot">FisioBot AI</a>
+                        <a href="#">Consultas Virtuales</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Empresa</h3>
+                    <div class="footer-links">
+                        <a href="/nosotros">Nosotros</a>
+                        <a href="#">Equipo</a>
+                        <a href="#">Tecnología</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Carreras</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <div class="footer-links">
+                        <a href="tel:3202914521"><i class="fas fa-phone"></i> 320 2914521</a>
+                        <a href="mailto:info@fisiosalud.com"><i class="fas fa-envelope"></i> info@fisiosalud.com</a>
+                        <a href="#"><i class="fas fa-map-marker-alt"></i> Av. Salud #123, Bogotá</a>
+                        <a href="#"><i class="fas fa-clock"></i> Lun-Vie: 7am-8pm</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 FisioSalud. Todos los derechos reservados. | <a href="#" style="color: rgba(255,255,255,0.7);">Política de Privacidad</a> | <a href="#" style="color: rgba(255,255,255,0.7);">Términos de Servicio</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript ORIGINAL del chatbot (el que funciona mejor) -->
+    <script>
+        // Variables globales
+        let currentSession = null;
+        let isProcessing = false;
+        
+        // Elementos DOM
+        const messagesContainer = document.getElementById('messages-container');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        
+        // Inicializar chatbot
+        async function initChatbot() {
+            try {
+                const response = await fetch('/api/fisiobot/status');
+                const status = await response.json();
+                
+                if (!status.ready) {
+                    showMessage('bot', 'El chatbot está en mantenimiento. Por favor llama al 320 2914521.');
+                    return;
+                }
+                
+                // Iniciar sesión
+                const initResponse = await fetch('/api/fisiobot/init', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'}
+                });
+                
+                const data = await initResponse.json();
+                
+                if (data.success) {
+                    currentSession = data.session_id;
+                    showMessage('bot', data.message.text);
+                    
+                    // Mostrar sugerencias
+                    if (data.suggestions && data.suggestions.length > 0) {
+                        showSuggestions(data.suggestions);
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error inicializando:', error);
+                showMessage('bot', '¡Hola! Soy FisioBot. ¿En qué puedo ayudarte?');
+            }
+        }
+        
+        // Enviar mensaje
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            
+            if (!message || isProcessing || !currentSession) return;
+            
+            // Mostrar mensaje del usuario
+            showMessage('user', message);
+            userInput.value = '';
+            sendBtn.disabled = true;
+            isProcessing = true;
+            
+            // Mostrar "escribiendo..."
+            const typingId = showTyping();
+            
+            try {
+                const response = await fetch('/api/fisiobot/message', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        session_id: currentSession,
+                        message: message
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Remover "escribiendo..."
+                removeTyping(typingId);
+                
+                if (data.success) {
+                    // Mostrar respuesta del bot
+                    showMessage('bot', data.message.text);
+                    
+                    // Mostrar enlaces si los hay
+                    if (data.message.links && data.message.links.length > 0) {
+                        showLinks(data.message.links);
+                    }
+                    
+                    // Mostrar sugerencias
+                    if (data.suggestions && data.suggestions.length > 0) {
+                        showSuggestions(data.suggestions);
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error enviando mensaje:', error);
+                removeTyping(typingId);
+                showMessage('bot', 'Lo siento, hubo un error. Por favor intenta nuevamente.');
+            } finally {
+                isProcessing = false;
+                sendBtn.disabled = false;
+                userInput.focus();
+            }
+        }
+        
+        // Mostrar mensaje en el chat
+        function showMessage(sender, text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            messageDiv.innerHTML = `
+                <div>${text}</div>
+                <div class="message-time">${time}</div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        // Mostrar "escribiendo..."
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = 'message bot-message';
+            typingDiv.innerHTML = `
+                <div><i>FisioBot está escribiendo...</i></div>
+            `;
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            return 'typing-indicator';
+        }
+        
+        // Remover "escribiendo..."
+        function removeTyping(id) {
+            const typingElement = document.getElementById(id);
+            if (typingElement) {
+                typingElement.remove();
+            }
+        }
+        
+        // Mostrar sugerencias
+        function showSuggestions(suggestions) {
+            const suggestionsDiv = document.createElement('div');
+            suggestionsDiv.className = 'suggestions';
+            
+            suggestions.forEach(suggestion => {
+                const suggestionBtn = document.createElement('div');
+                suggestionBtn.className = 'suggestion';
+                suggestionBtn.textContent = suggestion;
+                suggestionBtn.onclick = () => {
+                    userInput.value = suggestion;
+                    sendMessage();
+                };
+                suggestionsDiv.appendChild(suggestionBtn);
+            });
+            
+            messagesContainer.appendChild(suggestionsDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        // Mostrar enlaces
+        function showLinks(links) {
+            const linksDiv = document.createElement('div');
+            linksDiv.className = 'links';
+            
+            links.forEach(link => {
+                const linkElement = document.createElement('a');
+                linkElement.className = 'link';
+                linkElement.href = link;
+                linkElement.target = '_blank';
+                linkElement.innerHTML = `<i class="fas fa-external-link-alt"></i> Más información`;
+                linksDiv.appendChild(linkElement);
+            });
+            
+            // Agregar al último mensaje del bot
+            const lastBotMessage = document.querySelector('.bot-message:last-child');
+            if (lastBotMessage) {
+                lastBotMessage.appendChild(linksDiv);
+            }
+        }
+        
+        // Event Listeners
+        sendBtn.addEventListener('click', sendMessage);
+        
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        
+        userInput.addEventListener('input', () => {
+            sendBtn.disabled = userInput.value.trim() === '';
+        });
+        
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            initChatbot();
+            userInput.focus();
+        });
+    </script>
+</body>
+</html>

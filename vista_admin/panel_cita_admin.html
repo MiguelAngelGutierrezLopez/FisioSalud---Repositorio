@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda de Citas - Panel Administrador</title>
+    <style>
+        :root {
+            --primary: #0A2540;
+            --secondary: #00A3FF;
+            --accent: #00D4AA;
+            --background: #FFFFFF;
+            --background-alt: #F8FAFC;
+            --text: #0F172A;
+            --gray: #64748B;
+            --gray-light: #E2E8F0;
+            --gray-lighter: #F1F5F9;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --info: #17a2b8;
+            
+            --border-radius: 8px;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition: all 0.2s ease;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-alt);
+            color: var(--text);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 260px;
+            background-color: var(--primary);
+            color: white;
+            padding: var(--spacing-md) 0;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0 var(--spacing-md) var(--spacing-md);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-right: var(--spacing-sm);
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            padding: var(--spacing-sm) var(--spacing-md);
+            transition: var(--transition);
+        }
+
+        .nav-links li:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-links li.active {
+            background-color: rgba(255, 255, 255, 0.12);
+            border-left: 3px solid var(--secondary);
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .nav-links i {
+            margin-right: var(--spacing-sm);
+            font-size: 1.1rem;
+            width: 20px;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            padding: var(--spacing-lg);
+            overflow-y: auto;
+            background: var(--background-alt);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .header h2 {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 44px;
+            height: 44px;
+            border-radius: 4px;
+            margin-right: var(--spacing-sm);
+            border: 2px solid var(--secondary);
+            object-fit: cover;
+        }
+
+        .user-details .user-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .user-details .user-role {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* WELCOME BANNER */
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary), #0d2e4d);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .banner-text h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .banner-text p {
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .banner-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-sm);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .banner-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary);
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-white:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        /* CONTROLES DE FECHA */
+        .date-controls {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            border: 1px solid var(--gray-light);
+        }
+
+        .date-navigation {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .current-date {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+
+        /* FILTROS */
+        .filters-container {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            align-items: end;
+            border: 1px solid var(--gray-light);
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .filter-select, .filter-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--gray-light);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .filter-select:focus, .filter-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        /* CALENDARIO */
+        .calendar-container {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid var(--gray-light);
+        }
+
+        .calendar-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: 600;
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--gray-light);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .calendar-day {
+            min-height: 100px;
+            border: 1px solid var(--gray-lighter);
+            border-radius: 4px;
+            padding: 8px;
+            position: relative;
+            background: white;
+        }
+
+        .calendar-day.empty {
+            background: var(--gray-lighter);
+            border: 1px dashed var(--gray-light);
+        }
+
+        .calendar-day.today {
+            border: 2px solid var(--secondary);
+            background: rgba(0, 163, 255, 0.05);
+        }
+
+        .day-number {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+
+        .appointments-list {
+            max-height: 80px;
+            overflow-y: auto;
+            font-size: 0.8rem;
+        }
+
+        .appointment-item {
+            background: var(--gray-lighter);
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin-bottom: 2px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .appointment-item:hover {
+            opacity: 0.8;
+        }
+
+        /* TABLA DE CITAS */
+        .table-container {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid var(--gray-light);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+        }
+
+        .table-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-lighter);
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: var(--gray-lighter);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        th:hover {
+            background-color: var(--gray-light);
+        }
+
+        tr:hover {
+            background-color: var(--gray-lighter);
+        }
+
+        /* STATUS BADGES */
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-pending {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .status-confirmed {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .status-completed {
+            background-color: rgba(100, 116, 139, 0.1);
+            color: var(--gray);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .status-canceled {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        /* BOTONES */
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0090e0;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-info {
+            background-color: var(--info);
+            color: white;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 4px;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-sm);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease-out;
+            border: 1px solid var(--gray-light);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            padding: var(--spacing-sm);
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary), #0d2e4d);
+            color: white;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-body {
+            padding: var(--spacing-sm);
+        }
+
+        .modal-footer {
+            padding: var(--spacing-sm);
+            border-top: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--spacing-sm);
+        }
+
+        /* FORMULARIOS */
+        .form-group {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* NOTIFICACIONES */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            padding: var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--spacing-sm);
+            min-width: 300px;
+            max-width: 400px;
+            z-index: 9999;
+            animation: slideInRight 0.3s ease;
+            border-left: 4px solid;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .notification-success {
+            border-left-color: var(--success);
+        }
+
+        .notification-error {
+            border-left-color: var(--danger);
+        }
+
+        /* ESTADOS */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-lg) var(--spacing-sm);
+            color: var(--gray);
+            background: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-light);
+        }
+
+        .empty-state i {
+            font-size: 2rem;
+            color: var(--gray-light);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .empty-state h3 {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+        }
+
+        .empty-state p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            max-width: 400px;
+            margin: 0 auto var(--spacing-sm);
+        }
+
+        /* ESPECIALES */
+        .patient-badge {
+            background-color: rgba(0, 212, 170, 0.1);
+            color: var(--accent);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .service-badge {
+            background-color: rgba(0, 163, 255, 0.1);
+            color: var(--secondary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+            
+            .main-content {
+                padding: var(--spacing-sm);
+            }
+            
+            .banner-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .date-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                font-size: 0.8rem;
+            }
+            
+            .calendar-day {
+                min-height: 80px;
+                padding: 4px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .banner-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                font-size: 0.7rem;
+            }
+            
+            .calendar-day {
+                min-height: 70px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">FS</div>
+                <div class="logo-text">FisioSalud Admin</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/admin/panel-usuarios"><i class="fas fa-user-injured"></i> Pacientes</a></li>
+                <li><a href="/admin/panel-fisio"><i class="fas fa-user-md"></i> Fisioterapeutas</a></li>
+                <li><a href="/admin/panel-servicios"><i class="fas fa-hand-holding-medical"></i> Servicios</a></li>
+                <li class="active"><a href="/admin/panel-agenda"><i class="fas fa-calendar-alt"></i> Agenda</a></li>
+                <li><a href="/admin/panel-correos"><i class="fas fa-cog"></i> Correos recibidos</a></li>
+                <li><a href="/admin/logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <!-- HEADER -->
+            <div class="header">
+                <h2>Agenda de Citas - Vista Maestra</h2>
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/150?img=11" alt="Administrador">
+                    <div class="user-details">
+                        <div class="user-name">Administrador</div>
+                        <div class="user-role">Clínica FisioSalud</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <div class="banner-content">
+                    <div class="banner-text">
+                        <h3>Vista Maestra de la Agenda</h3>
+                        <p>Gestiona todas las citas programadas en la clínica. Visualiza, agenda y modifica citas de todos los fisioterapeutas.</p>
+                    </div>
+                    <div class="banner-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="total-hoy">0</div>
+                            <div class="stat-label">Citas Hoy</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="total-pendientes">0</div>
+                            <div class="stat-label">Pendientes</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="total-semana">0</div>
+                            <div class="stat-label">Esta Semana</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="total-todas">0</div>
+                            <div class="stat-label">Total Citas</div>
+                        </div>
+                    </div>
+                    <div class="banner-actions">
+                        <button class="btn btn-white" onclick="openNewAppointmentModal()">
+                            <i class="fas fa-plus"></i> Nueva Cita
+                        </button>
+                        <button class="btn btn-white" onclick="viewTodayAppointments()">
+                            <i class="fas fa-calendar-day"></i> Ver Hoy
+                        </button>
+                        <button class="btn btn-white" onclick="loadAppointments()">
+                            <i class="fas fa-sync-alt"></i> Actualizar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTROLES DE FECHA -->
+            <div class="date-controls">
+                <div class="date-navigation">
+                    <button class="btn btn-outline btn-sm" onclick="previousWeek()">
+                        <i class="fas fa-chevron-left"></i> Semana Anterior
+                    </button>
+                    <div class="current-date" id="current-week">Cargando...</div>
+                    <button class="btn btn-outline btn-sm" onclick="nextWeek()">
+                        Siguiente Semana <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div>
+                    <button class="btn btn-outline btn-sm" onclick="goToToday()">
+                        <i class="fas fa-calendar-day"></i> Hoy
+                    </button>
+                    <button class="btn btn-primary btn-sm" onclick="loadAppointments()">
+                        <i class="fas fa-sync-alt"></i> Actualizar
+                    </button>
+                </div>
+            </div>
+
+            <!-- CALENDARIO SEMANAL -->
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <div>Lunes</div>
+                    <div>Martes</div>
+                    <div>Miércoles</div>
+                    <div>Jueves</div>
+                    <div>Viernes</div>
+                    <div>Sábado</div>
+                    <div>Domingo</div>
+                </div>
+                <div class="calendar-grid" id="weekly-calendar">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+            </div>
+
+            <!-- TABLA DE CITAS -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3>Todas las Citas Programadas</h3>
+                    <div>
+                        <button class="btn btn-outline" onclick="clearFilters()">
+                            <i class="fas fa-filter"></i> Limpiar Filtros
+                        </button>
+                        <button class="btn btn-primary" onclick="loadAppointments()">
+                            <i class="fas fa-sync-alt"></i> Actualizar
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- FILTROS -->
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label for="filter-date">Fecha</label>
+                        <input type="date" class="filter-input" id="filter-date">
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-patient">Paciente</label>
+                        <input type="text" class="filter-input" id="filter-patient" placeholder="Buscar paciente...">
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-therapist">Fisioterapeuta</label>
+                        <input type="text" class="filter-input" id="filter-therapist" placeholder="Buscar fisioterapeuta...">
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-status">Estado</label>
+                        <select class="filter-select" id="filter-status">
+                            <option value="">Todos</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Confirmada">Confirmada</option>
+                            <option value="Completada">Completada</option>
+                            <option value="Cancelada">Cancelada</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <button class="btn btn-primary" onclick="filterAppointments()" style="margin-top: 24px;">
+                            <i class="fas fa-filter"></i> Filtrar
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- TABLA -->
+                <div id="appointments-table">
+                    <div class="empty-state">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <h3>Cargando citas...</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL NUEVA CITA -->
+    <div id="newAppointmentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nueva Cita</h3>
+                <button class="modal-close" onclick="closeNewAppointmentModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="appointmentForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="appointment-patient">Nombre del Paciente *</label>
+                            <input type="text" class="filter-input" id="appointment-patient" required placeholder="Nombre completo del paciente">
+                        </div>
+                        <div class="form-group">
+                            <label for="appointment-service">Servicio *</label>
+                            <input type="text" class="filter-input" id="appointment-service" required placeholder="Servicio a aplicar">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="appointment-therapist">Fisioterapeuta *</label>
+                            <input type="text" class="filter-input" id="appointment-therapist" required placeholder="Nombre del fisioterapeuta">
+                        </div>
+                        <div class="form-group">
+                            <label for="appointment-type">Tipo de Pago *</label>
+                            <select class="filter-select" id="appointment-type" required>
+                                <option value="">Seleccionar tipo</option>
+                                <option value="Efectivo">Efectivo</option>
+                                <option value="Tarjeta Crédito">Tarjeta Crédito</option>
+                                <option value="Tarjeta Débito">Tarjeta Débito</option>
+                                <option value="Transferencia">Transferencia</option>
+                                <option value="Seguro">Seguro Médico</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="appointment-phone">Teléfono</label>
+                            <input type="tel" class="filter-input" id="appointment-phone" placeholder="Teléfono del paciente">
+                        </div>
+                        <div class="form-group">
+                            <label for="appointment-email">Correo Electrónico</label>
+                            <input type="email" class="filter-input" id="appointment-email" placeholder="correo@ejemplo.com">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="appointment-date">Fecha *</label>
+                            <input type="date" class="filter-input" id="appointment-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="appointment-time">Hora *</label>
+                            <input type="time" class="filter-input" id="appointment-time" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="appointment-notes">Notas Adicionales</label>
+                        <textarea class="filter-input" id="appointment-notes" rows="3" placeholder="Observaciones, comentarios o notas importantes..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="appointment-status">Estado *</label>
+                        <select class="filter-select" id="appointment-status" required>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Confirmada">Confirmada</option>
+                            <option value="Completada">Completada</option>
+                            <option value="Cancelada">Cancelada</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeNewAppointmentModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveAppointment()">Guardar Cita</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DETALLES CITA -->
+    <div id="appointmentDetailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="appointment-details-title">Detalles de la Cita</h3>
+                <button class="modal-close" onclick="closeAppointmentDetailsModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="appointment-details-content">
+                <!-- Contenido dinámico -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeAppointmentDetailsModal()">Cerrar</button>
+                <button class="btn btn-primary" id="editAppointmentBtn">
+                    <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn btn-danger" id="deleteAppointmentBtn">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CAMBIAR ESTADO -->
+    <div id="changeStatusModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Cambiar Estado de Cita</h3>
+                <button class="modal-close" onclick="closeChangeStatusModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="new-status">Nuevo Estado</label>
+                    <select class="filter-select" id="new-status">
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Confirmada">Confirmada</option>
+                        <option value="Completada">Completada</option>
+                        <option value="Cancelada">Cancelada</option>
+                    </select>
+                </div>
+                <p id="status-change-info" style="margin-top: 10px; font-size: 0.9rem; color: var(--gray);"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeChangeStatusModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="confirmStatusChange()">Confirmar Cambio</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentAppointments = [];
+        let currentFilters = {};
+        let currentWeekStart = null;
+        let isEditing = false;
+        let editingCitaId = null;
+        let currentCitaIdForStatus = null;
+        
+        // ===== INICIALIZACIÓN =====
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📅 Panel de agenda cargado');
+            
+            // Inicializar fecha actual
+            const today = new Date();
+            currentWeekStart = getMonday(today);
+            
+            // Cargar datos iniciales
+            loadStats();
+            loadAppointments();
+            updateCalendar();
+            
+            // Configurar fecha de hoy en los filtros
+            const todayStr = today.toISOString().split('T')[0];
+            document.getElementById('filter-date').value = todayStr;
+            document.getElementById('appointment-date').value = todayStr;
+            
+            // Configurar eventos de logout
+            const logoutBtn = document.querySelector('a[href="/admin/logout"]');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = '/admin/logout';
+                });
+            }
+        });
+
+        // ===== FUNCIONES DE ESTADÍSTICAS =====
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/admin/citas/estadisticas', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const stats = data.data;
+                    
+                    // Actualizar banner
+                    document.getElementById('total-hoy').textContent = stats.total_hoy;
+                    document.getElementById('total-pendientes').textContent = stats.total_pendientes;
+                    document.getElementById('total-semana').textContent = stats.total_semana;
+                    document.getElementById('total-todas').textContent = stats.total_todas;
+                    
+                    console.log('✅ Estadísticas cargadas:', stats);
+                } else {
+                    console.error('❌ Error en estadísticas:', data.error);
+                    showNotification('Error al cargar estadísticas', 'error');
+                }
+            } catch (error) {
+                console.error('❌ Error al cargar estadísticas:', error);
+                showNotification('Error de conexión', 'error');
+            }
+        }
+
+        // ===== FUNCIONES DE CITAS =====
+        async function loadAppointments(filters = {}) {
+            console.log('📅 Cargando citas...', filters);
+            
+            const appointmentsTable = document.getElementById('appointments-table');
+            appointmentsTable.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <h3>Cargando citas...</h3>
+                </div>
+            `;
+            
+            try {
+                // Construir query string
+                const params = new URLSearchParams();
+                if (filters.fecha) params.append('fecha', filters.fecha);
+                if (filters.paciente) params.append('paciente', filters.paciente);
+                if (filters.terapeuta) params.append('terapeuta', filters.terapeuta);
+                if (filters.estado) params.append('estado', filters.estado);
+                if (filters.fecha_desde) params.append('fecha_desde', filters.fecha_desde);
+                if (filters.fecha_hasta) params.append('fecha_hasta', filters.fecha_hasta);
+                
+                const response = await fetch(`/api/admin/citas?${params.toString()}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentAppointments = data.data || [];
+                    renderAppointmentsTable(currentAppointments);
+                    updateCalendarWithAppointments();
+                    console.log(`✅ ${data.total} citas cargadas`);
+                } else {
+                    console.error('❌ Error al cargar citas:', data.error);
+                    showNotification('Error al cargar citas', 'error');
+                    appointmentsTable.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>Error al cargar citas</h3>
+                            <p>${data.error || 'Intenta nuevamente'}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('❌ Error al cargar citas:', error);
+                showNotification('Error de conexión', 'error');
+                appointmentsTable.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Error de conexión</h3>
+                        <p>No se pudieron cargar las citas</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderAppointmentsTable(appointments) {
+            if (!appointments || appointments.length === 0) {
+                document.getElementById('appointments-table').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-times"></i>
+                        <h3>No hay citas registradas</h3>
+                        <p>No se encontraron citas con los filtros aplicados</p>
+                        <button class="btn btn-primary" onclick="clearFilters()">
+                            <i class="fas fa-filter"></i> Limpiar Filtros
+                        </button>
+                        <button class="btn btn-outline" onclick="openNewAppointmentModal()">
+                            <i class="fas fa-plus"></i> Crear Nueva Cita
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            let tableHTML = `
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Paciente</th>
+                                <th>Servicio</th>
+                                <th>Fisioterapeuta</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            appointments.forEach(cita => {
+                // Determinar clase de estado
+                let statusClass = 'status-pending';
+                if (cita.estado === 'Confirmada') statusClass = 'status-confirmed';
+                if (cita.estado === 'Completada') statusClass = 'status-completed';
+                if (cita.estado === 'Cancelada') statusClass = 'status-canceled';
+                
+                tableHTML += `
+                    <tr>
+                        <td><strong>${cita.cita_id || 'N/A'}</strong></td>
+                        <td>${cita.nombre_paciente}</td>
+                        <td><span class="service-badge">${cita.servicio}</span></td>
+                        <td><span class="patient-badge">${cita.terapeuta_designado}</span></td>
+                        <td>${cita.fecha_cita}</td>
+                        <td>${cita.hora_cita}</td>
+                        <td><span class="status ${statusClass}">${cita.estado}</span></td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-info" onclick="viewAppointmentDetails('${cita.cita_id}')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-primary" onclick="editAppointmentModal('${cita.cita_id}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-success" onclick="changeAppointmentStatus('${cita.cita_id}', '${cita.nombre_paciente}')">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += `
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer" style="margin-top: 20px; padding: 10px 0; display: flex; justify-content: space-between;">
+                    <div class="table-info">
+                        Mostrando ${appointments.length} cita${appointments.length !== 1 ? 's' : ''}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('appointments-table').innerHTML = tableHTML;
+        }
+
+        // ===== FUNCIONES DE FILTROS =====
+        function filterAppointments() {
+            const filters = {
+                fecha: document.getElementById('filter-date').value || null,
+                paciente: document.getElementById('filter-patient').value.trim(),
+                terapeuta: document.getElementById('filter-therapist').value.trim(),
+                estado: document.getElementById('filter-status').value || null
+            };
+            
+            currentFilters = filters;
+            loadAppointments(filters);
+        }
+
+        function clearFilters() {
+            document.getElementById('filter-date').value = '';
+            document.getElementById('filter-patient').value = '';
+            document.getElementById('filter-therapist').value = '';
+            document.getElementById('filter-status').value = '';
+            
+            currentFilters = {};
+            loadAppointments();
+        }
+
+        function viewTodayAppointments() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('filter-date').value = today;
+            filterAppointments();
+        }
+
+        // ===== FUNCIONES DE CALENDARIO =====
+        function getMonday(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
+            return new Date(d.setDate(diff));
+        }
+
+        function updateCalendar() {
+            const calendarGrid = document.getElementById('weekly-calendar');
+            calendarGrid.innerHTML = '';
+            
+            const weekStart = new Date(currentWeekStart);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            // Actualizar texto de semana actual
+            const weekEnd = new Date(weekStart);
+            weekEnd.setDate(weekEnd.getDate() + 6);
+            
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            document.getElementById('current-week').textContent = 
+                `Semana: ${weekStart.toLocaleDateString('es-ES', options)} - ${weekEnd.toLocaleDateString('es-ES', options)}`;
+            
+            // Generar días de la semana
+            for (let i = 0; i < 7; i++) {
+                const currentDate = new Date(weekStart);
+                currentDate.setDate(weekStart.getDate() + i);
+                
+                const isToday = currentDate.toDateString() === today.toDateString();
+                const dayClass = isToday ? 'calendar-day today' : 'calendar-day';
+                
+                calendarGrid.innerHTML += `
+                    <div class="${dayClass}" data-date="${currentDate.toISOString().split('T')[0]}">
+                        <div class="day-number">${currentDate.getDate()}</div>
+                        <div class="appointments-list" id="appointments-${currentDate.toISOString().split('T')[0]}">
+                            <!-- Citas se cargarán aquí -->
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Cargar citas para la semana actual
+            updateCalendarWithAppointments();
+        }
+
+        function updateCalendarWithAppointments() {
+            if (!currentAppointments || currentAppointments.length === 0) return;
+            
+            // Agrupar citas por fecha
+            const appointmentsByDate = {};
+            currentAppointments.forEach(cita => {
+                if (!appointmentsByDate[cita.fecha_cita]) {
+                    appointmentsByDate[cita.fecha_cita] = [];
+                }
+                appointmentsByDate[cita.fecha_cita].push(cita);
+            });
+            
+            // Actualizar cada día del calendario
+            for (let i = 0; i < 7; i++) {
+                const currentDate = new Date(currentWeekStart);
+                currentDate.setDate(currentWeekStart.getDate() + i);
+                const dateStr = currentDate.toISOString().split('T')[0];
+                
+                const appointmentsContainer = document.getElementById(`appointments-${dateStr}`);
+                if (appointmentsContainer) {
+                    appointmentsContainer.innerHTML = '';
+                    
+                    if (appointmentsByDate[dateStr]) {
+                        appointmentsByDate[dateStr].forEach(cita => {
+                            let statusColor = '#F59E0B'; // Pendiente (amarillo)
+                            if (cita.estado === 'Confirmada') statusColor = '#10B981'; // Verde
+                            if (cita.estado === 'Completada') statusColor = '#64748B'; // Gris
+                            if (cita.estado === 'Cancelada') statusColor = '#EF4444'; // Rojo
+                            
+                            appointmentsContainer.innerHTML += `
+                                <div class="appointment-item" style="border-left: 3px solid ${statusColor}" 
+                                     onclick="viewAppointmentDetails('${cita.cita_id}')"
+                                     title="${cita.nombre_paciente} - ${cita.hora_cita}">
+                                    <i class="fas fa-user"></i> ${cita.nombre_paciente}
+                                </div>
+                            `;
+                        });
+                    }
+                }
+            }
+        }
+
+        function previousWeek() {
+            currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+            updateCalendar();
+        }
+
+        function nextWeek() {
+            currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+            updateCalendar();
+        }
+
+        function goToToday() {
+            const today = new Date();
+            currentWeekStart = getMonday(today);
+            updateCalendar();
+            loadAppointments();
+        }
+
+        // ===== FUNCIONES DE MODALES =====
+        function openNewAppointmentModal() {
+            isEditing = false;
+            editingCitaId = null;
+            
+            // Limpiar formulario
+            document.getElementById('appointmentForm').reset();
+            
+            // Establecer fecha de hoy
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('appointment-date').value = today;
+            
+            // Mostrar modal
+            document.getElementById('newAppointmentModal').classList.add('active');
+        }
+
+        function closeNewAppointmentModal() {
+            document.getElementById('newAppointmentModal').classList.remove('active');
+            isEditing = false;
+            editingCitaId = null;
+        }
+
+        async function viewAppointmentDetails(citaId) {
+            try {
+                const response = await fetch(`/api/admin/citas/${citaId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const cita = data.data;
+                    
+                    // Actualizar título
+                    document.getElementById('appointment-details-title').textContent = 
+                        `Cita: ${cita.cita_id}`;
+                    
+                    // Determinar color de estado
+                    let statusColor = '#F59E0B';
+                    if (cita.estado === 'Confirmada') statusColor = '#10B981';
+                    if (cita.estado === 'Completada') statusColor = '#64748B';
+                    if (cita.estado === 'Cancelada') statusColor = '#EF4444';
+                    
+                    // Construir contenido
+                    const content = `
+                        <div style="display: grid; gap: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: start;">
+                                <div>
+                                    <h4 style="margin-bottom: 5px; color: var(--primary);">${cita.nombre_paciente}</h4>
+                                    <p style="color: var(--gray); font-size: 0.9rem;">${cita.servicio}</p>
+                                </div>
+                                <span class="status" style="background-color: ${statusColor}20; color: ${statusColor}; border-color: ${statusColor}40;">
+                                    ${cita.estado}
+                                </span>
+                            </div>
+                            
+                            <div style="background: var(--gray-lighter); padding: 15px; border-radius: var(--border-radius);">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                    <div>
+                                        <strong style="display: block; font-size: 0.85rem; color: var(--gray);">Fisioterapeuta</strong>
+                                        <span>${cita.terapeuta_designado}</span>
+                                    </div>
+                                    <div>
+                                        <strong style="display: block; font-size: 0.85rem; color: var(--gray);">Fecha y Hora</strong>
+                                        <span>${cita.fecha_cita} - ${cita.hora_cita}</span>
+                                    </div>
+                                    <div>
+                                        <strong style="display: block; font-size: 0.85rem; color: var(--gray);">Tipo de Pago</strong>
+                                        <span>${cita.tipo_pago}</span>
+                                    </div>
+                                    <div>
+                                        <strong style="display: block; font-size: 0.85rem; color: var(--gray);">Contacto</strong>
+                                        <span>${cita.telefono || 'No especificado'}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            ${cita.correo ? `
+                            <div>
+                                <strong style="display: block; margin-bottom: 5px; font-size: 0.85rem; color: var(--gray);">Correo Electrónico</strong>
+                                <span>${cita.correo}</span>
+                            </div>
+                            ` : ''}
+                            
+                            ${cita.notas_adicionales ? `
+                            <div>
+                                <strong style="display: block; margin-bottom: 5px; font-size: 0.85rem; color: var(--gray);">Notas Adicionales</strong>
+                                <div style="background: var(--gray-lighter); padding: 10px; border-radius: 4px; font-size: 0.9rem;">
+                                    ${cita.notas_adicionales}
+                                </div>
+                            </div>
+                            ` : ''}
+                        </div>
+                    `;
+                    
+                    document.getElementById('appointment-details-content').innerHTML = content;
+                    
+                    // Configurar botones
+                    document.getElementById('editAppointmentBtn').onclick = function() {
+                        closeAppointmentDetailsModal();
+                        editAppointmentModal(citaId);
+                    };
+                    
+                    document.getElementById('deleteAppointmentBtn').onclick = function() {
+                        closeAppointmentDetailsModal();
+                        deleteAppointment(citaId);
+                    };
+                    
+                    // Mostrar modal
+                    document.getElementById('appointmentDetailsModal').classList.add('active');
+                } else {
+                    showNotification('Error al cargar detalles de la cita', 'error');
+                }
+            } catch (error) {
+                console.error('❌ Error al cargar detalles de cita:', error);
+                showNotification('Error de conexión', 'error');
+            }
+        }
+
+        function closeAppointmentDetailsModal() {
+            document.getElementById('appointmentDetailsModal').classList.remove('active');
+        }
+
+        async function editAppointmentModal(citaId) {
+            try {
+                const response = await fetch(`/api/admin/citas/${citaId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const cita = data.data;
+                    
+                    isEditing = true;
+                    editingCitaId = citaId;
+                    
+                    // Llenar formulario con datos existentes
+                    document.getElementById('appointment-patient').value = cita.nombre_paciente;
+                    document.getElementById('appointment-service').value = cita.servicio;
+                    document.getElementById('appointment-therapist').value = cita.terapeuta_designado;
+                    document.getElementById('appointment-type').value = cita.tipo_pago;
+                    document.getElementById('appointment-phone').value = cita.telefono || '';
+                    document.getElementById('appointment-email').value = cita.correo || '';
+                    document.getElementById('appointment-date').value = cita.fecha_cita;
+                    document.getElementById('appointment-time').value = cita.hora_cita;
+                    document.getElementById('appointment-notes').value = cita.notas_adicionales || '';
+                    document.getElementById('appointment-status').value = cita.estado;
+                    
+                    // Actualizar título del modal
+                    document.querySelector('#newAppointmentModal .modal-title').textContent = 'Editar Cita';
+                    
+                    // Mostrar modal
+                    document.getElementById('newAppointmentModal').classList.add('active');
+                } else {
+                    showNotification('Error al cargar cita para editar', 'error');
+                }
+            } catch (error) {
+                console.error('❌ Error al cargar cita para editar:', error);
+                showNotification('Error de conexión', 'error');
+            }
+        }
+
+        function changeAppointmentStatus(citaId, pacienteNombre) {
+            currentCitaIdForStatus = citaId;
+            
+            // Actualizar información en el modal
+            document.getElementById('status-change-info').textContent = 
+                `Cambiar estado para: ${pacienteNombre}`;
+            
+            // Mostrar modal
+            document.getElementById('changeStatusModal').classList.add('active');
+        }
+
+        function closeChangeStatusModal() {
+            document.getElementById('changeStatusModal').classList.remove('active');
+            currentCitaIdForStatus = null;
+        }
+
+        // ===== FUNCIONES DE GUARDADO =====
+        async function saveAppointment() {
+            const formData = {
+                nombre_paciente: document.getElementById('appointment-patient').value,
+                servicio: document.getElementById('appointment-service').value,
+                terapeuta_designado: document.getElementById('appointment-therapist').value,
+                tipo_pago: document.getElementById('appointment-type').value,
+                telefono: document.getElementById('appointment-phone').value,
+                correo: document.getElementById('appointment-email').value,
+                fecha_cita: document.getElementById('appointment-date').value,
+                hora_cita: document.getElementById('appointment-time').value,
+                notas_adicionales: document.getElementById('appointment-notes').value,
+                estado: document.getElementById('appointment-status').value
+            };
+            
+            try {
+                let url = '';
+                let method = 'POST';
+                
+                if (isEditing && editingCitaId) {
+                    method = 'PUT';
+                    url = `/api/admin/citas/${editingCitaId}`;
+                } else {
+                    url = `/api/admin/citas`;
+                }
+                
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const action = isEditing ? 'actualizada' : 'creada';
+                    showNotification(`Cita ${action} exitosamente`, 'success');
+                    closeNewAppointmentModal();
+                    
+                    // Recargar datos
+                    loadStats();
+                    loadAppointments(currentFilters);
+                    updateCalendar();
+                } else {
+                    showNotification(`Error: ${data.error}`, 'error');
+                }
+            } catch (error) {
+                console.error('❌ Error al guardar cita:', error);
+                showNotification('Error de conexión', 'error');
+            }
+        }
+
+        async function confirmStatusChange() {
+            const nuevoEstado = document.getElementById('new-status').value;
+            
+            if (!currentCitaIdForStatus) {
+                showNotification('Error: No se identificó la cita', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/admin/citas/${currentCitaIdForStatus}/estado`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nuevo_estado: nuevoEstado })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showNotification(`Estado cambiado a '${nuevoEstado}' exitosamente`, 'success');
+                    closeChangeStatusModal();
+                    
+                    // Recargar datos
+                    loadStats();
+                    loadAppointments(currentFilters);
+                    updateCalendar();
+                } else {
+                    showNotification(`Error: ${data.error}`, 'error');
+                }
+            } catch (error) {
+                console.error('❌ Error al cambiar estado:', error);
+                showNotification('Error de conexión', 'error');
+            }
+        }
+
+        async function deleteAppointment(citaId) {
+            if (!confirm('¿Está seguro de que desea eliminar esta cita? Esta acción no se puede deshacer.')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/admin/citas/${citaId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showNotification('Cita eliminada exitosamente', 'success');
+                    
+                    // Recargar datos
+                    loadStats();
+                    loadAppointments(currentFilters);
+                    updateCalendar();
+                } else {
+                    showNotification(`Error: ${data.error}`, 'error');
+                }
+            } catch (error) {
+                console.error('❌ Error al eliminar cita:', error);
+                showNotification('Error de conexión', 'error');
+            }
+        }
+
+        // ===== FUNCIONES DE UTILIDAD =====
+        function showNotification(message, type = 'info') {
+            // Eliminar notificaciones existentes
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => {
+                notification.remove();
+            });
+            
+            // Crear nueva notificación
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            
+            let icon = 'fas fa-info-circle';
+            if (type === 'success') icon = 'fas fa-check-circle';
+            if (type === 'error') icon = 'fas fa-exclamation-circle';
+            
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="${icon}"></i>
+                    <span>${message}</span>
+                </div>
+                <button class="notification-close" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto-remover después de 5 segundos
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        function exportAppointments() {
+            showNotification('Funcionalidad de exportación en desarrollo', 'info');
+        }
+    </script>
+</body>
+</html>

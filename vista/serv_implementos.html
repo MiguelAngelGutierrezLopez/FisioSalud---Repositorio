@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementos Terapéuticos - FisioSalud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A2540;
+            --primary-dark: #061A2C;
+            --primary-light: #1A365D;
+            --secondary: #00A3FF;
+            --accent: #00D4AA;
+            --light: #FFFFFF;
+            --light-gray: #F8FAFC;
+            --gray: #64748B;
+            --dark: #0F172A;
+            --border-radius: 8px;
+            --border-radius-sm: 4px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: var(--light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            min-width: 120px;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: #0092E0;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            min-width: auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><polygon points="0,0 1000,0 1000,1000" fill="white"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--light-gray);
+            padding: 20px 0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .breadcrumb-links {
+            display: flex;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .breadcrumb-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb-links a:hover {
+            color: var(--primary);
+        }
+
+        .breadcrumb-links span {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Equipment Navigation */
+        .equipment-nav {
+            background: var(--light);
+            padding: 40px 0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .filters-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .filters-title h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .clear-filters {
+            color: var(--secondary);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .clear-filters:hover {
+            color: var(--primary);
+            transform: translateX(-2px);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+        }
+
+        .filter-card {
+            background: var(--light);
+            border: 1px solid #E2E8F0;
+            border-radius: var(--border-radius);
+            padding: 20px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .filter-card.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .filter-card:hover:not(.active) {
+            border-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .filter-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--light-gray);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--primary);
+            transition: all 0.2s;
+        }
+
+        .filter-card.active .filter-icon {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .filter-card h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Equipment Section */
+        .equipment-section {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            text-align: center;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Equipment Grid */
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        .equipment-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid #F1F5F9;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .equipment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--secondary);
+            z-index: 2;
+        }
+
+        .equipment-card.professional::before {
+            background: var(--accent);
+        }
+
+        .equipment-card.new::before {
+            background: #FF6B6B;
+        }
+
+        .equipment-header {
+            padding: 24px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            position: relative;
+        }
+
+        .equipment-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .equipment-title {
+            flex: 1;
+        }
+
+        .equipment-title h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .equipment-body {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .equipment-description {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .equipment-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 8px 0;
+        }
+
+        .equipment-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .equipment-feature i {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .equipment-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #F1F5F9;
+        }
+
+        .equipment-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .equipment-weight {
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+
+        .equipment-footer {
+            padding: 0 24px 24px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .equipment-footer .btn {
+            flex: 1;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-popular {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .badge-new {
+            background: var(--accent);
+            color: white;
+        }
+
+        .badge-professional {
+            background: #8B5CF6;
+            color: white;
+        }
+
+        /* Categories Section */
+        .categories-section {
+            background: var(--light-gray);
+            padding: 80px 0;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .category-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 32px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid #F1F5F9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .category-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .category-card p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><polygon points="0,1000 1000,0 1000,1000" fill="white"/></svg>');
+            background-size: cover;
+        }
+
+        .cta-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 60px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-column h3 {
+            color: var(--light);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .social-icon:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .equipment-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons, .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .equipment-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .equipment-footer {
+                flex-direction: column;
+            }
+            
+            .equipment-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .equipment-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+            
+            .equipment-icon {
+                align-self: center;
+            }
+        }
+    .badge-therapy {
+            background: #00D4AA;
+            color: white;
+        }
+        
+        .badge-portable {
+            background: #8B5CF6;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (se mantiene igual) -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <div class="logo-icon">FS</div>
+                    <div class="logo-text">FisioSalud</div>
+                </div>
+                <div class="nav-actions">
+                    <a href="/inicio" class="btn btn-outline">Volver al Inicio</a>
+                    <a href="/cita" class="btn">Agendar Asesoría</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section (se mantiene igual) -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Implementos Terapéuticos Profesionales</h1>
+                <p>Equipamiento de alta calidad para complementar tus tratamientos y continuar tu recuperación en casa con la garantía de especialistas.</p>
+                <div class="hero-buttons">
+                    <a href="#equipos" class="btn btn-secondary">Explorar Productos</a>
+                    <a href="/cita" class="btn btn-outline">Asesoría Personalizada</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Breadcrumb (se mantiene igual) -->
+    <section class="breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-links">
+                <a href="/inicio">Inicio</a> / <span>Implementos Terapéuticos</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Navigation (se mantiene igual) -->
+    <section class="equipment-nav">
+        <div class="container">
+            <div class="filters-title">
+                <h3>Filtrar por Categoría</h3>
+                <div class="clear-filters">
+                    <i class="fas fa-times"></i> Limpiar filtros
+                </div>
+            </div>
+            <div class="filters-grid">
+                <div class="filter-card active" data-category="all">
+                    <div class="filter-icon">
+                        <i class="fas fa-filter"></i>
+                    </div>
+                    <h4>Todos los Productos</h4>
+                </div>
+                <div class="filter-card" data-category="strength">
+                    <div class="filter-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h4>Fortalecimiento</h4>
+                </div>
+                <div class="filter-card" data-category="flexibility">
+                    <div class="filter-icon">
+                        <i class="fas fa-expand-alt"></i>
+                    </div>
+                    <h4>Flexibilidad</h4>
+                </div>
+                <div class="filter-card" data-category="electro">
+                    <div class="filter-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4>Electroterapia</h4>
+                </div>
+                <div class="filter-card" data-category="thermal">
+                    <div class="filter-icon">
+                        <i class="fas fa-thermometer-half"></i>
+                    </div>
+                    <h4>Termoterapia</h4>
+                </div>
+                <div class="filter-card" data-category="professional">
+                    <div class="filter-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h4>Profesional</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Section -->
+    <section class="equipment-section" id="equipos">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Nuestros Productos</div>
+                <h2 class="section-title">Implementos Terapéuticos de Alta Calidad</h2>
+                <p class="section-subtitle">Selecciona el equipo que mejor se adapte a tus necesidades de rehabilitación y bienestar</p>
+            </div>
+
+            <!-- Equipment Grid -->
+            <div class="equipment-grid">
+                <!-- Implemento 1 - Kettlebell Ajustable -->
+                <div class="equipment-card" data-category="strength">
+                    <div class="equipment-header">
+                        <div class="equipment-icon"><i class="fas fa-weight"></i></div>
+                        <div class="equipment-title">
+                            <h3>Kettlebell Ajustable <span class="badge badge-popular">POPULAR</span></h3>
+                        </div>
+                    </div>
+                    <div class="equipment-body">
+                        <p class="equipment-description">Kettlebell de peso ajustable para entrenamiento funcional y ejercicios de fuerza completa. Ideal para rehabilitación y acondicionamiento físico.</p>
+                        <div class="equipment-features">
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Peso ajustable de 4kg a 20kg</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Agarre ergonómico y seguro</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Base estable para almacenamiento</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Material compuesto de alta durabilidad</span>
+                            </div>
+                        </div>
+                        <div class="equipment-meta">
+                            <div class="equipment-price">$85.000</div>
+                            <div class="equipment-weight">
+                                <i class="fas fa-weight-hanging"></i> 3.5kg (base)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="equipment-footer">
+                        <button class="btn comprar-btn" 
+                                data-producto-id="1172RX" 
+                                data-producto-nombre="Kettlebell Ajustable"
+                                data-producto-precio="85000"
+                                data-producto-tipo="implemento">
+                            <i class="fas fa-shopping-cart"></i> Comprar Ahora
+                        </button>
+                        <a href="/implementos/1172RX" class="btn btn-outline btn-small">
+                            <i class="fas fa-info-circle"></i> Más Información
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Implemento 2 - Rodillo de Espuma -->
+                <div class="equipment-card new" data-category="flexibility">
+                    <div class="equipment-header">
+                        <div class="equipment-icon"><i class="fas fa-roll"></i></div>
+                        <div class="equipment-title">
+                            <h3>Rodillo de Espuma de Alta Densidad <span class="badge badge-new">NUEVO</span></h3>
+                        </div>
+                    </div>
+                    <div class="equipment-body">
+                        <p class="equipment-description">Rodillo de liberación miofascial para aliviar tensiones musculares y mejorar la flexibilidad de forma profesional.</p>
+                        <div class="equipment-features">
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Densidad profesional para terapia profunda</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Superficie texturizada para mejor masaje</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Material EVA de alta durabilidad</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Incluye guía de uso especializada</span>
+                            </div>
+                        </div>
+                        <div class="equipment-meta">
+                            <div class="equipment-price">$35.000</div>
+                            <div class="equipment-weight">
+                                <i class="fas fa-weight-hanging"></i> 0.8kg
+                            </div>
+                        </div>
+                    </div>
+                    <div class="equipment-footer">
+                        <button class="btn comprar-btn" 
+                                data-producto-id="2489HT" 
+                                data-producto-nombre="Rodillo de Espuma de Alta Densidad"
+                                data-producto-precio="35000"
+                                data-producto-tipo="implemento">
+                            <i class="fas fa-shopping-cart"></i> Comprar Ahora
+                        </button>
+                        <a href="/implementos/2489HT" class="btn btn-outline btn-small">
+                            <i class="fas fa-info-circle"></i> Más Información
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Implemento 3 - Mancuernas Ajustables -->
+                <div class="equipment-card" data-category="strength">
+                    <div class="equipment-header">
+                        <div class="equipment-icon"><i class="fas fa-dumbbell"></i></div>
+                        <div class="equipment-title">
+                            <h3>Set de Mancuernas Ajustables Pro <span class="badge badge-popular">POPULAR</span></h3>
+                        </div>
+                    </div>
+                    <div class="equipment-body">
+                        <p class="equipment-description">Set completo de mancuernas con peso ajustable para ejercicios de fortalecimiento progresivo y rehabilitación muscular.</p>
+                        <div class="equipment-features">
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Peso ajustable de 2.5kg a 20kg</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Agarre ergonómico antideslizante</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Material duradero y seguro</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Incluye rack de almacenamiento</span>
+                            </div>
+                        </div>
+                        <div class="equipment-meta">
+                            <div class="equipment-price">$120.000</div>
+                            <div class="equipment-weight">
+                                <i class="fas fa-weight-hanging"></i> 15kg
+                            </div>
+                        </div>
+                    </div>
+                    <div class="equipment-footer">
+                        <button class="btn comprar-btn" 
+                                data-producto-id="3316FD" 
+                                data-producto-nombre="Set de Mancuernas Ajustables Pro"
+                                data-producto-precio="120000"
+                                data-producto-tipo="implemento">
+                            <i class="fas fa-shopping-cart"></i> Comprar Ahora
+                        </button>
+                        <a href="/implementos/3316FD" class="btn btn-outline btn-small">
+                            <i class="fas fa-info-circle"></i> Más Información
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Implemento 4 - Bandas de Resistencia -->
+                <div class="equipment-card" data-category="flexibility strength">
+                    <div class="equipment-header">
+                        <div class="equipment-icon"><i class="fas fa-ring"></i></div>
+                        <div class="equipment-title">
+                            <h3>Bandas de Resistencia Profesionales</h3>
+                        </div>
+                    </div>
+                    <div class="equipment-body">
+                        <p class="equipment-description">Set de bandas elásticas de diferentes niveles de resistencia para ejercicios terapéuticos y mejora de movilidad.</p>
+                        <div class="equipment-features">
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>5 niveles de resistencia progresiva</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Material látex natural de alta calidad</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Incluye manual de ejercicios</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Portátil y fácil de almacenar</span>
+                            </div>
+                        </div>
+                        <div class="equipment-meta">
+                            <div class="equipment-price">$45.000</div>
+                            <div class="equipment-weight">
+                                <i class="fas fa-weight-hanging"></i> 0.5kg
+                            </div>
+                        </div>
+                    </div>
+                    <div class="equipment-footer">
+                        <button class="btn comprar-btn" 
+                                data-producto-id="5634KJ" 
+                                data-producto-nombre="Bandas de Resistencia Profesionales"
+                                data-producto-precio="45000"
+                                data-producto-tipo="implemento">
+                            <i class="fas fa-shopping-cart"></i> Comprar Ahora
+                        </button>
+                        <a href="/implementos/5634KJ" class="btn btn-outline btn-small">
+                            <i class="fas fa-info-circle"></i> Más Información
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Implemento 5 - Almohadilla Térmica -->
+                <div class="equipment-card" data-category="thermal">
+                    <div class="equipment-header">
+                        <div class="equipment-icon"><i class="fas fa-temperature-high"></i></div>
+                        <div class="equipment-title">
+                            <h3>Almohadilla Térmica de Infrarrojo</h3>
+                        </div>
+                    </div>
+                    <div class="equipment-body">
+                        <p class="equipment-description">Almohadilla de calor infrarrojo para alivio del dolor muscular y articular con tecnología avanzada y segura.</p>
+                        <div class="equipment-features">
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Calor infrarrojo de penetración profunda</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>6 niveles de temperatura ajustable</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Apagado automático por seguridad</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Cubierta lavable y hipoalergénica</span>
+                            </div>
+                        </div>
+                        <div class="equipment-meta">
+                            <div class="equipment-price">$95.000</div>
+                            <div class="equipment-weight">
+                                <i class="fas fa-weight-hanging"></i> 1.5kg
+                            </div>
+                        </div>
+                    </div>
+                    <div class="equipment-footer">
+                        <button class="btn comprar-btn" 
+                                data-producto-id="5903LK" 
+                                data-producto-nombre="Almohadilla Térmica de Infrarrojo"
+                                data-producto-precio="95000"
+                                data-producto-tipo="implemento">
+                            <i class="fas fa-shopping-cart"></i> Comprar Ahora
+                        </button>
+                        <a href="/implementos/5903LK" class="btn btn-outline btn-small">
+                            <i class="fas fa-info-circle"></i> Más Información
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Implemento 6 - Masajeador Percusivo -->
+                <div class="equipment-card professional" data-category="professional">
+                    <div class="equipment-header">
+                        <div class="equipment-icon"><i class="fas fa-hand-holding-medical"></i></div>
+                        <div class="equipment-title">
+                            <h3>Masajeador Percusivo Profesional <span class="badge badge-professional">PROFESIONAL</span></h3>
+                        </div>
+                    </div>
+                    <div class="equipment-body">
+                        <p class="equipment-description">Dispositivo de terapia de percusión para aliviar tensiones musculares profundas y mejorar la recuperación.</p>
+                        <div class="equipment-features">
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>5 velocidades ajustables</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>4 cabezales intercambiables</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Batería de larga duración</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Diseño ergonómico y portátil</span>
+                            </div>
+                        </div>
+                        <div class="equipment-meta">
+                            <div class="equipment-price">$150.000</div>
+                            <div class="equipment-weight">
+                                <i class="fas fa-weight-hanging"></i> 1.1kg
+                            </div>
+                        </div>
+                    </div>
+                    <div class="equipment-footer">
+                        <button class="btn comprar-btn" 
+                                data-producto-id="6308BP" 
+                                data-producto-nombre="Masajeador Percusivo Profesional"
+                                data-producto-precio="150000"
+                                data-producto-tipo="implemento">
+                            <i class="fas fa-shopping-cart"></i> Comprar Ahora
+                        </button>
+                        <a href="/implementos/6308BP" class="btn btn-outline btn-small">
+                            <i class="fas fa-info-circle"></i> Más Información
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Implemento 7 - Pelota de Estabilidad -->
+                <div class="equipment-card" data-category="flexibility">
+                    <div class="equipment-header">
+                        <div class="equipment-icon"><i class="fas fa-balance-scale"></i></div>
+                        <div class="equipment-title">
+                            <h3>Pelota de Estabilidad Profesional</h3>
+                        </div>
+                    </div>
+                    <div class="equipment-body">
+                        <p class="equipment-description">Pelota de ejercicio de alta resistencia para mejorar equilibrio, core y rehabilitación postural de forma segura.</p>
+                        <div class="equipment-features">
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Material anti-reventón de alta calidad</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>4 tamaños disponibles (55-75cm)</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Resistencia hasta 300kg</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Perfecta para pilates y yoga terapéutico</span>
+                            </div>
+                        </div>
+                        <div class="equipment-meta">
+                            <div class="equipment-price">$40.000</div>
+                            <div class="equipment-weight">
+                                <i class="fas fa-weight-hanging"></i> 1kg
+                            </div>
+                        </div>
+                    </div>
+                    <div class="equipment-footer">
+                        <button class="btn comprar-btn" 
+                                data-producto-id="8741QM" 
+                                data-producto-nombre="Pelota de Estabilidad Profesional"
+                                data-producto-precio="40000"
+                                data-producto-tipo="implemento">
+                            <i class="fas fa-shopping-cart"></i> Comprar Ahora
+                        </button>
+                        <a href="/implementos/8741QM" class="btn btn-outline btn-small">
+                            <i class="fas fa-info-circle"></i> Más Información
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Implemento 8 - Electroterapia TENS/EMS -->
+                <div class="equipment-card professional" data-category="electro professional">
+                    <div class="equipment-header">
+                        <div class="equipment-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="equipment-title">
+                            <h3>Equipo de Electroterapia TENS/EMS <span class="badge badge-professional">PROFESIONAL</span></h3>
+                        </div>
+                    </div>
+                    <div class="equipment-body">
+                        <p class="equipment-description">Dispositivo profesional para estimulación eléctrica nerviosa y muscular con fines terapéuticos y manejo del dolor.</p>
+                        <div class="equipment-features">
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>8 modos de estimulación diferentes</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Intensidad ajustable en 20 niveles</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Pantalla LCD con temporizador</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Batería recargable de larga duración</span>
+                            </div>
+                        </div>
+                        <div class="equipment-meta">
+                            <div class="equipment-price">$180.000</div>
+                            <div class="equipment-weight">
+                                <i class="fas fa-weight-hanging"></i> 1.2kg
+                            </div>
+                        </div>
+                    </div>
+                    <div class="equipment-footer">
+                        <button class="btn comprar-btn" 
+                                data-producto-id="90346G" 
+                                data-producto-nombre="Equipo de Electroterapia TENS/EMS"
+                                data-producto-precio="180000"
+                                data-producto-tipo="implemento">
+                            <i class="fas fa-shopping-cart"></i> Comprar Ahora
+                        </button>
+                        <a href="/implementos/90346G" class="btn btn-outline btn-small">
+                            <i class="fas fa-info-circle"></i> Más Información
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Implemento 9 - Compresa de Gel -->
+                <div class="equipment-card" data-category="thermal">
+                    <div class="equipment-header">
+                        <div class="equipment-icon"><i class="fas fa-snowflake"></i></div>
+                        <div class="equipment-title">
+                            <h3>Compresa de Gel Reutilizable <span class="badge badge-therapy">TERAPIA</span></h3>
+                        </div>
+                    </div>
+                    <div class="equipment-body">
+                        <p class="equipment-description">Compresa de gel multifuncional para terapia de frío y calor. Ideal para lesiones agudas y manejo del dolor.</p>
+                        <div class="equipment-features">
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Uso en caliente y frío</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Material flexible y anatómico</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Mantiene temperatura por 45 minutos</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Funda lavable incluida</span>
+                            </div>
+                        </div>
+                        <div class="equipment-meta">
+                            <div class="equipment-price">$25.000</div>
+                            <div class="equipment-weight">
+                                <i class="fas fa-weight-hanging"></i> 0.3kg
+                            </div>
+                        </div>
+                    </div>
+                    <div class="equipment-footer">
+                        <button class="btn comprar-btn" 
+                                data-producto-id="A93F7G" 
+                                data-producto-nombre="Compresa de Gel Reutilizable"
+                                data-producto-precio="25000"
+                                data-producto-tipo="implemento">
+                            <i class="fas fa-shopping-cart"></i> Comprar Ahora
+                        </button>
+                        <a href="/implementos/A93F7G" class="btn btn-outline btn-small">
+                            <i class="fas fa-info-circle"></i> Más Información
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Implemento 10 - Pelotas para Manos -->
+                <div class="equipment-card" data-category="flexibility strength">
+                    <div class="equipment-header">
+                        <div class="equipment-icon"><i class="fas fa-hand-rock"></i></div>
+                        <div class="equipment-title">
+                            <h3>Pelotas de Ejercicio para Manos</h3>
+                        </div>
+                    </div>
+                    <div class="equipment-body">
+                        <p class="equipment-description">Set de pelotas de diferentes resistencias para ejercicios de rehabilitación de manos, muñecas y antebrazos.</p>
+                        <div class="equipment-features">
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>3 niveles de resistencia</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Material antideslizante</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Ejercicios para artritis y recuperación</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Guía de ejercicios incluida</span>
+                            </div>
+                        </div>
+                        <div class="equipment-meta">
+                            <div class="equipment-price">$18.000</div>
+                            <div class="equipment-weight">
+                                <i class="fas fa-weight-hanging"></i> 0.2kg
+                            </div>
+                        </div>
+                    </div>
+                    <div class="equipment-footer">
+                        <button class="btn comprar-btn" 
+                                data-producto-id="PH63RT" 
+                                data-producto-nombre="Pelotas de Ejercicio para Manos"
+                                data-producto-precio="18000"
+                                data-producto-tipo="implemento">
+                            <i class="fas fa-shopping-cart"></i> Comprar Ahora
+                        </button>
+                        <a href="/implementos/PH63RT" class="btn btn-outline btn-small">
+                            <i class="fas fa-info-circle"></i> Más Información
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Implemento 11 - Ultrasonido Portátil -->
+                <div class="equipment-card professional" data-category="electro professional">
+                    <div class="equipment-header">
+                        <div class="equipment-icon"><i class="fas fa-wave-square"></i></div>
+                        <div class="equipment-title">
+                            <h3>Ultrasonido Terapéutico Portátil <span class="badge badge-portable">PORTÁTIL</span></h3>
+                        </div>
+                    </div>
+                    <div class="equipment-body">
+                        <p class="equipment-description">Dispositivo de ultrasonido portátil para terapia de tejidos profundos y tratamiento de lesiones musculoesqueléticas.</p>
+                        <div class="equipment-features">
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Frecuencia ajustable 1-3 MHz</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Intensidad regulable</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Batería recargable</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Diseño compacto y liviano</span>
+                            </div>
+                        </div>
+                        <div class="equipment-meta">
+                            <div class="equipment-price">$220.000</div>
+                            <div class="equipment-weight">
+                                <i class="fas fa-weight-hanging"></i> 0.9kg
+                            </div>
+                        </div>
+                    </div>
+                    <div class="equipment-footer">
+                        <button class="btn comprar-btn" 
+                                data-producto-id="UT92LM" 
+                                data-producto-nombre="Ultrasonido Terapéutico Portátil"
+                                data-producto-precio="220000"
+                                data-producto-tipo="implemento">
+                            <i class="fas fa-shopping-cart"></i> Comprar Ahora
+                        </button>
+                        <a href="/implementos/UT92LM" class="btn btn-outline btn-small">
+                            <i class="fas fa-info-circle"></i> Más Información
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Implemento 12 - Bloques de Yoga -->
+                <div class="equipment-card" data-category="flexibility">
+                    <div class="equipment-header">
+                        <div class="equipment-icon"><i class="fas fa-cube"></i></div>
+                        <div class="equipment-title">
+                            <h3>Set de Bloques de Yoga Terapéutico</h3>
+                        </div>
+                    </div>
+                    <div class="equipment-body">
+                        <p class="equipment-description">Bloques de espuma de alta densidad para facilitar posturas de yoga y ejercicios de estiramiento terapéutico.</p>
+                        <div class="equipment-features">
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>2 bloques de diferentes alturas</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Material ecológico y antideslizante</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Ideal para todos los niveles</span>
+                            </div>
+                            <div class="equipment-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Ligero y fácil de transportar</span>
+                            </div>
+                        </div>
+                        <div class="equipment-meta">
+                            <div class="equipment-price">$32.000</div>
+                            <div class="equipment-weight">
+                                <i class="fas fa-weight-hanging"></i> 0.6kg
+                            </div>
+                        </div>
+                    </div>
+                    <div class="equipment-footer">
+                        <button class="btn comprar-btn" 
+                                data-producto-id="YB47KQ" 
+                                data-producto-nombre="Set de Bloques de Yoga Terapéutico"
+                                data-producto-precio="32000"
+                                data-producto-tipo="implemento">
+                            <i class="fas fa-shopping-cart"></i> Comprar Ahora
+                        </button>
+                        <a href="/implementos/YB47KQ" class="btn btn-outline btn-small">
+                            <i class="fas fa-info-circle"></i> Más Información
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section (se mantiene igual) -->
+    <section class="categories-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Categorías</div>
+                <h2 class="section-title">Tipos de Implementos Terapéuticos</h2>
+                <p class="section-subtitle">Encuentra el equipo perfecto para cada tipo de terapia y necesidad de rehabilitación</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Fortalecimiento Muscular</h3>
+                    <p>Equipos especializados para desarrollar fuerza y resistencia muscular durante procesos de rehabilitación y recuperación funcional.</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-expand-alt"></i>
+                    </div>
+                    <h3>Flexibilidad y Movilidad</h3>
+                    <p>Implementos diseñados para mejorar el rango de movimiento, elasticidad muscular y movilidad articular de forma segura y progresiva.</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Electroterapia</h3>
+                    <p>Dispositivos de estimulación eléctrica avanzada para manejo del dolor, recuperación muscular y tratamientos especializados.</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-temperature-high"></i>
+                    </div>
+                    <h3>Termoterapia</h3>
+                    <p>Equipos de aplicación de calor y frío para alivio del dolor, reducción de inflamación y aceleración de procesos de recuperación.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section (se mantiene igual) -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>¿Necesitas Asesoría Especializada en Equipos?</h2>
+                <p>Nuestros especialistas te ayudarán a seleccionar los implementos más adecuados para tu condición específica y plan de tratamiento personalizado.</p>
+                <div class="cta-buttons">
+                    <a href="/cita" class="btn btn-secondary">Agendar Asesoría Gratuita</a>
+                    <a href="/contacto" class="btn btn-outline">Contactar Especialista</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (se mantiene igual) -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <div class="logo">
+                            <div class="logo-icon">FS</div>
+                            <div class="logo-text">FisioSalud</div>
+                        </div>
+                    </div>
+                    <p class="footer-description">Líderes en equipamiento terapéutico especializado con más de 15 años de experiencia proporcionando soluciones de calidad para la rehabilitación y el bienestar.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Servicios</h3>
+                    <div class="footer-links">
+                        <a href="/servicios_terapeuticos">Terapéuticos</a>
+                        <a href="/servicios_implementos">Implementos</a>
+                        <a href="/servicios_alimenticios">Nutrición</a>
+                        <a href="/Fisiobot">FisioBot AI</a>
+                        <a href="#">Consultas Virtuales</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Empresa</h3>
+                    <div class="footer-links">
+                        <a href="#">Nosotros</a>
+                        <a href="#">Equipo</a>
+                        <a href="#">Tecnología</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Carreras</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <div class="footer-links">
+                        <a href="tel:3202914521"><i class="fas fa-phone"></i> 320 2914521</a>
+                        <a href="mailto:info@fisiosalud.com"><i class="fas fa-envelope"></i> info@fisiosalud.com</a>
+                        <a href="#"><i class="fas fa-map-marker-alt"></i> Av. Salud #123, Bogotá</a>
+                        <a href="#"><i class="fas fa-clock"></i> Lun-Vie: 7am-8pm</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 FisioSalud. Todos los derechos reservados. | <a href="#" style="color: rgba(255,255,255,0.7);">Política de Privacidad</a> | <a href="#" style="color: rgba(255,255,255,0.7);">Términos de Servicio</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filtrado de implementos por categoría
+            const filterCards = document.querySelectorAll('.filter-card');
+            const equipmentCards = document.querySelectorAll('.equipment-card');
+            const clearFiltersBtn = document.querySelector('.clear-filters');
+
+            function filterEquipment(category) {
+                equipmentCards.forEach(equipmentCard => {
+                    const equipmentCategories = equipmentCard.getAttribute('data-category').split(' ');
+                    
+                    if (category === 'all' || equipmentCategories.includes(category)) {
+                        equipmentCard.style.display = 'block';
+                        setTimeout(() => {
+                            equipmentCard.style.opacity = '1';
+                            equipmentCard.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        equipmentCard.style.opacity = '0';
+                        equipmentCard.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            equipmentCard.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            }
+
+            filterCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remover active de todos los filtros
+                    filterCards.forEach(c => c.classList.remove('active'));
+                    // Agregar active al filtro clickeado
+                    this.classList.add('active');
+
+                    const category = this.getAttribute('data-category');
+                    filterEquipment(category);
+                });
+            });
+
+            // Limpiar filtros
+            clearFiltersBtn.addEventListener('click', function() {
+                filterCards.forEach(c => c.classList.remove('active'));
+                filterCards[0].classList.add('active'); // Activar "Todos"
+                filterEquipment('all');
+            });
+
+            // Animación inicial de las cards
+            equipmentCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 + index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

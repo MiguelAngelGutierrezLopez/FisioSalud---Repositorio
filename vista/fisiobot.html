@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FisioBot - Tu Fisioterapia Digital Inteligente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* PALETA DE COLORES */
+            --primary: #0A2540;
+            --primary-dark: #061A2C;
+            --primary-light: #1A365D;
+            --secondary: #00A3FF;
+            --accent: #00D4AA;
+            --light: #FFFFFF;
+            --light-gray: #F8FAFC;
+            --gray: #64748B;
+            --dark: #0F172A;
+            
+            /* ESTILOS VISUALES */
+            --border-radius: 8px;
+            --border-radius-sm: 4px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        /* Header */
+        header {
+            background: var(--light);
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: var(--spacing-sm) 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: var(--spacing-xs) 0;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 1px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-xs) var(--spacing-md);
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            text-align: center;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            min-width: 120px;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: #008CE6;
+        }
+
+        .btn-accent {
+            background: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background: #00C095;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 var(--spacing-xl);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><polygon points="0,0 1000,0 1000,1000" fill="white"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Trust Section */
+        .trust-section {
+            padding: var(--spacing-lg) 0;
+            text-align: center;
+            background-color: var(--light);
+            border-top: 1px solid #E2E8F0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .trust-section p {
+            color: var(--gray);
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .trust-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Capabilities Section */
+        .capabilities {
+            padding: var(--spacing-xl) 0;
+            background-color: var(--light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 700;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .capability-card {
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid #F1F5F9;
+            height: 100%;
+        }
+
+        .capability-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .capability-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .capability-icon i {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .capability-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+        }
+
+        .capability-card p {
+            color: var(--gray);
+        }
+
+        /* Plans Section */
+        .plans-section {
+            padding: var(--spacing-xl) 0;
+            background-color: var(--light-gray);
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .plan-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid #F1F5F9;
+            text-align: center;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .plan-card.featured {
+            border: 2px solid var(--accent);
+            transform: scale(1.02);
+        }
+
+        .plan-card.featured::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: 16px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            padding: 4px 30px;
+            transform: rotate(45deg);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .plan-card.featured:hover {
+            transform: scale(1.02) translateY(-8px);
+        }
+
+        .plan-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-md);
+        }
+
+        .plan-icon i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: var(--spacing-xs);
+            font-weight: 600;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: var(--spacing-md);
+            font-weight: 700;
+        }
+
+        .plan-price span {
+            font-size: 1rem;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: var(--spacing-lg);
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .plan-features li {
+            padding: var(--spacing-xs) 0;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .plan-features li i {
+            color: var(--accent);
+            width: 20px;
+            font-size: 0.875rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: var(--spacing-xl) 0;
+            background-color: var(--light);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .testimonial-card {
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow);
+            position: relative;
+            transition: var(--transition);
+            border: 1px solid #F1F5F9;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-size: 3rem;
+            color: #F1F5F9;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: var(--spacing-md);
+            color: var(--text);
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .author-info h4 {
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .author-info p {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: var(--spacing-xl) 0;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.03"><polygon points="0,1000 1000,0 1000,1000" fill="white"/></svg>');
+            background-size: cover;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 700;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-lg);
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-light {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-light:hover {
+            background: #F8FAFC;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: var(--spacing-xl) 0 var(--spacing-lg);
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .footer-col h3 {
+            font-size: 1.125rem;
+            margin-bottom: var(--spacing-md);
+            color: white;
+            font-weight: 600;
+        }
+
+        .footer-col p {
+            color: #CBD5E0;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .footer-col ul li a {
+            color: #CBD5E0;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 0.875rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #CBD5E0;
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+            
+            .hero-content {
+                text-align: center;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-buttons, .cta-buttons {
+                justify-content: center;
+            }
+            
+            .plan-card.featured {
+                transform: none;
+            }
+            
+            .plan-card.featured:hover {
+                transform: translateY(-8px);
+            }
+            
+            .plan-card.featured::before {
+                right: -25px;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    FS
+                </div>
+                <div class="logo-text">FisioBot</div>
+            </div>
+            <nav class="nav-links">
+                <a href="#beneficios" class="active">Beneficios</a>
+                <a href="#planes">Planes</a>
+                <a href="#testimonios">Testimonios</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+            <a href="/inicio" class="btn btn-outline">Volver al inicio</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1>Tecnología avanzada para tu bienestar físico</h1>
+                <p>Una plataforma inteligente que combina la experiencia de fisioterapeutas profesionales con algoritmos de IA para ofrecerte rutinas personalizadas, seguimiento en tiempo real y soporte 24/7.</p>
+                <div class="hero-buttons">
+                    <a href="#prueba" class="btn btn-secondary">Comenzar prueba gratuita</a>
+                    <a href="#demo" class="btn btn-outline">Ver demostración</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="FisioBot en acción">
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust-section">
+        <div class="container">
+            <p>CONFÍA EN LA TECNOLOGÍA AVANZADA PARA TU SALUD</p>
+            <div class="trust-logo">FisioSalud</div>
+        </div>
+    </section>
+
+    <!-- Capabilities Section -->
+    <section class="capabilities" id="beneficios">
+        <div class="container">
+            <div class="section-header">
+                <h2>Tecnología que transforma tu rehabilitación</h2>
+                <p>Una plataforma integral diseñada por fisioterapeutas profesionales y potenciada por inteligencia artificial de vanguardia</p>
+            </div>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3>Rutinas guiadas por IA</h3>
+                    <p>Algoritmos inteligentes crean programas de ejercicio progresivos que se adaptan dinámicamente a tu nivel físico y necesidades específicas.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Estimulación inteligente</h3>
+                    <p>Secuencias neuromusculares avanzadas basadas en el análisis de millones de datos de pacientes y validación en tiempo real.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Asistencia 24/7 con IA</h3>
+                    <p>Soporte continuo mediante chatbot inteligente que aprende de tus patrones y te conecta con especialistas cuando es necesario.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-chart-network"></i>
+                    </div>
+                    <h3>Seguimiento predictivo</h3>
+                    <p>Análisis avanzado de tu progreso con machine learning que anticipa resultados y ajusta tu tratamiento de forma proactiva.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-dna"></i>
+                    </div>
+                    <h3>Nutrición personalizada</h3>
+                    <p>Planes de alimentación con algoritmos genéticos que optimizan tu recuperación según tu metabolismo y objetivos.</p>
+                </div>
+                <div class="capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-vr-cardboard"></i>
+                    </div>
+                    <h3>Visión artificial avanzada</h3>
+                    <p>Tecnología de computer vision que analiza tu postura y movimientos con precisión milimétrica para prevenir lesiones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section class="plans-section" id="planes">
+        <div class="container">
+            <div class="section-header">
+                <h2>Planes que se adaptan a tus necesidades</h2>
+                <p>Elige el nivel de tecnología y soporte que mejor se ajuste a tu proceso de rehabilitación</p>
+            </div>
+            <div class="plans-grid">
+                <!-- Plan Estándar -->
+                <div class="plan-card">
+                    <div class="plan-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="plan-name">Estándar</h3>
+                    <div class="plan-price">$29<span>/mes</span></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Rutinas básicas personalizadas</li>
+                        <li><i class="fas fa-check"></i> Perfil de usuario personalizable</li>
+                        <li><i class="fas fa-check"></i> Acceso a ejercicios básicos</li>
+                        <li><i class="fas fa-check"></i> Recordatorios de sesiones</li>
+                        <li><i class="fas fa-check"></i> Soporte por email</li>
+                        <li><i class="fas fa-check"></i> App móvil básica</li>
+                    </ul>
+                    <a href="#registro" class="btn btn-outline">Comenzar ahora</a>
+                </div>
+
+                <!-- Plan Premium -->
+                <div class="plan-card featured">
+                    <div class="plan-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="plan-name">Premium</h3>
+                    <div class="plan-price">$59<span>/mes</span></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Rutinas personalizadas por IA</li>
+                        <li><i class="fas fa-check"></i> Dashboard avanzado de progreso</li>
+                        <li><i class="fas fa-check"></i> Análisis de movimiento con visión artificial</li>
+                        <li><i class="fas fa-check"></i> Plan nutricional inteligente</li>
+                        <li><i class="fas fa-check"></i> Chatbot de soporte 24/7</li>
+                        <li><i class="fas fa-check"></i> Integración con wearables</li>
+                        <li><i class="fas fa-check"></i> Sesiones grupales virtuales</li>
+                        <li><i class="fas fa-check"></i> App móvil premium</li>
+                    </ul>
+                    <a href="#registro" class="btn btn-accent">Prueba gratuita 7 días</a>
+                </div>
+
+                <!-- Plan Elite -->
+                <div class="plan-card">
+                    <div class="plan-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3 class="plan-name">Elite</h3>
+                    <div class="plan-price">$99<span>/mes</span></div>
+                    <ul class="plan-features">
+                        <li><i class="fas fa-check"></i> Todo lo del plan Premium</li>
+                        <li><i class="fas fa-check"></i> Terapeuta personal asignado</li>
+                        <li><i class="fas fa-check"></i> Consultas ilimitadas por video</li>
+                        <li><i class="fas fa-check"></i> Recomendaciones de productos personalizadas</li>
+                        <li><i class="fas fa-check"></i> Análisis genético de recuperación</li>
+                        <li><i class="fas fa-check"></i> Acceso a tecnología experimental</li>
+                        <li><i class="fas fa-check"></i> Prioridad en soporte</li>
+                        <li><i class="fas fa-check"></i> Reportes médicos detallados</li>
+                        <li><i class="fas fa-check"></i> Sesiones de realidad virtual</li>
+                    </ul>
+                    <a href="#registro" class="btn btn-outline">Solicitar demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonios">
+        <div class="container">
+            <div class="section-header">
+                <h2>Historias de éxito con tecnología</h2>
+                <p>Descubre cómo la combinación de fisioterapia tradicional con IA está revolucionando la rehabilitación</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "La tecnología de análisis postural de FisioBot detectó un problema en mi forma de caminar que ningún terapeuta había notado. En 3 meses corregí mi postura y eliminé el dolor crónico de espalda."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MC</div>
+                        <div class="author-info">
+                            <h4>María Cortés</h4>
+                            <p>Paciente con dolor crónico</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Como fisioterapeuta, FisioBot me permite ofrecer un seguimiento preciso a mis pacientes entre sesiones. Los algoritmos predictivos han mejorado mis resultados en un 40%."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JG</div>
+                        <div class="author-info">
+                            <h4>Javier González</h4>
+                            <p>Fisioterapeuta especializado</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Después de mi cirugía de rodilla, los sensores inteligentes de FisioBot monitorizaron cada movimiento. La IA ajustó mi rehabilitación en tiempo real y recuperé la movilidad 3 semanas antes de lo previsto."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AL</div>
+                        <div class="author-info">
+                            <h4>Ana López</h4>
+                            <p>Paciente post-cirugía</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="prueba">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Experimenta el futuro de la fisioterapia</h2>
+                <p>Únete a la revolución de la salud digital. Nuestra tecnología de vanguardia está respaldada por profesionales médicos y diseñada para optimizar tu recuperación.</p>
+                <div class="cta-buttons">
+                    <a href="/anuncio" class="btn btn-light">Comenzar prueba gratuita</a>
+                    <a href="/anuncio" class="btn btn-outline">Ver demostración</a>
+                </div>
+                <p style="margin-top: var(--spacing-md); font-size: 0.875rem; opacity: 0.8;">Tecnología médica certificada • Sin tarjeta de crédito • Cancela cuando quieras</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>FisioBot</h3>
+                    <p>Tecnología avanzada para tu bienestar físico. Combinamos IA, data science y fisioterapia profesional.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Tecnologías</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-robot"></i> Inteligencia Artificial</a></li>
+                        <li><a href="#"><i class="fas fa-camera"></i> Visión por Computador</a></li>
+                        <li><a href="#"><i class="fas fa-network-wired"></i> IoT y Sensores</a></li>
+                        <li><a href="#"><i class="fas fa-chart-bar"></i> Análisis Predictivo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Salud</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-bone"></i> Rehabilitación Ortopédica</a></li>
+                        <li><a href="#"><i class="fas fa-running"></i> Recuperación Deportiva</a></li>
+                        <li><a href="#"><i class="fas fa-user-injured"></i> Dolor Crónico</a></li>
+                        <li><a href="#"><i class="fas fa-apple-alt"></i> Nutrición Clínica</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Calle Tecnología 133, Ciudad</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +1 234 567 890</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> tech@fisiobot.com</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> Soporte 24/7</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 FisioBot Technologies. Todos los derechos reservados. | Tecnología médica certificada CE</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.capability-card, .testimonial-card, .plan-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = 'var(--shadow-lg)';
+            } else {
+                header.style.boxShadow = 'var(--shadow)';
+            }
+        });
+    </script>
+</body>
+</html>

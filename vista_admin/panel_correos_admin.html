@@ -1,0 +1,1966 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitudes por Correo - Panel Administrador</title>
+    <style>
+        :root {
+            --primary: #0A2540;
+            --secondary: #00A3FF;
+            --accent: #00D4AA;
+            --background: #FFFFFF;
+            --background-alt: #F8FAFC;
+            --text: #0F172A;
+            --gray: #64748B;
+            --gray-light: #E2E8F0;
+            --gray-lighter: #F1F5F9;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --info: #17a2b8;
+            
+            --border-radius: 8px;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition: all 0.2s ease;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-alt);
+            color: var(--text);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 260px;
+            background-color: var(--primary);
+            color: white;
+            padding: var(--spacing-md) 0;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0 var(--spacing-md) var(--spacing-md);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-right: var(--spacing-sm);
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            padding: var(--spacing-sm) var(--spacing-md);
+            transition: var(--transition);
+        }
+
+        .nav-links li:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-links li.active {
+            background-color: rgba(255, 255, 255, 0.12);
+            border-left: 3px solid var(--secondary);
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .nav-links i {
+            margin-right: var(--spacing-sm);
+            font-size: 1.1rem;
+            width: 20px;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            padding: var(--spacing-lg);
+            overflow-y: auto;
+            background: var(--background-alt);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .header h2 {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 44px;
+            height: 44px;
+            border-radius: 4px;
+            margin-right: var(--spacing-sm);
+            border: 2px solid var(--secondary);
+            object-fit: cover;
+        }
+
+        .user-details .user-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .user-details .user-role {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* WELCOME BANNER */
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary), #0d2e4d);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .banner-text h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .banner-text p {
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .banner-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-sm);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .banner-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary);
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-white:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        /* CARDS GRID */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .card {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-sm);
+            transition: var(--transition);
+            border: 1px solid var(--gray-light);
+        }
+
+        .card:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .card-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .bg-primary { background-color: var(--primary); }
+        .bg-success { background-color: var(--success); }
+        .bg-warning { background-color: var(--warning); }
+        .bg-danger { background-color: var(--danger); }
+        .bg-info { background-color: var(--info); }
+
+        .card-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .card-description {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        /* TABS */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-light);
+            margin-bottom: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: var(--spacing-sm) var(--spacing-sm);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .tab.active {
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .tab:hover:not(.active) {
+            background-color: var(--gray-lighter);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* BADGE */
+        .badge {
+            display: inline-block;
+            padding: 3px 7px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            border-radius: 10px;
+            color: white;
+            margin-left: var(--spacing-sm);
+        }
+
+        .badge-pending { background-color: var(--warning); }
+        .badge-review { background-color: var(--info); }
+        .badge-approved { background-color: var(--success); }
+        .badge-rejected { background-color: var(--danger); }
+
+        /* FILTROS */
+        .filters-container {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            align-items: end;
+            border: 1px solid var(--gray-light);
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .filter-select, .filter-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--gray-light);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .filter-select:focus, .filter-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        /* LISTA DE CORREOS */
+        .email-list {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-light);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .email-item {
+            padding: var(--spacing-sm);
+            border-bottom: 1px solid var(--gray-lighter);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .email-item:hover {
+            background-color: var(--gray-lighter);
+        }
+
+        .email-item.unread {
+            background-color: rgba(0, 163, 255, 0.05);
+        }
+
+        .email-item.selected {
+            background-color: rgba(0, 163, 255, 0.1);
+            border-left: 3px solid var(--secondary);
+        }
+
+        .email-checkbox {
+            width: 20px;
+            height: 20px;
+        }
+
+        .email-sender {
+            font-weight: 600;
+            color: var(--text);
+            min-width: 150px;
+        }
+
+        .email-subject {
+            flex: 1;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .email-preview {
+            color: var(--gray);
+            font-size: 0.9rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 300px;
+        }
+
+        .email-date {
+            color: var(--gray);
+            font-size: 0.85rem;
+            min-width: 100px;
+            text-align: right;
+        }
+
+        .email-status {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .status-pending { background-color: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .status-review { background-color: rgba(23, 162, 184, 0.1); color: var(--info); }
+        .status-approved { background-color: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .status-rejected { background-color: rgba(239, 68, 68, 0.1); color: var(--danger); }
+
+        /* VISTA DE CORREO */
+        .email-view-container {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid var(--gray-light);
+            display: none;
+        }
+
+        .email-view-container.active {
+            display: block;
+        }
+
+        .email-header {
+            border-bottom: 1px solid var(--gray-light);
+            padding-bottom: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .email-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .email-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .email-meta {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .email-from {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .email-body {
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+            white-space: pre-wrap;
+            background-color: var(--gray-lighter);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .email-attachments {
+            margin-top: var(--spacing-md);
+            padding-top: var(--spacing-sm);
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .attachment-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm);
+            background-color: var(--gray-lighter);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* FORMULARIO DE RESPUESTA */
+        .response-form {
+            margin-top: var(--spacing-md);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--gray-light);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        /* ACCIONES */
+        .email-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--spacing-md);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        /* BOTONES */
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0090e0;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .btn-info {
+            background-color: var(--info);
+            color: white;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 4px;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-sm);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease-out;
+            border: 1px solid var(--gray-light);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            padding: var(--spacing-sm);
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary), #0d2e4d);
+            color: white;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-body {
+            padding: var(--spacing-sm);
+        }
+
+        .modal-footer {
+            padding: var(--spacing-sm);
+            border-top: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--spacing-sm);
+        }
+
+        /* NOTIFICACIONES */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            padding: var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--spacing-sm);
+            min-width: 300px;
+            max-width: 400px;
+            z-index: 9999;
+            animation: slideInRight 0.3s ease;
+            border-left: 4px solid;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .notification-success {
+            border-left-color: var(--success);
+        }
+
+        .notification-error {
+            border-left-color: var(--danger);
+        }
+
+        .notification-info {
+            border-left-color: var(--info);
+        }
+
+        /* ESTADOS */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-lg) var(--spacing-sm);
+            color: var(--gray);
+            background: var(--background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-light);
+        }
+
+        .empty-state i {
+            font-size: 2rem;
+            color: var(--gray-light);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .empty-state h3 {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+        }
+
+        .empty-state p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            max-width: 400px;
+            margin: 0 auto var(--spacing-sm);
+        }
+
+        /* PRIORIDAD */
+        .priority-high {
+            border-left: 3px solid var(--danger);
+        }
+
+        .priority-medium {
+            border-left: 3px solid var(--warning);
+        }
+
+        .priority-low {
+            border-left: 3px solid var(--success);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+            
+            .main-content {
+                padding: var(--spacing-sm);
+            }
+            
+            .banner-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .email-item {
+                flex-wrap: wrap;
+            }
+            
+            .email-preview {
+                max-width: 100%;
+            }
+            
+            .email-sender, .email-date {
+                min-width: auto;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .banner-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .email-status {
+                min-width: 60px;
+                font-size: 0.7rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">FS</div>
+                <div class="logo-text">FisioSalud Admin</div>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="/admin/panel-usuarios"><i class="fas fa-user-injured"></i> Pacientes</a></li>
+                <li><a href="/admin/panel-fisio"><i class="fas fa-user-md"></i> Fisioterapeutas</a></li>
+                <li><a href="/admin/panel-servicios"><i class="fas fa-hand-holding-medical"></i> Servicios</a></li>
+                <li><a href="/admin/panel-agenda"><i class="fas fa-calendar-alt"></i> Agenda</a></li>
+                <li><a href="/admin/panel-correos"><i class="fas fa-cog"></i> Correos recibidos</a></li>
+                <li><a href="/admin/logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            </ul>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <!-- HEADER -->
+            <div class="header">
+                <h2>Sistema de Gestión de Solicitudes por Correo</h2>
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/150?img=11" alt="Administrador">
+                    <div class="user-details">
+                        <div class="user-name">Administrador</div>
+                        <div class="user-role">Clínica FisioSalud</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Welcome Banner -->
+            <div class="welcome-banner">
+                <div class="banner-content">
+                    <div class="banner-text">
+                        <h3>Centro de Gestión de Solicitudes</h3>
+                        <p>Revisa, gestiona y responde a solicitudes de servicios terapéuticos enviadas por los pacientes.</p>
+                    </div>
+                    <div class="banner-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="total-pendientes">0</div>
+                            <div class="stat-label">Pendientes</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="total-revision">0</div>
+                            <div class="stat-label">En Revisión</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="total-mes">0</div>
+                            <div class="stat-label">Este Mes</div>
+                        </div>
+                    </div>
+                    <div class="banner-actions">
+                        <button class="btn btn-white" onclick="markAllAsRead()">
+                            <i class="fas fa-check-double"></i> Marcar Todo Leído
+                        </button>
+                        <button class="btn btn-white" onclick="openNewRequestModal()">
+                            <i class="fas fa-plus"></i> Nueva Solicitud Manual
+                        </button>
+                        <button class="btn btn-white" onclick="exportRequests()">
+                            <i class="fas fa-download"></i> Exportar Solicitudes
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARDS GRID -->
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Solicitudes Totales</div>
+                        <div class="card-icon bg-primary">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="card-total">0</div>
+                    <div class="card-description">Recibidas este mes</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Por Revisar</div>
+                        <div class="card-icon bg-warning">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="card-pendientes">0</div>
+                    <div class="card-description">Necesitan atención</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Aprobadas</div>
+                        <div class="card-icon bg-success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="card-aprobadas">0</div>
+                    <div class="card-description">Remitidas a fisioterapeutas</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Rechazadas</div>
+                        <div class="card-icon bg-danger">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="card-rechazadas">0</div>
+                    <div class="card-description">No cumplen requisitos</div>
+                </div>
+            </div>
+
+            <!-- TABS -->
+            <div class="tabs">
+                <div class="tab active" onclick="changeTab('pendientes')">
+                    Pendientes
+                    <span class="badge badge-pending" id="badge-pendientes">0</span>
+                </div>
+                <div class="tab" onclick="changeTab('revision')">
+                    En Revisión
+                    <span class="badge badge-review" id="badge-revision">0</span>
+                </div>
+                <div class="tab" onclick="changeTab('aprobadas')">Aprobadas</div>
+                <div class="tab" onclick="changeTab('rechazadas')">Rechazadas</div>
+                <div class="tab" onclick="changeTab('todos')">Todos</div>
+            </div>
+
+            <!-- FILTROS -->
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="filter-priority">Prioridad</label>
+                    <select class="filter-select" id="filter-priority">
+                        <option value="">Todas las prioridades</option>
+                        <option value="alta">Alta</option>
+                        <option value="media">Media</option>
+                        <option value="baja">Baja</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-service">Tipo de Servicio</label>
+                    <select class="filter-select" id="filter-service">
+                        <option value="">Todos los servicios</option>
+                        <option value="rehabilitacion">Rehabilitación</option>
+                        <option value="deportiva">Terapia Deportiva</option>
+                        <option value="neurologica">Neurológica</option>
+                        <option value="pediatrica">Pediátrica</option>
+                        <option value="geriatrica">Geriátrica</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-date">Fecha de Recepción</label>
+                    <input type="date" class="filter-input" id="filter-date">
+                </div>
+                <div class="filter-group">
+                    <button class="btn btn-primary" onclick="filterRequests()" style="margin-top: 24px;">
+                        <i class="fas fa-filter"></i> Aplicar Filtros
+                    </button>
+                    <button class="btn btn-outline" onclick="clearFilters()" style="margin-top: 24px;">
+                        <i class="fas fa-times"></i> Limpiar
+                    </button>
+                </div>
+            </div>
+
+            <!-- LISTA DE SOLICITUDES -->
+            <div class="email-list" id="requests-list">
+                <div class="empty-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <h3>Cargando solicitudes...</h3>
+                </div>
+            </div>
+
+            <!-- VISTA DE SOLICITUD (oculta inicialmente) -->
+            <div class="email-view-container" id="email-view">
+                <div class="email-header">
+                    <div class="email-header-row">
+                        <h3 class="email-title" id="email-view-title">Título del Correo</h3>
+                        <div class="email-status" id="email-view-status">Pendiente</div>
+                    </div>
+                    <div class="email-meta">
+                        De: <span class="email-from" id="email-view-from">remitente@ejemplo.com</span>
+                        <br>
+                        Fecha: <span id="email-view-date">01/01/2024 10:00</span>
+                        <br>
+                        Prioridad: <span id="email-view-priority">Media</span>
+                        • Servicio: <span id="email-view-service">Rehabilitación</span>
+                    </div>
+                </div>
+
+                <div class="email-body" id="email-view-body">
+                    Contenido del correo...
+                </div>
+
+                <!-- DATOS DEL FORMULARIO (si aplica) -->
+                <div id="form-data-view" style="display: none;">
+                    <h4 style="margin-bottom: var(--spacing-sm); color: var(--primary);">
+                        <i class="fas fa-file-alt"></i> Datos del Formulario
+                    </h4>
+                    <div id="form-data-content" style="background: var(--gray-lighter); padding: var(--spacing-sm); border-radius: var(--border-radius);">
+                        <!-- Datos del formulario dinámicos -->
+                    </div>
+                </div>
+
+                <!-- ADJUNTOS -->
+                <div class="email-attachments" id="email-attachments" style="display: none;">
+                    <h4 style="margin-bottom: var(--spacing-sm); color: var(--primary);">
+                        <i class="fas fa-paperclip"></i> Archivos Adjuntos
+                    </h4>
+                    <div id="attachments-list">
+                        <!-- Lista de adjuntos -->
+                    </div>
+                </div>
+
+                <!-- FORMULARIO DE RESPUESTA -->
+                <div class="response-form">
+                    <h4 style="margin-bottom: var(--spacing-sm); color: var(--primary);">
+                        <i class="fas fa-reply"></i> Responder y Gestionar
+                    </h4>
+                    
+                    <div class="form-group">
+                        <label for="response-action">Acción a Tomar *</label>
+                        <select class="filter-select" id="response-action" required onchange="toggleResponseFields()">
+                            <option value="">Seleccionar acción...</option>
+                            <option value="approve">Aprobar y Remitir a Fisioterapeuta</option>
+                            <option value="request_info">Solicitar Información Adicional</option>
+                            <option value="reject">Rechazar Solicitud</option>
+                            <option value="schedule">Agendar Cita Directamente</option>
+                        </select>
+                    </div>
+
+                    <div id="therapist-field" style="display: none;">
+                        <div class="form-group">
+                            <label for="assign-therapist">Remitir a Fisioterapeuta *</label>
+                            <select class="filter-select" id="assign-therapist">
+                                <option value="">Seleccionar fisioterapeuta...</option>
+                                <option value="Dr. Carlos Mendoza">Dr. Carlos Mendoza (Rehabilitación)</option>
+                                <option value="Dra. Ana López">Dra. Ana López (Deportiva)</option>
+                                <option value="Dr. Javier Rodríguez">Dr. Javier Rodríguez (Neurológica)</option>
+                                <option value="Dra. María Fernández">Dra. María Fernández (Pediátrica)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="schedule-field" style="display: none;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="appointment-date">Fecha Sugerida</label>
+                                <input type="date" class="filter-input" id="appointment-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="appointment-time">Hora Sugerida</label>
+                                <input type="time" class="filter-input" id="appointment-time">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="response-message">Mensaje de Respuesta *</label>
+                        <textarea class="form-textarea" id="response-message" placeholder="Escribe tu respuesta al paciente..."></textarea>
+                    </div>
+
+                    <div class="email-actions">
+                        <div>
+                            <button class="btn btn-outline" onclick="closeEmailView()">
+                                <i class="fas fa-times"></i> Cerrar
+                            </button>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-info" onclick="saveAsDraft()">
+                                <i class="fas fa-save"></i> Guardar Borrador
+                            </button>
+                            <button class="btn btn-success" onclick="sendResponse()">
+                                <i class="fas fa-paper-plane"></i> Enviar Respuesta
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL NUEVA SOLICITUD MANUAL -->
+    <div id="newRequestModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Registrar Solicitud Manualmente</h3>
+                <button class="modal-close" onclick="closeNewRequestModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="manualRequestForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="manual-patient">Nombre del Paciente *</label>
+                            <input type="text" class="filter-input" id="manual-patient" required placeholder="Nombre completo">
+                        </div>
+                        <div class="form-group">
+                            <label for="manual-email">Correo Electrónico *</label>
+                            <input type="email" class="filter-input" id="manual-email" required placeholder="paciente@email.com">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="manual-service">Servicio Solicitado *</label>
+                            <select class="filter-select" id="manual-service" required>
+                                <option value="">Seleccionar servicio...</option>
+                                <option value="rehabilitacion">Rehabilitación</option>
+                                <option value="deportiva">Terapia Deportiva</option>
+                                <option value="neurologica">Terapia Neurológica</option>
+                                <option value="pediatrica">Terapia Pediátrica</option>
+                                <option value="geriatrica">Terapia Geriátrica</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="manual-priority">Prioridad *</label>
+                            <select class="filter-select" id="manual-priority" required>
+                                <option value="alta">Alta</option>
+                                <option value="media" selected>Media</option>
+                                <option value="baja">Baja</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="manual-subject">Asunto *</label>
+                        <input type="text" class="filter-input" id="manual-subject" required placeholder="Asunto de la solicitud">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="manual-message">Mensaje/Descripción *</label>
+                        <textarea class="form-textarea" id="manual-message" required rows="4" placeholder="Descripción detallada de la solicitud..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="manual-notes">Notas Internas (Opcional)</label>
+                        <textarea class="form-textarea" id="manual-notes" rows="2" placeholder="Notas para el administrador..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeNewRequestModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="saveManualRequest()">Guardar Solicitud</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRMACIÓN -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="confirm-modal-title">Confirmar Acción</h3>
+                <button class="modal-close" onclick="closeConfirmModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-modal-message">¿Está seguro de realizar esta acción?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeConfirmModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="confirmAction()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// =============================================
+// DATOS DE EJEMPLO - SOLICITUDES POR CORREO
+// =============================================
+const exampleRequests = [
+    {
+        id: "REQ-2024-001",
+        from: "maria.gonzalez@email.com",
+        patient: "María González",
+        subject: "Solicitud de Terapia para Dolor Lumbar Crónico",
+        service: "rehabilitacion",
+        priority: "alta",
+        date: "2024-01-15 09:30",
+        status: "pending",
+        read: false,
+        body: "Buenos días,\n\nSoy María González, paciente con diagnóstico de dolor lumbar crónico desde hace 2 años. He intentado varios tratamientos sin resultados satisfactorios.\n\nSolicito una evaluación para terapia de rehabilitación especializada. Presento:\n- Dolor constante en zona lumbar\n- Limitación para flexionar\n- Molestias que afectan mi vida diaria\n\nAdjunto mi último informe médico y resonancia magnética.\n\nQuedo atenta a su respuesta,\nMaría González",
+        attachments: [
+            { name: "informe_medico.pdf", size: "2.4 MB" },
+            { name: "resonancia.jpg", size: "1.8 MB" }
+        ],
+        formData: {
+            edad: "45 años",
+            diagnostico: "Hernia discal L4-L5",
+            tratamientos_previos: "Fisioterapia básica, medicación",
+            tiempo_evolucion: "2 años",
+            limitaciones: "No puede levantar peso, dolor al sentarse"
+        }
+    },
+    {
+        id: "REQ-2024-002",
+        from: "carlos.rodriguez@email.com",
+        patient: "Carlos Rodríguez",
+        subject: "Evaluación para Terapia Deportiva Post-lesión",
+        service: "deportiva",
+        priority: "media",
+        date: "2024-01-14 14:20",
+        status: "review",
+        read: true,
+        body: "Estimado equipo de FisioSalud,\n\nSoy Carlos Rodríguez, futbolista amateur. Sufrí una lesión de rodilla (esguince grado II) hace 3 semanas durante un partido.\n\nBusco terapia deportiva especializada para:\n1. Recuperación acelerada\n2. Prevención de recaídas\n3. Fortalecimiento específico\n\nTengo torneo importante en 6 semanas. Necesito plan personalizado.\n\nDisponibilidad: Lunes a viernes después de las 18:00\n\nSaludos,\nCarlos Rodríguez",
+        attachments: [
+            { name: "diagnostico_lesion.pdf", size: "1.2 MB" }
+        ],
+        formData: {
+            deporte: "Fútbol",
+            nivel: "Amateur competitivo",
+            lesion: "Esguince rodilla grado II",
+            tiempo_lesion: "3 semanas",
+            objetivo: "Retorno en 6 semanas"
+        }
+    },
+    {
+        id: "REQ-2024-003",
+        from: "ana.martinez@email.com",
+        patient: "Ana Martínez",
+        subject: "Consulta para Terapia Neurológica - Parkinson",
+        service: "neurologica",
+        priority: "alta",
+        date: "2024-01-13 11:45",
+        status: "pending",
+        read: false,
+        body: "Buen día,\n\nMi nombre es Ana Martínez. A mi madre (78 años) le diagnosticaron Parkinson hace 1 año. Su movilidad ha disminuido significativamente.\n\nBuscamos terapia neurológica especializada que pueda ayudarla con:\n- Rigidez muscular\n- Problemas de equilibrio\n- Dificultad para caminar\n- Terapia ocupacional\n\nVivimos en el centro, disponibilidad por las mañanas.\n\nPor favor, necesitamos evaluación urgente.\n\nGracias,\nAna Martínez",
+        attachments: [],
+        formData: {
+            paciente: "Madre de la solicitante",
+            edad_paciente: "78 años",
+            diagnostico: "Parkinson etapa 2",
+            sintomas: "Rigidez, temblor, problemas equilibrio",
+            medicacion: "Levodopa, Pramipexol"
+        }
+    },
+    {
+        id: "REQ-2024-004",
+        from: "luis.fernandez@email.com",
+        patient: "Luis Fernández",
+        subject: "Terapia Pediátrica para Niño con Parálisis Cerebral",
+        service: "pediatrica",
+        priority: "alta",
+        date: "2024-01-12 16:10",
+        status: "approved",
+        read: true,
+        assignedTo: "Dra. María Fernández",
+        body: "Estimados,\n\nMi hijo Miguel (6 años) tiene diagnóstico de parálisis cerebral espástica. Actualmente recibe terapia pero buscamos especialistas en pediatría.\n\nNecesitamos:\n- Terapia de movimiento\n- Estimulación sensorial\n- Ayuda para desarrollo motor fino\n- Orientación para adaptaciones escolares\n\nDisponemos de informe neurológico completo y evaluaciones previas.\n\nAgradezco su pronta respuesta,\nLuis Fernández",
+        attachments: [
+            { name: "informe_neurologico.pdf", size: "3.5 MB" },
+            { name: "evaluaciones_previas.pdf", size: "2.1 MB" }
+        ],
+        formData: {
+            paciente: "Miguel Fernández",
+            edad: "6 años",
+            diagnostico: "Parálisis cerebral espástica",
+            necesidades: "Movilidad, comunicación, actividades diarias",
+            terapias_actuales: "Fisioterapia 2x semana"
+        }
+    },
+    {
+        id: "REQ-2024-005",
+        from: "sofia.ramirez@email.com",
+        patient: "Sofía Ramírez",
+        subject: "Rehabilitación Post-Cirugía de Hombro",
+        service: "rehabilitacion",
+        priority: "media",
+        date: "2024-01-11 10:15",
+        status: "rejected",
+        read: true,
+        rejectionReason: "No cumple requisitos de cobertura del seguro",
+        body: "Hola,\n\nTuve cirugía de hombro (reparación de manguito rotador) hace 4 semanas. Mi cirujano recomendó comenzar rehabilitación especializada.\n\nBusco:\n- Programa progresivo de recuperación\n- Ejercicios específicos para hombro\n- Seguimiento del rango de movimiento\n\nTengo seguro médico que cubre 20 sesiones de terapia.\n\nDisponibilidad: Cualquier día de la semana\n\nSaludos,\nSofía Ramírez",
+        attachments: [
+            { name: "alta_cirugia.pdf", size: "1.5 MB" },
+            { name: "cobertura_seguro.pdf", size: "0.8 MB" }
+        ],
+        formData: {
+            cirugia: "Reparación manguito rotador",
+            fecha_cirugia: "15 Diciembre 2023",
+            recomendacion: "Rehabilitación especializada",
+            cobertura: "20 sesiones",
+            limitaciones: "No mover brazo por encima del hombro"
+        }
+    },
+    {
+        id: "REQ-2024-006",
+        from: "javier.torres@email.com",
+        patient: "Javier Torres",
+        subject: "Consulta Terapia Geriátrica para Adulto Mayor",
+        service: "geriatrica",
+        priority: "baja",
+        date: "2024-01-10 15:40",
+        status: "pending",
+        read: false,
+        body: "Buenas tardes,\n\nMi padre (82 años) tiene problemas de movilidad debido a artrosis severa en ambas rodillas. Buscamos terapia geriátrica que pueda realizarse a domicilio.\n\nNecesidades:\n- Ejercicios de bajo impacto\n- Ayuda para transferencias (cama-sillón)\n- Prevención de caídas\n- Manejo del dolor\n\nVivimos en primer piso sin ascensor.\n\nAgradezco información sobre disponibilidad y costos.\n\nCordialmente,\nJavier Torres",
+        attachments: [],
+        formData: {
+            paciente: "Padre del solicitante",
+            edad: "82 años",
+            condiciones: "Artrosis severa rodillas, hipertensión",
+            movilidad: "Camina con andador, necesita ayuda transferencias",
+            domicilio: "Primer piso sin ascensor"
+        }
+    }
+];
+
+let allRequests = [...exampleRequests];
+let filteredRequests = [...exampleRequests];
+let currentTab = 'pendientes';
+let selectedRequestId = null;
+let pendingAction = null;
+
+// =============================================
+// INICIALIZACIÓN
+// =============================================
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📧 Sistema de Solicitudes - Inicializando...');
+    updateStatistics();
+    loadRequests();
+    
+    // Configurar filtro de fecha con hoy por defecto
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('filter-date').value = today;
+});
+
+// =============================================
+// FUNCIONES DE UI Y NAVEGACIÓN
+// =============================================
+function changeTab(tabName) {
+    currentTab = tabName;
+    
+    // Ocultar vista de correo si está abierta
+    closeEmailView();
+    
+    // Actualizar pestañas
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    document.querySelector(`.tab[onclick="changeTab('${tabName}')"]`).classList.add('active');
+    
+    // Filtrar solicitudes según pestaña
+    filterRequestsByTab();
+}
+
+function filterRequestsByTab() {
+    switch(currentTab) {
+        case 'pendientes':
+            filteredRequests = allRequests.filter(req => req.status === 'pending');
+            break;
+        case 'revision':
+            filteredRequests = allRequests.filter(req => req.status === 'review');
+            break;
+        case 'aprobadas':
+            filteredRequests = allRequests.filter(req => req.status === 'approved');
+            break;
+        case 'rechazadas':
+            filteredRequests = allRequests.filter(req => req.status === 'rejected');
+            break;
+        case 'todos':
+            filteredRequests = [...allRequests];
+            break;
+    }
+    
+    // Aplicar filtros adicionales
+    applyAdditionalFilters();
+    renderRequestsList();
+}
+
+// =============================================
+// FUNCIONES DE CARGA Y RENDERIZADO
+// =============================================
+function loadRequests() {
+    filterRequestsByTab();
+    updateStatistics();
+}
+
+function renderRequestsList() {
+    const listContainer = document.getElementById('requests-list');
+    
+    if (filteredRequests.length === 0) {
+        listContainer.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-envelope-open"></i>
+                <h3>No hay solicitudes</h3>
+                <p>No se encontraron solicitudes con los filtros aplicados</p>
+                <button class="btn btn-outline" onclick="openNewRequestModal()">
+                    <i class="fas fa-plus"></i> Crear Solicitud Manual
+                </button>
+            </div>
+        `;
+        return;
+    }
+
+    let html = '';
+    
+    filteredRequests.forEach(request => {
+        const dateObj = new Date(request.date);
+        const formattedDate = dateObj.toLocaleDateString('es-ES', {
+            day: '2-digit',
+            month: 'short',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        
+        const priorityClass = `priority-${request.priority}`;
+        const statusClass = `status-${request.status}`;
+        const statusText = getStatusText(request.status);
+        const unreadClass = !request.read ? 'unread' : '';
+        
+        // Vista previa del cuerpo (primeras 100 caracteres)
+        const preview = request.body.length > 100 
+            ? request.body.substring(0, 100) + '...' 
+            : request.body;
+        
+        html += `
+            <div class="email-item ${unreadClass} ${priorityClass} ${selectedRequestId === request.id ? 'selected' : ''}" 
+                 onclick="selectRequest('${request.id}')">
+                <input type="checkbox" class="email-checkbox" onclick="event.stopPropagation();">
+                <div class="email-sender">${request.patient}</div>
+                <div class="email-subject">${request.subject}</div>
+                <div class="email-preview">${preview}</div>
+                <div class="email-date">${formattedDate}</div>
+                <div class="email-status ${statusClass}">${statusText}</div>
+            </div>
+        `;
+    });
+    
+    listContainer.innerHTML = html;
+}
+
+function selectRequest(requestId) {
+    selectedRequestId = requestId;
+    const request = allRequests.find(req => req.id === requestId);
+    
+    if (!request) return;
+    
+    // Marcar como leído
+    if (!request.read) {
+        request.read = true;
+        updateStatistics();
+    }
+    
+    // Actualizar lista para remover estilo "unread"
+    renderRequestsList();
+    
+    // Mostrar vista detallada
+    showEmailView(request);
+}
+
+function showEmailView(request) {
+    const viewContainer = document.getElementById('email-view');
+    const dateObj = new Date(request.date);
+    
+    // Formatear fecha
+    const formattedDate = dateObj.toLocaleDateString('es-ES', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    
+    // Traducir prioridad
+    const priorityText = {
+        'alta': 'Alta',
+        'media': 'Media',
+        'baja': 'Baja'
+    }[request.priority];
+    
+    // Traducir servicio
+    const serviceText = {
+        'rehabilitacion': 'Rehabilitación',
+        'deportiva': 'Terapia Deportiva',
+        'neurologica': 'Terapia Neurológica',
+        'pediatrica': 'Terapia Pediátrica',
+        'geriatrica': 'Terapia Geriátrica'
+    }[request.service];
+    
+    // Actualizar contenido
+    document.getElementById('email-view-title').textContent = request.subject;
+    document.getElementById('email-view-from').textContent = `${request.patient} <${request.from}>`;
+    document.getElementById('email-view-date').textContent = formattedDate;
+    document.getElementById('email-view-priority').textContent = priorityText;
+    document.getElementById('email-view-service').textContent = serviceText;
+    document.getElementById('email-view-status').textContent = getStatusText(request.status);
+    document.getElementById('email-view-status').className = `email-status status-${request.status}`;
+    document.getElementById('email-view-body').textContent = request.body;
+    
+    // Mostrar/ocultar datos del formulario
+    const formDataContainer = document.getElementById('form-data-view');
+    const formDataContent = document.getElementById('form-data-content');
+    
+    if (request.formData) {
+        formDataContainer.style.display = 'block';
+        let formHtml = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px;">';
+        
+        for (const [key, value] of Object.entries(request.formData)) {
+            const label = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            formHtml += `
+                <div style="background: white; padding: 8px; border-radius: 4px;">
+                    <div style="font-size: 0.8rem; color: var(--gray);">${label}</div>
+                    <div style="font-weight: 500;">${value}</div>
+                </div>
+            `;
+        }
+        
+        formHtml += '</div>';
+        formDataContent.innerHTML = formHtml;
+    } else {
+        formDataContainer.style.display = 'none';
+    }
+    
+    // Mostrar/ocultar adjuntos
+    const attachmentsContainer = document.getElementById('email-attachments');
+    const attachmentsList = document.getElementById('attachments-list');
+    
+    if (request.attachments && request.attachments.length > 0) {
+        attachmentsContainer.style.display = 'block';
+        let attachmentsHtml = '';
+        
+        request.attachments.forEach(attachment => {
+            attachmentsHtml += `
+                <div class="attachment-item">
+                    <i class="fas fa-file-pdf" style="color: var(--danger);"></i>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 500;">${attachment.name}</div>
+                        <div style="font-size: 0.8rem; color: var(--gray);">${attachment.size}</div>
+                    </div>
+                    <button class="btn btn-sm btn-outline">
+                        <i class="fas fa-download"></i> Descargar
+                    </button>
+                </div>
+            `;
+        });
+        
+        attachmentsList.innerHTML = attachmentsHtml;
+    } else {
+        attachmentsContainer.style.display = 'none';
+    }
+    
+    // Mostrar vista
+    viewContainer.classList.add('active');
+    
+    // Desplazar hacia la vista
+    viewContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function closeEmailView() {
+    document.getElementById('email-view').classList.remove('active');
+    selectedRequestId = null;
+    
+    // Resetear formulario de respuesta
+    document.getElementById('response-action').value = '';
+    document.getElementById('response-message').value = '';
+    document.getElementById('therapist-field').style.display = 'none';
+    document.getElementById('schedule-field').style.display = 'none';
+}
+
+// =============================================
+// FUNCIONES DE FILTRADO
+// =============================================
+function filterRequests() {
+    const priorityFilter = document.getElementById('filter-priority').value;
+    const serviceFilter = document.getElementById('filter-service').value;
+    const dateFilter = document.getElementById('filter-date').value;
+    
+    // Primero filtrar por pestaña
+    filterRequestsByTab();
+    
+    // Luego aplicar filtros adicionales
+    filteredRequests = filteredRequests.filter(request => {
+        const requestDate = new Date(request.date).toISOString().split('T')[0];
+        
+        const matchesPriority = !priorityFilter || request.priority === priorityFilter;
+        const matchesService = !serviceFilter || request.service === serviceFilter;
+        const matchesDate = !dateFilter || requestDate === dateFilter;
+        
+        return matchesPriority && matchesService && matchesDate;
+    });
+    
+    renderRequestsList();
+}
+
+function applyAdditionalFilters() {
+    const priorityFilter = document.getElementById('filter-priority').value;
+    const serviceFilter = document.getElementById('filter-service').value;
+    const dateFilter = document.getElementById('filter-date').value;
+    
+    if (!priorityFilter && !serviceFilter && !dateFilter) {
+        return; // No hay filtros adicionales
+    }
+    
+    filteredRequests = filteredRequests.filter(request => {
+        const requestDate = new Date(request.date).toISOString().split('T')[0];
+        
+        const matchesPriority = !priorityFilter || request.priority === priorityFilter;
+        const matchesService = !serviceFilter || request.service === serviceFilter;
+        const matchesDate = !dateFilter || requestDate === dateFilter;
+        
+        return matchesPriority && matchesService && matchesDate;
+    });
+}
+
+function clearFilters() {
+    document.getElementById('filter-priority').value = '';
+    document.getElementById('filter-service').value = '';
+    document.getElementById('filter-date').value = '';
+    
+    filterRequestsByTab();
+}
+
+// =============================================
+// FUNCIONES DE GESTIÓN
+// =============================================
+function toggleResponseFields() {
+    const action = document.getElementById('response-action').value;
+    
+    // Ocultar todos los campos primero
+    document.getElementById('therapist-field').style.display = 'none';
+    document.getElementById('schedule-field').style.display = 'none';
+    
+    // Mostrar campos según acción
+    if (action === 'approve') {
+        document.getElementById('therapist-field').style.display = 'block';
+    } else if (action === 'schedule') {
+        document.getElementById('schedule-field').style.display = 'block';
+        // Establecer fecha mínima como hoy
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('appointment-date').min = today;
+    }
+}
+
+function sendResponse() {
+    const action = document.getElementById('response-action').value;
+    const message = document.getElementById('response-message').value;
+    const therapist = document.getElementById('assign-therapist').value;
+    const apptDate = document.getElementById('appointment-date').value;
+    const apptTime = document.getElementById('appointment-time').value;
+    
+    if (!action) {
+        showNotification('Por favor, seleccione una acción a tomar.', 'error');
+        return;
+    }
+    
+    if (!message.trim()) {
+        showNotification('Por favor, escriba un mensaje de respuesta.', 'error');
+        return;
+    }
+    
+    if (action === 'approve' && !therapist) {
+        showNotification('Por favor, seleccione un fisioterapeuta.', 'error');
+        return;
+    }
+    
+    if (action === 'schedule' && (!apptDate || !apptTime)) {
+        showNotification('Por favor, complete fecha y hora sugerida.', 'error');
+        return;
+    }
+    
+    const request = allRequests.find(req => req.id === selectedRequestId);
+    if (!request) return;
+    
+    // Actualizar estado de la solicitud
+    if (action === 'approve') {
+        request.status = 'approved';
+        request.assignedTo = therapist;
+        showNotification(`Solicitud aprobada y remitida a ${therapist}`, 'success');
+    } else if (action === 'reject') {
+        request.status = 'rejected';
+        showNotification('Solicitud rechazada. Se enviará notificación al paciente.', 'success');
+    } else if (action === 'request_info') {
+        request.status = 'review';
+        showNotification('Se solicitó información adicional al paciente.', 'info');
+    } else if (action === 'schedule') {
+        request.status = 'approved';
+        showNotification(`Cita agendada para ${apptDate} a las ${apptTime}`, 'success');
+    }
+    
+    // Aquí normalmente se enviaría el correo al paciente
+    console.log('📧 Correo enviado al paciente:', {
+        to: request.from,
+        subject: `Re: ${request.subject}`,
+        message: message,
+        action: action
+    });
+    
+    // Actualizar interfaz
+    updateStatistics();
+    loadRequests();
+    closeEmailView();
+}
+
+function saveAsDraft() {
+    showNotification('Respuesta guardada como borrador', 'info');
+    // Aquí se guardaría en base de datos/localStorage
+}
+
+function markAllAsRead() {
+    allRequests.forEach(request => {
+        request.read = true;
+    });
+    
+    showNotification('Todas las solicitudes marcadas como leídas', 'success');
+    updateStatistics();
+    renderRequestsList();
+}
+
+// =============================================
+// FUNCIONES DE MODAL
+// =============================================
+function openNewRequestModal() {
+    document.getElementById('newRequestModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeNewRequestModal() {
+    document.getElementById('newRequestModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+    document.getElementById('manualRequestForm').reset();
+}
+
+function saveManualRequest() {
+    const patient = document.getElementById('manual-patient').value.trim();
+    const email = document.getElementById('manual-email').value.trim();
+    const service = document.getElementById('manual-service').value;
+    const priority = document.getElementById('manual-priority').value;
+    const subject = document.getElementById('manual-subject').value.trim();
+    const message = document.getElementById('manual-message').value.trim();
+    
+    // Validación
+    if (!patient || !email || !service || !subject || !message) {
+        showNotification('Por favor, complete todos los campos obligatorios.', 'error');
+        return;
+    }
+    
+    // Crear nueva solicitud
+    const newId = `REQ-2024-${String(allRequests.length + 1).padStart(3, '0')}`;
+    const now = new Date();
+    const formattedDate = now.toISOString().replace('T', ' ').substring(0, 16);
+    
+    const newRequest = {
+        id: newId,
+        from: email,
+        patient: patient,
+        subject: subject,
+        service: service,
+        priority: priority,
+        date: formattedDate,
+        status: 'pending',
+        read: false,
+        body: message,
+        attachments: [],
+        formData: {
+            origen: 'Registro manual',
+            notas: document.getElementById('manual-notes').value.trim() || 'Sin notas adicionales'
+        }
+    };
+    
+    allRequests.unshift(newRequest);
+    
+    showNotification('Solicitud registrada exitosamente', 'success');
+    closeNewRequestModal();
+    loadRequests();
+    
+    // Seleccionar la nueva solicitud
+    setTimeout(() => {
+        selectRequest(newId);
+    }, 500);
+}
+
+// =============================================
+// FUNCIONES AUXILIARES
+// =============================================
+function getStatusText(status) {
+    const statusMap = {
+        'pending': 'Pendiente',
+        'review': 'En Revisión',
+        'approved': 'Aprobada',
+        'rejected': 'Rechazada'
+    };
+    return statusMap[status] || status;
+}
+
+function updateStatistics() {
+    const total = allRequests.length;
+    const pending = allRequests.filter(req => req.status === 'pending').length;
+    const review = allRequests.filter(req => req.status === 'review').length;
+    const approved = allRequests.filter(req => req.status === 'approved').length;
+    const rejected = allRequests.filter(req => req.status === 'rejected').length;
+    const unread = allRequests.filter(req => !req.read).length;
+    
+    // Actualizar banner
+    document.getElementById('total-pendientes').textContent = pending;
+    document.getElementById('total-revision').textContent = review;
+    document.getElementById('total-mes').textContent = total;
+    
+    // Actualizar cards
+    document.getElementById('card-total').textContent = total;
+    document.getElementById('card-pendientes').textContent = pending;
+    document.getElementById('card-aprobadas').textContent = approved;
+    document.getElementById('card-rechazadas').textContent = rejected;
+    
+    // Actualizar badges
+    document.getElementById('badge-pendientes').textContent = pending;
+    document.getElementById('badge-revision').textContent = review;
+}
+
+function exportRequests() {
+    showNotification('Exportando solicitudes a CSV...', 'info');
+    // Aquí se generaría el archivo CSV
+    setTimeout(() => {
+        showNotification('Solicitudes exportadas exitosamente', 'success');
+    }, 1500);
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+            <span>${message}</span>
+        </div>
+        <button class="notification-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
+// =============================================
+// FUNCIONES DE MODAL DE CONFIRMACIÓN
+// =============================================
+function openConfirmModal(title, message, action) {
+    document.getElementById('confirm-modal-title').textContent = title;
+    document.getElementById('confirm-modal-message').textContent = message;
+    pendingAction = action;
+    document.getElementById('confirmModal').classList.add('active');
+}
+
+function closeConfirmModal() {
+    document.getElementById('confirmModal').classList.remove('active');
+    pendingAction = null;
+}
+
+function confirmAction() {
+    if (pendingAction) {
+        pendingAction();
+    }
+    closeConfirmModal();
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requisitos Terapias Especializadas - FisioSalud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A2540;
+            --primary-dark: #061A2C;
+            --primary-light: #1A365D;
+            --secondary: #00A3FF;
+            --accent: #00D4AA;
+            --warning: #FF9A76;
+            --light: #FFFFFF;
+            --light-gray: #F8FAFC;
+            --gray: #64748B;
+            --dark: #0F172A;
+            --border-radius: 8px;
+            --border-radius-sm: 4px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light-gray);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: var(--light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 16px 0;
+            margin-bottom: 30px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: #0092E0;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #FF8257;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        .requirements-section {
+            padding: 40px 0 80px;
+        }
+
+        .requirements-container {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            padding: 48px;
+        }
+
+        /* Initial Question */
+        .initial-question {
+            text-align: center;
+            padding: 60px 0;
+            border-bottom: 1px solid var(--light-gray);
+            margin-bottom: 40px;
+        }
+
+        .question-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin: 0 auto 24px;
+        }
+
+        .initial-question h1 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .initial-question p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .choice-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .choice-button {
+            flex: 1;
+            min-width: 250px;
+            padding: 32px 24px;
+            border-radius: var(--border-radius);
+            border: 2px solid transparent;
+            background: var(--light-gray);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .choice-button:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--secondary);
+        }
+
+        .choice-button.yes:hover {
+            border-color: var(--accent);
+            background: rgba(0, 212, 170, 0.05);
+        }
+
+        .choice-button.no:hover {
+            border-color: var(--warning);
+            background: rgba(255, 154, 118, 0.05);
+        }
+
+        .choice-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .choice-button.yes .choice-icon {
+            background: var(--accent);
+            color: white;
+        }
+
+        .choice-button.no .choice-icon {
+            background: var(--warning);
+            color: white;
+        }
+
+        .choice-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .choice-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Upload Form (Initially Hidden) */
+        .upload-form {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .form-header h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-button:hover {
+            color: var(--primary);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        input, select, textarea {
+            padding: 12px 16px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 163, 255, 0.1);
+        }
+
+        .file-upload {
+            border: 2px dashed var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .file-upload:hover {
+            border-color: var(--secondary);
+            background: var(--light-gray);
+        }
+
+        .upload-icon {
+            font-size: 2.5rem;
+            color: var(--gray);
+            margin-bottom: 16px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-info {
+            margin-top: 16px;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .file-info i {
+            margin-right: 6px;
+        }
+
+        /* Medical Guidance (Initially Hidden) */
+        .medical-guidance {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .guidance-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .guidance-header h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .guidance-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .process-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--warning);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin: 0 auto 16px;
+        }
+
+        .flow-step h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .flow-step p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--gray);
+        }
+
+        .documentation-list {
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 32px;
+            margin: 40px 0;
+        }
+
+        .documentation-list h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .doc-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .doc-item:last-child {
+            border-bottom: none;
+        }
+
+        .doc-item i {
+            color: var(--warning);
+            margin-top: 2px;
+        }
+
+        .guidance-actions {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        /* Requirements Info */
+        .requirements-info {
+            margin-top: 60px;
+            padding-top: 60px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .info-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .info-header h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .info-card {
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 32px;
+            transition: transform 0.2s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card ul {
+            list-style: none;
+        }
+
+        .info-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid #E2E8F0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card li i {
+            color: var(--accent);
+            margin-top: 2px;
+        }
+
+        /* Treatments Grid */
+        .treatments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .treatment-card {
+            background: white;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            transition: all 0.2s;
+            border-top: 4px solid var(--primary-light);
+        }
+
+        .treatment-card:hover {
+            box-shadow: var(--shadow);
+            border-color: var(--secondary);
+        }
+
+        .treatment-card h4 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .treatment-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .requirements-container {
+                padding: 32px 24px;
+            }
+            
+            .initial-question h1 {
+                font-size: 1.8rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-flow {
+                flex-direction: column;
+            }
+            
+            .flow-arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .choice-buttons {
+                flex-direction: column;
+            }
+            
+            .choice-button {
+                min-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .requirements-container {
+                padding: 24px 16px;
+            }
+            
+            .initial-question {
+                padding: 40px 0;
+            }
+            
+            .initial-question h1 {
+                font-size: 1.5rem;
+            }
+            
+            .treatments-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <div class="logo-icon">FS</div>
+                <div class="logo-text">FisioSalud</div>
+            </div>
+            <a href="/servicios" class="btn btn-outline">Volver a Servicios</a>
+        </div>
+    </header>
+
+    <section class="requirements-section">
+        <div class="container">
+            <div class="requirements-container">
+                <!-- Pregunta Inicial -->
+                <div class="initial-question" id="initialQuestion">
+                    <div class="question-icon">
+                        <i class="fas fa-file-medical-alt"></i>
+                    </div>
+                    <h1>¿Ya tienes tu autorización médica en PDF?</h1>
+                    <p>Este tratamiento especializado requiere evaluación y autorización médica previa por parte de un hospital o clínica.</p>
+                    
+                    <div class="choice-buttons">
+                        <div class="choice-button yes" onclick="showUploadForm()">
+                            <div class="choice-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="choice-content">
+                                <h3>Sí, tengo el PDF</h3>
+                                <p>Ya tengo mi autorización médica en formato PDF, lista para subir</p>
+                            </div>
+                        </div>
+                        
+                        <div class="choice-button no" onclick="showMedicalGuidance()">
+                            <div class="choice-icon">
+                                <i class="fas fa-stethoscope"></i>
+                            </div>
+                            <div class="choice-content">
+                                <h3>No, necesito orientación</h3>
+                                <p>No tengo autorización médica, necesito saber cómo obtenerla</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de Subida (Oculto inicialmente) -->
+                <div class="upload-form" id="uploadForm">
+                    <div class="form-header">
+                        <button class="back-button" onclick="showInitialQuestion()">
+                            <i class="fas fa-arrow-left"></i> Volver
+                        </button>
+                        <h2>Subir Autorización Médica</h2>
+                    </div>
+                    
+                    <form id="medicalAuthorizationForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="patientName">Nombre completo *</label>
+                                <input type="text" id="patientName" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="patientEmail">Correo electrónico *</label>
+                                <input type="email" id="patientEmail" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="patientPhone">Teléfono *</label>
+                                <input type="tel" id="patientPhone" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="treatmentType">Tratamiento solicitado *</label>
+                                <select id="treatmentType" required>
+                                    <option value="">Seleccionar tratamiento</option>
+                                    <option value="punción-seca">Punción Seca Profunda</option>
+                                    <option value="electroterapia">Electroterapia Avanzada</option>
+                                    <option value="terapia-neural">Terapia Neural</option>
+                                    <option value="post-quirurgica">Rehabilitación Post-Quirúrgica</option>
+                                    <option value="ondas-choque">Terapia de Ondas de Choque</option>
+                                    <option value="terapia-invasiva">Terapia Invasiva para Dolor Crónico</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="medicalDiagnosis">Diagnóstico médico (según su autorización) *</label>
+                                <textarea id="medicalDiagnosis" rows="3" required></textarea>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label>Autorización médica en PDF *</label>
+                                <div class="file-upload" onclick="document.getElementById('medicalPdf').click()">
+                                    <div class="upload-icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <p><strong>Haz clic para subir archivo</strong></p>
+                                    <p>Sube tu autorización médica en formato PDF</p>
+                                    <input type="file" id="medicalPdf" class="file-input" accept=".pdf" required>
+                                </div>
+                                <div class="file-info">
+                                    <i class="fas fa-info-circle"></i>
+                                    Máximo 5MB. Solo se aceptan archivos PDF
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="additionalNotes">Notas adicionales (opcional)</label>
+                            <textarea id="additionalNotes" rows="2" placeholder="Información adicional que considere relevante..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 24px;">
+                            <i class="fas fa-paper-plane"></i> Enviar para Revisión
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Guía Médica (Oculta inicialmente) -->
+                <div class="medical-guidance" id="medicalGuidance">
+                    <div class="guidance-header">
+                        <h2>Obtener Autorización Médica</h2>
+                        <p>Para este tratamiento especializado, primero debe obtener evaluación y autorización médica en un hospital o clínica</p>
+                    </div>
+                    
+                    <div class="process-flow">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <h4>Consulta Médica</h4>
+                            <p>Acuda a su médico especialista (ortopedista, fisiatra, etc.) en un hospital o clínica</p>
+                        </div>
+                        
+                        <div class="flow-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <h4>Exámenes Complementarios</h4>
+                            <p>Realice los exámenes que su médico indique (Rayos X, resonancias, laboratorio)</p>
+                        </div>
+                        
+                        <div class="flow-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <h4>Autorización EPS</h4>
+                            <p>Si aplica, gestione la autorización con su EPS o seguro médico</p>
+                        </div>
+                        
+                        <div class="flow-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <div class="step-number">4</div>
+                            <h4>Documentación Completa</h4>
+                            <p>Recoja toda la documentación médica en formato PDF</p>
+                        </div>
+                    </div>
+                    
+                    <div class="documentation-list">
+                        <h3><i class="fas fa-file-medical"></i> Documentación requerida:</h3>
+                        <div class="doc-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Orden médica específica</strong><br>
+                                Con diagnóstico y tratamiento recomendado
+                            </div>
+                        </div>
+                        <div class="doc-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Resultados de exámenes</strong><br>
+                                Rayos X, resonancias, laboratorios, etc.
+                            </div>
+                        </div>
+                        <div class="doc-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Autorización EPS/seguro</strong><br>
+                                Si su tratamiento requiere cobertura
+                            </div>
+                        </div>
+                        <div class="doc-item">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Historia clínica relevante</strong><br>
+                                De su condición actual y tratamientos previos
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="guidance-actions">
+                        <p><strong>¿Ya tienes toda la documentación médica?</strong></p>
+                        <button onclick="showUploadForm()" class="btn btn-warning" style="margin-top: 16px;">
+                            <i class="fas fa-upload"></i> Sí, subir documentos
+                        </button>
+                        <p style="margin-top: 16px; font-size: 0.9rem; color: var(--gray);">
+                            <i class="fas fa-info-circle"></i> FisioSalud no realiza evaluaciones médicas ni diagnósticos. Solo tratamos pacientes con autorización médica previa.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Información de Requisitos -->
+                <div class="requirements-info">
+                    <div class="info-header">
+                        <h2>Tratamientos que Requieren Autorización Médica</h2>
+                        <p>Estos procedimientos avanzados requieren evaluación exhaustiva previa</p>
+                    </div>
+                    
+                    <div class="treatments-grid">
+                        <div class="treatment-card">
+                            <h4><i class="fas fa-syringe"></i> Punción Seca</h4>
+                            <p>Para síndrome de dolor miofascial y puntos gatillo activos</p>
+                        </div>
+                        <div class="treatment-card">
+                            <h4><i class="fas fa-bolt"></i> Electroterapia Avanzada</h4>
+                            <p>Estimulación eléctrica para dolor neuropático</p>
+                        </div>
+                        <div class="treatment-card">
+                            <h4><i class="fas fa-brain"></i> Terapia Neural</h4>
+                            <p>Tratamiento de alteraciones neurovegetativas</p>
+                        </div>
+                        <div class="treatment-card">
+                            <h4><i class="fas fa-user-md"></i> Rehabilitación Post-Quirúrgica</h4>
+                            <p>Programas intensivos después de cirugías complejas</p>
+                        </div>
+                        <div class="treatment-card">
+                            <h4><i class="fas fa-wave-square"></i> Ondas de Choque</h4>
+                            <p>Para tendinopatías crónicas y calcificaciones</p>
+                        </div>
+                        <div class="treatment-card">
+                            <h4><i class="fas fa-wheelchair"></i> Terapias Invasivas</h4>
+                            <p>Para manejo de dolor crónico refractario</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-grid" style="margin-top: 40px;">
+                        <div class="info-card">
+                            <h3><i class="fas fa-info-circle"></i> Información Importante</h3>
+                            <ul>
+                                <li><i class="fas fa-check"></i> FisioSalud es un <strong>centro de tratamiento especializado</strong></li>
+                                <li><i class="fas fa-check"></i> <strong>No realizamos</strong> evaluaciones médicas ni diagnósticos</li>
+                                <li><i class="fas fa-check"></i> Requerimos autorización médica <strong>COMPLETA</strong></li>
+                                <li><i class="fas fa-check"></i> Tiempo de revisión: 2-3 días hábiles</li>
+                                <li><i class="fas fa-check"></i> Le contactaremos por correo con las recomendaciones</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h3><i class="fas fa-headset"></i> ¿Necesita Ayuda?</h3>
+                            <ul>
+                                <li><i class="fas fa-phone"></i> Llamar al: <strong>320 2914521</strong></li>
+                                <li><i class="fas fa-envelope"></i> Email: <strong>autorizaciones@fisiosalud.com</strong></li>
+                                <li><i class="fas fa-clock"></i> Horario: Lunes a Viernes 8am-6pm</li>
+                                <li><i class="fas fa-map-marker-alt"></i> Dirección: Av. Salud #123, Bogotá</li>
+                            </ul>
+                        </div>
+                        <div id="authAppointmentSection" style="display: none; margin: 30px 0; padding: 20px; background: #e8f5e9; border-radius: 8px; border-left: 4px solid var(--accent);">
+                            <h4 style="color: var(--primary); margin-bottom: 15px;">
+                                <i class="fas fa-calendar-check"></i> Agendar Cita Especializada
+                            </h4>
+                            <p style="margin-bottom: 15px;">
+                                <strong>✅ Autorización Médica Aprobada</strong><br>
+                                Tu documentación médica ha sido revisada y aprobada. Puedes agendar tu cita ahora.
+                            </p>
+                            
+                            <div style="background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                                <p><strong>Tratamiento autorizado:</strong> <span id="authTreatmentName">-</span></p>
+                                <p><strong>Código temporal:</strong> <span id="authCode" style="font-family: monospace; background: #f1f1f1; padding: 2px 6px; border-radius: 3px;">-</span></p>
+                                <p><strong>Válido hasta:</strong> <span id="authExpiry">-</span></p>
+                            </div>
+                            
+                            <button id="authAppointmentBtn" class="btn" style="background: var(--accent);">
+                                <i class="fas fa-calendar-plus"></i> Agendar Cita Especializada
+                            </button>
+                            
+                            <p style="font-size: 0.85rem; color: #666; margin-top: 10px;">
+                                <i class="fas fa-info-circle"></i> Este botón solo está disponible porque tienes autorización médica aprobada
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Función para mostrar formulario de subida
+        function showUploadForm() {
+            document.getElementById('initialQuestion').style.display = 'none';
+            document.getElementById('medicalGuidance').style.display = 'none';
+            document.getElementById('uploadForm').style.display = 'block';
+        }
+        
+        // Función para mostrar guía médica
+        function showMedicalGuidance() {
+            document.getElementById('initialQuestion').style.display = 'none';
+            document.getElementById('uploadForm').style.display = 'none';
+            document.getElementById('medicalGuidance').style.display = 'block';
+        }
+        
+        // Función para volver a la pregunta inicial
+        function showInitialQuestion() {
+            document.getElementById('uploadForm').style.display = 'none';
+            document.getElementById('medicalGuidance').style.display = 'none';
+            document.getElementById('initialQuestion').style.display = 'block';
+        }
+        
+        // Manejar envío del formulario
+        document.getElementById('medicalAuthorizationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Aquí iría la lógica para enviar los datos al backend
+            // Por ahora solo mostramos un mensaje
+            alert('✅ Documentación enviada correctamente. Nuestro administrador clínico revisará su caso y le contactará por correo en 2-3 días hábiles con las recomendaciones de tratamiento y asignación de fisioterapeuta.');
+            
+            // Resetear formulario
+            this.reset();
+            showInitialQuestion();
+        });
+        
+        // Mostrar nombre de archivo seleccionado
+        document.getElementById('medicalPdf').addEventListener('change', function(e) {
+            if (this.files.length > 0) {
+                const fileName = this.files[0].name;
+                const fileSize = (this.files[0].size / (1024 * 1024)).toFixed(2);
+                
+                const uploadArea = this.parentElement;
+                uploadArea.innerHTML = `
+                    <div class="upload-icon" style="color: var(--accent);">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <p><strong>${fileName}</strong></p>
+                    <p>${fileSize} MB - Listo para enviar</p>
+                    <button class="btn btn-outline" onclick="document.getElementById('medicalPdf').click()" style="margin-top: 10px;">
+                        <i class="fas fa-redo"></i> Cambiar archivo
+                    </button>
+                    <input type="file" id="medicalPdf" class="file-input" accept=".pdf" required>
+                `;
+            }
+        });
+        
+        // Si vienen de seleccionar un tratamiento específico, pre-seleccionarlo
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const treatment = urlParams.get('tratamiento');
+            
+            if (treatment && document.getElementById('treatmentType')) {
+                document.getElementById('treatmentType').value = treatment;
+            }
+        });
+    </script>
+</body>
+</html>
