@@ -30,6 +30,9 @@ from controlador.AdminServicioController import AdminServicioController
 from controlador.AdminCitaController import AdminCitaController
 from controlador.PasswordResetController import PasswordResetController as PRController
 from dotenv import load_dotenv
+print("\n" + "="*60)
+print("🚀 INICIANDO APLICACIÓN EN RAILWAY")
+print("="*60)
 import os
 from fastapi import Form, status
 from fastapi.responses import RedirectResponse
@@ -39,12 +42,48 @@ import shutil
 import os
 app = FastAPI()
 
+check_vars = [
+    'MYSQLHOST', 'MYSQLPORT', 'MYSQLDATABASE', 'MYSQLUSER', 'MYSQLPASSWORD',
+    'DB_HOST', 'DB_PORT', 'DB_NAME', 'DB_USER', 'DB_PASSWORD',
+    'DATABASE_URL', 'PORT', 'RAILWAY_ENVIRONMENT'
+]
+
+print("📋 VARIABLES DE ENTORNO DETECTADAS:")
+print("-"*60)
+
+found_vars = []
+for var in check_vars:
+    if var in os.environ:
+        value = os.environ[var]
+        if 'PASSWORD' in var:
+            print(f"✅ {var}: {'*' * len(value)} ({len(value)} caracteres)")
+        else:
+            print(f"✅ {var}: {value}")
+        found_vars.append(var)
+    else:
+        print(f"❌ {var}: NO DEFINIDA")
+
+print("-"*60)
+print(f"Total variables encontradas: {len(found_vars)}/{len(check_vars)}")
+
+# Mostrar todas las variables que contengan "MYSQL" o "DB"
+print("\n🔍 BUSCANDO TODAS LAS VARIABLES CON 'MYSQL' O 'DB':")
+for key in sorted(os.environ.keys()):
+    key_upper = key.upper()
+    if 'MYSQL' in key_upper or ('DB' in key_upper and 'DB_' in key_upper):
+        value = os.environ[key]
+        if 'PASS' in key_upper:
+            print(f"   {key}: {'*' * len(value)}")
+        else:
+            print(f"   {key}: {value}")
+
+print("="*60 + "\n")
+
 load_dotenv()
 PORT = int(os.getenv("PORT", 8000))
-# Configuración de CORS - Permitir todos los orígenes (ajustar según sea necesario)
 app.add_middleware(
     SessionMiddleware,
-    secret_key="tu_clave_secreta_muy_larga_aqui_1234567890",  # 32 caracteres mínimo
+    secret_key="tu_clave_secreta_muy_larga_aqui_1234567890",  
     session_cookie="fisiosalud_session",
     max_age=3600,
     same_site="lax",
@@ -57,6 +96,136 @@ templates = Jinja2Templates(directory="./vista")
 templates_panel = Jinja2Templates(directory="./vista_panel")
 templates_admin = Jinja2Templates(directory="./vista_admin")
 templates_fisio = Jinja2Templates(directory="./vista_fisio")
+
+@app.get("/test-db-connect")
+async def test_database_connection():
+    """Test directo de conexión a MySQL"""
+    from bd.conexion_bd import get_db_connection, close_db_connection
+    
+    try:
+        conn = get_db_connection()
+        if conn:
+            try:
+                with conn.cursor() as cursor:
+                    # Query simple
+                    cursor.execute("SELECT VERSION() as version, DATABASE() as db_name, USER() as user")
+                    result = cursor.fetchone()
+                    
+                    return {
+                        "success": True,
+                        "message": "✅ Conexión exitosa a MySQL",
+                        "database": {
+                            "version": result['version'],
+                            "name": result['db_name'],
+                            "user": result['user']
+                        }
+                    }
+            finally:
+                close_db_connection(conn)
+        else:
+            return {
+                "success": False,
+                "message": "❌ No se pudo obtener conexión (get_db_connection retornó None)"
+            }
+    except Exception as e:
+        return {
+            "success": False,
+            "message": f"❌ Error de conexión: {str(e)}",
+            "error_type": type(e).__name__
+        }
+@app.get("/debug-env")
+async def debug_environment():
+    """Endpoint para debuguear variables de entorno en Railway"""
+    import os
+    
+    result = {
+        "status": "checking",
+        "timestamp": datetime.now().isoformat(),
+        "mysql_variables": {},
+        "db_variables": {},
+        "database_url": os.environ.get('DATABASE_URL', 'NO DEFINIDA'),
+        "all_variables_count": len(os.environ)
+    }
+    
+    mysql_vars = ['MYSQLHOST', 'MYSQLPORT', 'MYSQLDATABASE', 'MYSQLUSER', 'MYSQLPASSWORD']
+    for var in mysql_vars:
+        if var in os.environ:
+            if 'PASSWORD' in var:
+                result["mysql_variables"][var] = f"*** ({len(os.environ[var])} caracteres)"
+            else:
+                result["mysql_variables"][var] = os.environ[var]
+        else:
+            result["mysql_variables"][var] = "NO DEFINIDA"
+    
+    db_vars = ['DB_HOST', 'DB_PORT', 'DB_NAME', 'DB_USER', 'DB_PASSWORD']
+    for var in db_vars:
+        if var in os.environ:
+            if 'PASSWORD' in var:
+                result["db_variables"][var] = f"*** ({len(os.environ[var])} caracteres)"
+            else:
+                result["db_variables"][var] = os.environ[var]
+        else:
+            result["db_variables"][var] = "NO DEFINIDA"
+    
+    important_vars = ['PORT', 'RAILWAY_ENVIRONMENT', 'RAILWAY_SERVICE_NAME', 'RAILWAY_PROJECT_NAME']
+    result["other_important"] = {}
+    for var in important_vars:
+        if var in os.environ:
+            result["other_important"][var] = os.environ[var]
+    
+    result["final_config"] = {
+        "host": os.environ.get('MYSQLHOST') or os.environ.get('DB_HOST', 'localhost'),
+        "port": os.environ.get('MYSQLPORT') or os.environ.get('DB_PORT', '3306'),
+        "database": os.environ.get('MYSQLDATABASE') or os.environ.get('DB_NAME', 'railway'),
+        "user": os.environ.get('MYSQLUSER') or os.environ.get('DB_USER', 'root')
+    }
+    
+    result["railway_specific"] = {}
+    for key in os.environ:
+        if 'RAILWAY' in key or 'SERVICE' in key:
+            result["railway_specific"][key] = os.environ[key]
+    
+    return JSONResponse(content=result)
+
+@app.get("/debug-db")
+async def debug_database():
+    """Endpoint para diagnosticar problemas de conexión"""
+    import os
+    
+    result = {
+        "status": "checking",
+        "variables_found": {},
+        "connection_test": None
+    }
+    
+    # Buscar variables de base de datos
+    for key, value in os.environ.items():
+        key_upper = key.upper()
+        if any(kw in key_upper for kw in ['MYSQL', 'DB', 'DATABASE', 'HOST', 'PORT', 'USER']):
+            if 'PASSWORD' in key_upper or 'SECRET' in key_upper:
+                result["variables_found"][key] = "*******"
+            else:
+                result["variables_found"][key] = value
+    
+    # Intentar conexión
+    try:
+        conn = get_db_connection()
+        if conn:
+            with conn.cursor() as cursor:
+                cursor.execute("SELECT 1 as test, DATABASE() as db, USER() as user")
+                db_info = cursor.fetchone()
+                result["connection_test"] = {
+                    "success": True,
+                    "database": db_info['db'],
+                    "user": db_info['user']
+                }
+            close_db_connection(conn)
+        else:
+            result["connection_test"] = {"success": False, "error": "get_db_connection returned None"}
+    except Exception as e:
+        result["connection_test"] = {"success": False, "error": str(e)}
+    
+    return JSONResponse(content=result)
 
 @app.get("/check-env")
 async def check_env():
