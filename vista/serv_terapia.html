@@ -1192,18 +1192,7 @@
                         <button onclick="location.reload()" class="btn btn-secondary">Recargar Página</button>
                     </div>
                 {% endif %}
-            </div>
-
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-                <div class="quick-info">
-                    <h4>¿Necesitas ayuda para elegir?</h4>
-                    <p>Nuestros especialistas pueden evaluar tu condición y recomendarte el tratamiento más adecuado</p>
-                </div>
-                <div class="quick-buttons">
-                    <a href="/cita" class="btn btn-secondary">Consulta Especializada</a>
-                </div>
-            </div>
+            </div>            
         </div>
     </section>
 
@@ -1442,7 +1431,7 @@
                                 }, 2000);
                             }
                         } else {
-                            mostrarNotificacion('Error al verificar sesión', 'error');
+                            mostrarNotificacion('Debes iniciar sesión para agendar una cita', 'error');
                         }
                     } catch (error) {
                         console.error('Error al verificar sesión:', error);

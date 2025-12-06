@@ -799,7 +799,6 @@
                 </div>
                 <div class="nav-actions">
                     <a href="/inicio" class="btn btn-outline">Volver al Inicio</a>
-                    <a href="/cita" class="btn">Agendar Asesoría</a>
                 </div>
             </div>
         </div>
@@ -1521,19 +1520,6 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2>¿Necesitas Asesoría Especializada en Equipos?</h2>
-                <p>Nuestros especialistas te ayudarán a seleccionar los implementos más adecuados para tu condición específica y plan de tratamiento personalizado.</p>
-                <div class="cta-buttons">
-                    <a href="/cita" class="btn btn-secondary">Agendar Asesoría Gratuita</a>
-                    <a href="/contacto" class="btn btn-outline">Contactar Especialista</a>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer>
@@ -1686,7 +1672,7 @@
                                 }, 2000);
                             }
                         } else {
-                            mostrarNotificacion('Error al verificar sesión', 'error');
+                            mostrarNotificacion('Debes iniciar sesión para agendar una cita', 'error');
                         }
                     } catch (error) {
                         console.error('Error al verificar sesión:', error);
