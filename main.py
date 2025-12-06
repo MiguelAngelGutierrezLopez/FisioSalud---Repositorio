@@ -58,6 +58,33 @@ templates_panel = Jinja2Templates(directory="./vista_panel")
 templates_admin = Jinja2Templates(directory="./vista_admin")
 templates_fisio = Jinja2Templates(directory="./vista_fisio")
 
+@app.get("/show-vars")
+async def show_vars():
+    """Muestra todas las variables que Railway inyecta"""
+    import os
+    import json
+    
+    result = {}
+    
+    # Buscar cualquier variable que contenga estas palabras
+    keywords = ['MYSQL', 'DB', 'HOST', 'PORT', 'DATABASE', 'USER', 'PASSWORD']
+    
+    for key, value in os.environ.items():
+        if any(kw in key.upper() for kw in keywords):
+            if 'PASSWORD' in key:
+                result[key] = "*****"  # Ocultar contraseñas
+            else:
+                result[key] = value
+    
+    # Si no hay nada, mostrar TODAS las variables (con cuidado)
+    if not result:
+        result = {"message": "No se encontraron variables de BD. Todas las variables:"}
+        for key, value in os.environ.items():
+            if 'PASSWORD' not in key and 'SECRET' not in key and 'KEY' not in key:
+                result[key] = value
+    
+    return JSONResponse(content=result)
+
 @app.get("/", response_class=HTMLResponse)
 def pagina_inicio(request: Request):
     return templates.TemplateResponse("landing_page.html", {"request": request})
