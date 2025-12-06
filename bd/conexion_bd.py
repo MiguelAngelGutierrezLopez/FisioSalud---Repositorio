@@ -1,70 +1,121 @@
+# conexion_bd.py - VERSIÓN DEFINITIVA PARA RAILWAY
 import pymysql
 from pymysql import Error
 import os
-import urllib.parse
 
 def get_db_connection():
+    """Obtiene conexión a MySQL en Railway"""
     try:
-        print(f"\n🔍 [get_db_connection] Iniciando conexión...")
+        print(f"\n🔍 [get_db_connection] Buscando configuración...")
         
-        # OPCIÓN A: Usar MYSQL_PUBLIC_URL (URL completa)
-        DATABASE_URL = os.environ.get('MYSQL_PUBLIC_URL')
+        # DEBUG: Mostrar qué variables tenemos
+        env_vars = dict(os.environ)
+        print(f"   Variables disponibles: {len(env_vars)}")
         
-        if DATABASE_URL and DATABASE_URL.startswith('mysql://'):
-            print(f"✅ Usando MYSQL_PUBLIC_URL de Railway")
-            parsed = urllib.parse.urlparse(DATABASE_URL)
+        # Buscar TODAS las posibles fuentes de configuración
+        # 1. Variables MYSQL_ (Railway automático)
+        # 2. Variables DB_ (tus variables manuales)
+        # 3. MYSQL_PUBLIC_URL (URL completa)
+        
+        sources = []
+        
+        # Fuente 1: MYSQL_
+        if 'MYSQLHOST' in env_vars:
+            DB_HOST = env_vars['MYSQLHOST']
+            DB_PORT = int(env_vars.get('MYSQLPORT', 3306))
+            DB_NAME = env_vars.get('MYSQLDATABASE', 'railway')
+            DB_USER = env_vars.get('MYSQLUSER', 'root')
+            DB_PASSWORD = env_vars.get('MYSQLPASSWORD', '')
+            sources.append("MYSQL_ variables")
             
-            DB_HOST = parsed.hostname
-            DB_PORT = parsed.port or 3306
-            DB_NAME = parsed.path[1:] if parsed.path else 'railway'
-            DB_USER = parsed.username
-            DB_PASSWORD = parsed.password
+        # Fuente 2: DB_
+        elif 'DB_HOST' in env_vars:
+            DB_HOST = env_vars['DB_HOST']
+            DB_PORT = int(env_vars.get('DB_PORT', 3306))
+            DB_NAME = env_vars.get('DB_NAME', 'railway')
+            DB_USER = env_vars.get('DB_USER', 'root')
+            DB_PASSWORD = env_vars.get('DB_PASSWORD', '')
+            sources.append("DB_ variables")
             
-            print(f"   URL: mysql://{DB_USER}:****@{DB_HOST}:{DB_PORT}/{DB_NAME}")
-        
-        # OPCIÓN B: Usar variables individuales MYSQL_
+        # Fuente 3: Ninguna - usar localhost (solo desarrollo)
         else:
-            DB_HOST = os.environ.get('MYSQLHOST') or os.environ.get('DB_HOST')
-            DB_PORT = os.environ.get('MYSQLPORT') or os.environ.get('DB_PORT')
-            DB_NAME = os.environ.get('MYSQLDATABASE') or os.environ.get('DB_NAME')
-            DB_USER = os.environ.get('MYSQLUSER') or os.environ.get('DB_USER')
-            DB_PASSWORD = os.environ.get('MYSQLPASSWORD') or os.environ.get('DB_PASSWORD')
-            
-            print(f"✅ Usando variables individuales")
-            print(f"   Host: {DB_HOST}")
-            print(f"   Port: {DB_PORT}")
-            print(f"   Database: {DB_NAME}")
-            print(f"   User: {DB_USER}")
+            print("⚠️ No se encontraron variables MYSQL_ ni DB_, usando localhost")
+            DB_HOST = 'localhost'
+            DB_PORT = 3306
+            DB_NAME = 'railway'
+            DB_USER = 'root'
+            DB_PASSWORD = ''
+            sources.append("localhost (fallback)")
         
-        # Validar que tenemos todos los datos
-        if not all([DB_HOST, DB_PORT, DB_NAME, DB_USER]):
-            print("❌ Faltan variables de conexión")
-            return None
+        print(f"✅ Usando: {', '.join(sources)}")
+        print(f"   Host: {DB_HOST}")
+        print(f"   Port: {DB_PORT}")
+        print(f"   Database: {DB_NAME}")
+        print(f"   User: {DB_USER}")
+        print(f"   Password: {'*' * len(DB_PASSWORD) if DB_PASSWORD else '(vacía)'}")
+        
+        # Intentar conexión
+        print(f"   Conectando...")
         
         connection = pymysql.connect(
             host=DB_HOST,
-            port=int(DB_PORT),
+            port=DB_PORT,
             database=DB_NAME,
             user=DB_USER,
-            password=DB_PASSWORD or '',
+            password=DB_PASSWORD,
             charset='utf8mb4',
             cursorclass=pymysql.cursors.DictCursor,
-            connect_timeout=15
+            connect_timeout=15,
+            read_timeout=30,
+            write_timeout=30,
+            autocommit=True
         )
         
-        print(f"✅ Conexión exitosa a {DB_HOST}:{DB_PORT}/{DB_NAME}")
+        print(f"✅ Conexión exitosa a MySQL en {DB_HOST}:{DB_PORT}")
+        
+        # Verificar que podemos hacer una consulta básica
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT DATABASE() as db, USER() as user")
+            result = cursor.fetchone()
+            print(f"   Base de datos: {result['db']}")
+            print(f"   Usuario: {result['user']}")
+        
         return connection
         
-    except Exception as e:
-        print(f"❌ Error de conexión: {e}")
-        print(f"   Tipo: {type(e).__name__}")
+    except Error as e:
+        print(f"❌ Error de conexión MySQL: {e}")
+        
+        # Diagnóstico detallado
+        print(f"\n🔧 DIAGNÓSTICO DE CONEXIÓN:")
+        print(f"   Error code: {e.args[0] if e.args else 'N/A'}")
+        print(f"   Error message: {e.args[1] if len(e.args) > 1 else str(e)}")
+        
+        # Verificar qué variables tenemos realmente
+        print(f"\n📋 VARIABLES DE CONEXIÓN DISPONIBLES:")
+        mysql_keys = [k for k in env_vars.keys() if 'MYSQL' in k.upper() or 'DB' in k.upper()]
+        
+        if mysql_keys:
+            for key in sorted(mysql_keys):
+                value = env_vars[key]
+                if 'PASS' in key.upper():
+                    print(f"   {key}: {'*' * len(value)}")
+                else:
+                    print(f"   {key}: {value}")
+        else:
+            print(f"   ❌ No hay variables MYSQL_ o DB_")
+            print(f"   Todas las variables disponibles ({len(env_vars)}):")
+            for key in sorted(env_vars.keys())[:10]:  # Mostrar primeras 10
+                print(f"     {key}: {env_vars[key]}")
+        
         return None
-    
-    
+
 def close_db_connection(connection):
+    """Cierra la conexión de manera segura"""
     if connection:
         try:
             connection.close()
-            print("✅ CONEXIÓN BD - Conexión cerrada")
+            print("✅ Conexión MySQL cerrada correctamente")
         except Error as e:
-            print(f"⚠️ CONEXIÓN BD - Error cerrando: {e}")
+            print(f"⚠️ Error al cerrar conexión: {e}")
+    else:
+        print("⚠️ Intento de cerrar conexión nula")
