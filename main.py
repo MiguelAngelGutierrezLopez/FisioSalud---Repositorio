@@ -169,6 +169,31 @@ async def diagnose_connection():
     
     return results
 
+
+
+@app.get("/api/auth/check")
+async def check_session(request: Request):
+    """
+    Endpoint para que el JavaScript verifique si hay sesión activa
+    Se usa en servicios_terapia.html para verificar antes de agendar
+    """
+    usuario = AuthController.verificar_sesion_usuario(request)
+    
+    if usuario:
+        return JSONResponse({
+            "logged_in": True,
+            "user": {
+                "id": usuario.get('id'),
+                "email": usuario.get('email'),
+                "nombre": usuario.get('nombre')
+            }
+        })
+    else:
+        return JSONResponse({
+            "logged_in": False,
+            "message": "No hay sesión activa"
+        })
+
 @app.get("/test-network")
 async def test_network():
     """Prueba de conectividad de red"""

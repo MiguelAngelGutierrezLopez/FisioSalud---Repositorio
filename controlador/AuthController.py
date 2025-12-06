@@ -109,10 +109,22 @@ class AuthController:
                 'email': usuario['correo'],
                 'telefono': usuario.get('telefono', ''),
                 'genero': usuario.get('genero', ''),
-                'logged_in': True  # Agregamos este flag para verificar sesión
+                'logged_in': True
             }
             
-            return RedirectResponse(url="/panel_citas", status_code=303)
+            # VERIFICAR SI HAY REDIRECCIÓN PENDIENTE DESDE SERVICIOS
+            redirect_url = request.session.get('redirect_after_login', '/panel_citas')
+            
+            # Limpiar las variables de redirección
+            if 'redirect_after_login' in request.session:
+                del request.session['redirect_after_login']
+            if 'servicio_para_cita' in request.session:
+                del request.session['servicio_para_cita']
+            if 'login_message' in request.session:
+                del request.session['login_message']
+            
+            print(f"✅ Login exitoso. Redirigiendo a: {redirect_url}")
+            return RedirectResponse(url=redirect_url, status_code=303)
 
         else:
             return templates.TemplateResponse("login.html", {

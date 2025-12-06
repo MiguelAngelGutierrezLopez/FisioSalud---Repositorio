@@ -1024,17 +1024,18 @@
             <div class="services-grid">
                 {% if servicios and servicios|length > 0 %}
                     {% for servicio in servicios %}
-                    <div class="service-card {% if servicio.categoria == 'especializada' %}specialized{% elif servicio.categoria == 'avanzada' %}advanced{% endif %}" 
-                         data-category="{% if servicio.categoria == 'básica' %}basic{% elif servicio.categoria == 'intermedia' %}intermediate{% elif servicio.categoria == 'especializada' %}specialized{% elif servicio.categoria == 'avanzada' %}advanced{% else %}basic{% endif %}">
+                    <div class="service-card {% if servicio.categoria == 'especializada' or servicio.categoria == 'Especializada' %}specialized{% elif servicio.categoria == 'avanzada' or servicio.categoria == 'Avanzada' %}advanced{% endif %}" 
+                         data-category="{% if servicio.categoria == 'básica' or servicio.categoria == 'Básica' %}basic{% elif servicio.categoria == 'intermedia' or servicio.categoria == 'Intermedia' %}intermediate{% elif servicio.categoria == 'especializada' or servicio.categoria == 'Especializada' %}specialized{% elif servicio.categoria == 'avanzada' or servicio.categoria == 'Avanzada' %}advanced{% else %}basic{% endif %}"
+                         data-servicio-codigo="{{ servicio.codigo }}">
                         <div class="service-header">
                             <div class="service-icon">
-                                {% if servicio.categoria == 'básica' %}
+                                {% if servicio.categoria == 'básica' or servicio.categoria == 'Básica' %}
                                 <i class="fas fa-spa"></i>
-                                {% elif servicio.categoria == 'intermedia' %}
+                                {% elif servicio.categoria == 'intermedia' or servicio.categoria == 'Intermedia' %}
                                 <i class="fas fa-hand-holding-medical"></i>
-                                {% elif servicio.categoria == 'especializada' %}
+                                {% elif servicio.categoria == 'especializada' or servicio.categoria == 'Especializada' %}
                                 <i class="fas fa-syringe"></i>
-                                {% elif servicio.categoria == 'avanzada' %}
+                                {% elif servicio.categoria == 'avanzada' or servicio.categoria == 'Avanzada' %}
                                 <i class="fas fa-user-md"></i>
                                 {% else %}
                                 <i class="fas fa-spa"></i>
@@ -1045,20 +1046,20 @@
                                     {{ servicio.nombre }}
                                     {% if servicio.promedio_sesiones and servicio.promedio_sesiones > 10 %}
                                     <span class="badge badge-popular">POPULAR</span>
-                                    {% elif servicio.categoria == 'especializada' %}
+                                    {% elif servicio.categoria == 'especializada' or servicio.categoria == 'Especializada' %}
                                     <span class="badge badge-specialized">ESPECIALIZADO</span>
-                                    {% elif servicio.categoria == 'avanzada' %}
+                                    {% elif servicio.categoria == 'avanzada' or servicio.categoria == 'Avanzada' %}
                                     <span class="badge badge-advanced">AVANZADO</span>
                                     {% endif %}
                                 </h3>
                                 <div class="service-level">
-                                    {% if servicio.categoria == 'básica' %}
+                                    {% if servicio.categoria == 'básica' or servicio.categoria == 'Básica' %}
                                     <i class="fas fa-star"></i> Nivel Básico
-                                    {% elif servicio.categoria == 'intermedia' %}
+                                    {% elif servicio.categoria == 'intermedia' or servicio.categoria == 'Intermedia' %}
                                     <i class="fas fa-star-half-alt"></i> Nivel Intermedio
-                                    {% elif servicio.categoria == 'especializada' %}
+                                    {% elif servicio.categoria == 'especializada' or servicio.categoria == 'Especializada' %}
                                     <i class="fas fa-stethoscope"></i> Requiere Evaluación
-                                    {% elif servicio.categoria == 'avanzada' %}
+                                    {% elif servicio.categoria == 'avanzada' or servicio.categoria == 'Avanzada' %}
                                     <i class="fas fa-user-md"></i> Con Especialista
                                     {% endif %}
                                 </div>
@@ -1100,10 +1101,10 @@
                             </div>
                             {% endif %}
                             
-                            {% if servicio.categoria == 'especializada' or servicio.categoria == 'avanzada' %}
+                            {% if servicio.categoria == 'especializada' or servicio.categoria == 'Especializada' or servicio.categoria == 'avanzada' or servicio.categoria == 'Avanzada' %}
                             <div class="specialized-notice">
                                 <i class="fas fa-exclamation-triangle"></i>
-                                <span>{% if servicio.categoria == 'especializada' %}Este servicio requiere evaluación médica previa{% else %}Servicio disponible únicamente con especialistas certificados{% endif %}</span>
+                                <span>{% if servicio.categoria == 'especializada' or servicio.categoria == 'Especializada' %}Este servicio requiere evaluación médica previa{% else %}Servicio disponible únicamente con especialistas certificados{% endif %}</span>
                             </div>
                             {% endif %}
                             
@@ -1127,13 +1128,13 @@
                             </div>
                         </div>
                         <div class="service-footer">
-                            <a href="/cita?servicio={{ servicio.codigo }}" class="btn btn-agendar">
-                                {% if servicio.categoria == 'especializada' or servicio.categoria == 'avanzada' %}
+                            <button class="btn btn-agendar" data-servicio-codigo="{{ servicio.codigo }}">
+                                {% if servicio.categoria == 'especializada' or servicio.categoria == 'Especializada' or servicio.categoria == 'avanzada' or servicio.categoria == 'Avanzada' %}
                                 Solicitar Evaluación
                                 {% else %}
                                 Reservar Ahora
                                 {% endif %}
-                            </a>
+                            </button>
                             <a href="/servicio/{{ servicio.codigo }}" class="btn btn-outline btn-small">Más Información</a>
                         </div>
                     </div>
@@ -1226,7 +1227,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Elementos del DOM
+            // ==============================================
+            // 1. FILTROS DE CATEGORÍA
+            // ==============================================
             const filterCards = document.querySelectorAll('.filter-card');
             const serviceCards = document.querySelectorAll('.service-card');
             const clearFiltersBtn = document.querySelector('.clear-filters');
@@ -1237,25 +1240,20 @@
 
             // Función para limpiar todos los filtros
             function limpiarTodosFiltros() {
-                // Limpiar filtros de categoría
                 filterCards.forEach(c => c.classList.remove('active'));
-                filterCards[0].classList.add('active'); // Activar "Todos"
+                filterCards[0].classList.add('active');
                 
-                // Limpiar filtro de terapeuta
                 if (busquedaTerapeutaInput) {
                     busquedaTerapeutaInput.value = '';
                 }
                 
-                // Remover clase activa del contenedor
                 if (filtroTerapeutaDiv) {
                     filtroTerapeutaDiv.classList.remove('activo');
                 }
                 
-                // Mostrar todos los servicios
                 mostrarTodosServicios();
             }
 
-            // Función para mostrar todos los servicios
             function mostrarTodosServicios() {
                 serviceCards.forEach(serviceCard => {
                     serviceCard.style.display = 'block';
@@ -1266,7 +1264,6 @@
                 });
             }
 
-            // Filtrado de servicios por categoría
             function filterServices(category) {
                 serviceCards.forEach(serviceCard => {
                     if (category === 'all' || serviceCard.getAttribute('data-category') === category) {
@@ -1284,7 +1281,6 @@
                     }
                 });
                 
-                // Limpiar filtro de terapeuta si hay uno activo
                 if (busquedaTerapeutaInput && busquedaTerapeutaInput.value) {
                     busquedaTerapeutaInput.value = '';
                     if (filtroTerapeutaDiv) {
@@ -1293,20 +1289,15 @@
                 }
             }
 
-            // Event listeners para filtros de categoría
             filterCards.forEach(card => {
                 card.addEventListener('click', function() {
-                    // Remover active de todos los filtros de categoría
                     filterCards.forEach(c => c.classList.remove('active'));
-                    // Agregar active al filtro clickeado
                     this.classList.add('active');
-
                     const category = this.getAttribute('data-category');
                     filterServices(category);
                 });
             });
 
-            // Limpiar todos los filtros
             if (clearFiltersBtn) {
                 clearFiltersBtn.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1314,25 +1305,23 @@
                 });
             }
 
-            // Manejar búsqueda por terapeuta (los badges)
+            // ==============================================
+            // 2. FILTRO POR TERAPEUTA
+            // ==============================================
             badgesTerapeuta.forEach(badge => {
                 badge.addEventListener('click', function(e) {
                     e.preventDefault();
                     const nombreTerapeuta = this.getAttribute('data-terapeuta');
                     
-                    // Llenar el input con el nombre del terapeuta
                     if (busquedaTerapeutaInput) {
                         busquedaTerapeutaInput.value = nombreTerapeuta;
                         
-                        // Marcar como activo
                         if (filtroTerapeutaDiv) {
                             filtroTerapeutaDiv.classList.add('activo');
                         }
                         
-                        // Limpiar filtros de categoría
                         filterCards.forEach(c => c.classList.remove('active'));
                         
-                        // Enviar el formulario automáticamente
                         if (busquedaTerapeutaForm) {
                             busquedaTerapeutaForm.submit();
                         }
@@ -1340,14 +1329,71 @@
                 });
             });
 
-            // Si hay búsqueda de terapeuta activa, marcar el filtro como activo
             if (busquedaTerapeutaInput && busquedaTerapeutaInput.value && filtroTerapeutaDiv) {
                 filtroTerapeutaDiv.classList.add('activo');
-                // Desactivar todos los filtros de categoría
                 filterCards.forEach(c => c.classList.remove('active'));
             }
 
-            // Animación inicial de las cards
+            // ==============================================
+            // 3. VERIFICACIÓN DE SESIÓN PARA AGENDAR
+            // ==============================================
+            document.querySelectorAll('.btn-agendar').forEach(btn => {
+                btn.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const servicioCodigo = this.getAttribute('data-servicio-codigo');
+                    
+                    if (!servicioCodigo) {
+                        mostrarNotificacion('Error: No se pudo identificar el servicio', 'error');
+                        return;
+                    }
+                    
+                    try {
+                        console.log('🔍 Verificando sesión para servicio:', servicioCodigo);
+                        
+                        const response = await fetch('/api/auth/check', {
+                            method: 'GET',
+                            credentials: 'include',
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        
+                        const data = await response.json();
+                        console.log('📋 Respuesta de sesión:', data);
+                        
+                        if (data.logged_in === true) {
+                            // ✅ Usuario logueado - ir directamente al formulario
+                            window.location.href = `/cita?servicio=${servicioCodigo}`;
+                        } else {
+                            // ❌ Usuario NO logueado - mostrar mensaje
+                            mostrarNotificacion('Debes iniciar sesión primero para agendar una cita', 'error');
+                            
+                            // Guardar la intención en sessionStorage
+                            sessionStorage.setItem('servicio_para_cita', servicioCodigo);
+                            sessionStorage.setItem('redirect_after_login', `/cita?servicio=${servicioCodigo}`);
+                            
+                            // Redirigir al login después de 2 segundos
+                            setTimeout(() => {
+                                window.location.href = '/login_user';
+                            }, 2000);
+                        }
+                        
+                    } catch (error) {
+                        console.error('❌ Error al verificar sesión:', error);
+                        mostrarNotificacion('Error al verificar sesión. Por favor, inténtalo de nuevo.', 'error');
+                    }
+                });
+            });
+
+            // ==============================================
+            // 4. ANIMACIONES INICIALES
+            // ==============================================
             serviceCards.forEach((card, index) => {
                 card.style.opacity = '0';
                 card.style.transform = 'translateY(20px)';
@@ -1358,54 +1404,12 @@
                     card.style.transform = 'translateY(0)';
                 }, 100 + index * 100);
             });
-
-            // Verificar sesión al hacer clic en botones de agendar
-            document.querySelectorAll('.btn-agendar').forEach(btn => {
-                btn.addEventListener('click', async function(e) {
-                    e.preventDefault();
-                    
-                    const href = this.getAttribute('href');
-                    
-                    try {
-                        // Verificar si el usuario está logueado
-                        const response = await fetch('/api/auth/check', {
-                            method: 'GET',
-                            credentials: 'include'
-                        });
-                        
-                        if (response.ok) {
-                            const data = await response.json();
-                            
-                            if (data.logged_in) {
-                                // Usuario logueado, permitir acción normal
-                                window.location.href = href;
-                            } else {
-                                // Usuario no logueado
-                                mostrarNotificacion('Debes iniciar sesión primero para acceder a esto', 'error');
-                                
-                                // Redirigir a login después de 2 segundos
-                                setTimeout(() => {
-                                    window.location.href = '/login_user';
-                                }, 2000);
-                                
-                                return false;
-                            }
-                        } else {
-                            mostrarNotificacion('Debes iniciar sesión primero para acceder a esto', 'error');
-                            return false;
-                        }
-                    } catch (error) {
-                        console.error('Error al verificar sesión:', error);
-                        mostrarNotificacion('Error de conexión', 'error');
-                        return false;
-                    }
-                });
-            });
         });
 
-        // Función para mostrar notificaciones
+        // ==============================================
+        // FUNCIÓN PARA MOSTRAR NOTIFICACIONES
+        // ==============================================
         function mostrarNotificacion(mensaje, tipo = 'info') {
-            // Crear elemento de notificación
             const notificacion = document.createElement('div');
             notificacion.className = `notificacion notificacion-${tipo}`;
             notificacion.innerHTML = `
@@ -1415,7 +1419,6 @@
                 </div>
             `;
             
-            // Estilos para la notificación
             notificacion.style.cssText = `
                 position: fixed;
                 top: 20px;
@@ -1432,7 +1435,6 @@
             
             document.body.appendChild(notificacion);
             
-            // Auto-eliminar después de 4 segundos
             setTimeout(() => {
                 if (notificacion.parentNode) {
                     notificacion.style.animation = 'slideOutRight 0.3s ease-in';
@@ -1440,36 +1442,25 @@
                 }
             }, 4000);
             
-            // Cerrar al hacer click
             notificacion.querySelector('.notificacion-cerrar').onclick = () => {
                 notificacion.style.animation = 'slideOutRight 0.3s ease-in';
                 setTimeout(() => notificacion.remove(), 300);
             };
         }
 
-        // Animaciones CSS para las notificaciones
+        // ==============================================
+        // ESTILOS PARA NOTIFICACIONES
+        // ==============================================
         const style = document.createElement('style');
         style.textContent = `
             @keyframes slideInRight {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
             }
             
             @keyframes slideOutRight {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
             }
             
             .notificacion-contenido {

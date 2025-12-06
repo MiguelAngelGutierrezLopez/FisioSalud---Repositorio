@@ -11,8 +11,29 @@ class CitaController:
     
     @staticmethod
     async def mostrar_formulario_cita(request: Request, servicio_codigo: Optional[str] = None):
-        """Muestra el formulario para agendar citas de terapia"""
+        """Muestra el formulario para agendar citas de terapia - VERIFICA SESIÓN"""
         try:
+            # 1. PRIMERO VERIFICAR SI EL USUARIO ESTÁ LOGUEADO
+            from controlador.AuthController import AuthController
+            usuario = AuthController.verificar_sesion_usuario(request)
+            
+            if not usuario:
+                # Usuario NO logueado - redirigir al login
+                from fastapi.responses import RedirectResponse
+                
+                # Guardar la intención (qué servicio quiere agendar)
+                if servicio_codigo:
+                    request.session['servicio_para_cita'] = servicio_codigo
+                    request.session['redirect_after_login'] = f"/cita?servicio={servicio_codigo}"
+                else:
+                    request.session['redirect_after_login'] = "/cita"
+                
+                # Mostrar mensaje en la sesión
+                request.session['login_message'] = "Debes iniciar sesión para agendar una cita"
+                
+                return RedirectResponse(url="/login_user", status_code=303)
+            
+            # 2. USUARIO SÍ ESTÁ LOGUEADO - mostrar formulario
             servicios = CitaModel.obtener_servicios_terapia()
             
             # Si viene un código de servicio, buscar ese servicio específico
@@ -26,18 +47,26 @@ class CitaController:
             from fastapi.templating import Jinja2Templates
             templates = Jinja2Templates(directory="./vista")
             
+            # 3. Limpiar la intención guardada (si existe)
+            if 'servicio_para_cita' in request.session:
+                del request.session['servicio_para_cita']
+            if 'redirect_after_login' in request.session:
+                del request.session['redirect_after_login']
+            
             return templates.TemplateResponse(
                 "cita.html",
                 {
                     "request": request,
                     "servicios": servicios,
-                    "servicio_seleccionado": servicio_seleccionado
+                    "servicio_seleccionado": servicio_seleccionado,
+                    "usuario": usuario  # Pasar datos del usuario al template
                 }
             )
         except Exception as e:
             print(f"Error al mostrar formulario de cita: {e}")
             raise HTTPException(status_code=500, detail="Error interno del servidor")
-
+        
+        
     @staticmethod
     async def obtener_servicios_api(request: Request):
         """API endpoint para obtener servicios de terapia (serializable a JSON)"""
