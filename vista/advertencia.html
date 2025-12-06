@@ -3,21 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asistencia Requerida - FisioSalud</title>
+    <title>Asistencia para Agendamiento - FisioSalud</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* VARIABLES CSS IDÉNTICAS AL SISTEMA DE AGENDAMIENTO */
         :root {
-            --primary: #75AB92;
-            --primary-light: #93B19F;
-            --primary-dark: #5A8A75;
-            --secondary: #FF9A76;
-            --secondary-light: #FFB59A;
-            --accent: #4A6572;
-            --light: #f8f9fa;
-            --dark: #343a40;
-            --gray: #6c757d;
+            /* PALETA DE COLORES - IDÉNTICA A CITA.HTML */
+            --primary: #0A2540;
+            --secondary: #00A3FF;
+            --accent: #00D4AA;
+            --background: #FFFFFF;
+            --background-alt: #F8FAFC;
+            --text: #0F172A;
+            --gray: #64748B;
+            --gray-light: #E2E8F0;
+            --gray-ultralight: #F1F5F9;
+            
+            /* ESTILOS VISUALES - MISMOS VALORES */
+            --border-radius-sm: 8px;
             --border-radius: 12px;
-            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --border-radius-lg: 16px;
+            --shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08), 0 1px 4px 0 rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 8px 16px -2px rgba(0, 0, 0, 0.1), 0 4px 8px -2px rgba(0, 0, 0, 0.06);
+            --spacing-sm: 12px;
+            --spacing: 20px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
             --transition: all 0.3s ease;
         }
 
@@ -28,78 +40,121 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            color: var(--dark);
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--text);
+            background-color: var(--background-alt);
+            font-weight: 400;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: var(--spacing);
         }
 
-        .warning-container {
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            padding: 40px;
+        /* CONTENEDOR PRINCIPAL - ESTILO IDÉNTICO AL DE AGENDAMIENTO */
+        .assistance-container {
+            background-color: var(--background);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: var(--spacing-xl);
             width: 100%;
-            max-width: 600px;
+            max-width: 520px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gray-light);
         }
 
-        .warning-icon {
-            width: 100px;
-            height: 100px;
-            background-color: #fff3cd;
-            border-radius: 50%;
+        /* LÍNEA SUPERIOR - IDÉNTICA AL PASO ACTIVO */
+        .assistance-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            z-index: 1;
+        }
+
+        /* ICONO - ESTILO COHERENTE CON SERVICIOS */
+        .assistance-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            border-radius: var(--border-radius);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 30px;
-            color: #856404;
-            font-size: 2.5rem;
-        }
-
-        .warning-content h1 {
+            margin: 0 auto var(--spacing);
+            color: white;
             font-size: 2.2rem;
-            color: #856404;
-            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
 
-        .warning-content p {
-            color: var(--dark);
-            margin-bottom: 20px;
-            font-size: 1.1rem;
+        .assistance-icon:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
+        /* CONTENIDO - TIPOGRAFÍA IDÉNTICA */
+        .assistance-content h1 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .assistance-content p {
+            color: var(--gray);
+            margin-bottom: var(--spacing);
+            font-size: 1rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* OPCIONES DE ASISTENCIA - ESTILO COHERENTE CON TARJETAS */
         .assistance-options {
-            background-color: #f8f9fa;
+            background-color: var(--gray-ultralight);
             border-radius: var(--border-radius);
-            padding: 25px;
-            margin: 30px 0;
-            text-align: left;
+            padding: var(--spacing-lg);
+            margin: var(--spacing) 0;
+            border: 2px solid var(--gray-light);
         }
 
         .assistance-options h3 {
             color: var(--primary);
-            margin-bottom: 15px;
+            margin-bottom: var(--spacing);
+            font-size: 1.1rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            gap: var(--spacing-sm);
         }
 
         .assistance-options ul {
-            list-style-type: none;
+            list-style: none;
+            text-align: left;
         }
 
         .assistance-options li {
-            padding: 10px 0;
-            border-bottom: 1px solid #e9ecef;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--gray-light);
             display: flex;
-            align-items: center;
-            gap: 10px;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+            transition: var(--transition);
+        }
+
+        .assistance-options li:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: var(--border-radius-sm);
+            padding-left: var(--spacing-sm);
+            padding-right: var(--spacing-sm);
         }
 
         .assistance-options li:last-child {
@@ -107,42 +162,55 @@
         }
 
         .assistance-options i {
-            color: var(--primary);
+            color: var(--secondary);
             width: 20px;
+            text-align: center;
+            font-size: 1rem;
+            margin-top: 2px;
         }
 
-        .warning-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
+        .assistance-options strong {
+            color: var(--primary);
+            font-weight: 600;
         }
 
+        /* BOTONES - ESTILO IDÉNTICO AL SISTEMA DE AGENDAMIENTO */
         .btn {
-            display: inline-block;
-            padding: 12px 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
             background-color: var(--primary);
             color: white;
             border: none;
-            border-radius: var(--border-radius);
+            border-radius: var(--border-radius-sm);
             cursor: pointer;
             font-weight: 600;
+            font-size: 16px;
             transition: var(--transition);
             text-align: center;
             text-decoration: none;
+            gap: var(--spacing-sm);
+            min-width: 160px;
         }
 
         .btn:hover {
-            background-color: var(--primary-dark);
+            background-color: #083057;
             transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
-        .btn-secondary {
+        .btn:focus {
+            outline: 2px solid var(--secondary);
+            outline-offset: 2px;
+        }
+
+        .btn-primary {
             background-color: var(--secondary);
         }
 
-        .btn-secondary:hover {
-            background-color: var(--secondary-light);
+        .btn-primary:hover {
+            background-color: #0092E0;
         }
 
         .btn-outline {
@@ -156,21 +224,32 @@
             color: white;
         }
 
+        .action-buttons {
+            display: flex;
+            gap: var(--spacing);
+            justify-content: center;
+            margin: var(--spacing-lg) 0;
+            flex-wrap: wrap;
+        }
+
+        /* INFORMACIÓN DE CONTACTO - ESTILO COHERENTE */
         .contact-info {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e9ecef;
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-lg);
+            border-top: 2px solid var(--gray-light);
         }
 
         .contact-info h3 {
             color: var(--primary);
-            margin-bottom: 15px;
+            margin-bottom: var(--spacing);
+            font-size: 1rem;
+            font-weight: 600;
         }
 
         .contact-details {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: var(--spacing);
             flex-wrap: wrap;
         }
 
@@ -179,11 +258,34 @@
             align-items: center;
             gap: 8px;
             color: var(--gray);
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            background-color: var(--background);
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--gray-light);
+            transition: var(--transition);
         }
 
+        .contact-item:hover {
+            border-color: var(--secondary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .contact-item i {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE - COHERENTE CON EL SISTEMA DE AGENDAMIENTO */
         @media (max-width: 768px) {
-            .warning-actions {
+            .assistance-container {
+                padding: var(--spacing-lg) var(--spacing);
+            }
+            
+            .action-buttons {
                 flex-direction: column;
+                gap: var(--spacing-sm);
             }
             
             .btn {
@@ -192,40 +294,158 @@
             
             .contact-details {
                 flex-direction: column;
-                gap: 10px;
+                gap: var(--spacing-sm);
+                align-items: center;
             }
+            
+            .contact-item {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+            
+            .assistance-content h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: var(--spacing-sm);
+            }
+            
+            .assistance-container {
+                padding: var(--spacing);
+            }
+            
+            .assistance-options {
+                padding: var(--spacing);
+            }
+        }
+
+        /* ANIMACIONES - COHERENTES CON EL SISTEMA */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .assistance-container {
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* ESTILOS PARA NOTIFICACIONES - COHERENTES CON EL SISTEMA DE AGENDAMIENTO */
+        .notificacion {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--accent), #00C098);
+            color: white;
+            padding: var(--spacing);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            z-index: 10000;
+            max-width: 320px;
+            animation: slideInRight 0.3s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .notificacion-error {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+        }
+
+        .notificacion-contenido {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--spacing-sm);
+        }
+
+        .notificacion-mensaje {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .notificacion-cerrar {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .notificacion-cerrar:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
         }
     </style>
 </head>
 <body>
-    <div class="warning-container">
-        <div class="warning-icon">
+    <div class="assistance-container">
+        <div class="assistance-icon">
             <i class="fas fa-hands-helping"></i>
         </div>
         
-        <div class="warning-content">
-            <h1>Asistencia para Agendamiento</h1>
-            <p>Si tienes dificultades para completar el proceso de agendamiento por ti mismo, estamos aquí para ayudarte.</p>
-            <p>Entendemos que algunas personas pueden necesitar apoyo adicional debido a condiciones físicas, limitaciones tecnológicas u otras circunstancias.</p>
+        <div class="assistance-content">
+            <h1>¿Necesitas Ayuda para Agendar?</h1>
+            <p>Si tienes dificultades para completar el proceso de agendamiento, estamos aquí para ayudarte.</p>
             
             <div class="assistance-options">
-                <h3><i class="fas fa-list-alt"></i> Opciones de Asistencia Disponibles</h3>
+                <h3><i class="fas fa-list-check"></i> Opciones de Asistencia</h3>
                 <ul>
-                    <li><i class="fas fa-phone"></i> <strong>Agendamiento telefónico:</strong> Llámanos y nuestro personal te ayudará</li>
-                    <li><i class="fas fa-user-friends"></i> <strong>Asistencia presencial:</strong> Visita nuestra sede para agendar con ayuda</li>
-                    <li><i class="fas fa-video"></i> <strong>Sesión virtual:</strong> Conéctate con nosotros por video llamada</li>
-                    <li><i class="fas fa-home"></i> <strong>Visita domiciliaria:</strong> Para casos con movilidad reducida</li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Agendamiento telefónico:</strong>
+                            <span style="display: block; font-size: 0.9em; margin-top: 4px; color: var(--gray);">
+                                Llámanos y te ayudamos paso a paso
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-user-friends"></i>
+                        <div>
+                            <strong>Asistencia presencial:</strong>
+                            <span style="display: block; font-size: 0.9em; margin-top: 4px; color: var(--gray);">
+                                Visita nuestra sede para ayuda personalizada
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-video"></i>
+                        <div>
+                            <strong>Sesión virtual:</strong>
+                            <span style="display: block; font-size: 0.9em; margin-top: 4px; color: var(--gray);">
+                                Te guiamos por video llamada en tiempo real
+                            </span>
+                        </div>
+                    </li>
                 </ul>
             </div>
             
-            <div class="warning-actions">
-                <a href="cita.html" class="btn">
-                    <i class="fas fa-arrow-right"></i> Puedo Continuar Solo
+            <div class="action-buttons">
+                <a href="/cita" class="btn btn-primary">
+                    <i class="fas fa-arrow-right"></i> Continuar Solo
                 </a>
-                <a href="#" class="btn btn-secondary" id="request-help">
+                <button class="btn btn-outline" id="requestHelp">
                     <i class="fas fa-life-ring"></i> Necesito Ayuda
-                </a>
-                
+                </button>
             </div>
             
             <div class="contact-info">
@@ -233,7 +453,7 @@
                 <div class="contact-details">
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
-                        <span>(123) 456-7890</span>
+                        <span>320 2914521</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
@@ -241,12 +461,61 @@
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-clock"></i>
-                        <span>Lun-Vie: 8am - 8pm</span>
+                        <span>Lun-Vie: 7am - 8pm</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const requestHelpBtn = document.getElementById('requestHelp');
+            
+            if (requestHelpBtn) {
+                requestHelpBtn.addEventListener('click', function() {
+                    mostrarNotificacion('Pronto te contactaremos para brindarte asistencia personalizada', 'success');
+                    
+                    // Deshabilitar botón temporalmente para evitar múltiples clics
+                    requestHelpBtn.disabled = true;
+                    requestHelpBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Solicitando...';
+                    
+                    setTimeout(() => {
+                        requestHelpBtn.disabled = false;
+                        requestHelpBtn.innerHTML = '<i class="fas fa-life-ring"></i> Necesito Ayuda';
+                    }, 3000);
+                });
+            }
+            
+            function mostrarNotificacion(mensaje, tipo = 'success') {
+                // Crear notificación con estilo coherente
+                const notificacion = document.createElement('div');
+                notificacion.className = `notificacion notificacion-${tipo}`;
+                notificacion.innerHTML = `
+                    <div class="notificacion-contenido">
+                        <i class="fas fa-${tipo === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                        <span class="notificacion-mensaje">${mensaje}</span>
+                        <button class="notificacion-cerrar">&times;</button>
+                    </div>
+                `;
+                
+                document.body.appendChild(notificacion);
+                
+                // Auto-eliminar después de 4 segundos
+                setTimeout(() => {
+                    if (notificacion.parentNode) {
+                        notificacion.style.animation = 'slideOutRight 0.3s ease-in';
+                        setTimeout(() => notificacion.remove(), 300);
+                    }
+                }, 4000);
+                
+                // Evento para cerrar manualmente
+                notificacion.querySelector('.notificacion-cerrar').onclick = () => {
+                    notificacion.style.animation = 'slideOutRight 0.3s ease-in';
+                    setTimeout(() => notificacion.remove(), 300);
+                };
+            }
+        });
+    </script>
 </body>
 </html>
