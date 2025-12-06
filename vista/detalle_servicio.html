@@ -321,6 +321,7 @@
             text-align: center;
             box-shadow: var(--shadow);
             border: 1px solid #F1F5F9;
+            margin-bottom: 16px;
         }
 
         .therapist-avatar {
@@ -542,9 +543,11 @@
                 <a href="/servicios_terapeuticos" class="btn btn-outline">
                     <i class="fas fa-arrow-left"></i> Volver a Servicios
                 </a>
-                <a href="/cita" class="btn">
+                <button class="btn btn-agendar-detalle" 
+                        data-servicio="{{ servicio.codigo }}"
+                        data-servicio-nombre="{{ servicio.nombre }}">
                     <i class="fas fa-calendar-plus"></i> Agendar Cita
-                </a>
+                </button>
             </div>
         </header>
 
@@ -609,7 +612,7 @@
                             
                             <div class="therapists-container">
                                 {% for terapeuta in servicio.terapeutas %}
-                                <div class="therapist-card" style="margin-bottom: 16px;">
+                                <div class="therapist-card">
                                     <div class="therapist-avatar">
                                         <i class="fas fa-user-md"></i>
                                     </div>
@@ -629,8 +632,12 @@
                                     {% endif %}
                                     
                                     <div style="margin-top: 12px; font-size: 0.9rem; color: var(--gray);">
+                                        {% if terapeuta.telefono %}
                                         <div><i class="fas fa-phone"></i> {{ terapeuta.telefono }}</div>
+                                        {% endif %}
+                                        {% if terapeuta.fisio_correo %}
                                         <div><i class="fas fa-envelope"></i> {{ terapeuta.fisio_correo }}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -918,9 +925,11 @@
                     <a href="/servicios_terapeuticos" class="btn btn-outline">
                         <i class="fas fa-arrow-left"></i> Volver a Servicios
                     </a>
-                    <a href="/cita" class="btn btn-secondary">
+                    <button class="btn btn-secondary btn-agendar-detalle" 
+                            data-servicio="{{ servicio.codigo }}"
+                            data-servicio-nombre="{{ servicio.nombre }}">
                         <i class="fas fa-calendar-plus"></i> Agendar Cita Ahora
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -941,7 +950,136 @@
                     element.style.transform = 'translateY(0)';
                 }, 100 + index * 100);
             });
+
+            // Botón de agendar cita en detalle
+            const btnAgendar = document.querySelectorAll('.btn-agendar-detalle');
+            if (btnAgendar.length > 0) {
+                btnAgendar.forEach(btn => {
+                    btn.addEventListener('click', async function(e) {
+                        e.preventDefault();
+                        
+                        const servicioId = this.getAttribute('data-servicio');
+                        const servicioNombre = this.getAttribute('data-servicio-nombre');
+                        
+                        try {
+                            // Verificar sesión
+                            const response = await fetch('/api/auth/check', {
+                                method: 'GET',
+                                credentials: 'include'
+                            });
+                            
+                            if (response.ok) {
+                                const data = await response.json();
+                                
+                                if (data.logged_in) {
+                                    window.location.href = `/cita?servicio=${servicioId}`;
+                                } else {
+                                    mostrarNotificacion('Debes iniciar sesión para agendar una cita', 'error');
+                                    
+                                    sessionStorage.setItem('redirect_after_login', `/cita?servicio=${servicioId}`);
+                                    sessionStorage.setItem('servicio_nombre', servicioNombre);
+                                    
+                                    setTimeout(() => {
+                                        window.location.href = '/login_user';
+                                    }, 2000);
+                                }
+                            } else {
+                                mostrarNotificacion('Error al verificar sesión', 'error');
+                            }
+                        } catch (error) {
+                            console.error('Error al verificar sesión:', error);
+                            mostrarNotificacion('Error de conexión', 'error');
+                        }
+                    });
+                });
+            }
         });
+
+        // Función para mostrar notificaciones
+        function mostrarNotificacion(mensaje, tipo = 'info') {
+            // Crear elemento de notificación
+            const notificacion = document.createElement('div');
+            notificacion.className = `notificacion notificacion-${tipo}`;
+            notificacion.innerHTML = `
+                <div class="notificacion-contenido">
+                    <span class="notificacion-mensaje">${mensaje}</span>
+                    <button class="notificacion-cerrar">&times;</button>
+                </div>
+            `;
+            
+            // Estilos para la notificación
+            notificacion.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${tipo === 'success' ? '#10B981' : tipo === 'error' ? '#EF4444' : '#3B82F6'};
+                color: white;
+                padding: 12px 16px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                max-width: 300px;
+                animation: slideInRight 0.3s ease-out;
+            `;
+            
+            document.body.appendChild(notificacion);
+            
+            // Auto-eliminar después de 4 segundos
+            setTimeout(() => {
+                if (notificacion.parentNode) {
+                    notificacion.style.animation = 'slideOutRight 0.3s ease-in';
+                    setTimeout(() => notificacion.remove(), 300);
+                }
+            }, 4000);
+            
+            // Cerrar al hacer click
+            notificacion.querySelector('.notificacion-cerrar').onclick = () => {
+                notificacion.style.animation = 'slideOutRight 0.3s ease-in';
+                setTimeout(() => notificacion.remove(), 300);
+            };
+        }
+
+        // Animaciones CSS para las notificaciones
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+            
+            .notificacion-contenido {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .notificacion-cerrar {
+                background: none;
+                border: none;
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
+                margin-left: 10px;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>

@@ -776,7 +776,8 @@
                 align-self: center;
             }
         }
-    .badge-therapy {
+        
+        .badge-therapy {
             background: #00D4AA;
             color: white;
         }
@@ -788,7 +789,7 @@
     </style>
 </head>
 <body>
-    <!-- Header (se mantiene igual) -->
+    <!-- Header -->
     <header>
         <div class="container">
             <div class="nav-container">
@@ -804,7 +805,7 @@
         </div>
     </header>
 
-    <!-- Hero Section (se mantiene igual) -->
+    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -818,7 +819,7 @@
         </div>
     </section>
 
-    <!-- Breadcrumb (se mantiene igual) -->
+    <!-- Breadcrumb -->
     <section class="breadcrumb">
         <div class="container">
             <div class="breadcrumb-links">
@@ -827,7 +828,7 @@
         </div>
     </section>
 
-    <!-- Equipment Navigation (se mantiene igual) -->
+    <!-- Equipment Navigation -->
     <section class="equipment-nav">
         <div class="container">
             <div class="filters-title">
@@ -1479,7 +1480,7 @@
         </div>
     </section>
 
-    <!-- Categories Section (se mantiene igual) -->
+    <!-- Categories Section -->
     <section class="categories-section">
         <div class="container">
             <div class="section-header">
@@ -1520,7 +1521,7 @@
         </div>
     </section>
 
-    <!-- CTA Section (se mantiene igual) -->
+    <!-- CTA Section -->
     <section class="cta">
         <div class="container">
             <div class="cta-content">
@@ -1534,7 +1535,7 @@
         </div>
     </section>
 
-    <!-- Footer (se mantiene igual) -->
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-grid">
@@ -1646,7 +1647,193 @@
                     card.style.transform = 'translateY(0)';
                 }, 100 + index * 100);
             });
+
+            // Agregar evento de click a los botones de compra
+            document.querySelectorAll('.comprar-btn').forEach(btn => {
+                btn.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    
+                    const productoId = this.getAttribute('data-producto-id');
+                    const productoNombre = this.getAttribute('data-producto-nombre');
+                    const productoPrecio = this.getAttribute('data-producto-precio');
+                    const productoTipo = this.getAttribute('data-producto-tipo');
+                    
+                    try {
+                        // Verificar si el usuario está logueado
+                        const response = await fetch('/api/auth/check', {
+                            method: 'GET',
+                            credentials: 'include'
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            
+                            if (data.logged_in) {
+                                // Usuario logueado, proceder con la compra
+                                comprarProducto(productoId, productoNombre, productoPrecio, productoTipo);
+                            } else {
+                                // Usuario no logueado, redirigir a login
+                                mostrarNotificacion('Debes iniciar sesión para comprar productos', 'error');
+                                
+                                // Guardar la intención de compra en sessionStorage
+                                sessionStorage.setItem('producto_id', productoId);
+                                sessionStorage.setItem('producto_nombre', productoNombre);
+                                sessionStorage.setItem('producto_precio', productoPrecio);
+                                sessionStorage.setItem('producto_tipo', productoTipo);
+                                
+                                setTimeout(() => {
+                                    window.location.href = '/login_user';
+                                }, 2000);
+                            }
+                        } else {
+                            mostrarNotificacion('Error al verificar sesión', 'error');
+                        }
+                    } catch (error) {
+                        console.error('Error al verificar sesión:', error);
+                        mostrarNotificacion('Error de conexión', 'error');
+                    }
+                });
+            });
         });
+
+        // Función para realizar la compra de productos
+        async function comprarProducto(productoId, productoNombre, productoPrecio, productoTipo) {
+            try {
+                console.log(`🛒 Agregando producto al carrito: ${productoId} (${productoTipo})`);
+                
+                const response = await fetch('/api/carrito/agregar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        producto_id: productoId,
+                        producto_tipo: productoTipo,
+                        cantidad: 1
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Mostrar notificación de éxito
+                    mostrarNotificacion(`✅ "${productoNombre}" agregado al carrito`, 'success');
+                    
+                    // Actualizar contador del carrito si existe
+                    actualizarContadorCarrito(data.items_count);
+                    
+                } else {
+                    if (data.message.includes('No autorizado') || response.status === 401) {
+                        mostrarNotificacion('❌ Debes iniciar sesión para comprar', 'error');
+                        setTimeout(() => {
+                            window.location.href = '/login_user';
+                        }, 2000);
+                    } else {
+                        mostrarNotificacion(`❌ Error: ${data.message}`, 'error');
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error al agregar al carrito:', error);
+                mostrarNotificacion('❌ Error de conexión', 'error');
+            }
+        }
+
+        // Función para mostrar notificaciones
+        function mostrarNotificacion(mensaje, tipo = 'info') {
+            // Crear elemento de notificación
+            const notificacion = document.createElement('div');
+            notificacion.className = `notificacion notificacion-${tipo}`;
+            notificacion.innerHTML = `
+                <div class="notificacion-contenido">
+                    <span class="notificacion-mensaje">${mensaje}</span>
+                    <button class="notificacion-cerrar">&times;</button>
+                </div>
+            `;
+            
+            // Estilos para la notificación
+            notificacion.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${tipo === 'success' ? '#10B981' : tipo === 'error' ? '#EF4444' : '#3B82F6'};
+                color: white;
+                padding: 12px 16px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                max-width: 300px;
+                animation: slideInRight 0.3s ease-out;
+            `;
+            
+            document.body.appendChild(notificacion);
+            
+            // Auto-eliminar después de 4 segundos
+            setTimeout(() => {
+                if (notificacion.parentNode) {
+                    notificacion.style.animation = 'slideOutRight 0.3s ease-in';
+                    setTimeout(() => notificacion.remove(), 300);
+                }
+            }, 4000);
+            
+            // Cerrar al hacer click
+            notificacion.querySelector('.notificacion-cerrar').onclick = () => {
+                notificacion.style.animation = 'slideOutRight 0.3s ease-in';
+                setTimeout(() => notificacion.remove(), 300);
+            };
+        }
+
+        // Función para actualizar contador del carrito
+        function actualizarContadorCarrito(count) {
+            const contador = document.getElementById('carrito-contador');
+            if (contador) {
+                contador.textContent = count;
+                contador.style.display = count > 0 ? 'flex' : 'none';
+            }
+        }
+
+        // Animaciones CSS para las notificaciones
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+            
+            .notificacion-contenido {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .notificacion-cerrar {
+                background: none;
+                border: none;
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
+                margin-left: 10px;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>

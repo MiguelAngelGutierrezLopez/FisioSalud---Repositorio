@@ -322,10 +322,6 @@
             border-color: var(--secondary);
         }
 
-        .filtro-terapeuta.activo h4 {
-            color: var(--secondary);
-        }
-
         .filtro-terapeuta h4 {
             color: var(--primary);
             margin-bottom: 15px;
@@ -638,7 +634,7 @@
             color: white;
         }
 
-        /* Specialized Notice - ACTUALIZADO PARA USAR TUS DATOS */
+        /* Specialized Notice */
         .specialized-notice {
             background: #FFF4E6;
             border: 1px solid #FFD8A8;
@@ -658,7 +654,7 @@
             flex-shrink: 0;
         }
 
-        /* Notice for requisitos - NUEVO */
+        /* Notice for requisitos */
         .requirements-notice {
             background: #E3F2FD;
             border: 1px solid #90CAF9;
@@ -1013,7 +1009,7 @@
             </div>
             
             <!-- Filtro de terapeutas -->
-            <div class="filtro-terapeuta {% if terapeuta_busqueda %}activo{% endif %}">
+            <div class="filtro-terapeuta" id="filtroTerapeuta">
                 <h4>Buscar por Terapeuta</h4>
                 <form method="post" action="/servicios/buscar-terapeuta" class="busqueda-terapeuta">
                     <div class="input-group">
@@ -1054,7 +1050,7 @@
 
             <!-- Services Grid - VERSIÓN CORREGIDA -->
             <div class="services-grid" id="servicesGrid">
-                {% if servicios is defined and servicios is not none and servicios|length > 0 %}
+                {% if servicios and servicios|length > 0 %}
                     {% for servicio in servicios %}
                     <div class="service-card {% if servicio.categoria == 'Especializada' or servicio.categoria == 'especializada' %}specialized{% elif servicio.categoria == 'Avanzada' or servicio.categoria == 'avanzada' %}advanced{% endif %}" 
                         data-category="{% if servicio.categoria == 'Básica' or servicio.categoria == 'básica' %}basic{% elif servicio.categoria == 'Intermedia' or servicio.categoria == 'intermedia' %}intermediate{% elif servicio.categoria == 'Especializada' or servicio.categoria == 'especializada' %}specialized{% elif servicio.categoria == 'Avanzada' or servicio.categoria == 'avanzada' %}advanced{% else %}basic{% endif %}"
@@ -1170,13 +1166,15 @@
                             </div>
                         </div>
                         <div class="service-footer">
-                            <a href="/cita?servicio={{ servicio.codigo }}" class="btn">
+                            <button class="btn btn-agendar" 
+                                    data-servicio="{{ servicio.codigo }}"
+                                    data-servicio-nombre="{{ servicio.nombre }}">
                                 {% if servicio.categoria == 'Especializada' or servicio.categoria == 'especializada' or servicio.categoria == 'Avanzada' or servicio.categoria == 'avanzada' %}
                                 Solicitar Evaluación
                                 {% else %}
                                 Reservar Ahora
                                 {% endif %}
-                            </a>
+                            </button>
                             <a href="/servicio/{{ servicio.codigo }}" class="btn btn-outline btn-small">Más Información</a>
                         </div>
                     </div>
@@ -1325,7 +1323,7 @@
                 });
             }
 
-            // Filtrado de servicios por categoría (SOLO FRONTEND - no recarga)
+            // Filtrado de servicios por categoría
             function filterServices(category) {
                 serviceCards.forEach(serviceCard => {
                     const cardCategory = serviceCard.getAttribute('data-category');
@@ -1409,7 +1407,136 @@
             if (!hayServiciosVisibles()) {
                 console.log("No hay servicios visibles en la página");
             }
+
+            // Verificar sesión al hacer clic en botones de agendar
+            document.querySelectorAll('.btn-agendar').forEach(btn => {
+                btn.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    
+                    const servicioId = this.getAttribute('data-servicio');
+                    const servicioNombre = this.getAttribute('data-servicio-nombre');
+                    
+                    try {
+                        // Verificar si el usuario está logueado
+                        const response = await fetch('/api/auth/check', {
+                            method: 'GET',
+                            credentials: 'include'
+                        });
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            
+                            if (data.logged_in) {
+                                // Usuario logueado, redirigir a agendar cita
+                                window.location.href = `/cita?servicio=${servicioId}`;
+                            } else {
+                                // Usuario no logueado, redirigir a login
+                                mostrarNotificacion('Debes iniciar sesión para agendar una cita', 'error');
+                                
+                                // Guardar la intención de cita en sessionStorage
+                                sessionStorage.setItem('redirect_after_login', `/cita?servicio=${servicioId}`);
+                                sessionStorage.setItem('servicio_nombre', servicioNombre);
+                                
+                                setTimeout(() => {
+                                    window.location.href = '/login_user';
+                                }, 2000);
+                            }
+                        } else {
+                            mostrarNotificacion('Error al verificar sesión', 'error');
+                        }
+                    } catch (error) {
+                        console.error('Error al verificar sesión:', error);
+                        mostrarNotificacion('Error de conexión', 'error');
+                    }
+                });
+            });
         });
+
+        // Función para mostrar notificaciones
+        function mostrarNotificacion(mensaje, tipo = 'info') {
+            // Crear elemento de notificación
+            const notificacion = document.createElement('div');
+            notificacion.className = `notificacion notificacion-${tipo}`;
+            notificacion.innerHTML = `
+                <div class="notificacion-contenido">
+                    <span class="notificacion-mensaje">${mensaje}</span>
+                    <button class="notificacion-cerrar">&times;</button>
+                </div>
+            `;
+            
+            // Estilos para la notificación
+            notificacion.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${tipo === 'success' ? '#10B981' : tipo === 'error' ? '#EF4444' : '#3B82F6'};
+                color: white;
+                padding: 12px 16px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                max-width: 300px;
+                animation: slideInRight 0.3s ease-out;
+            `;
+            
+            document.body.appendChild(notificacion);
+            
+            // Auto-eliminar después de 4 segundos
+            setTimeout(() => {
+                if (notificacion.parentNode) {
+                    notificacion.style.animation = 'slideOutRight 0.3s ease-in';
+                    setTimeout(() => notificacion.remove(), 300);
+                }
+            }, 4000);
+            
+            // Cerrar al hacer click
+            notificacion.querySelector('.notificacion-cerrar').onclick = () => {
+                notificacion.style.animation = 'slideOutRight 0.3s ease-in';
+                setTimeout(() => notificacion.remove(), 300);
+            };
+        }
+
+        // Animaciones CSS para las notificaciones
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+            
+            .notificacion-contenido {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .notificacion-cerrar {
+                background: none;
+                border: none;
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
+                margin-left: 10px;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>

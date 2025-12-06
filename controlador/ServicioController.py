@@ -32,16 +32,20 @@ class ServicioController:
         Controla la obtención y presentación de todos los servicios
         """
         servicios, mensaje_error = ServicioModel.obtener_todos_servicios()
+        terapeutas, _ = ServicioModel.obtener_lista_terapeutas()
         
-        if mensaje_error:
-            return templates.TemplateResponse("serv_terapia.html", {
-                "request": request,
-                "error_message": mensaje_error
-            })
-
+        # DEBUG: Verificar lo que se está obteniendo
+        print(f"DEBUG: Servicios obtenidos: {len(servicios) if servicios else 0}")
+        print(f"DEBUG: Mensaje error: {mensaje_error}")
+        
+        # Si hay un error o servicios es None, inicializar como lista vacía
+        if mensaje_error or servicios is None:
+            servicios = []
+        
         return templates.TemplateResponse("serv_terapia.html", {
             "request": request,
-            "servicios": servicios  # Por si quieres mostrar dinámicamente
+            "servicios": servicios,  # Asegurar que siempre sea una lista
+            "terapeutas": terapeutas or []
         })
 
     @staticmethod
