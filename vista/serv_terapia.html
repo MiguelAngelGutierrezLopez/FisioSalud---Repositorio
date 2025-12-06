@@ -610,7 +610,7 @@
             flex: 1;
         }
 
-        /* Badges - MEJORADOS */
+        /* Badges */
         .badge {
             display: inline-flex;
             align-items: center;
@@ -624,22 +624,22 @@
         }
 
         .badge-popular {
-            background: linear-gradient(135deg, var(--secondary) 0%, #0077CC 100%);
+            background: var(--secondary);
             color: white;
         }
 
         .badge-new {
-            background: linear-gradient(135deg, var(--accent) 0%, #00B894 100%);
+            background: var(--accent);
             color: white;
         }
 
         .badge-specialized {
-            background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+            background: #8B5CF6;
             color: white;
         }
 
         .badge-advanced {
-            background: linear-gradient(135deg, #FF6B6B 0%, #FA5252 100%);
+            background: #FF6B6B;
             color: white;
         }
 
@@ -661,33 +661,6 @@
             color: #E8590C;
             margin-top: 1px;
             flex-shrink: 0;
-        }
-
-        /* Mensaje cuando no hay servicios - NUEVO */
-        .no-services-message {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 60px 20px;
-            display: none;
-        }
-
-        .no-services-icon {
-            font-size: 5rem;
-            color: #E2E8F0;
-            margin-bottom: 20px;
-        }
-
-        .no-services-title {
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-        }
-
-        .no-services-text {
-            color: var(--gray);
-            max-width: 500px;
-            margin: 0 auto 30px;
-            line-height: 1.6;
         }
 
         /* Quick Actions */
@@ -1024,33 +997,34 @@
                 </div>
             </div>
             
-            <!-- Filtro de terapeutas - SIMPLIFICADO -->
-            <div class="filtro-terapeuta">
+            <!-- Filtro de terapeutas -->
+            <div class="filtro-terapeuta {% if terapeuta_busqueda %}activo{% endif %}">
                 <h4>Buscar por Terapeuta</h4>
-                <div class="busqueda-terapeuta">
+                <form method="post" action="/servicios/buscar-terapeuta" class="busqueda-terapeuta">
                     <div class="input-group">
-                        <input type="text" id="inputTerapeuta" 
-                            placeholder="Nombre del terapeuta...">
-                        <button type="button" class="btn-buscar" id="btnBuscarTerapeuta">
+                        <input type="text" name="terapeuta" 
+                            placeholder="Nombre o correo del terapeuta..." 
+                            value="{{ terapeuta_busqueda if terapeuta_busqueda else '' }}">
+                        <button type="submit" class="btn-buscar">
                             <i class="fas fa-search"></i> Buscar
                         </button>
                     </div>
-                </div>
+                </form>
                 
+                <!-- Opcional: Mostrar lista de terapeutas disponibles -->
+                {% if terapeutas %}
                 <div class="terapeutas-sugeridos">
                     <small>Terapeutas disponibles:</small>
-                    <div class="terapeutas-lista" id="terapeutasLista">
-                        <a href="javascript:void(0)" class="badge-terapeuta" data-terapeuta="Dr. Juan Pérez">
-                            Dr. Juan Pérez
+                    <div class="terapeutas-lista">
+                        {% for terapeuta in terapeutas %}
+                        <a href="/servicios/terapeuta/{{ terapeuta.nombre_completo }}" 
+                        class="badge-terapeuta">
+                            {{ terapeuta.nombre_completo }}
                         </a>
-                        <a href="javascript:void(0)" class="badge-terapeuta" data-terapeuta="Dra. María García">
-                            Dra. María García
-                        </a>
-                        <a href="javascript:void(0)" class="badge-terapeuta" data-terapeuta="Dr. Carlos López">
-                            Dr. Carlos López
-                        </a>
+                        {% endfor %}
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -1064,306 +1038,120 @@
                 <p class="section-subtitle">Selecciona el tratamiento que mejor se adapte a tus necesidades de salud y bienestar</p>
             </div>
 
-            <!-- Services Grid - MEJORADO -->
-            <div class="services-grid" id="servicesGrid">
-                <!-- Mensaje cuando no hay servicios -->
-                <div class="no-services-message" id="noServicesMessage">
-                    <div class="no-services-icon">
-                        <i class="fas fa-clipboard-list"></i>
-                    </div>
-                    <h3 class="no-services-title">No se encontraron servicios</h3>
-                    <p class="no-services-text">
-                        No hay servicios disponibles que coincidan con tu búsqueda.
-                        Intenta con otro filtro o terapeuta.
-                    </p>
-                    <button onclick="limpiarFiltros()" class="btn btn-secondary">
-                        <i class="fas fa-redo"></i> Ver todos los servicios
-                    </button>
-                </div>
-
-                <!-- Servicio 1 - Básico -->
-                <div class="service-card" data-category="basic" data-terapeutas="Dr. Juan Pérez|Dra. María García">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fas fa-spa"></i>
-                        </div>
-                        <div class="service-title">
-                            <h3>
-                                Masaje Terapéutico
-                                <span class="badge badge-popular"><i class="fas fa-fire"></i> POPULAR</span>
-                            </h3>
-                            <div class="service-level">
-                                <i class="fas fa-star"></i> Nivel Básico
+            <!-- Services Grid -->
+            <div class="services-grid">
+                {% if servicios %}
+                    {% for servicio in servicios %}
+                    <div class="service-card {% if servicio.categoria == 'especializada' %}specialized{% elif servicio.categoria == 'avanzada' %}advanced{% endif %}" 
+                         data-category="{% if servicio.categoria == 'básica' %}basic{% elif servicio.categoria == 'intermedia' %}intermediate{% elif servicio.categoria == 'especializada' %}specialized{% elif servicio.categoria == 'avanzada' %}advanced{% else %}basic{% endif %}">
+                        <div class="service-header">
+                            <div class="service-icon">
+                                {% if servicio.categoria == 'básica' %}
+                                <i class="fas fa-spa"></i>
+                                {% elif servicio.categoria == 'intermedia' %}
+                                <i class="fas fa-hand-holding-medical"></i>
+                                {% elif servicio.categoria == 'especializada' %}
+                                <i class="fas fa-syringe"></i>
+                                {% elif servicio.categoria == 'avanzada' %}
+                                <i class="fas fa-user-md"></i>
+                                {% else %}
+                                <i class="fas fa-spa"></i>
+                                {% endif %}
+                            </div>
+                            <div class="service-title">
+                                <h3>
+                                    {{ servicio.nombre }}
+                                    {% if servicio.promedio_sesiones > 10 %}
+                                    <span class="badge badge-popular">POPULAR</span>
+                                    {% elif servicio.categoria == 'especializada' %}
+                                    <span class="badge badge-specialized">ESPECIALIZADO</span>
+                                    {% elif servicio.categoria == 'avanzada' %}
+                                    <span class="badge badge-advanced">AVANZADO</span>
+                                    {% endif %}
+                                </h3>
+                                <div class="service-level">
+                                    {% if servicio.categoria == 'básica' %}
+                                    <i class="fas fa-star"></i> Nivel Básico
+                                    {% elif servicio.categoria == 'intermedia' %}
+                                    <i class="fas fa-star-half-alt"></i> Nivel Intermedio
+                                    {% elif servicio.categoria == 'especializada' %}
+                                    <i class="fas fa-stethoscope"></i> Requiere Evaluación
+                                    {% elif servicio.categoria == 'avanzada' %}
+                                    <i class="fas fa-user-md"></i> Con Especialista
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="service-body">
-                        <p class="service-description">Masaje terapéutico para aliviar tensiones musculares y mejorar la circulación sanguínea. Ideal para dolores de espalda y cuello.</p>
-                        <div class="service-features">
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Alivia el dolor muscular</span>
+                        <div class="service-body">
+                            <p class="service-description">{{ servicio.descripcion[:150] }}...</p>
+                            <div class="service-features">
+                                {% if servicio.beneficios %}
+                                    {% set beneficios = servicio.beneficios.split('|') %}
+                                    {% for beneficio in beneficios[:4] %}
+                                    <div class="service-feature">
+                                        <i class="fas fa-check"></i>
+                                        <span>{{ beneficio.strip() }}</span>
+                                    </div>
+                                    {% endfor %}
+                                {% endif %}
                             </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Mejora la circulación</span>
+                            
+                            <!-- Mostrar terapeutas si se está filtrando por terapeuta -->
+                            {% if terapeuta_busqueda and servicio.terapeutas_filtrados %}
+                            <div class="terapeutas-coincidentes">
+                                <small><strong>Terapeuta(s) encontrado(s):</strong></small>
+                                <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px;">
+                                    {% for terapeuta in servicio.terapeutas_filtrados %}
+                                    <span style="background: #e3f2fd; padding: 3px 8px; border-radius: 4px; font-size: 0.8rem;">
+                                        {{ terapeuta.nombre_completo }}
+                                    </span>
+                                    {% endfor %}
+                                </div>
                             </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Reduce el estrés</span>
+                            {% endif %}
+                            
+                            {% if servicio.categoria == 'especializada' or servicio.categoria == 'avanzada' %}
+                            <div class="specialized-notice">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>{% if servicio.categoria == 'especializada' %}Este servicio requiere evaluación médica previa{% else %}Servicio disponible únicamente con especialistas certificados{% endif %}</span>
                             </div>
-                        </div>
-                        <div class="service-meta">
-                            <div class="service-price">$80.000</div>
-                            <div class="service-duration">
-                                <i class="fas fa-clock"></i> 60 minutos
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-footer">
-                        <a href="/cita?servicio=masaje" class="btn">Reservar Ahora</a>
-                        <a href="/servicio/masaje" class="btn btn-outline btn-small">Más Información</a>
-                    </div>
-                </div>
-
-                <!-- Servicio 2 - Intermedio -->
-                <div class="service-card" data-category="intermediate" data-terapeutas="Dr. Carlos López">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fas fa-hand-holding-medical"></i>
-                        </div>
-                        <div class="service-title">
-                            <h3>
-                                Rehabilitación Post-operatoria
-                                <span class="badge badge-new"><i class="fas fa-certificate"></i> NUEVO</span>
-                            </h3>
-                            <div class="service-level">
-                                <i class="fas fa-star-half-alt"></i> Nivel Intermedio
+                            {% endif %}
+                            
+                            <div class="service-meta">
+                                <div class="service-price">${{ "{:,.0f}".format(servicio.precio|default(0)) }}</div>
+                                <div class="service-duration">
+                                    <i class="fas fa-clock"></i> {{ servicio.duracion|default(45) }} minutos
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="service-body">
-                        <p class="service-description">Programa de rehabilitación personalizado para recuperación después de cirugías ortopédicas.</p>
-                        <div class="service-features">
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Recuperación acelerada</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Ejercicios personalizados</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Seguimiento semanal</span>
-                            </div>
-                        </div>
-                        <div class="service-meta">
-                            <div class="service-price">$120.000</div>
-                            <div class="service-duration">
-                                <i class="fas fa-clock"></i> 90 minutos
-                            </div>
+                        <div class="service-footer">
+                            <a href="/cita?servicio={{ servicio.codigo }}" class="btn">
+                                {% if servicio.categoria == 'especializada' or servicio.categoria == 'avanzada' %}
+                                Solicitar Evaluación
+                                {% else %}
+                                Reservar Ahora
+                                {% endif %}
+                            </a>
+                            <a href="/servicio/{{ servicio.codigo }}" class="btn btn-outline btn-small">Más Información</a>
                         </div>
                     </div>
-                    <div class="service-footer">
-                        <a href="/cita?servicio=rehabilitacion" class="btn">Reservar Ahora</a>
-                        <a href="/servicio/rehabilitacion" class="btn btn-outline btn-small">Más Información</a>
+                    {% endfor %}
+                {% else %}
+                    {% if terapeuta_busqueda %}
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                        <h3>No se encontraron servicios para el terapeuta "{{ terapeuta_busqueda }}"</h3>
+                        <p>Intenta con otro nombre o correo de terapeuta.</p>
+                        <a href="/servicios" class="btn btn-secondary">Ver todos los servicios</a>
                     </div>
-                </div>
-
-                <!-- Servicio 3 - Especializado -->
-                <div class="service-card specialized" data-category="specialized" data-terapeutas="Dra. María García">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fas fa-syringe"></i>
-                        </div>
-                        <div class="service-title">
-                            <h3>
-                                Punción Seca
-                                <span class="badge badge-specialized"><i class="fas fa-stethoscope"></i> ESPECIALIZADO</span>
-                            </h3>
-                            <div class="service-level">
-                                <i class="fas fa-stethoscope"></i> Requiere Evaluación
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-body">
-                        <p class="service-description">Técnica especializada para el tratamiento de puntos gatillo musculares y dolor miofascial.</p>
-                        <div class="service-features">
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Alivio inmediato del dolor</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Tratamiento directo</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Resultados duraderos</span>
-                            </div>
-                        </div>
-                        <div class="specialized-notice">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <span>Este servicio requiere evaluación médica previa y autorización</span>
-                        </div>
-                        <div class="service-meta">
-                            <div class="service-price">$150.000</div>
-                            <div class="service-duration">
-                                <i class="fas fa-clock"></i> 45 minutos
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-footer">
-                        <a href="/cita?servicio=puncion" class="btn">Solicitar Evaluación</a>
-                        <a href="/servicio/puncion" class="btn btn-outline btn-small">Más Información</a>
-                    </div>
-                </div>
-
-                <!-- Servicio 4 - Avanzado -->
-                <div class="service-card advanced" data-category="advanced" data-terapeutas="Dr. Juan Pérez|Dr. Carlos López">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fas fa-user-md"></i>
-                        </div>
-                        <div class="service-title">
-                            <h3>
-                                Terapia Neuromuscular
-                                <span class="badge badge-advanced"><i class="fas fa-brain"></i> AVANZADO</span>
-                            </h3>
-                            <div class="service-level">
-                                <i class="fas fa-user-md"></i> Con Especialista
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-body">
-                        <p class="service-description">Tratamiento avanzado para trastornos neuromusculares complejos y recuperación neurológica.</p>
-                        <div class="service-features">
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Evaluación neurológica completa</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Tecnología de última generación</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Plan personalizado de 12 semanas</span>
-                            </div>
-                        </div>
-                        <div class="specialized-notice">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <span>Servicio disponible únicamente con especialistas certificados</span>
-                        </div>
-                        <div class="service-meta">
-                            <div class="service-price">$200.000</div>
-                            <div class="service-duration">
-                                <i class="fas fa-clock"></i> 120 minutos
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-footer">
-                        <a href="/cita?servicio=neuromuscular" class="btn">Solicitar Evaluación</a>
-                        <a href="/servicio/neuromuscular" class="btn btn-outline btn-small">Más Información</a>
-                    </div>
-                </div>
-
-                <!-- Servicio 5 - Básico -->
-                <div class="service-card" data-category="basic" data-terapeutas="Dra. María García">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fas fa-spa"></i>
-                        </div>
-                        <div class="service-title">
-                            <h3>
-                                Fisioterapia Deportiva
-                                <span class="badge badge-popular"><i class="fas fa-fire"></i> POPULAR</span>
-                            </h3>
-                            <div class="service-level">
-                                <i class="fas fa-star"></i> Nivel Básico
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-body">
-                        <p class="service-description">Tratamiento y prevención de lesiones deportivas para atletas amateur y profesionales.</p>
-                        <div class="service-features">
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Prevención de lesiones</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Recuperación rápida</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Mejora del rendimiento</span>
-                            </div>
-                        </div>
-                        <div class="service-meta">
-                            <div class="service-price">$95.000</div>
-                            <div class="service-duration">
-                                <i class="fas fa-clock"></i> 75 minutos
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-footer">
-                        <a href="/cita?servicio=deportiva" class="btn">Reservar Ahora</a>
-                        <a href="/servicio/deportiva" class="btn btn-outline btn-small">Más Información</a>
-                    </div>
-                </div>
-
-                <!-- Servicio 6 - Intermedio -->
-                <div class="service-card" data-category="intermediate" data-terapeutas="Dr. Juan Pérez">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <i class="fas fa-hand-holding-medical"></i>
-                        </div>
-                        <div class="service-title">
-                            <h3>
-                                Terapia Manual Ortopédica
-                            </h3>
-                            <div class="service-level">
-                                <i class="fas fa-star-half-alt"></i> Nivel Intermedio
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-body">
-                        <p class="service-description">Técnicas manuales especializadas para tratar disfunciones del sistema musculoesquelético.</p>
-                        <div class="service-features">
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Movilización articular</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Liberación miofascial</span>
-                            </div>
-                            <div class="service-feature">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Corrección postural</span>
-                            </div>
-                        </div>
-                        <div class="service-meta">
-                            <div class="service-price">$110.000</div>
-                            <div class="service-duration">
-                                <i class="fas fa-clock"></i> 60 minutos
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-footer">
-                        <a href="/cita?servicio=ortopedica" class="btn">Reservar Ahora</a>
-                        <a href="/servicio/ortopedica" class="btn btn-outline btn-small">Más Información</a>
-                    </div>
-                </div>
+                    {% endif %}
+                {% endif %}
             </div>
 
             <!-- Quick Actions -->
             <div class="quick-actions">
                 <div class="quick-info">
                     <h4>¿Necesitas ayuda para elegir?</h4>
-                    <p>Nuestros especialistas pueden evaluar tu condición y recomendarte el tratamiento más adecuado. Agenda una consulta sin costo.</p>
+                    <p>Nuestros especialistas pueden evaluar tu condición y recomendarte el tratamiento más adecuado</p>
                 </div>
                 <div class="quick-buttons">
                     <a href="/cita" class="btn btn-secondary">Consulta Especializada</a>
@@ -1447,147 +1235,77 @@
             const filterCards = document.querySelectorAll('.filter-card');
             const serviceCards = document.querySelectorAll('.service-card');
             const clearFiltersBtn = document.querySelector('.clear-filters');
-            const inputTerapeuta = document.getElementById('inputTerapeuta');
-            const btnBuscarTerapeuta = document.getElementById('btnBuscarTerapeuta');
-            const badgesTerapeuta = document.querySelectorAll('.badge-terapeuta');
+            const busquedaTerapeutaForm = document.querySelector('.busqueda-terapeuta');
+            const busquedaTerapeutaInput = document.querySelector('input[name="terapeuta"]');
             const filtroTerapeutaDiv = document.querySelector('.filtro-terapeuta');
-            const noServicesMessage = document.getElementById('noServicesMessage');
+            const badgesTerapeuta = document.querySelectorAll('.badge-terapeuta');
 
-            // Variable para rastrear el filtro activo
-            let filtroActivo = 'all';
-            let terapeutaBuscado = '';
-
-            // Función para verificar si hay servicios visibles
-            function verificarServiciosVisibles() {
-                const serviciosVisibles = Array.from(serviceCards).filter(card => {
-                    return card.style.display !== 'none' && card.style.opacity !== '0';
-                }).length;
-
-                if (serviciosVisibles === 0 && noServicesMessage) {
-                    noServicesMessage.style.display = 'block';
-                } else if (noServicesMessage) {
-                    noServicesMessage.style.display = 'none';
+            // Función para limpiar todos los filtros
+            function limpiarTodosFiltros() {
+                // Limpiar filtros de categoría
+                filterCards.forEach(c => c.classList.remove('active'));
+                filterCards[0].classList.add('active'); // Activar "Todos"
+                
+                // Limpiar filtro de terapeuta
+                if (busquedaTerapeutaInput) {
+                    busquedaTerapeutaInput.value = '';
                 }
+                
+                // Remover clase activa del contenedor
+                if (filtroTerapeutaDiv) {
+                    filtroTerapeutaDiv.classList.remove('activo');
+                }
+                
+                // Mostrar todos los servicios
+                mostrarTodosServicios();
             }
 
             // Función para mostrar todos los servicios
             function mostrarTodosServicios() {
-                serviceCards.forEach(card => {
-                    card.style.display = 'block';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
+                serviceCards.forEach(serviceCard => {
+                    serviceCard.style.display = 'block';
+                    serviceCard.style.opacity = '1';
+                    serviceCard.style.transform = 'translateY(0)';
                 });
-                verificarServiciosVisibles();
             }
 
-            // Función para filtrar por categoría
-            function filtrarPorCategoria(categoria) {
-                filtroActivo = categoria;
-                terapeutaBuscado = '';
-                
-                if (inputTerapeuta) inputTerapeuta.value = '';
-                if (filtroTerapeutaDiv) filtroTerapeutaDiv.classList.remove('activo');
-                
-                serviceCards.forEach(card => {
-                    const cardCategory = card.getAttribute('data-category');
-                    
-                    if (categoria === 'all' || cardCategory === categoria) {
-                        card.style.display = 'block';
+            // Filtrado de servicios por categoría
+            function filterServices(category) {
+                serviceCards.forEach(serviceCard => {
+                    if (category === 'all' || serviceCard.getAttribute('data-category') === category) {
+                        serviceCard.style.display = 'block';
                         setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
+                            serviceCard.style.opacity = '1';
+                            serviceCard.style.transform = 'translateY(0)';
                         }, 50);
                     } else {
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px)';
+                        serviceCard.style.opacity = '0';
+                        serviceCard.style.transform = 'translateY(20px)';
                         setTimeout(() => {
-                            card.style.display = 'none';
+                            serviceCard.style.display = 'none';
                         }, 300);
                     }
                 });
                 
-                setTimeout(verificarServiciosVisibles, 350);
-            }
-
-            // Función para filtrar por terapeuta
-            function filtrarPorTerapeuta(terapeutaNombre) {
-                terapeutaBuscado = terapeutaNombre.toLowerCase().trim();
-                
-                // Limpiar filtros de categoría
-                filterCards.forEach(card => card.classList.remove('active'));
-                filtroActivo = 'terapeuta';
-                
-                // Activar visualmente el filtro de terapeuta
-                if (filtroTerapeutaDiv) {
-                    filtroTerapeutaDiv.classList.add('activo');
+                // Limpiar filtro de terapeuta si hay uno activo
+                if (busquedaTerapeutaInput && busquedaTerapeutaInput.value) {
+                    busquedaTerapeutaInput.value = '';
+                    if (filtroTerapeutaDiv) {
+                        filtroTerapeutaDiv.classList.remove('activo');
+                    }
                 }
-                
-                // Filtrar servicios
-                serviceCards.forEach(card => {
-                    const terapeutas = card.getAttribute('data-terapeutas') || '';
-                    const terapeutasList = terapeutas.toLowerCase();
-                    
-                    if (terapeutasList.includes(terapeutaBuscado) || terapeutaBuscado === '') {
-                        card.style.display = 'block';
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, 50);
-                    } else {
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px)';
-                        setTimeout(() => {
-                            card.style.display = 'none';
-                        }, 300);
-                    }
-                });
-                
-                setTimeout(verificarServiciosVisibles, 350);
             }
 
             // Event listeners para filtros de categoría
             filterCards.forEach(card => {
                 card.addEventListener('click', function() {
-                    // Remover active de todos
+                    // Remover active de todos los filtros de categoría
                     filterCards.forEach(c => c.classList.remove('active'));
-                    // Agregar active al clickeado
+                    // Agregar active al filtro clickeado
                     this.classList.add('active');
-                    
+
                     const category = this.getAttribute('data-category');
-                    filtrarPorCategoria(category);
-                });
-            });
-
-            // Botón buscar terapeuta
-            if (btnBuscarTerapeuta) {
-                btnBuscarTerapeuta.addEventListener('click', function() {
-                    const terapeuta = inputTerapeuta.value;
-                    if (terapeuta.trim() !== '') {
-                        filtrarPorTerapeuta(terapeuta);
-                    } else {
-                        // Si el input está vacío, mostrar todos
-                        limpiarFiltros();
-                    }
-                });
-                
-                // Permitir buscar con Enter
-                if (inputTerapeuta) {
-                    inputTerapeuta.addEventListener('keypress', function(e) {
-                        if (e.key === 'Enter') {
-                            btnBuscarTerapeuta.click();
-                        }
-                    });
-                }
-            }
-
-            // Badges de terapeutas
-            badgesTerapeuta.forEach(badge => {
-                badge.addEventListener('click', function() {
-                    const terapeuta = this.getAttribute('data-terapeuta');
-                    if (inputTerapeuta) {
-                        inputTerapeuta.value = terapeuta;
-                        filtrarPorTerapeuta(terapeuta);
-                    }
+                    filterServices(category);
                 });
             });
 
@@ -1595,42 +1313,50 @@
             if (clearFiltersBtn) {
                 clearFiltersBtn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    limpiarFiltros();
+                    limpiarTodosFiltros();
                 });
             }
 
-            // Función global para limpiar filtros (llamada desde el botón en el mensaje)
-            window.limpiarFiltros = function() {
-                // Resetear filtros de categoría
-                filterCards.forEach(card => card.classList.remove('active'));
-                filterCards[0].classList.add('active'); // Activar "Todos"
-                
-                // Resetear filtro de terapeuta
-                if (inputTerapeuta) inputTerapeuta.value = '';
-                if (filtroTerapeutaDiv) filtroTerapeutaDiv.classList.remove('activo');
-                
-                // Resetear variables
-                filtroActivo = 'all';
-                terapeutaBuscado = '';
-                
-                // Mostrar todos los servicios
-                mostrarTodosServicios();
-            };
-
-            // Animación inicial de las cards
-            serviceCards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 100 + index * 100);
+            // Manejar búsqueda por terapeuta (los badges)
+            badgesTerapeuta.forEach(badge => {
+                badge.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const nombreTerapeuta = this.textContent.trim();
+                    
+                    // Llenar el input con el nombre del terapeuta
+                    if (busquedaTerapeutaInput) {
+                        busquedaTerapeutaInput.value = nombreTerapeuta;
+                        
+                        // Marcar como activo
+                        if (filtroTerapeutaDiv) {
+                            filtroTerapeutaDiv.classList.add('activo');
+                        }
+                        
+                        // Limpiar filtros de categoría
+                        filterCards.forEach(c => c.classList.remove('active'));
+                        
+                        // Enviar el formulario automáticamente
+                        if (busquedaTerapeutaForm) {
+                            busquedaTerapeutaForm.submit();
+                        }
+                    }
+                });
             });
 
-            // Verificar servicios visibles al inicio
-            setTimeout(verificarServiciosVisibles, 100);
+            // Si hay búsqueda de terapeuta activa, marcar el filtro como activo
+            if (busquedaTerapeutaInput && busquedaTerapeutaInput.value && filtroTerapeutaDiv) {
+                filtroTerapeutaDiv.classList.add('activo');
+                // Desactivar todos los filtros de categoría
+                filterCards.forEach(c => c.classList.remove('active'));
+            }
+
+            // NO aplicar animación inicial que oculta los servicios
+            // Los servicios deben verse inmediatamente al cargar la página
+            
+            // Solo agregar transiciones para cuando se filtren
+            serviceCards.forEach(card => {
+                card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            });
         });
     </script>
 </body>
