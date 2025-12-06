@@ -1189,6 +1189,11 @@ async def api_obtener_estadisticas(request: Request):
     print("🔍 [ROUTE] /api/citas/estadisticas llamado")
     return await CitaPacienteController.obtener_estadisticas(request)
 
+# NUEVO ENDPOINT PARA CANCELAR CITA
+@app.put("/api/citas/{cita_id}/estado/{nuevo_estado}")
+async def api_actualizar_estado_cita(request: Request, cita_id: str, nuevo_estado: str):
+    print(f"🔍 [ROUTE] /api/citas/{cita_id}/estado/{nuevo_estado} llamado")
+    return await CitaPacienteController.actualizar_estado_cita(request, cita_id, nuevo_estado)
 
 # ─────────────────────────────────────────────────────────────
 # PANELES DE USUARIO - EJERCICIOS
