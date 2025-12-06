@@ -610,7 +610,7 @@
             flex: 1;
         }
 
-        /* Badges */
+        /* Badges - MEJORADOS */
         .badge {
             display: inline-flex;
             align-items: center;
@@ -624,22 +624,22 @@
         }
 
         .badge-popular {
-            background: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary) 0%, #0077CC 100%);
             color: white;
         }
 
         .badge-new {
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--accent) 0%, #00B894 100%);
             color: white;
         }
 
         .badge-specialized {
-            background: #8B5CF6;
+            background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
             color: white;
         }
 
         .badge-advanced {
-            background: #FF6B6B;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FA5252 100%);
             color: white;
         }
 
@@ -661,6 +661,33 @@
             color: #E8590C;
             margin-top: 1px;
             flex-shrink: 0;
+        }
+
+        /* Mensaje cuando no hay servicios - NUEVO */
+        .no-services-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            display: none;
+        }
+
+        .no-services-icon {
+            font-size: 5rem;
+            color: #E2E8F0;
+            margin-bottom: 20px;
+        }
+
+        .no-services-title {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .no-services-text {
+            color: var(--gray);
+            max-width: 500px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
         }
 
         /* Quick Actions */
@@ -1037,8 +1064,23 @@
                 <p class="section-subtitle">Selecciona el tratamiento que mejor se adapte a tus necesidades de salud y bienestar</p>
             </div>
 
-            <!-- Services Grid - CON DATOS DE EJEMPLO -->
+            <!-- Services Grid - MEJORADO -->
             <div class="services-grid" id="servicesGrid">
+                <!-- Mensaje cuando no hay servicios -->
+                <div class="no-services-message" id="noServicesMessage">
+                    <div class="no-services-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <h3 class="no-services-title">No se encontraron servicios</h3>
+                    <p class="no-services-text">
+                        No hay servicios disponibles que coincidan con tu búsqueda.
+                        Intenta con otro filtro o terapeuta.
+                    </p>
+                    <button onclick="limpiarFiltros()" class="btn btn-secondary">
+                        <i class="fas fa-redo"></i> Ver todos los servicios
+                    </button>
+                </div>
+
                 <!-- Servicio 1 - Básico -->
                 <div class="service-card" data-category="basic" data-terapeutas="Dr. Juan Pérez|Dra. María García">
                     <div class="service-header">
@@ -1048,7 +1090,7 @@
                         <div class="service-title">
                             <h3>
                                 Masaje Terapéutico
-                                <span class="badge badge-popular">POPULAR</span>
+                                <span class="badge badge-popular"><i class="fas fa-fire"></i> POPULAR</span>
                             </h3>
                             <div class="service-level">
                                 <i class="fas fa-star"></i> Nivel Básico
@@ -1056,18 +1098,18 @@
                         </div>
                     </div>
                     <div class="service-body">
-                        <p class="service-description">Masaje terapéutico para aliviar tensiones musculares y mejorar la circulación sanguínea.</p>
+                        <p class="service-description">Masaje terapéutico para aliviar tensiones musculares y mejorar la circulación sanguínea. Ideal para dolores de espalda y cuello.</p>
                         <div class="service-features">
                             <div class="service-feature">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check-circle"></i>
                                 <span>Alivia el dolor muscular</span>
                             </div>
                             <div class="service-feature">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check-circle"></i>
                                 <span>Mejora la circulación</span>
                             </div>
                             <div class="service-feature">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check-circle"></i>
                                 <span>Reduce el estrés</span>
                             </div>
                         </div>
@@ -1093,6 +1135,7 @@
                         <div class="service-title">
                             <h3>
                                 Rehabilitación Post-operatoria
+                                <span class="badge badge-new"><i class="fas fa-certificate"></i> NUEVO</span>
                             </h3>
                             <div class="service-level">
                                 <i class="fas fa-star-half-alt"></i> Nivel Intermedio
@@ -1100,18 +1143,18 @@
                         </div>
                     </div>
                     <div class="service-body">
-                        <p class="service-description">Programa de rehabilitación personalizado para recuperación después de cirugías.</p>
+                        <p class="service-description">Programa de rehabilitación personalizado para recuperación después de cirugías ortopédicas.</p>
                         <div class="service-features">
                             <div class="service-feature">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check-circle"></i>
                                 <span>Recuperación acelerada</span>
                             </div>
                             <div class="service-feature">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check-circle"></i>
                                 <span>Ejercicios personalizados</span>
                             </div>
                             <div class="service-feature">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check-circle"></i>
                                 <span>Seguimiento semanal</span>
                             </div>
                         </div>
@@ -1137,7 +1180,7 @@
                         <div class="service-title">
                             <h3>
                                 Punción Seca
-                                <span class="badge badge-specialized">ESPECIALIZADO</span>
+                                <span class="badge badge-specialized"><i class="fas fa-stethoscope"></i> ESPECIALIZADO</span>
                             </h3>
                             <div class="service-level">
                                 <i class="fas fa-stethoscope"></i> Requiere Evaluación
@@ -1145,24 +1188,24 @@
                         </div>
                     </div>
                     <div class="service-body">
-                        <p class="service-description">Técnica especializada para el tratamiento de puntos gatillo musculares.</p>
+                        <p class="service-description">Técnica especializada para el tratamiento de puntos gatillo musculares y dolor miofascial.</p>
                         <div class="service-features">
                             <div class="service-feature">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check-circle"></i>
                                 <span>Alivio inmediato del dolor</span>
                             </div>
                             <div class="service-feature">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check-circle"></i>
                                 <span>Tratamiento directo</span>
                             </div>
                             <div class="service-feature">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check-circle"></i>
                                 <span>Resultados duraderos</span>
                             </div>
                         </div>
                         <div class="specialized-notice">
                             <i class="fas fa-exclamation-triangle"></i>
-                            <span>Este servicio requiere evaluación médica previa</span>
+                            <span>Este servicio requiere evaluación médica previa y autorización</span>
                         </div>
                         <div class="service-meta">
                             <div class="service-price">$150.000</div>
@@ -1186,7 +1229,7 @@
                         <div class="service-title">
                             <h3>
                                 Terapia Neuromuscular
-                                <span class="badge badge-advanced">AVANZADO</span>
+                                <span class="badge badge-advanced"><i class="fas fa-brain"></i> AVANZADO</span>
                             </h3>
                             <div class="service-level">
                                 <i class="fas fa-user-md"></i> Con Especialista
@@ -1194,18 +1237,18 @@
                         </div>
                     </div>
                     <div class="service-body">
-                        <p class="service-description">Tratamiento avanzado para trastornos neuromusculares complejos.</p>
+                        <p class="service-description">Tratamiento avanzado para trastornos neuromusculares complejos y recuperación neurológica.</p>
                         <div class="service-features">
                             <div class="service-feature">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check-circle"></i>
                                 <span>Evaluación neurológica completa</span>
                             </div>
                             <div class="service-feature">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check-circle"></i>
                                 <span>Tecnología de última generación</span>
                             </div>
                             <div class="service-feature">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check-circle"></i>
                                 <span>Plan personalizado de 12 semanas</span>
                             </div>
                         </div>
@@ -1235,7 +1278,7 @@
                         <div class="service-title">
                             <h3>
                                 Fisioterapia Deportiva
-                                <span class="badge badge-popular">POPULAR</span>
+                                <span class="badge badge-popular"><i class="fas fa-fire"></i> POPULAR</span>
                             </h3>
                             <div class="service-level">
                                 <i class="fas fa-star"></i> Nivel Básico
@@ -1246,15 +1289,15 @@
                         <p class="service-description">Tratamiento y prevención de lesiones deportivas para atletas amateur y profesionales.</p>
                         <div class="service-features">
                             <div class="service-feature">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check-circle"></i>
                                 <span>Prevención de lesiones</span>
                             </div>
                             <div class="service-feature">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check-circle"></i>
                                 <span>Recuperación rápida</span>
                             </div>
                             <div class="service-feature">
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check-circle"></i>
                                 <span>Mejora del rendimiento</span>
                             </div>
                         </div>
@@ -1270,13 +1313,57 @@
                         <a href="/servicio/deportiva" class="btn btn-outline btn-small">Más Información</a>
                     </div>
                 </div>
+
+                <!-- Servicio 6 - Intermedio -->
+                <div class="service-card" data-category="intermediate" data-terapeutas="Dr. Juan Pérez">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <i class="fas fa-hand-holding-medical"></i>
+                        </div>
+                        <div class="service-title">
+                            <h3>
+                                Terapia Manual Ortopédica
+                            </h3>
+                            <div class="service-level">
+                                <i class="fas fa-star-half-alt"></i> Nivel Intermedio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-body">
+                        <p class="service-description">Técnicas manuales especializadas para tratar disfunciones del sistema musculoesquelético.</p>
+                        <div class="service-features">
+                            <div class="service-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Movilización articular</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Liberación miofascial</span>
+                            </div>
+                            <div class="service-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Corrección postural</span>
+                            </div>
+                        </div>
+                        <div class="service-meta">
+                            <div class="service-price">$110.000</div>
+                            <div class="service-duration">
+                                <i class="fas fa-clock"></i> 60 minutos
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-footer">
+                        <a href="/cita?servicio=ortopedica" class="btn">Reservar Ahora</a>
+                        <a href="/servicio/ortopedica" class="btn btn-outline btn-small">Más Información</a>
+                    </div>
+                </div>
             </div>
 
             <!-- Quick Actions -->
             <div class="quick-actions">
                 <div class="quick-info">
                     <h4>¿Necesitas ayuda para elegir?</h4>
-                    <p>Nuestros especialistas pueden evaluar tu condición y recomendarte el tratamiento más adecuado</p>
+                    <p>Nuestros especialistas pueden evaluar tu condición y recomendarte el tratamiento más adecuado. Agenda una consulta sin costo.</p>
                 </div>
                 <div class="quick-buttons">
                     <a href="/cita" class="btn btn-secondary">Consulta Especializada</a>
@@ -1364,10 +1451,24 @@
             const btnBuscarTerapeuta = document.getElementById('btnBuscarTerapeuta');
             const badgesTerapeuta = document.querySelectorAll('.badge-terapeuta');
             const filtroTerapeutaDiv = document.querySelector('.filtro-terapeuta');
+            const noServicesMessage = document.getElementById('noServicesMessage');
 
             // Variable para rastrear el filtro activo
-            let filtroActivo = 'all'; // 'all', 'basic', 'intermediate', etc.
+            let filtroActivo = 'all';
             let terapeutaBuscado = '';
+
+            // Función para verificar si hay servicios visibles
+            function verificarServiciosVisibles() {
+                const serviciosVisibles = Array.from(serviceCards).filter(card => {
+                    return card.style.display !== 'none' && card.style.opacity !== '0';
+                }).length;
+
+                if (serviciosVisibles === 0 && noServicesMessage) {
+                    noServicesMessage.style.display = 'block';
+                } else if (noServicesMessage) {
+                    noServicesMessage.style.display = 'none';
+                }
+            }
 
             // Función para mostrar todos los servicios
             function mostrarTodosServicios() {
@@ -1376,6 +1477,7 @@
                     card.style.opacity = '1';
                     card.style.transform = 'translateY(0)';
                 });
+                verificarServiciosVisibles();
             }
 
             // Función para filtrar por categoría
@@ -1403,6 +1505,8 @@
                         }, 300);
                     }
                 });
+                
+                setTimeout(verificarServiciosVisibles, 350);
             }
 
             // Función para filtrar por terapeuta
@@ -1437,6 +1541,8 @@
                         }, 300);
                     }
                 });
+                
+                setTimeout(verificarServiciosVisibles, 350);
             }
 
             // Event listeners para filtros de categoría
@@ -1487,12 +1593,14 @@
 
             // Limpiar todos los filtros
             if (clearFiltersBtn) {
-                clearFiltersBtn.addEventListener('click', function() {
+                clearFiltersBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
                     limpiarFiltros();
                 });
             }
 
-            function limpiarFiltros() {
+            // Función global para limpiar filtros (llamada desde el botón en el mensaje)
+            window.limpiarFiltros = function() {
                 // Resetear filtros de categoría
                 filterCards.forEach(card => card.classList.remove('active'));
                 filterCards[0].classList.add('active'); // Activar "Todos"
@@ -1507,7 +1615,7 @@
                 
                 // Mostrar todos los servicios
                 mostrarTodosServicios();
-            }
+            };
 
             // Animación inicial de las cards
             serviceCards.forEach((card, index) => {
@@ -1520,6 +1628,9 @@
                     card.style.transform = 'translateY(0)';
                 }, 100 + index * 100);
             });
+
+            // Verificar servicios visibles al inicio
+            setTimeout(verificarServiciosVisibles, 100);
         });
     </script>
 </body>
