@@ -58,6 +58,31 @@ templates_panel = Jinja2Templates(directory="./vista_panel")
 templates_admin = Jinja2Templates(directory="./vista_admin")
 templates_fisio = Jinja2Templates(directory="./vista_fisio")
 
+@app.get("/check-env")
+async def check_env():
+    """Ruta SIMPLE para ver variables en Railway"""
+    import os
+    
+    # Variables importantes
+    important_vars = {}
+    
+    for key, value in os.environ.items():
+        if any(x in key for x in ['MYSQL', 'DB_', 'HOST', 'PORT', 'DATABASE']):
+            if 'PASSWORD' in key:
+                important_vars[key] = "***HIDDEN***"
+            else:
+                important_vars[key] = value
+    
+    # Si no hay nada, mostrar ALGO
+    if not important_vars:
+        important_vars = {
+            "message": "No variables found with MYSQL/DB keywords",
+            "total_variables": len(os.environ),
+            "sample_variables": {k: v for k, v in list(os.environ.items())[:5]}
+        }
+    
+    return important_vars
+
 @app.get("/show-vars")
 async def show_vars():
     """Muestra todas las variables que Railway inyecta"""
